@@ -238,42 +238,78 @@
     checks.forEach(function (input) {
       var id = input.getAttribute('data-check-id');
       if (state[id]) input.checked = true;
-      input.addEventListener('change', function () {
-        if (input.checked) state[id] = true; else delete state[id];
-        saveState(state);
-        updateGlobal();
-      });
     });
     updateGlobal();
 
+    root.addEventListener('change', function (e) {
+      var input = e.target;
+      if (!input.matches('[data-check-id]')) return;
+      var id = input.getAttribute('data-check-id');
+      if (input.checked) state[id] = true; else delete state[id];
+      saveState(state);
+      updateGlobal();
+    });
+
     function setItemDetailOpen(item, open) {
+      if (!item) return;
       var toggle = item.querySelector('.sc-chub-detail-toggle');
       var panel = item.querySelector('.sc-chub-item-detail');
       if (!toggle || !panel) return;
       toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-      panel.hidden = !open;
+      if (open) panel.removeAttribute('hidden');
+      else panel.setAttribute('hidden', '');
       item.classList.toggle('is-open', open);
-      toggle.querySelector('.sc-chub-detail-toggle-label').textContent = open ? 'Hide' : 'Details';
+      var label = toggle.querySelector('.sc-chub-detail-toggle-label');
+      if (label) label.textContent = open ? 'Hide' : 'Details';
     }
 
-    root.querySelectorAll('.sc-chub-detail-toggle').forEach(function (btn) {
-      btn.addEventListener('click', function (e) {
-        e.preventDefault();
-        e.stopPropagation();
-        var item = btn.closest('.sc-chub-item');
-        setItemDetailOpen(item, btn.getAttribute('aria-expanded') !== 'true');
-      });
-    });
+    function setSectionOpen(section, open) {
+      if (!section) return;
+      section.open = open;
+      section.classList.toggle('is-expanded', open);
+    }
 
     var expandDetailsBtn = document.getElementById('sc-chub-expand-details');
-    if (expandDetailsBtn) {
-      expandDetailsBtn.addEventListener('click', function () {
+
+    root.addEventListener('click', function (e) {
+      var detailBtn = e.target.closest('.sc-chub-detail-toggle');
+      if (detailBtn && root.contains(detailBtn)) {
+        e.preventDefault();
+        e.stopPropagation();
+        setItemDetailOpen(detailBtn.closest('.sc-chub-item'), detailBtn.getAttribute('aria-expanded') !== 'true');
+        return;
+      }
+
+      if (e.target.closest('#sc-chub-expand-details')) {
+        e.preventDefault();
         var items = root.querySelectorAll('.sc-chub-item.has-detail');
         var allOpen = [].every.call(items, function (item) { return item.classList.contains('is-open'); });
         [].forEach.call(items, function (item) { setItemDetailOpen(item, !allOpen); });
-        expandDetailsBtn.textContent = allOpen ? 'Show all details' : 'Hide all details';
-      });
-    }
+        if (expandDetailsBtn) expandDetailsBtn.textContent = allOpen ? 'Show all details' : 'Hide all details';
+        return;
+      }
+
+      if (e.target.closest('#sc-chub-expand-all')) {
+        e.preventDefault();
+        root.querySelectorAll('.sc-chub-section').forEach(function (s) { setSectionOpen(s, true); });
+        return;
+      }
+
+      if (e.target.closest('#sc-chub-collapse-all')) {
+        e.preventDefault();
+        root.querySelectorAll('.sc-chub-section').forEach(function (s) { setSectionOpen(s, false); });
+        return;
+      }
+
+      if (e.target.closest('#sc-chub-reset')) {
+        e.preventDefault();
+        if (!window.confirm('Clear all checklist progress saved in this browser?')) return;
+        state = {};
+        saveState(state);
+        checks.forEach(function (c) { c.checked = false; });
+        updateGlobal();
+      }
+    });
 
     function runSearch() {
       var q = searchInput ? searchInput.value.trim().toLowerCase() : '';
@@ -290,7 +326,7 @@
             return !li.classList.contains('is-hidden');
           });
           sec.classList.toggle('has-match', visible);
-          if (q && visible) sec.open = true;
+          if (q && visible) setSectionOpen(sec, true);
         });
         if (q) {
           panel.classList.add('is-searching');
@@ -303,19 +339,6 @@
     if (searchInput) {
       searchInput.addEventListener('input', runSearch);
     }
-
-    var expandBtn = document.getElementById('sc-chub-expand-all');
-    var collapseBtn = document.getElementById('sc-chub-collapse-all');
-    var resetBtn = document.getElementById('sc-chub-reset');
-    if (expandBtn) expandBtn.addEventListener('click', function () { root.querySelectorAll('.sc-chub-section').forEach(function (s) { s.open = true; }); });
-    if (collapseBtn) collapseBtn.addEventListener('click', function () { root.querySelectorAll('.sc-chub-section').forEach(function (s) { s.open = false; }); });
-    if (resetBtn) resetBtn.addEventListener('click', function () {
-      if (!window.confirm('Clear all checklist progress saved in this browser?')) return;
-      state = {};
-      saveState(state);
-      checks.forEach(function (c) { c.checked = false; });
-      updateGlobal();
-    });
 
     var navLinks = [].slice.call(root.querySelectorAll('.sc-chub-nav-link'));
     if (window.IntersectionObserver) {

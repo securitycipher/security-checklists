@@ -903,6 +903,10 @@ body.sc-page-checklist-hub .sc-checklist-hub-main {
   gap: 12px;
 }
 
+.sc-chub-item-detail:not([hidden]) {
+  display: grid !important;
+}
+
 .sc-chub-item-detail[hidden] {
   display: none !important;
 }
