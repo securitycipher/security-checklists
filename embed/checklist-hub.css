@@ -300,23 +300,27 @@ body.sc-page-checklist-hub .sc-checklist-hub-main {
 
 .sc-chub-toolbar-inner {
   display: flex;
-  gap: 20px;
-  align-items: center;
-  padding: 18px 0 20px;
-  flex-wrap: nowrap;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 12px;
+  padding: 16px 0 20px;
 }
 
 .sc-chub-search-wrap {
-  flex: 1 1 320px;
+  flex: none;
+  width: 100%;
   min-width: 0;
   display: flex;
   align-items: center;
   gap: 10px;
+  height: 44px;
   min-height: 44px;
-  padding: 0 16px;
+  max-height: 44px;
+  padding: 0 14px;
+  box-sizing: border-box;
   background: var(--panel, #15171f);
   border: 1px solid var(--border, #272b36);
-  border-radius: 12px;
+  border-radius: 10px;
   transition: border-color 0.2s var(--chub-ease), box-shadow 0.2s var(--chub-ease);
 }
 
@@ -332,18 +336,33 @@ body.sc-page-checklist-hub .sc-checklist-hub-main {
   flex-shrink: 0;
 }
 
-.sc-chub-search-wrap input {
+#sc-checklist-hub .sc-chub-search-wrap input[type="search"],
+#sc-checklist-hub-mount #sc-checklist-hub .sc-chub-search-wrap input[type="search"] {
   flex: 1;
   min-width: 0;
+  width: 100%;
+  height: 42px !important;
+  min-height: 0 !important;
+  max-height: 42px !important;
+  line-height: 42px !important;
+  margin: 0 !important;
   border: none !important;
   background: transparent !important;
   color: var(--heading, #fff) !important;
   font-family: var(--chub-font-body);
-  font-size: 15px;
+  font-size: 14px;
   outline: none !important;
   box-shadow: none !important;
   border-radius: 0 !important;
   padding: 0 !important;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+#sc-checklist-hub .sc-chub-search-wrap input[type="search"]::-webkit-search-decoration,
+#sc-checklist-hub .sc-chub-search-wrap input[type="search"]::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  appearance: none;
 }
 
 .sc-chub-search-wrap input::placeholder {
@@ -352,15 +371,17 @@ body.sc-page-checklist-hub .sc-checklist-hub-main {
 
 .sc-chub-toolbar-actions {
   display: flex;
-  gap: 12px;
+  gap: 10px;
   flex: 0 0 auto;
   align-items: center;
+  width: 100%;
   overflow-x: auto;
   scrollbar-width: none;
   -ms-overflow-style: none;
-  margin-left: 8px;
-  padding-left: 16px;
-  border-left: 1px solid var(--border, #272b36);
+  margin-left: 0;
+  padding-left: 0;
+  border-left: none;
+  justify-content: flex-start;
 }
 
 .sc-chub-toolbar-actions::-webkit-scrollbar {
@@ -1275,23 +1296,7 @@ body.admin-bar .sc-chub-toolbar {
     max-width: 280px;
   }
 
-  .sc-chub-toolbar-inner {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 12px;
-  }
-
-  .sc-chub-search-wrap {
-    flex: 1 1 auto;
-    width: 100%;
-  }
-
   .sc-chub-toolbar-actions {
-    width: 100%;
-    margin-left: 0;
-    padding-left: 0;
-    border-left: none;
-    justify-content: flex-start;
     flex-wrap: nowrap;
     mask-image: linear-gradient(to right, #000 90%, transparent);
     -webkit-mask-image: linear-gradient(to right, #000 90%, transparent);
