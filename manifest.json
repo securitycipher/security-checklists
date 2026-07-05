@@ -110,7 +110,7 @@
       "status": "live",
       "title": "Cloud Security (Multi-Provider)",
       "description": "Cross-cloud IAM, storage exposure, metadata SSRF, logging, and misconfiguration checks for AWS, Azure, and GCP.",
-      "icon": "aws",
+      "icon": "cloud",
       "color": "#38bdf8",
       "legacy_url": ""
     },
@@ -120,7 +120,7 @@
       "status": "live",
       "title": "Active Directory Security",
       "description": "Domain enumeration, Kerberos attacks, LDAP misconfigs, privileged groups, and lateral movement controls.",
-      "icon": "api",
+      "icon": "ad",
       "color": "#f97316",
       "legacy_url": ""
     },
@@ -130,7 +130,7 @@
       "status": "live",
       "title": "Network Security",
       "description": "Segmentation, firewall rules, VPN exposure, internal service enumeration, and lateral movement paths.",
-      "icon": "api",
+      "icon": "network",
       "color": "#14b8a6",
       "legacy_url": ""
     },
@@ -140,7 +140,7 @@
       "status": "live",
       "title": "DevSecOps and CI/CD",
       "description": "Pipeline secrets, artifact integrity, SAST/DAST gates, dependency scanning, and deployment hardening.",
-      "icon": "k8s",
+      "icon": "devops",
       "color": "#84cc16",
       "legacy_url": ""
     },
@@ -150,7 +150,7 @@
       "status": "live",
       "title": "OSINT and Reconnaissance",
       "description": "Passive information gathering, asset discovery, leaked credentials, and attack surface mapping.",
-      "icon": "web",
+      "icon": "osint",
       "color": "#a78bfa",
       "legacy_url": ""
     },
@@ -160,7 +160,7 @@
       "status": "live",
       "title": "Infrastructure and Host Security",
       "description": "Linux and Windows hardening, patch management, service configuration, and host logging.",
-      "icon": "k8s",
+      "icon": "server",
       "color": "#64748b",
       "legacy_url": ""
     },
@@ -170,7 +170,7 @@
       "status": "live",
       "title": "CI/CD Pipeline Security",
       "description": "Build pipeline integrity, runner isolation, secret management, and supply-chain controls.",
-      "icon": "mcp",
+      "icon": "devops",
       "color": "#22c55e",
       "legacy_url": ""
     },
@@ -180,7 +180,7 @@
       "status": "live",
       "title": "Secure Code Review",
       "description": "Source-level checks for dangerous APIs, crypto misuse, injection sinks, and authentication flaws.",
-      "icon": "llm",
+      "icon": "code",
       "color": "#f472b6",
       "legacy_url": ""
     }

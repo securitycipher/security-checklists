@@ -15,7 +15,23 @@
     mcp: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="7" height="6" rx="1.2"/><rect x="14" y="4" width="7" height="6" rx="1.2"/><rect x="8.5" y="14" width="7" height="6" rx="1.2"/><path d="M6.5 10v2.2c0 1 .8 1.8 1.8 1.8h7.4c1 0 1.8-.8 1.8-1.8V10"/></svg>',
     agent: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="3.2"/><path d="M5 20c.8-3.2 3.4-5 7-5s6.2 1.8 7 5"/><path d="M4 11h3M17 11h3M12 4V2.5"/></svg>',
     api: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 8h10v8H7z"/><path d="M4 10v4M20 10v4"/></svg>',
-    k8s: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 3 7v10l9 5 9-5V7z"/></svg>'
+    k8s: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 3 7v10l9 5 9-5V7z"/></svg>',
+    cloud: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 18h11a4 4 0 0 0 .5-8 5.5 5.5 0 0 0-10.6-1.5A4 4 0 0 0 7 18z"/></svg>',
+    ad: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 8h4M7 12h10M7 16h7"/></svg>',
+    network: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><path d="M12 7v5M8.5 14.5 6.8 17M15.5 14.5l1.7 2.5"/></svg>',
+    devops: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 6h12v12H6z"/><path d="M9 9h6M9 12h4M9 15h6"/></svg>',
+    osint: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>',
+    server: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="3" width="16" height="6" rx="1.5"/><rect x="4" y="11" width="16" height="6" rx="1.5"/><circle cx="8" cy="6" r="1" fill="currentColor"/><circle cx="8" cy="14" r="1" fill="currentColor"/></svg>',
+    code: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 8 4 12l4 4M16 8l4 4-4 4"/></svg>'
+  };
+
+  var ICON_ALIASES = {
+    kubernetes: 'k8s',
+    'active-directory': 'ad',
+    devsecops: 'devops',
+    cicd: 'devops',
+    infrastructure: 'server',
+    'secure-code-review': 'code'
   };
 
   function esc(s) {
@@ -33,7 +49,8 @@
   }
 
   function icon(name) {
-    return ICONS[name] || ICONS.web;
+    var key = ICON_ALIASES[name] || name;
+    return ICONS[key] || ICONS.web;
   }
 
   function totalItems(categories) {
@@ -200,6 +217,12 @@
       if (label) label.textContent = done + ' / ' + items.length;
       if (navProg) navProg.textContent = pct + '%';
       if (cardProg) cardProg.textContent = pct + '% done';
+      panel.querySelectorAll('.sc-chub-section').forEach(function (sec) {
+        var secChecks = [].slice.call(sec.querySelectorAll('[data-check-id]'));
+        var secDone = secChecks.filter(function (c) { return state[c.getAttribute('data-check-id')]; }).length;
+        var counter = sec.querySelector('.sc-chub-section-count');
+        if (counter) counter.textContent = secDone + '/' + secChecks.length;
+      });
     }
 
     function updateGlobal() {
@@ -233,6 +256,7 @@
     root.querySelectorAll('.sc-chub-detail-toggle').forEach(function (btn) {
       btn.addEventListener('click', function (e) {
         e.preventDefault();
+        e.stopPropagation();
         var item = btn.closest('.sc-chub-item');
         setItemDetailOpen(item, btn.getAttribute('aria-expanded') !== 'true');
       });
@@ -248,21 +272,33 @@
       });
     }
 
-    if (searchInput) {
-      searchInput.addEventListener('input', function () {
-        var q = searchInput.value.trim().toLowerCase();
-        panels.forEach(function (panel) {
-          var any = false;
-          panel.querySelectorAll('.sc-chub-item').forEach(function (li) {
-            var match = !q || (li.getAttribute('data-search') || '').indexOf(q) !== -1;
-            li.classList.toggle('is-hidden', !match);
-            if (match) any = true;
-          });
-          panel.classList.toggle('is-searching', !!q);
-          panel.classList.toggle('is-match', any);
-          panel.classList.toggle('is-dimmed', !!q && !any);
+    function runSearch() {
+      var q = searchInput ? searchInput.value.trim().toLowerCase() : '';
+      panels.forEach(function (panel) {
+        panel.classList.remove('is-dimmed', 'is-match', 'is-searching');
+        var any = false;
+        panel.querySelectorAll('.sc-chub-item').forEach(function (li) {
+          var match = !q || (li.getAttribute('data-search') || '').indexOf(q) !== -1;
+          li.classList.toggle('is-hidden', !match);
+          if (match) any = true;
         });
+        panel.querySelectorAll('.sc-chub-section').forEach(function (sec) {
+          var visible = [].some.call(sec.querySelectorAll('.sc-chub-item'), function (li) {
+            return !li.classList.contains('is-hidden');
+          });
+          sec.classList.toggle('has-match', visible);
+          if (q && visible) sec.open = true;
+        });
+        if (q) {
+          panel.classList.add('is-searching');
+          panel.classList.toggle('is-match', any);
+          panel.classList.toggle('is-dimmed', !any);
+        }
       });
+    }
+
+    if (searchInput) {
+      searchInput.addEventListener('input', runSearch);
     }
 
     var expandBtn = document.getElementById('sc-chub-expand-all');
@@ -277,16 +313,39 @@
       checks.forEach(function (c) { c.checked = false; });
       updateGlobal();
     });
+
+    var navLinks = [].slice.call(root.querySelectorAll('.sc-chub-nav-link'));
+    if (window.IntersectionObserver) {
+      var navObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          var id = entry.target.getAttribute('data-cat');
+          navLinks.forEach(function (a) {
+            a.classList.toggle('is-active', a.getAttribute('data-nav-cat') === id);
+          });
+        });
+      }, { rootMargin: '-40% 0px -50% 0px', threshold: 0 });
+      panels.forEach(function (p) { navObserver.observe(p); });
+    }
+
+    if (window.location.hash) {
+      var hashTarget = document.querySelector(window.location.hash);
+      if (hashTarget) {
+        setTimeout(function () {
+          hashTarget.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+        }, 120);
+      }
+    }
   }
 
   function boot() {
     var mount = document.getElementById('sc-checklist-hub-mount');
     if (!mount) return;
+    document.body.classList.add('sc-page-checklist-hub');
     fetch(DATA_URL, { credentials: 'omit' })
       .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
       .then(function (data) {
         mount.innerHTML = renderHub(data);
-        document.body.classList.add('sc-page-checklist-hub');
         initInteractivity(mount.querySelector('#sc-checklist-hub'));
       })
       .catch(function (err) {

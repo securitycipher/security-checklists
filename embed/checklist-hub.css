@@ -1,7 +1,60 @@
 /* Security Checklists Hub */
 
-body.sc-page-checklist-hub {
+body.sc-page-checklist-hub,
+body.page-id-11001 {
   --chub-radius: 16px;
+}
+
+/* WordPress / OceanWP full-width embed */
+body.page-id-11001 #right-sidebar,
+body.page-id-11001 #sidebar,
+body.page-id-11001 .widget-area,
+body.sc-page-checklist-hub #right-sidebar,
+body.sc-page-checklist-hub #sidebar,
+body.sc-page-checklist-hub .widget-area {
+  display: none !important;
+}
+
+body.page-id-11001 #primary,
+body.page-id-11001 .content-area,
+body.sc-page-checklist-hub #primary,
+body.sc-page-checklist-hub .content-area {
+  width: 100% !important;
+  max-width: none !important;
+  float: none !important;
+}
+
+body.page-id-11001 #content-wrap.container,
+body.sc-page-checklist-hub #content-wrap.container {
+  max-width: none !important;
+  width: 100% !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+body.page-id-11001 .entry,
+body.page-id-11001 .entry-content,
+body.sc-page-checklist-hub .entry,
+body.sc-page-checklist-hub .entry-content {
+  max-width: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.sc-checklist-hub-embed .wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+#sc-checklist-hub-mount {
+  min-height: 40vh;
+}
+
+.sc-chub-error {
+  color: #ff5a5f;
+  padding: 2rem;
+  text-align: center;
 }
 
 body.sc-page-checklist-hub .sc-checklist-hub-main {
@@ -86,7 +139,7 @@ body.sc-page-checklist-hub .sc-checklist-hub-main {
 /* Toolbar */
 .sc-chub-toolbar {
   position: sticky;
-  top: 64px;
+  top: 68px;
   z-index: 40;
   border-bottom: 1px solid var(--border, #272b36);
   backdrop-filter: blur(12px);
@@ -895,6 +948,16 @@ body.sc-page-checklist-hub .sc-checklist-hub-main {
   }
 }
 
+body.admin-bar .sc-chub-toolbar {
+  top: 100px;
+}
+
+@media (max-width: 782px) {
+  body.admin-bar .sc-chub-toolbar {
+    top: 114px;
+  }
+}
+
 @media (max-width: 600px) {
   .sc-chub-toolbar-inner {
     flex-direction: column;
@@ -907,5 +970,9 @@ body.sc-page-checklist-hub .sc-checklist-hub-main {
 
   .sc-chub-cards {
     grid-template-columns: 1fr;
+  }
+
+  .sc-checklist-hub-embed .wrap {
+    padding: 0 16px;
   }
 }
