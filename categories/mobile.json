@@ -1,0 +1,114 @@
+{
+  "id": "mobile",
+  "title": "Mobile Application Security",
+  "sections": [
+    {
+      "title": "Android - Static Analysis",
+      "items": [
+        {
+          "title": "Decompile and review APK",
+          "desc": "Use jadx or apktool to inspect source, manifest, and hardcoded secrets."
+        },
+        {
+          "title": "AndroidManifest exported components",
+          "desc": "Flag exported activities, services, receivers, and providers without proper permissions."
+        },
+        {
+          "title": "Hardcoded API keys and secrets",
+          "desc": "Search decompiled code and resources for keys, tokens, and credentials."
+        },
+        {
+          "title": "Insecure local storage",
+          "desc": "Check SharedPreferences, SQLite, and external storage for sensitive data."
+        },
+        {
+          "title": "Backup allowed",
+          "desc": "Verify android:allowBackup is false for apps handling sensitive data."
+        },
+        {
+          "title": "Debuggable flag",
+          "desc": "Ensure release builds are not debuggable."
+        }
+      ]
+    },
+    {
+      "title": "Android - Dynamic Analysis",
+      "items": [
+        {
+          "title": "Certificate pinning bypass",
+          "desc": "Test with Frida/objection if traffic can be intercepted via Burp."
+        },
+        {
+          "title": "Root detection bypass",
+          "desc": "Attempt to run app on rooted device or emulator with hooks."
+        },
+        {
+          "title": "Deep link hijacking",
+          "desc": "Test custom URL schemes and App Links for takeover by malicious apps."
+        },
+        {
+          "title": "IPC abuse",
+          "desc": "Use drozer to test content providers and inter-process communication."
+        },
+        {
+          "title": "Runtime instrumentation",
+          "desc": "Hook crypto, auth, and SSL routines with Frida."
+        },
+        {
+          "title": "Backend API replay",
+          "desc": "Capture and replay mobile API calls in Burp; test IDOR and auth."
+        }
+      ]
+    },
+    {
+      "title": "iOS - Static Analysis",
+      "items": [
+        {
+          "title": "Binary analysis",
+          "desc": "Inspect IPA with class-dump, Hopper, or Ghidra for secrets and logic."
+        },
+        {
+          "title": "Info.plist review",
+          "desc": "Check ATS settings, URL schemes, and sensitive plist keys."
+        },
+        {
+          "title": "Hardcoded secrets in bundle",
+          "desc": "Search strings and plists for API keys and credentials."
+        },
+        {
+          "title": "Jailbreak detection",
+          "desc": "Identify and test bypass of jailbreak/root checks."
+        }
+      ]
+    },
+    {
+      "title": "iOS - Dynamic Analysis",
+      "items": [
+        {
+          "title": "Keychain accessibility",
+          "desc": "Dump keychain with objection; verify kSecAttrAccessible classes."
+        },
+        {
+          "title": "SSL pinning bypass",
+          "desc": "Use Frida/objection ios sslpinning disable and proxy traffic."
+        },
+        {
+          "title": "Universal link hijacking",
+          "desc": "Test associated domains and URL scheme handlers."
+        },
+        {
+          "title": "Sensitive data in logs",
+          "desc": "Monitor device logs during auth and payment flows."
+        },
+        {
+          "title": "Backend API security",
+          "desc": "Apply web/API testing to endpoints the app calls."
+        },
+        {
+          "title": "Clipboard and screenshot leaks",
+          "desc": "Verify sensitive fields are not copied or captured."
+        }
+      ]
+    }
+  ]
+}

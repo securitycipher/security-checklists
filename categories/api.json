@@ -1,0 +1,52 @@
+{
+  "id": "api",
+  "title": "API Security",
+  "sections": [
+    {
+      "title": "Authentication and Authorization",
+      "items": [
+        {
+          "title": "Broken object level authorization (BOLA/IDOR)",
+          "desc": "Swap object IDs across users and roles; test horizontal and vertical access."
+        },
+        {
+          "title": "JWT validation flaws",
+          "desc": "alg:none, weak secrets, missing exp/aud, and key confusion attacks."
+        },
+        {
+          "title": "OAuth misconfiguration",
+          "desc": "Redirect URI validation, state parameter, and scope escalation."
+        },
+        {
+          "title": "API key exposure",
+          "desc": "Keys not in client bundles, logs, or referrer headers."
+        }
+      ]
+    },
+    {
+      "title": "Input, Logic, and Operations",
+      "items": [
+        {
+          "title": "Mass assignment",
+          "desc": "Extra JSON fields like role:admin accepted by backend."
+        },
+        {
+          "title": "Rate limiting and brute force",
+          "desc": "OTP, login, and password reset endpoints throttled."
+        },
+        {
+          "title": "GraphQL introspection and depth limits",
+          "desc": "Disable introspection in prod; limit query depth and cost."
+        },
+        {
+          "title": "Version sprawl",
+          "desc": "Old /api/v1 endpoints not left live with weaker auth."
+        },
+        {
+          "title": "Error message leakage",
+          "desc": "Stack traces and internal IDs not returned to clients."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,131 @@
+{
+  "id": "azure",
+  "title": "Azure Cloud Security",
+  "sections": [
+    {
+      "title": "Identity and Access (Azure AD / Entra ID)",
+      "items": [
+        {
+          "title": "MFA enforced for privileged roles",
+          "desc": "Require MFA for Global Admin, Security Admin, and privileged roles."
+        },
+        {
+          "title": "Conditional Access policies",
+          "desc": "Block legacy auth, require compliant devices, and restrict risky sign-ins."
+        },
+        {
+          "title": "Guest user access restricted",
+          "desc": "Limit external collaboration and review guest permissions regularly."
+        },
+        {
+          "title": "Service principal credential rotation",
+          "desc": "Rotate client secrets and certificates; prefer managed identities."
+        },
+        {
+          "title": "PIM for just-in-time admin",
+          "desc": "Use Privileged Identity Management for standing admin access."
+        }
+      ]
+    },
+    {
+      "title": "Networking",
+      "items": [
+        {
+          "title": "NSG rules not over-permissive",
+          "desc": "No 0.0.0.0/0 on RDP, SSH, SQL, or management ports."
+        },
+        {
+          "title": "VNet flow logs enabled",
+          "desc": "Enable NSG flow logs and traffic analytics for visibility."
+        },
+        {
+          "title": "Private endpoints for PaaS",
+          "desc": "Use private link for storage, SQL, and Key Vault where possible."
+        },
+        {
+          "title": "Azure Firewall or WAF in front of apps",
+          "desc": "Protect public-facing apps with WAF and centralized egress control."
+        },
+        {
+          "title": "DDoS Protection Standard",
+          "desc": "Enable on production VNets serving internet-facing workloads."
+        }
+      ]
+    },
+    {
+      "title": "Storage and Databases",
+      "items": [
+        {
+          "title": "Storage account public access disabled",
+          "desc": "Disable anonymous blob access and review network rules."
+        },
+        {
+          "title": "Encryption at rest with CMK",
+          "desc": "Use customer-managed keys for storage and databases where required."
+        },
+        {
+          "title": "SQL TDE and auditing enabled",
+          "desc": "Transparent encryption plus audit logs to Log Analytics."
+        },
+        {
+          "title": "SQL firewall not open to internet",
+          "desc": "Restrict database access to known IPs or private endpoints."
+        },
+        {
+          "title": "Soft delete and versioning on storage",
+          "desc": "Protect against ransomware and accidental deletion."
+        }
+      ]
+    },
+    {
+      "title": "Compute and Kubernetes",
+      "items": [
+        {
+          "title": "VM disk encryption enabled",
+          "desc": "Azure Disk Encryption or server-side encryption for all VMs."
+        },
+        {
+          "title": "AKS RBAC and private cluster",
+          "desc": "Enable Azure RBAC, private API server, and network policies."
+        },
+        {
+          "title": "Managed identity over secrets",
+          "desc": "Apps and functions use managed identities instead of stored creds."
+        },
+        {
+          "title": "Defender for Cloud enabled",
+          "desc": "Turn on Defender plans for servers, containers, and databases."
+        },
+        {
+          "title": "Patch management baseline",
+          "desc": "Use Update Management or Automanage for timely patching."
+        }
+      ]
+    },
+    {
+      "title": "Logging and Key Management",
+      "items": [
+        {
+          "title": "Activity Log to Log Analytics",
+          "desc": "Centralize subscription activity and resource logs."
+        },
+        {
+          "title": "Diagnostic settings on all resources",
+          "desc": "Export metrics and logs for critical resources."
+        },
+        {
+          "title": "Key Vault purge protection",
+          "desc": "Enable soft delete and purge protection on production vaults."
+        },
+        {
+          "title": "Key rotation policy",
+          "desc": "Automate rotation for keys and secrets in Key Vault."
+        },
+        {
+          "title": "Alert rules for security events",
+          "desc": "Alert on failed logins, key deletions, and NSG changes."
+        }
+      ]
+    }
+  ]
+}

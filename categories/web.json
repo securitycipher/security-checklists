@@ -1,0 +1,795 @@
+{
+  "id": "web",
+  "title": "Web Application Security",
+  "sections": [
+    {
+      "title": "Authentication and Session Management",
+      "items": [
+        {
+          "title": "Weak Passwords and Brute-Force Vulnerabilities",
+          "desc": "Test for weak passwords and brute-force vulnerabilities."
+        },
+        {
+          "title": "Multi-Factor Authentication (MFA)",
+          "desc": "Verify that multi-factor authentication (MFA) is properly implemented."
+        },
+        {
+          "title": "Password Recovery, Reset, and Update",
+          "desc": "Check for password recovery, reset, and update vulnerabilities."
+        },
+        {
+          "title": "Session Management",
+          "desc": "Assess session management, ensuring secure cookies, session timeout, and session fixation."
+        },
+        {
+          "title": "Logout Functionality",
+          "desc": "Ensure proper logout functionality and invalidation of sessions."
+        },
+        {
+          "title": "Default Credentials",
+          "desc": "Check if default credentials are changed or disabled."
+        },
+        {
+          "title": "Account Lockout Mechanism",
+          "desc": "Verify the presence and effectiveness of account lockout mechanisms after multiple failed login attempts."
+        },
+        {
+          "title": "Secure Password Storage",
+          "desc": "Ensure passwords are stored securely using strong hashing algorithms like bcrypt."
+        },
+        {
+          "title": "Token Expiration",
+          "desc": "Verify that authentication tokens have appropriate expiration times."
+        },
+        {
+          "title": "Session Hijacking",
+          "desc": "Test for vulnerabilities that could lead to session hijacking, such as missing Secure or HttpOnly flags on cookies."
+        },
+        {
+          "title": "Secure Login Forms",
+          "desc": "Ensure that login forms are served over HTTPS and do not expose credentials in logs or URL parameters."
+        },
+        {
+          "title": "CAPTCHAs",
+          "desc": "Verify the implementation of CAPTCHAs to prevent automated login attempts."
+        },
+        {
+          "title": "Password Complexity",
+          "desc": "Ensure password policies enforce complexity requirements (length, character variety)."
+        },
+        {
+          "title": "Remember Me",
+          "desc": "Check the security of \"Remember Me\" functionality and ensure tokens expire appropriately."
+        },
+        {
+          "title": "Session Timeout",
+          "desc": "Validate session timeout configurations to prevent extended idle sessions."
+        },
+        {
+          "title": "Inactive Account Handling",
+          "desc": "Ensure that inactive accounts are disabled after a defined period."
+        }
+      ]
+    },
+    {
+      "title": "Authorization",
+      "items": [
+        {
+          "title": "Privilege Escalation",
+          "desc": "Test for vertical and horizontal privilege escalation."
+        },
+        {
+          "title": "Role-Based Access Control (RBAC)",
+          "desc": "Verify role-based access control (RBAC) implementation."
+        },
+        {
+          "title": "Insecure Direct Object References (IDOR)",
+          "desc": "Check for Insecure Direct Object References (IDOR)."
+        },
+        {
+          "title": "Access Control Policies",
+          "desc": "Review and test access control policies for effectiveness."
+        },
+        {
+          "title": "Least Privilege Principle",
+          "desc": "Ensure that users have the minimum level of access necessary to perform their functions."
+        },
+        {
+          "title": "Forceful Browsing",
+          "desc": "Test if unauthorized users can access restricted resources by manipulating URLs or parameters."
+        },
+        {
+          "title": "Multi-Tenancy",
+          "desc": "Verify that users from different tenants cannot access each other's data."
+        },
+        {
+          "title": "Security Misconfigurations",
+          "desc": "Check for misconfigurations in access controls, such as overly permissive roles."
+        },
+        {
+          "title": "Time-Based Authorization",
+          "desc": "Test for authorization that changes based on time or other factors."
+        },
+        {
+          "title": "Logical Access Controls",
+          "desc": "Ensure that access control mechanisms are implemented logically throughout the application."
+        },
+        {
+          "title": "Role Misuse",
+          "desc": "Check for roles being misused to gain unauthorized access."
+        },
+        {
+          "title": "Sensitive Functionality",
+          "desc": "Ensure sensitive functionality is only accessible by authorized roles."
+        },
+        {
+          "title": "Dynamic Access Control",
+          "desc": "Test for dynamic access control based on context (e.g., IP address, device)."
+        }
+      ]
+    },
+    {
+      "title": "Input Validation",
+      "items": [
+        {
+          "title": "Cross-Site Scripting (XSS)",
+          "desc": "Test for XSS vulnerabilities (Reflected, Stored, DOM-based)."
+        },
+        {
+          "title": "SQL Injection (SQLi) and NoSQL Injection",
+          "desc": "Check for SQL Injection (SQLi) and NoSQL Injection."
+        },
+        {
+          "title": "Command Injection, LDAP Injection, and XML External Entities (XXE)",
+          "desc": "Assess for Command Injection, LDAP Injection, and XML External Entities (XXE)."
+        },
+        {
+          "title": "Client-Side and Server-Side Validation",
+          "desc": "Validate input on both client-side and server-side."
+        },
+        {
+          "title": "Cross-Site Script Inclusion (XSSI)",
+          "desc": "Test for the possibility of including external scripts that execute within the application's context."
+        },
+        {
+          "title": "HTTP Parameter Pollution",
+          "desc": "Check if multiple parameters with the same name can be used to manipulate the application logic."
+        },
+        {
+          "title": "Remote Code Execution (RCE)",
+          "desc": "Test for vulnerabilities that could lead to remote code execution."
+        },
+        {
+          "title": "Directory Traversal",
+          "desc": "Check for directory traversal vulnerabilities that could allow access to unauthorized files."
+        },
+        {
+          "title": "HTTP Splitting/Smuggling",
+          "desc": "Test for HTTP request splitting and smuggling vulnerabilities."
+        },
+        {
+          "title": "Path Traversal",
+          "desc": "Test for vulnerabilities that allow attackers to traverse the directory structure of the server."
+        },
+        {
+          "title": "File Inclusion",
+          "desc": "Check for Local File Inclusion (LFI) and Remote File Inclusion (RFI) vulnerabilities."
+        },
+        {
+          "title": "Template Injection",
+          "desc": "Test for vulnerabilities in template engines that could lead to code execution."
+        },
+        {
+          "title": "Input Length",
+          "desc": "Validate input length to prevent buffer overflow attacks."
+        },
+        {
+          "title": "Data Sanitization",
+          "desc": "Ensure input data is properly sanitized before processing."
+        },
+        {
+          "title": "Encoding",
+          "desc": "Verify that all input is appropriately encoded before outputting."
+        }
+      ]
+    },
+    {
+      "title": "Business Logic",
+      "items": [
+        {
+          "title": "Logic Flaws and Bypasses",
+          "desc": "Identify and test for logic flaws and bypasses in the application’s workflow."
+        },
+        {
+          "title": "Security Controls in Business Processes",
+          "desc": "Verify the proper implementation of security controls in business processes."
+        },
+        {
+          "title": "Race Conditions",
+          "desc": "Test for race conditions that could cause security issues."
+        },
+        {
+          "title": "Business Process Tampering",
+          "desc": "Ensure that business process steps cannot be manipulated or skipped."
+        },
+        {
+          "title": "Transaction Manipulation",
+          "desc": "Test for the ability to manipulate transactions to cause unintended outcomes."
+        },
+        {
+          "title": "Workflow Validation",
+          "desc": "Verify that business workflows enforce proper sequencing and validation at each step."
+        },
+        {
+          "title": "Inconsistent State",
+          "desc": "Test for conditions that could lead to an inconsistent state in the application."
+        },
+        {
+          "title": "Integrity Checks",
+          "desc": "Ensure that integrity checks are implemented and cannot be bypassed."
+        },
+        {
+          "title": "Business Logic Abuse",
+          "desc": "Identify potential abuse cases in the business logic."
+        },
+        {
+          "title": "Transaction Duplication",
+          "desc": "Test for the possibility of duplicating transactions."
+        },
+        {
+          "title": "Conditional Logic",
+          "desc": "Verify that conditional logic enforces the correct business rules."
+        }
+      ]
+    },
+    {
+      "title": "Security Misconfiguration",
+      "items": [
+        {
+          "title": "Configuration of Servers, Databases, and Frameworks",
+          "desc": "Check for improper configurations of web servers, databases, and frameworks."
+        },
+        {
+          "title": "Debug and Error Messages",
+          "desc": "Verify that debug and error messages do not reveal sensitive information."
+        },
+        {
+          "title": "Removal of Unnecessary Features",
+          "desc": "Ensure that unnecessary features, such as default accounts or sample files, are removed."
+        },
+        {
+          "title": "HTTP Headers",
+          "desc": "Verify proper HTTP headers are set (e.g., Content-Type, Cache-Control)."
+        },
+        {
+          "title": "Secure Directory Listings",
+          "desc": "Ensure directory listings are disabled on the web server."
+        },
+        {
+          "title": "File Permissions",
+          "desc": "Check for proper file permissions to prevent unauthorized access."
+        },
+        {
+          "title": "Default Error Pages",
+          "desc": "Ensure custom error pages are configured to prevent information disclosure."
+        },
+        {
+          "title": "Administrative Interfaces",
+          "desc": "Verify that administrative interfaces are properly secured and not exposed to unauthorized users."
+        },
+        {
+          "title": "Third-Party Integrations",
+          "desc": "Check for security configurations in third-party integrations and services."
+        },
+        {
+          "title": "Configuration Management",
+          "desc": "Verify that configuration management practices are in place to maintain secure settings."
+        },
+        {
+          "title": "Software Updates",
+          "desc": "Ensure all software components are up-to-date with the latest security patches."
+        },
+        {
+          "title": "Backup Configurations",
+          "desc": "Check the security of backup configurations and processes."
+        },
+        {
+          "title": "API Security Settings",
+          "desc": "Verify that APIs are securely configured to prevent unauthorized access."
+        }
+      ]
+    },
+    {
+      "title": "Sensitive Data Exposure",
+      "items": [
+        {
+          "title": "Encryption of Sensitive Data",
+          "desc": "Ensure that sensitive data (PII, passwords, credit card information) is encrypted at rest and in transit."
+        },
+        {
+          "title": "Secure Protocols",
+          "desc": "Verify the implementation of secure protocols (e.g., HTTPS, TLS)."
+        },
+        {
+          "title": "Data Leakage",
+          "desc": "Check for inadvertent data leakage in logs, error messages, or client-side code."
+        },
+        {
+          "title": "HTTP Strict Transport Security (HSTS)",
+          "desc": "Verify the use of HSTS to enforce secure connections."
+        },
+        {
+          "title": "Information Disclosure",
+          "desc": "Test for information disclosure vulnerabilities that reveal sensitive information."
+        },
+        {
+          "title": "Backup Data",
+          "desc": "Ensure that backup data is securely stored and encrypted."
+        },
+        {
+          "title": "Data Masking",
+          "desc": "Verify that sensitive data is masked or obfuscated where appropriate."
+        },
+        {
+          "title": "Sensitive Data in URLs",
+          "desc": "Check that sensitive data is not included in URLs or referrer headers."
+        },
+        {
+          "title": "Secure Data Handling",
+          "desc": "Ensure secure handling of sensitive data throughout its lifecycle."
+        },
+        {
+          "title": "Encryption Key Management",
+          "desc": "Verify secure management and storage of encryption keys."
+        },
+        {
+          "title": "Tokenization",
+          "desc": "Ensure that tokenization is used where applicable for sensitive data."
+        }
+      ]
+    },
+    {
+      "title": "Cross-Site Request Forgery (CSRF)",
+      "items": [
+        {
+          "title": "CSRF Vulnerabilities",
+          "desc": "Test for CSRF vulnerabilities and ensure the use of anti-CSRF tokens."
+        },
+        {
+          "title": "State-Changing Operations",
+          "desc": "Validate that the application does not perform state-changing operations without proper authorization."
+        },
+        {
+          "title": "SameSite Cookies",
+          "desc": "Ensure cookies are set with the SameSite attribute to prevent CSRF attacks."
+        },
+        {
+          "title": "Referer Header",
+          "desc": "Verify the use of the Referer header to help prevent CSRF attacks."
+        },
+        {
+          "title": "Double Submit Cookie",
+          "desc": "Check for the implementation of the double submit cookie pattern as an additional CSRF mitigation."
+        },
+        {
+          "title": "Custom Headers",
+          "desc": "Ensure that custom headers are required for state-changing requests to prevent CSRF."
+        },
+        {
+          "title": "Form Token Validation",
+          "desc": "Verify that form tokens are used and validated for all state-changing requests."
+        },
+        {
+          "title": "Secure Token Storage",
+          "desc": "Ensure anti-CSRF tokens are stored securely and not exposed to attackers."
+        }
+      ]
+    },
+    {
+      "title": "File Uploads",
+      "items": [
+        {
+          "title": "Unrestricted File Upload and Malware Injection",
+          "desc": "Assess file upload functionality for vulnerabilities like unrestricted file upload and malware injection."
+        },
+        {
+          "title": "File Type Validation and Storage",
+          "desc": "Check for proper file type validation and storage."
+        },
+        {
+          "title": "File Execution",
+          "desc": "Ensure that uploaded files cannot be executed on the server."
+        },
+        {
+          "title": "Content-Type Verification",
+          "desc": "Verify that the content type of uploaded files matches the expected type."
+        },
+        {
+          "title": "File Size Limits",
+          "desc": "Ensure file size limits are enforced to prevent denial of service attacks."
+        },
+        {
+          "title": "Virus Scanning",
+          "desc": "Verify that uploaded files are scanned for viruses and malware."
+        },
+        {
+          "title": "Temporary Storage",
+          "desc": "Check the security of temporary storage locations for uploaded files."
+        },
+        {
+          "title": "File Path Manipulation",
+          "desc": "Ensure that file path manipulation is not possible through file uploads."
+        },
+        {
+          "title": "Storage Location",
+          "desc": "Ensure uploaded files are stored in secure locations with appropriate access controls."
+        },
+        {
+          "title": "File Integrity",
+          "desc": "Verify that file integrity checks are performed on uploaded files."
+        },
+        {
+          "title": "Sanitization of File Names",
+          "desc": "Ensure that uploaded file names are sanitized to prevent directory traversal attacks."
+        }
+      ]
+    },
+    {
+      "title": "Client-Side Security",
+      "items": [
+        {
+          "title": "Content Security Policy (CSP)",
+          "desc": "Verify the implementation of Content Security Policy (CSP)."
+        },
+        {
+          "title": "JavaScript Code and Third-Party Libraries",
+          "desc": "Test for vulnerabilities in JavaScript code and third-party libraries."
+        },
+        {
+          "title": "Secure Use of Cookies",
+          "desc": "Ensure secure use of cookies (HttpOnly, Secure, SameSite attributes)."
+        },
+        {
+          "title": "Local Storage and Session Storage",
+          "desc": "Check for sensitive data stored insecurely in local storage or session storage."
+        },
+        {
+          "title": "JavaScript Obfuscation",
+          "desc": "Ensure that sensitive business logic is not exposed in client-side JavaScript."
+        },
+        {
+          "title": "Clickjacking",
+          "desc": "Test for clickjacking vulnerabilities and ensure the use of X-Frame-Options or CSP frame-ancestors."
+        },
+        {
+          "title": "DOM Manipulation",
+          "desc": "Check for insecure DOM manipulation practices that could lead to vulnerabilities."
+        },
+        {
+          "title": "HTML Injection",
+          "desc": "Test for HTML injection vulnerabilities that could compromise the application's integrity."
+        },
+        {
+          "title": "Secure Event Handling",
+          "desc": "Ensure that event handlers are securely implemented to prevent exploitation."
+        },
+        {
+          "title": "Cross-Origin Resource Sharing (CORS)",
+          "desc": "Verify that CORS policies are correctly implemented to prevent unauthorized data access."
+        },
+        {
+          "title": "JavaScript Sandbox",
+          "desc": "Ensure that any potentially unsafe JavaScript execution is contained within a sandbox environment."
+        },
+        {
+          "title": "Secure Frameworks",
+          "desc": "Check for secure usage of client-side frameworks and libraries (e.g., React, Angular)."
+        },
+        {
+          "title": "Client-Side Caching",
+          "desc": "Validate that sensitive data is not inadvertently cached on the client-side."
+        },
+        {
+          "title": "Client-Side Encryption",
+          "desc": "Ensure any sensitive data processed on the client-side is encrypted appropriately."
+        }
+      ]
+    },
+    {
+      "title": "Security Headers",
+      "items": [
+        {
+          "title": "Presence and Configuration",
+          "desc": "Verify the presence and correct configuration of security headers (e.g., X-Content-Type-Options, X-Frame-Options, Strict-Transport-Security)."
+        },
+        {
+          "title": "Referrer Policy",
+          "desc": "Ensure that the Referrer-Policy header is configured correctly to minimize information leakage."
+        },
+        {
+          "title": "Permissions Policy",
+          "desc": "Check the Permissions-Policy header to control which features and APIs can be used in the browser."
+        },
+        {
+          "title": "Feature Policy",
+          "desc": "Verify the implementation of Feature Policy to control the use of web features and APIs."
+        },
+        {
+          "title": "Cross-Origin Resource Sharing (CORS)",
+          "desc": "Ensure that CORS headers are properly configured to prevent unauthorized cross-origin requests."
+        },
+        {
+          "title": "Content-Security-Policy (CSP)",
+          "desc": "Verify that CSP is properly configured to prevent XSS and data injection attacks."
+        },
+        {
+          "title": "X-Content-Type-Options",
+          "desc": "Ensure that the X-Content-Type-Options header is set to prevent MIME-type sniffing."
+        },
+        {
+          "title": "X-XSS-Protection",
+          "desc": "Verify that X-XSS-Protection is configured to prevent reflected XSS attacks."
+        },
+        {
+          "title": "X-Frame-Options",
+          "desc": "Ensure that X-Frame-Options is set to prevent clickjacking."
+        },
+        {
+          "title": "Public-Key-Pins (HPKP)",
+          "desc": "Check for the use of HTTP Public-Key-Pinning to mitigate man-in-the-middle attacks."
+        }
+      ]
+    },
+    {
+      "title": "API Security",
+      "items": [
+        {
+          "title": "Rate Limiting and Throttling",
+          "desc": "Test for API rate limiting and throttling."
+        },
+        {
+          "title": "Authentication and Authorization",
+          "desc": "Assess for improper API authentication and authorization."
+        },
+        {
+          "title": "Data Exposure",
+          "desc": "Check for data exposure through API responses."
+        },
+        {
+          "title": "Input Validation",
+          "desc": "Ensure proper input validation and sanitization in API endpoints."
+        },
+        {
+          "title": "CORS Configuration",
+          "desc": "Verify that Cross-Origin Resource Sharing (CORS) is properly configured to prevent unauthorized access."
+        },
+        {
+          "title": "API Key Management",
+          "desc": "Check for secure management and storage of API keys."
+        },
+        {
+          "title": "Versioning",
+          "desc": "Ensure that API versioning is implemented to manage changes and deprecations securely."
+        },
+        {
+          "title": "Error Handling",
+          "desc": "Verify that API error messages do not reveal sensitive information."
+        },
+        {
+          "title": "Parameter Tampering",
+          "desc": "Test for vulnerabilities where API parameters can be tampered with to achieve unintended effects."
+        },
+        {
+          "title": "Mass Assignment",
+          "desc": "Ensure that APIs do not accept and process unexpected parameters that could lead to mass assignment vulnerabilities."
+        },
+        {
+          "title": "JSON Web Token (JWT)",
+          "desc": "Verify the secure implementation and storage of JWTs, including proper signing and expiration."
+        },
+        {
+          "title": "Input Whitelisting",
+          "desc": "Ensure APIs use input whitelisting to accept only known and expected inputs."
+        },
+        {
+          "title": "Data Filtering",
+          "desc": "Verify that sensitive data is properly filtered out of API responses."
+        },
+        {
+          "title": "API Gateway Security",
+          "desc": "Check the security configurations of API gateways and their role in protecting backend services."
+        },
+        {
+          "title": "OAuth/OpenID Connect",
+          "desc": "Verify secure implementation of OAuth and OpenID Connect for authentication and authorization."
+        }
+      ]
+    },
+    {
+      "title": "Logging and Monitoring",
+      "items": [
+        {
+          "title": "Log Sensitive Actions",
+          "desc": "Ensure that sensitive actions (e.g., login attempts, data modifications) are logged."
+        },
+        {
+          "title": "Log Integrity",
+          "desc": "Verify that logs are protected from tampering and unauthorized access."
+        },
+        {
+          "title": "Centralized Logging",
+          "desc": "Check for the implementation of centralized logging for comprehensive monitoring."
+        },
+        {
+          "title": "Real-Time Monitoring",
+          "desc": "Ensure that real-time monitoring and alerting are in place for security incidents."
+        },
+        {
+          "title": "Log Retention Policies",
+          "desc": "Verify that log retention policies comply with regulatory and business requirements."
+        },
+        {
+          "title": "Anomaly Detection",
+          "desc": "Implement and verify anomaly detection to identify suspicious activities."
+        },
+        {
+          "title": "Security Event Management",
+          "desc": "Ensure integration with Security Information and Event Management (SIEM) systems."
+        },
+        {
+          "title": "Compliance Logging",
+          "desc": "Validate that logging complies with industry standards and regulations (e.g., PCI-DSS, GDPR)."
+        }
+      ]
+    },
+    {
+      "title": "Cryptography",
+      "items": [
+        {
+          "title": "Strong Encryption Algorithms",
+          "desc": "Ensure the use of strong, industry-standard encryption algorithms (e.g., AES-256)."
+        },
+        {
+          "title": "Secure Key Management",
+          "desc": "Verify that encryption keys are managed and stored securely."
+        },
+        {
+          "title": "Certificate Management",
+          "desc": "Check for the proper management and rotation of SSL/TLS certificates."
+        },
+        {
+          "title": "TLS Configuration",
+          "desc": "Ensure that TLS is properly configured to prevent vulnerabilities like POODLE and BEAST."
+        },
+        {
+          "title": "End-to-End Encryption",
+          "desc": "Verify the implementation of end-to-end encryption for sensitive data."
+        },
+        {
+          "title": "Random Number Generation",
+          "desc": "Ensure that cryptographic functions use secure random number generation."
+        },
+        {
+          "title": "Deprecated Protocols",
+          "desc": "Verify that deprecated protocols (e.g., SSLv3) are disabled."
+        },
+        {
+          "title": "HMAC",
+          "desc": "Ensure the use of HMAC for integrity checks where applicable."
+        }
+      ]
+    },
+    {
+      "title": "Cloud Security",
+      "items": [
+        {
+          "title": "Secure Cloud Configuration",
+          "desc": "Ensure that cloud resources are configured securely (e.g., storage buckets, virtual machines)."
+        },
+        {
+          "title": "Identity and Access Management (IAM)",
+          "desc": "Verify that IAM policies follow the principle of least privilege."
+        },
+        {
+          "title": "Data Encryption",
+          "desc": "Ensure that data is encrypted at rest and in transit in the cloud."
+        },
+        {
+          "title": "Network Security",
+          "desc": "Check the security configurations of cloud network components (e.g., security groups, firewalls)."
+        },
+        {
+          "title": "Monitoring and Logging",
+          "desc": "Verify that cloud monitoring and logging are in place and properly configured."
+        },
+        {
+          "title": "Backup and Recovery",
+          "desc": "Ensure that backup and recovery processes are secure and regularly tested."
+        },
+        {
+          "title": "Serverless Security",
+          "desc": "Verify the security configurations of serverless functions."
+        },
+        {
+          "title": "Cloud Compliance",
+          "desc": "Ensure compliance with relevant regulations and standards in the cloud environment."
+        }
+      ]
+    },
+    {
+      "title": "Third-Party Components",
+      "items": [
+        {
+          "title": "Vulnerability Management",
+          "desc": "Ensure that third-party components are regularly checked for vulnerabilities."
+        },
+        {
+          "title": "License Compliance",
+          "desc": "Verify that the use of third-party components complies with their licenses."
+        },
+        {
+          "title": "Secure Configuration",
+          "desc": "Ensure that third-party components are securely configured."
+        },
+        {
+          "title": "Update Management",
+          "desc": "Check that third-party components are kept up-to-date with the latest security patches."
+        },
+        {
+          "title": "Integrity Checks",
+          "desc": "Verify the integrity of third-party components before use."
+        }
+      ]
+    },
+    {
+      "title": "Development and Deployment",
+      "items": [
+        {
+          "title": "Secure Development Lifecycle",
+          "desc": "Ensure that security is integrated into the development lifecycle."
+        },
+        {
+          "title": "Code Reviews",
+          "desc": "Conduct regular code reviews to identify and mitigate security vulnerabilities."
+        },
+        {
+          "title": "Static and Dynamic Analysis",
+          "desc": "Use static and dynamic analysis tools to identify security issues in the code."
+        },
+        {
+          "title": "Secure CI/CD Pipeline",
+          "desc": "Verify that the CI/CD pipeline includes security checks and validations."
+        },
+        {
+          "title": "Deployment Security",
+          "desc": "Ensure that the deployment process follows secure practices to prevent vulnerabilities."
+        },
+        {
+          "title": "Environment Segregation",
+          "desc": "Verify the segregation of development, testing, and production environments."
+        }
+      ]
+    },
+    {
+      "title": "Incident Response",
+      "items": [
+        {
+          "title": "Incident Response Plan",
+          "desc": "Ensure there is an incident response plan in place."
+        },
+        {
+          "title": "Detection and Analysis",
+          "desc": "Verify that incidents can be detected and analyzed promptly."
+        },
+        {
+          "title": "Containment and Eradication",
+          "desc": "Ensure that procedures for containment and eradication of threats are in place."
+        },
+        {
+          "title": "Recovery and Post-Incident Activities",
+          "desc": "Verify the recovery processes and post-incident review activities."
+        }
+      ]
+    }
+  ]
+}

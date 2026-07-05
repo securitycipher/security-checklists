@@ -1,0 +1,98 @@
+{
+  "version": "1.0.0",
+  "updated": "2026-07-05",
+  "title": "Security Checklists Hub",
+  "hub_url": "https://securitycipher.com/security-checklists/",
+  "categories": [
+    {
+      "id": "web",
+      "title": "Web Application Security",
+      "description": "100+ interactive test cases for authentication, injection, business logic, and OWASP-aligned web assessments.",
+      "icon": "web",
+      "color": "#6d7bff",
+      "status": "live",
+      "legacy_url": "/web-application-security-checklist/",
+      "file": "categories/web.json"
+    },
+    {
+      "id": "mobile",
+      "title": "Mobile Application Security",
+      "description": "Android and iOS testing checklist covering static analysis, runtime instrumentation, and API security.",
+      "icon": "mobile",
+      "color": "#e64bd0",
+      "status": "live",
+      "legacy_url": "",
+      "file": "categories/mobile.json"
+    },
+    {
+      "id": "aws",
+      "title": "AWS Cloud Security",
+      "description": "Filterable controls for IAM, EC2, S3, RDS, Lambda, EKS, and compliance reviews across AWS services.",
+      "icon": "aws",
+      "color": "#ff9900",
+      "status": "live",
+      "legacy_url": "/aws-security-checklist/",
+      "file": "categories/aws.json"
+    },
+    {
+      "id": "azure",
+      "title": "Azure Cloud Security",
+      "description": "Identity, networking, storage, compute, and logging controls for Microsoft Azure environments.",
+      "icon": "azure",
+      "color": "#0078d4",
+      "status": "live",
+      "legacy_url": "",
+      "file": "categories/azure.json"
+    },
+    {
+      "id": "gcp",
+      "title": "Google Cloud Platform",
+      "description": "IAM, VPC, GCS, GKE, Cloud SQL, and Security Command Center checks for GCP workloads.",
+      "icon": "gcp",
+      "color": "#4285f4",
+      "status": "live",
+      "legacy_url": "",
+      "file": "categories/gcp.json"
+    },
+    {
+      "id": "llm",
+      "title": "LLM and AI Security",
+      "description": "Governance, red teaming, RAG safety, and deployment controls for large language model applications.",
+      "icon": "llm",
+      "color": "#a855f7",
+      "status": "live",
+      "legacy_url": "/llm-ai-security-checklist/",
+      "file": "categories/llm.json"
+    },
+    {
+      "id": "mcp",
+      "title": "MCP Server Security",
+      "description": "Model Context Protocol inventory, STDIO hardening, tool poisoning tests, and agent supply-chain controls.",
+      "icon": "mcp",
+      "color": "#22d3ee",
+      "status": "live",
+      "legacy_url": "",
+      "file": "categories/mcp.json"
+    },
+    {
+      "id": "api",
+      "title": "API Security",
+      "description": "REST and GraphQL testing for BOLA, JWT flaws, rate limits, and mass assignment.",
+      "icon": "api",
+      "color": "#4ade80",
+      "status": "live",
+      "legacy_url": "",
+      "file": "categories/api.json"
+    },
+    {
+      "id": "kubernetes",
+      "title": "Kubernetes and Containers",
+      "description": "Cluster RBAC, pod security, image scanning, and Docker escape prevention.",
+      "icon": "k8s",
+      "color": "#326ce5",
+      "status": "live",
+      "legacy_url": "",
+      "file": "categories/kubernetes.json"
+    }
+  ]
+}

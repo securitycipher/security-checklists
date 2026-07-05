@@ -1,0 +1,56 @@
+{
+  "id": "kubernetes",
+  "title": "Kubernetes and Containers",
+  "sections": [
+    {
+      "title": "Cluster Configuration",
+      "items": [
+        {
+          "title": "API server not public",
+          "desc": "Restrict kube-apiserver to private networks or authorized IPs."
+        },
+        {
+          "title": "RBAC least privilege",
+          "desc": "No cluster-admin for apps; namespace-scoped roles only."
+        },
+        {
+          "title": "Pod Security Standards enforced",
+          "desc": "Restricted or baseline policy on all namespaces."
+        },
+        {
+          "title": "Secrets not in env vars",
+          "desc": "Use CSI drivers or mounted volumes; encrypt etcd at rest."
+        },
+        {
+          "title": "Network policies default deny",
+          "desc": "Explicit allow rules between pods and egress."
+        }
+      ]
+    },
+    {
+      "title": "Containers and Supply Chain",
+      "items": [
+        {
+          "title": "Images scanned for CVEs",
+          "desc": "Trivy or similar in CI; block critical vulns on deploy."
+        },
+        {
+          "title": "No privileged containers",
+          "desc": "Drop capabilities; read-only root filesystem where possible."
+        },
+        {
+          "title": "Docker socket not mounted",
+          "desc": "Never mount /var/run/docker.sock into application containers."
+        },
+        {
+          "title": "Image signing and admission control",
+          "desc": "Only signed images from trusted registries."
+        },
+        {
+          "title": "Resource limits set",
+          "desc": "CPU and memory limits prevent DoS via resource exhaustion."
+        }
+      ]
+    }
+  ]
+}

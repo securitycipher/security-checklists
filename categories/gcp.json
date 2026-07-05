@@ -1,0 +1,131 @@
+{
+  "id": "gcp",
+  "title": "Google Cloud Platform",
+  "sections": [
+    {
+      "title": "IAM and Organization",
+      "items": [
+        {
+          "title": "No primitive roles at project level",
+          "desc": "Avoid owner/editor/viewer; use least-privilege custom roles."
+        },
+        {
+          "title": "Service account key hygiene",
+          "desc": "Rotate keys, avoid user-managed keys where workload identity works."
+        },
+        {
+          "title": "Organization policies enforced",
+          "desc": "Restrict public IPs, require OS Login, and domain-restricted sharing."
+        },
+        {
+          "title": "MFA on org admin accounts",
+          "desc": "Enforce 2FA for accounts with org or billing admin."
+        },
+        {
+          "title": "Workload Identity Federation",
+          "desc": "Prefer WIF over long-lived service account keys for CI/CD."
+        }
+      ]
+    },
+    {
+      "title": "Networking",
+      "items": [
+        {
+          "title": "VPC firewall rules least privilege",
+          "desc": "No 0.0.0.0/0 on SSH, RDP, or database ports."
+        },
+        {
+          "title": "Private Google Access",
+          "desc": "Enable for subnets that reach Google APIs without public IPs."
+        },
+        {
+          "title": "VPC Flow Logs enabled",
+          "desc": "Log all subnet traffic for detection and forensics."
+        },
+        {
+          "title": "Cloud Armor on load balancers",
+          "desc": "WAF and DDoS protection for internet-facing services."
+        },
+        {
+          "title": "Private Service Connect",
+          "desc": "Use for managed services instead of public endpoints."
+        }
+      ]
+    },
+    {
+      "title": "Storage and Databases",
+      "items": [
+        {
+          "title": "GCS uniform bucket-level access",
+          "desc": "Disable ACLs; use IAM conditions and public access prevention."
+        },
+        {
+          "title": "Bucket encryption with CMEK",
+          "desc": "Customer-managed encryption keys for sensitive buckets."
+        },
+        {
+          "title": "Cloud SQL not public",
+          "desc": "Private IP only; authorized networks tightly scoped."
+        },
+        {
+          "title": "Cloud SQL automated backups",
+          "desc": "Point-in-time recovery and tested restore procedures."
+        },
+        {
+          "title": "Object versioning and retention",
+          "desc": "Protect against overwrite and ransomware."
+        }
+      ]
+    },
+    {
+      "title": "GKE and Compute",
+      "items": [
+        {
+          "title": "GKE private cluster",
+          "desc": "Private nodes and authorized networks for control plane."
+        },
+        {
+          "title": "Workload Identity enabled",
+          "desc": "Map K8s service accounts to GCP IAM without JSON keys."
+        },
+        {
+          "title": "Shielded GCE VMs",
+          "desc": "Secure Boot and vTPM for production instances."
+        },
+        {
+          "title": "OS patch management",
+          "desc": "Use OS Config or golden images with regular updates."
+        },
+        {
+          "title": "Binary Authorization for GKE",
+          "desc": "Only deploy signed and approved container images."
+        }
+      ]
+    },
+    {
+      "title": "Logging and Security Command Center",
+      "items": [
+        {
+          "title": "Cloud Audit Logs exported",
+          "desc": "Admin, data access, and system events to BigQuery or SIEM."
+        },
+        {
+          "title": "Security Command Center Premium",
+          "desc": "Enable threat detection and vulnerability findings."
+        },
+        {
+          "title": "Log sinks and retention",
+          "desc": "Centralized sinks with appropriate retention for compliance."
+        },
+        {
+          "title": "KMS key rotation",
+          "desc": "Automatic rotation for Cloud KMS keys."
+        },
+        {
+          "title": "Alerting on IAM changes",
+          "desc": "Notify on policy bindings, key creation, and firewall edits."
+        }
+      ]
+    }
+  ]
+}
