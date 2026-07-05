@@ -339,6 +339,31 @@
         }, 120);
       }
     }
+
+    initScrollTop();
+  }
+
+  function initScrollTop() {
+    if (document.getElementById('sc-chub-scroll-top')) return;
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.id = 'sc-chub-scroll-top';
+    btn.className = 'sc-chub-scroll-top';
+    btn.setAttribute('aria-label', 'Back to top');
+    btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>';
+
+    function toggle() {
+      btn.classList.toggle('is-visible', window.scrollY > 360);
+    }
+
+    btn.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
+    });
+
+    document.body.appendChild(btn);
+    window.addEventListener('scroll', toggle, { passive: true });
+    toggle();
   }
 
   function boot() {
