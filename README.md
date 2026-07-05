@@ -4,6 +4,36 @@ Source-of-truth content for [SecurityCipher Security Checklists Hub](https://sec
 
 Edit checklist items in `categories/*.json`, update `manifest.json` when adding a new domain, then rebuild and deploy the site UI.
 
+## Item fields (v2 schema)
+
+Every control in `categories/*.json` should include:
+
+| Field | Required | Description |
+|-------|----------|-------------|
+| `title` | yes | Control name |
+| `description` | yes | What this check validates |
+| `severity` | yes | `critical`, `high`, `medium`, or `low` |
+| `how_to_find` | yes | Detection steps, console paths, CLI, and tooling |
+| `how_to_fix` | yes | Remediation guidance |
+| `tools` | yes | Array of recommended tools |
+| `references` | no | Array of `{ "title", "url" }` links |
+
+### Enrich existing items
+
+```bash
+python3 tools/enrich_checklist_items.py   # adds missing v2 fields
+python3 tools/build_checklist_hub_data.py
+python3 tools/push_security_checklists.py "Enrich checklist detail fields"
+```
+
+## Related GitHub repos
+
+| Repo | Content |
+|------|---------|
+| [security-checklists](https://github.com/securitycipher/security-checklists) | This repo - hub source data |
+| [awsome-websecurity-checklist](https://github.com/securitycipher/awsome-websecurity-checklist) | Web checklist markdown, 2FA/CAPTCHA bypass guides |
+| [awsome-security-mindmaps](https://github.com/securitycipher/awsome-security-mindmaps) | Security mind maps |
+
 ## Structure
 
 ```

@@ -7,23 +7,103 @@
       "items": [
         {
           "title": "API server not public",
-          "desc": "Restrict kube-apiserver to private networks or authorized IPs."
+          "description": "Restrict kube-apiserver to private networks or authorized IPs.",
+          "severity": "high",
+          "how_to_find": "Cluster audit (Cluster Configuration): Restrict kube-apiserver to private networks or authorized IPs. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: API server not public.",
+          "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
+          "tools": [
+            "kubectl",
+            "kube-hunter",
+            "kube-bench",
+            "Trivy",
+            "Falco"
+          ],
+          "references": [
+            {
+              "title": "CIS Kubernetes Benchmark",
+              "url": "https://www.cisecurity.org/benchmark/kubernetes"
+            }
+          ]
         },
         {
           "title": "RBAC least privilege",
-          "desc": "No cluster-admin for apps; namespace-scoped roles only."
+          "description": "No cluster-admin for apps; namespace-scoped roles only.",
+          "severity": "low",
+          "how_to_find": "Cluster audit (Cluster Configuration): No cluster-admin for apps; namespace-scoped roles only. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: RBAC least privilege.",
+          "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
+          "tools": [
+            "kubectl",
+            "kube-hunter",
+            "kube-bench",
+            "Trivy",
+            "Falco"
+          ],
+          "references": [
+            {
+              "title": "CIS Kubernetes Benchmark",
+              "url": "https://www.cisecurity.org/benchmark/kubernetes"
+            }
+          ]
         },
         {
           "title": "Pod Security Standards enforced",
-          "desc": "Restricted or baseline policy on all namespaces."
+          "description": "Restricted or baseline policy on all namespaces.",
+          "severity": "critical",
+          "how_to_find": "Cluster audit (Cluster Configuration): Restricted or baseline policy on all namespaces. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: Pod Security Standards enforced.",
+          "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
+          "tools": [
+            "kubectl",
+            "kube-hunter",
+            "kube-bench",
+            "Trivy",
+            "Falco"
+          ],
+          "references": [
+            {
+              "title": "CIS Kubernetes Benchmark",
+              "url": "https://www.cisecurity.org/benchmark/kubernetes"
+            }
+          ]
         },
         {
           "title": "Secrets not in env vars",
-          "desc": "Use CSI drivers or mounted volumes; encrypt etcd at rest."
+          "description": "Use CSI drivers or mounted volumes; encrypt etcd at rest.",
+          "severity": "low",
+          "how_to_find": "Cluster audit (Cluster Configuration): Use CSI drivers or mounted volumes; encrypt etcd at rest. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: Secrets not in env vars.",
+          "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
+          "tools": [
+            "kubectl",
+            "kube-hunter",
+            "kube-bench",
+            "Trivy",
+            "Falco"
+          ],
+          "references": [
+            {
+              "title": "CIS Kubernetes Benchmark",
+              "url": "https://www.cisecurity.org/benchmark/kubernetes"
+            }
+          ]
         },
         {
           "title": "Network policies default deny",
-          "desc": "Explicit allow rules between pods and egress."
+          "description": "Explicit allow rules between pods and egress.",
+          "severity": "low",
+          "how_to_find": "Cluster audit (Cluster Configuration): Explicit allow rules between pods and egress. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: Network policies default deny.",
+          "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
+          "tools": [
+            "kubectl",
+            "kube-hunter",
+            "kube-bench",
+            "Trivy",
+            "Falco"
+          ],
+          "references": [
+            {
+              "title": "CIS Kubernetes Benchmark",
+              "url": "https://www.cisecurity.org/benchmark/kubernetes"
+            }
+          ]
         }
       ]
     },
@@ -32,23 +112,103 @@
       "items": [
         {
           "title": "Images scanned for CVEs",
-          "desc": "Trivy or similar in CI; block critical vulns on deploy."
+          "description": "Trivy or similar in CI; block critical vulns on deploy.",
+          "severity": "low",
+          "how_to_find": "Cluster audit (Containers and Supply Chain): Trivy or similar in CI; block critical vulns on deploy. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: Images scanned for CVEs.",
+          "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
+          "tools": [
+            "kubectl",
+            "kube-hunter",
+            "kube-bench",
+            "Trivy",
+            "Falco"
+          ],
+          "references": [
+            {
+              "title": "CIS Kubernetes Benchmark",
+              "url": "https://www.cisecurity.org/benchmark/kubernetes"
+            }
+          ]
         },
         {
           "title": "No privileged containers",
-          "desc": "Drop capabilities; read-only root filesystem where possible."
+          "description": "Drop capabilities; read-only root filesystem where possible.",
+          "severity": "low",
+          "how_to_find": "Cluster audit (Containers and Supply Chain): Drop capabilities; read-only root filesystem where possible. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: No privileged containers.",
+          "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
+          "tools": [
+            "kubectl",
+            "kube-hunter",
+            "kube-bench",
+            "Trivy",
+            "Falco"
+          ],
+          "references": [
+            {
+              "title": "CIS Kubernetes Benchmark",
+              "url": "https://www.cisecurity.org/benchmark/kubernetes"
+            }
+          ]
         },
         {
           "title": "Docker socket not mounted",
-          "desc": "Never mount /var/run/docker.sock into application containers."
+          "description": "Never mount /var/run/docker.sock into application containers.",
+          "severity": "low",
+          "how_to_find": "Cluster audit (Containers and Supply Chain): Never mount /var/run/docker.sock into application containers. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: Docker socket not mounted.",
+          "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
+          "tools": [
+            "kubectl",
+            "kube-hunter",
+            "kube-bench",
+            "Trivy",
+            "Falco"
+          ],
+          "references": [
+            {
+              "title": "CIS Kubernetes Benchmark",
+              "url": "https://www.cisecurity.org/benchmark/kubernetes"
+            }
+          ]
         },
         {
           "title": "Image signing and admission control",
-          "desc": "Only signed images from trusted registries."
+          "description": "Only signed images from trusted registries.",
+          "severity": "low",
+          "how_to_find": "Cluster audit (Containers and Supply Chain): Only signed images from trusted registries. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: Image signing and admission control.",
+          "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
+          "tools": [
+            "kubectl",
+            "kube-hunter",
+            "kube-bench",
+            "Trivy",
+            "Falco"
+          ],
+          "references": [
+            {
+              "title": "CIS Kubernetes Benchmark",
+              "url": "https://www.cisecurity.org/benchmark/kubernetes"
+            }
+          ]
         },
         {
           "title": "Resource limits set",
-          "desc": "CPU and memory limits prevent DoS via resource exhaustion."
+          "description": "CPU and memory limits prevent DoS via resource exhaustion.",
+          "severity": "critical",
+          "how_to_find": "Cluster audit (Containers and Supply Chain): CPU and memory limits prevent DoS via resource exhaustion. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: Resource limits set.",
+          "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
+          "tools": [
+            "kubectl",
+            "kube-hunter",
+            "kube-bench",
+            "Trivy",
+            "Falco"
+          ],
+          "references": [
+            {
+              "title": "CIS Kubernetes Benchmark",
+              "url": "https://www.cisecurity.org/benchmark/kubernetes"
+            }
+          ]
         }
       ]
     }

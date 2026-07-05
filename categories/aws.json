@@ -7,75 +7,471 @@
       "items": [
         {
           "title": "MFA is not enabled for Root Account",
-          "desc": "Ensure Multi-Factor Authentication (MFA) is enabled for the AWS root account."
+          "description": "Ensure Multi-Factor Authentication (MFA) is enabled for the AWS root account.",
+          "severity": "critical",
+          "how_to_find": "Console: AWS Console → IAM. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in IAM. Automated: Run Prowler or ScoutSuite and filter findings for \"MFA is not enabled for Root Account\". CLI: `aws iam list-mfa-devices` and check account summary for AccountMFAEnabled.",
+          "how_to_fix": "Remediation goal: Ensure Multi-Factor Authentication (MFA) is enabled for the AWS root account. Sign in as root → Security credentials → Assign MFA (hardware FIDO or virtual MFA). Store recovery codes offline.",
+          "tools": [
+            "AWS CLI",
+            "Prowler",
+            "ScoutSuite",
+            "AWS Config",
+            "IAM Access Analyzer",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         },
         {
           "title": "MFA is not enabled for IAM Users",
-          "desc": "Ensure Multi-Factor Authentication (MFA) is enabled for all AWS IAM users with AWS Console access."
+          "description": "Ensure Multi-Factor Authentication (MFA) is enabled for all AWS IAM users with AWS Console access.",
+          "severity": "high",
+          "how_to_find": "Console: AWS Console → IAM. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in IAM. Automated: Run Prowler or ScoutSuite and filter findings for \"MFA is not enabled for IAM Users\". CLI: `aws iam list-mfa-devices` and check account summary for AccountMFAEnabled.",
+          "how_to_fix": "Remediation goal: Ensure Multi-Factor Authentication (MFA) is enabled for all AWS IAM users with AWS Console access. Enforce MFA via IAM policy; remove console access for users without MFA registered.",
+          "tools": [
+            "AWS CLI",
+            "Prowler",
+            "ScoutSuite",
+            "AWS Config",
+            "IAM Access Analyzer",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         },
         {
           "title": "Multiple Access Keys exists for IAM Users",
-          "desc": "Detects when a canary token access key has been used"
+          "description": "Detects when a canary token access key has been used",
+          "severity": "low",
+          "how_to_find": "Console: AWS Console → IAM. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in IAM. Automated: Run Prowler or ScoutSuite and filter findings for \"Multiple Access Keys exists for IAM Users\".",
+          "how_to_fix": "Remediation goal: Detects when a canary token access key has been used Rotate keys/credentials on a 90-day schedule. Prefer IAM roles over long-lived access keys.",
+          "tools": [
+            "AWS CLI",
+            "Prowler",
+            "ScoutSuite",
+            "AWS Config",
+            "IAM Access Analyzer",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         },
         {
           "title": "Cross-Account Access Lacks External ID and MFA",
-          "desc": "Ensure cross-account IAM roles use either MFA or external IDs to secure the access to AWS resources."
+          "description": "Ensure cross-account IAM roles use either MFA or external IDs to secure the access to AWS resources.",
+          "severity": "critical",
+          "how_to_find": "Console: AWS Console → IAM. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in IAM. Automated: Run Prowler or ScoutSuite and filter findings for \"Cross-Account Access Lacks External ID and MFA\". CLI: `aws iam list-mfa-devices` and check account summary for AccountMFAEnabled.",
+          "how_to_fix": "Remediation goal: Ensure cross-account IAM roles use either MFA or external IDs to secure the access to AWS resources. Enforce MFA via IAM policy; remove console access for users without MFA registered.",
+          "tools": [
+            "AWS CLI",
+            "Prowler",
+            "ScoutSuite",
+            "AWS Config",
+            "IAM Access Analyzer",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         },
         {
           "title": "Lack of Access Key Rotation",
-          "desc": "Ensure AWS IAM access keys are rotated on a periodic basis as a security best practice (90 Days)."
+          "description": "Ensure AWS IAM access keys are rotated on a periodic basis as a security best practice (90 Days).",
+          "severity": "medium",
+          "how_to_find": "Console: AWS Console → IAM. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in IAM. Automated: Run Prowler or ScoutSuite and filter findings for \"Lack of Access Key Rotation\".",
+          "how_to_fix": "Remediation goal: Ensure AWS IAM access keys are rotated on a periodic basis as a security best practice (90 Days). Rotate keys/credentials on a 90-day schedule. Prefer IAM roles over long-lived access keys.",
+          "tools": [
+            "AWS CLI",
+            "Prowler",
+            "ScoutSuite",
+            "AWS Config",
+            "IAM Access Analyzer",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         },
         {
           "title": "Password Expiration is Disabled",
-          "desc": "Ensure AWS Identity and Access Management (IAM) user passwords are reset before expiration (90 Days)."
+          "description": "Ensure AWS Identity and Access Management (IAM) user passwords are reset before expiration (90 Days).",
+          "severity": "medium",
+          "how_to_find": "Console: AWS Console → IAM. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in IAM. Automated: Run Prowler or ScoutSuite and filter findings for \"Password Expiration is Disabled\".",
+          "how_to_fix": "Remediation goal: Ensure AWS Identity and Access Management (IAM) user passwords are reset before expiration (90 Days). Apply least-privilege IAM policies, enable service-specific security defaults, and validate with AWS Config rules.",
+          "tools": [
+            "AWS CLI",
+            "Prowler",
+            "ScoutSuite",
+            "AWS Config",
+            "IAM Access Analyzer",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         },
         {
           "title": "Weak Password Policy ( AWS Default password policy) is set for the AWS account",
-          "desc": "Ensure AWS account has an IAM strong password policy in use"
+          "description": "Ensure AWS account has an IAM strong password policy in use",
+          "severity": "low",
+          "how_to_find": "Console: AWS Console → IAM. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in IAM. Automated: Run Prowler or ScoutSuite and filter findings for \"Weak Password Policy ( AWS Default password policy) is set for the AWS account\".",
+          "how_to_fix": "Remediation goal: Ensure AWS account has an IAM strong password policy in use Apply least-privilege IAM policies, enable service-specific security defaults, and validate with AWS Config rules.",
+          "tools": [
+            "AWS CLI",
+            "Prowler",
+            "ScoutSuite",
+            "AWS Config",
+            "IAM Access Analyzer",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         },
         {
           "title": "Weak IAM Server Certificate in use",
-          "desc": "Ensure that all your SSL/TLS certificates are using either 2048 or 4096 bit RSA keys instead of 1024-bit keys."
+          "description": "Ensure that all your SSL/TLS certificates are using either 2048 or 4096 bit RSA keys instead of 1024-bit keys.",
+          "severity": "low",
+          "how_to_find": "Console: AWS Console → IAM. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in IAM. Automated: Run Prowler or ScoutSuite and filter findings for \"Weak IAM Server Certificate in use\".",
+          "how_to_fix": "Remediation goal: Ensure that all your SSL/TLS certificates are using either 2048 or 4096 bit RSA keys instead of 1024-bit keys. Apply least-privilege IAM policies, enable service-specific security defaults, and validate with AWS Config rules.",
+          "tools": [
+            "AWS CLI",
+            "Prowler",
+            "ScoutSuite",
+            "AWS Config",
+            "IAM Access Analyzer",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         },
         {
           "title": "IAM Role Policy are Too Permissive",
-          "desc": "Ensure AWS IAM policies attached to IAM roles are not too permissive."
+          "description": "Ensure AWS IAM policies attached to IAM roles are not too permissive.",
+          "severity": "low",
+          "how_to_find": "Console: AWS Console → IAM. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in IAM. Automated: Run Prowler or ScoutSuite and filter findings for \"IAM Role Policy are Too Permissive\".",
+          "how_to_fix": "Remediation goal: Ensure AWS IAM policies attached to IAM roles are not too permissive. Apply least-privilege IAM policies, enable service-specific security defaults, and validate with AWS Config rules.",
+          "tools": [
+            "AWS CLI",
+            "Prowler",
+            "ScoutSuite",
+            "AWS Config",
+            "IAM Access Analyzer",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         },
         {
           "title": "IAM Access Analyzer is not Enabled",
-          "desc": "Ensure that IAM Access Analyzer feature is enabled to maintain access security to your AWS resources."
+          "description": "Ensure that IAM Access Analyzer feature is enabled to maintain access security to your AWS resources.",
+          "severity": "critical",
+          "how_to_find": "Console: AWS Console → IAM. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in IAM. Automated: Run Prowler or ScoutSuite and filter findings for \"IAM Access Analyzer is not Enabled\".",
+          "how_to_fix": "Remediation goal: Ensure that IAM Access Analyzer feature is enabled to maintain access security to your AWS resources. Apply least-privilege IAM policies, enable service-specific security defaults, and validate with AWS Config rules.",
+          "tools": [
+            "AWS CLI",
+            "Prowler",
+            "ScoutSuite",
+            "AWS Config",
+            "IAM Access Analyzer",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         },
         {
           "title": "Pre-Heartbleed Server Certificates",
-          "desc": "Ensure that your server certificates are not vulnerable to Heartbleed security bug."
+          "description": "Ensure that your server certificates are not vulnerable to Heartbleed security bug.",
+          "severity": "low",
+          "how_to_find": "Console: AWS Console → IAM. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in IAM. Automated: Run Prowler or ScoutSuite and filter findings for \"Pre-Heartbleed Server Certificates\".",
+          "how_to_fix": "Remediation goal: Ensure that your server certificates are not vulnerable to Heartbleed security bug. Apply least-privilege IAM policies, enable service-specific security defaults, and validate with AWS Config rules.",
+          "tools": [
+            "AWS CLI",
+            "Prowler",
+            "ScoutSuite",
+            "AWS Config",
+            "IAM Access Analyzer",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         },
         {
           "title": "Root Account Access Keys Present",
-          "desc": "Ensure that your AWS account (root) is not using access keys as a security best practice."
+          "description": "Ensure that your AWS account (root) is not using access keys as a security best practice.",
+          "severity": "critical",
+          "how_to_find": "Console: AWS Console → IAM. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in IAM. Automated: Run Prowler or ScoutSuite and filter findings for \"Root Account Access Keys Present\".",
+          "how_to_fix": "Remediation goal: Ensure that your AWS account (root) is not using access keys as a security best practice. Rotate keys/credentials on a 90-day schedule. Prefer IAM roles over long-lived access keys.",
+          "tools": [
+            "AWS CLI",
+            "Prowler",
+            "ScoutSuite",
+            "AWS Config",
+            "IAM Access Analyzer",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         },
         {
           "title": "Lack of SSH Public Keys Rotation",
-          "desc": "Ensure IAM SSH public keys are rotated on a periodic basis to adhere to AWS security best practices."
+          "description": "Ensure IAM SSH public keys are rotated on a periodic basis to adhere to AWS security best practices.",
+          "severity": "high",
+          "how_to_find": "Console: AWS Console → IAM. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in IAM. Automated: Run Prowler or ScoutSuite and filter findings for \"Lack of SSH Public Keys Rotation\". Check resource policies, ACLs, and security groups for Principal \"*\" or 0.0.0.0/0.",
+          "how_to_fix": "Remediation goal: Ensure IAM SSH public keys are rotated on a periodic basis to adhere to AWS security best practices. Remove public access blocks bypass, tighten bucket policies / security groups, and require private endpoints or VPC-only access.",
+          "tools": [
+            "AWS CLI",
+            "Prowler",
+            "ScoutSuite",
+            "AWS Config",
+            "IAM Access Analyzer",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         },
         {
           "title": "SSL/TLS Certificate is about to Expire",
-          "desc": "Ensure SSL/TLS certificates are renewed before their expiration."
+          "description": "Ensure SSL/TLS certificates are renewed before their expiration.",
+          "severity": "medium",
+          "how_to_find": "Console: AWS Console → IAM. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in IAM. Automated: Run Prowler or ScoutSuite and filter findings for \"SSL/TLS Certificate is about to Expire\".",
+          "how_to_fix": "Remediation goal: Ensure SSL/TLS certificates are renewed before their expiration. Apply least-privilege IAM policies, enable service-specific security defaults, and validate with AWS Config rules.",
+          "tools": [
+            "AWS CLI",
+            "Prowler",
+            "ScoutSuite",
+            "AWS Config",
+            "IAM Access Analyzer",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         },
         {
           "title": "Security Challenge Question not Enabled",
-          "desc": "Ensure security challenge questions are enabled and configured to improve the security of your AWS account."
+          "description": "Ensure security challenge questions are enabled and configured to improve the security of your AWS account.",
+          "severity": "low",
+          "how_to_find": "Console: AWS Console → IAM. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in IAM. Automated: Run Prowler or ScoutSuite and filter findings for \"Security Challenge Question not Enabled\".",
+          "how_to_fix": "Remediation goal: Ensure security challenge questions are enabled and configured to improve the security of your AWS account. Apply least-privilege IAM policies, enable service-specific security defaults, and validate with AWS Config rules.",
+          "tools": [
+            "AWS CLI",
+            "Prowler",
+            "ScoutSuite",
+            "AWS Config",
+            "IAM Access Analyzer",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         },
         {
           "title": "Security Contact Information is not Registered",
-          "desc": "Ensure alternate contacts are set to improve the security of your AWS account."
+          "description": "Ensure alternate contacts are set to improve the security of your AWS account.",
+          "severity": "low",
+          "how_to_find": "Console: AWS Console → IAM. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in IAM. Automated: Run Prowler or ScoutSuite and filter findings for \"Security Contact Information is not Registered\".",
+          "how_to_fix": "Remediation goal: Ensure alternate contacts are set to improve the security of your AWS account. Apply least-privilege IAM policies, enable service-specific security defaults, and validate with AWS Config rules.",
+          "tools": [
+            "AWS CLI",
+            "Prowler",
+            "ScoutSuite",
+            "AWS Config",
+            "IAM Access Analyzer",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         },
         {
           "title": "AWS Multi-Account are managed centrally via Identity Federation or AWS Organization",
-          "desc": "Set up, organize and manage your AWS accounts for optimal security and manageability."
+          "description": "Set up, organize and manage your AWS accounts for optimal security and manageability.",
+          "severity": "low",
+          "how_to_find": "Console: AWS Console → IAM. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in IAM. Automated: Run Prowler or ScoutSuite and filter findings for \"AWS Multi-Account are managed centrally via Identity Federation or AWS Organization\".",
+          "how_to_fix": "Remediation goal: Set up, organize and manage your AWS accounts for optimal security and manageability. Apply least-privilege IAM policies, enable service-specific security defaults, and validate with AWS Config rules.",
+          "tools": [
+            "AWS CLI",
+            "Prowler",
+            "ScoutSuite",
+            "AWS Config",
+            "IAM Access Analyzer",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         },
         {
           "title": "Root Account Recently used",
-          "desc": "Ensure root account credentials have not been used recently to access your AWS account."
+          "description": "Ensure root account credentials have not been used recently to access your AWS account.",
+          "severity": "critical",
+          "how_to_find": "Console: AWS Console → IAM. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in IAM. Automated: Run Prowler or ScoutSuite and filter findings for \"Root Account Recently used\".",
+          "how_to_fix": "Remediation goal: Ensure root account credentials have not been used recently to access your AWS account. Apply least-privilege IAM policies, enable service-specific security defaults, and validate with AWS Config rules.",
+          "tools": [
+            "AWS CLI",
+            "Prowler",
+            "ScoutSuite",
+            "AWS Config",
+            "IAM Access Analyzer",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         }
       ]
     },
@@ -84,55 +480,341 @@
       "items": [
         {
           "title": "Overbroad Ingress Rules for Security Groups",
-          "desc": "Ensure no EC2 security group allows unrestricted inbound access to any uncommon ports."
+          "description": "Ensure no EC2 security group allows unrestricted inbound access to any uncommon ports.",
+          "severity": "low",
+          "how_to_find": "Console: AWS Console → EC2 / VPC → Security Groups. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in Elastic Compute Cloud. Automated: Run Prowler or ScoutSuite and filter findings for \"Overbroad Ingress Rules for Security Groups\".",
+          "how_to_fix": "Remediation goal: Ensure no EC2 security group allows unrestricted inbound access to any uncommon ports. Apply least-privilege IAM policies, enable service-specific security defaults, and validate with AWS Config rules.",
+          "tools": [
+            "Prowler",
+            "ScoutSuite",
+            "AWS CLI",
+            "Security Hub",
+            "Nmap",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         },
         {
           "title": "EC2 Instance Termination Protection is not Enabled",
-          "desc": "Ensure Termination Protection feature is enabled for EC2 instances that are not part of ASGs."
+          "description": "Ensure Termination Protection feature is enabled for EC2 instances that are not part of ASGs.",
+          "severity": "low",
+          "how_to_find": "Console: AWS Console → EC2 / VPC → Security Groups. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in Elastic Compute Cloud. Automated: Run Prowler or ScoutSuite and filter findings for \"EC2 Instance Termination Protection is not Enabled\".",
+          "how_to_fix": "Remediation goal: Ensure Termination Protection feature is enabled for EC2 instances that are not part of ASGs. Apply least-privilege IAM policies, enable service-specific security defaults, and validate with AWS Config rules.",
+          "tools": [
+            "Prowler",
+            "ScoutSuite",
+            "AWS CLI",
+            "Security Hub",
+            "Nmap",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         },
         {
           "title": "AMIs are Publicaly Shared",
-          "desc": "Ensure your Amazon Machine Images (AMIs) are not accessible to all AWS accounts."
+          "description": "Ensure your Amazon Machine Images (AMIs) are not accessible to all AWS accounts.",
+          "severity": "high",
+          "how_to_find": "Console: AWS Console → EC2 / VPC → Security Groups. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in Elastic Compute Cloud. Automated: Run Prowler or ScoutSuite and filter findings for \"AMIs are Publicaly Shared\". Check resource policies, ACLs, and security groups for Principal \"*\" or 0.0.0.0/0.",
+          "how_to_fix": "Remediation goal: Ensure your Amazon Machine Images (AMIs) are not accessible to all AWS accounts. Remove public access blocks bypass, tighten bucket policies / security groups, and require private endpoints or VPC-only access.",
+          "tools": [
+            "Prowler",
+            "ScoutSuite",
+            "AWS CLI",
+            "Security Hub",
+            "Nmap",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         },
         {
           "title": "Golden/Approved AMIs not in Use",
-          "desc": "Ensure all AWS EC2 instances are launched from approved AMIs."
+          "description": "Ensure all AWS EC2 instances are launched from approved AMIs.",
+          "severity": "low",
+          "how_to_find": "Console: AWS Console → EC2 / VPC → Security Groups. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in Elastic Compute Cloud. Automated: Run Prowler or ScoutSuite and filter findings for \"Golden/Approved AMIs not in Use\".",
+          "how_to_fix": "Remediation goal: Ensure all AWS EC2 instances are launched from approved AMIs. Apply least-privilege IAM policies, enable service-specific security defaults, and validate with AWS Config rules.",
+          "tools": [
+            "Prowler",
+            "ScoutSuite",
+            "AWS CLI",
+            "Security Hub",
+            "Nmap",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         },
         {
           "title": "Amazon EBS Snapshots are Publicly Accessible",
-          "desc": "Ensure that your Amazon EBS volume snapshots are not accessible to all AWS accounts."
+          "description": "Ensure that your Amazon EBS volume snapshots are not accessible to all AWS accounts.",
+          "severity": "critical",
+          "how_to_find": "Console: AWS Console → EC2 / VPC → Security Groups. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in Elastic Compute Cloud. Automated: Run Prowler or ScoutSuite and filter findings for \"Amazon EBS Snapshots are Publicly Accessible\". Check resource policies, ACLs, and security groups for Principal \"*\" or 0.0.0.0/0.",
+          "how_to_fix": "Remediation goal: Ensure that your Amazon EBS volume snapshots are not accessible to all AWS accounts. Remove public access blocks bypass, tighten bucket policies / security groups, and require private endpoints or VPC-only access.",
+          "tools": [
+            "Prowler",
+            "ScoutSuite",
+            "AWS CLI",
+            "Security Hub",
+            "Nmap",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         },
         {
           "title": "Amazon EBS Volumes Encryption is not enabled",
-          "desc": "Ensure that existing Elastic Block Store (EBS) attached volumes are encrypted to meet security and compliance requirements."
+          "description": "Ensure that existing Elastic Block Store (EBS) attached volumes are encrypted to meet security and compliance requirements.",
+          "severity": "high",
+          "how_to_find": "Console: AWS Console → EC2 / VPC → Security Groups. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in Elastic Compute Cloud. Automated: Run Prowler or ScoutSuite and filter findings for \"Amazon EBS Volumes Encryption is not enabled\". Verify encryption-at-rest flags on the resource and default encryption settings.",
+          "how_to_fix": "Remediation goal: Ensure that existing Elastic Block Store (EBS) attached volumes are encrypted to meet security and compliance requirements. Enable encryption at rest with AWS KMS CMK. Re-encrypt existing volumes/snapshots where supported.",
+          "tools": [
+            "Prowler",
+            "ScoutSuite",
+            "AWS CLI",
+            "Security Hub",
+            "Nmap",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         },
         {
           "title": "Amazon EBS Snapshots Encryption is not enabled",
-          "desc": "Ensure Amazon EBS snapshots are encrypted to meet security and compliance requirements."
+          "description": "Ensure Amazon EBS snapshots are encrypted to meet security and compliance requirements.",
+          "severity": "high",
+          "how_to_find": "Console: AWS Console → EC2 / VPC → Security Groups. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in Elastic Compute Cloud. Automated: Run Prowler or ScoutSuite and filter findings for \"Amazon EBS Snapshots Encryption is not enabled\". Verify encryption-at-rest flags on the resource and default encryption settings.",
+          "how_to_fix": "Remediation goal: Ensure Amazon EBS snapshots are encrypted to meet security and compliance requirements. Enable encryption at rest with AWS KMS CMK. Re-encrypt existing volumes/snapshots where supported.",
+          "tools": [
+            "Prowler",
+            "ScoutSuite",
+            "AWS CLI",
+            "Security Hub",
+            "Nmap",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         },
         {
           "title": "KMS Customer Master Keys is not used for EBS Volume Encryption",
-          "desc": "Ensure EBS volumes are encrypted with KMS CMKs in order to have full control over data encryption and decryption."
+          "description": "Ensure EBS volumes are encrypted with KMS CMKs in order to have full control over data encryption and decryption.",
+          "severity": "high",
+          "how_to_find": "Console: AWS Console → EC2 / VPC → Security Groups. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in Elastic Compute Cloud. Automated: Run Prowler or ScoutSuite and filter findings for \"KMS Customer Master Keys is not used for EBS Volume Encryption\". Verify encryption-at-rest flags on the resource and default encryption settings.",
+          "how_to_fix": "Remediation goal: Ensure EBS volumes are encrypted with KMS CMKs in order to have full control over data encryption and decryption. Enable encryption at rest with AWS KMS CMK. Re-encrypt existing volumes/snapshots where supported.",
+          "tools": [
+            "Prowler",
+            "ScoutSuite",
+            "AWS CLI",
+            "Security Hub",
+            "Nmap",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         },
         {
           "title": "Weak Cryptographic Controls for ELB",
-          "desc": "Ensure AWS Application Load Balancers (ALBs) are using the latest predefined security policy."
+          "description": "Ensure AWS Application Load Balancers (ALBs) are using the latest predefined security policy.",
+          "severity": "low",
+          "how_to_find": "Console: AWS Console → EC2 / VPC → Security Groups. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in Elastic Compute Cloud. Automated: Run Prowler or ScoutSuite and filter findings for \"Weak Cryptographic Controls for ELB\".",
+          "how_to_fix": "Remediation goal: Ensure AWS Application Load Balancers (ALBs) are using the latest predefined security policy. Apply least-privilege IAM policies, enable service-specific security defaults, and validate with AWS Config rules.",
+          "tools": [
+            "Prowler",
+            "ScoutSuite",
+            "AWS CLI",
+            "Security Hub",
+            "Nmap",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         },
         {
           "title": "Load Balancer is not Integrated with AWS WAF",
-          "desc": "Ensure that WAF ACL is integrated with Elastic Load Balancer"
+          "description": "Ensure that WAF ACL is integrated with Elastic Load Balancer",
+          "severity": "low",
+          "how_to_find": "Console: AWS Console → EC2 / VPC → Security Groups. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in Elastic Compute Cloud. Automated: Run Prowler or ScoutSuite and filter findings for \"Load Balancer is not Integrated with AWS WAF\".",
+          "how_to_fix": "Remediation goal: Ensure that WAF ACL is integrated with Elastic Load Balancer Attach AWS WAF web ACL with managed rule groups. Block known bad inputs and rate-limit abusive clients.",
+          "tools": [
+            "Prowler",
+            "ScoutSuite",
+            "AWS CLI",
+            "Security Hub",
+            "Nmap",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         },
         {
           "title": "ELB uses In-secure protocols",
-          "desc": "Ensure that your Application Load Balancer (ALB) listeners are using a secure protocol such as HTTPS."
+          "description": "Ensure that your Application Load Balancer (ALB) listeners are using a secure protocol such as HTTPS.",
+          "severity": "low",
+          "how_to_find": "Console: AWS Console → EC2 / VPC → Security Groups. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in Elastic Compute Cloud. Automated: Run Prowler or ScoutSuite and filter findings for \"ELB uses In-secure protocols\".",
+          "how_to_fix": "Remediation goal: Ensure that your Application Load Balancer (ALB) listeners are using a secure protocol such as HTTPS. Apply least-privilege IAM policies, enable service-specific security defaults, and validate with AWS Config rules.",
+          "tools": [
+            "Prowler",
+            "ScoutSuite",
+            "AWS CLI",
+            "Security Hub",
+            "Nmap",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         },
         {
           "title": "ELB Deletion Protection Disabled",
-          "desc": "Ensure Deletion Protection feature is enabled for your AWS load balancers to follow security best practices."
+          "description": "Ensure Deletion Protection feature is enabled for your AWS load balancers to follow security best practices.",
+          "severity": "low",
+          "how_to_find": "Console: AWS Console → EC2 / VPC → Security Groups. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in Elastic Compute Cloud. Automated: Run Prowler or ScoutSuite and filter findings for \"ELB Deletion Protection Disabled\".",
+          "how_to_fix": "Remediation goal: Ensure Deletion Protection feature is enabled for your AWS load balancers to follow security best practices. Apply least-privilege IAM policies, enable service-specific security defaults, and validate with AWS Config rules.",
+          "tools": [
+            "Prowler",
+            "ScoutSuite",
+            "AWS CLI",
+            "Security Hub",
+            "Nmap",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         },
         {
           "title": "Access logging disabled for ELB",
-          "desc": "Ensure access logging is enabled for your AWS ALBs to follow security best practices."
+          "description": "Ensure access logging is enabled for your AWS ALBs to follow security best practices.",
+          "severity": "high",
+          "how_to_find": "Console: AWS Console → EC2 / VPC → Security Groups. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in Elastic Compute Cloud. Automated: Run Prowler or ScoutSuite and filter findings for \"Access logging disabled for ELB\".",
+          "how_to_fix": "Remediation goal: Ensure access logging is enabled for your AWS ALBs to follow security best practices. Enable logging to a dedicated, encrypted, immutable store. Integrate with CloudWatch/SIEM alerts.",
+          "tools": [
+            "Prowler",
+            "ScoutSuite",
+            "AWS CLI",
+            "Security Hub",
+            "Nmap",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         }
       ]
     },
@@ -141,7 +823,28 @@
       "items": [
         {
           "title": "VPC Flow Logs Disabled",
-          "desc": "Ensure Virtual Private Cloud (VPC) Flow Logs feature is enabled in all applicable AWS regions."
+          "description": "Ensure Virtual Private Cloud (VPC) Flow Logs feature is enabled in all applicable AWS regions.",
+          "severity": "low",
+          "how_to_find": "Console: AWS Console → VPC. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in Virtual Private Cloud. Automated: Run Prowler or ScoutSuite and filter findings for \"VPC Flow Logs Disabled\".",
+          "how_to_fix": "Remediation goal: Ensure Virtual Private Cloud (VPC) Flow Logs feature is enabled in all applicable AWS regions. Apply least-privilege IAM policies, enable service-specific security defaults, and validate with AWS Config rules.",
+          "tools": [
+            "Prowler",
+            "VPC Flow Logs",
+            "AWS CLI",
+            "Nmap",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         }
       ]
     },
@@ -150,31 +853,178 @@
       "items": [
         {
           "title": "Overbroad S3 Access Control",
-          "desc": "Ensure that your AWS S3 buckets are not publicly exposed to the Internet."
+          "description": "Ensure that your AWS S3 buckets are not publicly exposed to the Internet.",
+          "severity": "high",
+          "how_to_find": "Console: AWS Console → S3 → Bucket permissions / Block Public Access. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in Simple Storage Service. Automated: Run Prowler or ScoutSuite and filter findings for \"Overbroad S3 Access Control\".",
+          "how_to_fix": "Remediation goal: Ensure that your AWS S3 buckets are not publicly exposed to the Internet. Apply least-privilege IAM policies, enable service-specific security defaults, and validate with AWS Config rules.",
+          "tools": [
+            "Prowler",
+            "s3scanner",
+            "AWS CLI",
+            "Bucket Policy Sandbox",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         },
         {
           "title": "Cross-Account Access for S3 Buckets",
-          "desc": "Ensure Amazon S3 buckets do not allow unknown cross account access via bucket policies."
+          "description": "Ensure Amazon S3 buckets do not allow unknown cross account access via bucket policies.",
+          "severity": "low",
+          "how_to_find": "Console: AWS Console → S3 → Bucket permissions / Block Public Access. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in Simple Storage Service. Automated: Run Prowler or ScoutSuite and filter findings for \"Cross-Account Access for S3 Buckets\".",
+          "how_to_fix": "Remediation goal: Ensure Amazon S3 buckets do not allow unknown cross account access via bucket policies. Apply least-privilege IAM policies, enable service-specific security defaults, and validate with AWS Config rules.",
+          "tools": [
+            "Prowler",
+            "s3scanner",
+            "AWS CLI",
+            "Bucket Policy Sandbox",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         },
         {
           "title": "Server-Side Encryption is not Enabled for S3",
-          "desc": "Ensure AWS S3 buckets enforce Server-Side Encryption (SSE)"
+          "description": "Ensure AWS S3 buckets enforce Server-Side Encryption (SSE)",
+          "severity": "critical",
+          "how_to_find": "Console: AWS Console → S3 → Bucket permissions / Block Public Access. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in Simple Storage Service. Automated: Run Prowler or ScoutSuite and filter findings for \"Server-Side Encryption is not Enabled for S3\". Verify encryption-at-rest flags on the resource and default encryption settings.",
+          "how_to_fix": "Remediation goal: Ensure AWS S3 buckets enforce Server-Side Encryption (SSE) Enable encryption at rest with AWS KMS CMK. Re-encrypt existing volumes/snapshots where supported.",
+          "tools": [
+            "Prowler",
+            "s3scanner",
+            "AWS CLI",
+            "Bucket Policy Sandbox",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         },
         {
           "title": "KMS Customer Master Keys is not used for S3 Buckets Encryption",
-          "desc": "Ensure that Amazon S3 buckets are encrypted with customer-provided AWS KMS CMKs"
+          "description": "Ensure that Amazon S3 buckets are encrypted with customer-provided AWS KMS CMKs",
+          "severity": "high",
+          "how_to_find": "Console: AWS Console → S3 → Bucket permissions / Block Public Access. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in Simple Storage Service. Automated: Run Prowler or ScoutSuite and filter findings for \"KMS Customer Master Keys is not used for S3 Buckets Encryption\". Verify encryption-at-rest flags on the resource and default encryption settings.",
+          "how_to_fix": "Remediation goal: Ensure that Amazon S3 buckets are encrypted with customer-provided AWS KMS CMKs Enable encryption at rest with AWS KMS CMK. Re-encrypt existing volumes/snapshots where supported.",
+          "tools": [
+            "Prowler",
+            "s3scanner",
+            "AWS CLI",
+            "Bucket Policy Sandbox",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         },
         {
           "title": "Versioning and Multi-Factor Delete is not Enabled on S3 buckets",
-          "desc": "Ensure AWS S3 buckets have the MFA Delete feature enabled. Ensure AWS S3 object versioning is enabled for an additional level of data protection."
+          "description": "Ensure AWS S3 buckets have the MFA Delete feature enabled. Ensure AWS S3 object versioning is enabled for an additional level of data protection.",
+          "severity": "high",
+          "how_to_find": "Console: AWS Console → S3 → Bucket permissions / Block Public Access. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in Simple Storage Service. Automated: Run Prowler or ScoutSuite and filter findings for \"Versioning and Multi-Factor Delete is not Enabled on S3 buckets\".",
+          "how_to_fix": "Remediation goal: Ensure AWS S3 buckets have the MFA Delete feature enabled. Ensure AWS S3 object versioning is enabled for an additional level of data protection. Apply least-privilege IAM policies, enable service-specific security defaults, and validate with AWS Config rules.",
+          "tools": [
+            "Prowler",
+            "s3scanner",
+            "AWS CLI",
+            "Bucket Policy Sandbox",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         },
         {
           "title": "Access Logging Disabled for S3",
-          "desc": "Ensure AWS S3 buckets have server access logging enabled to track access requests."
+          "description": "Ensure AWS S3 buckets have server access logging enabled to track access requests.",
+          "severity": "high",
+          "how_to_find": "Console: AWS Console → S3 → Bucket permissions / Block Public Access. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in Simple Storage Service. Automated: Run Prowler or ScoutSuite and filter findings for \"Access Logging Disabled for S3\".",
+          "how_to_fix": "Remediation goal: Ensure AWS S3 buckets have server access logging enabled to track access requests. Enable logging to a dedicated, encrypted, immutable store. Integrate with CloudWatch/SIEM alerts.",
+          "tools": [
+            "Prowler",
+            "s3scanner",
+            "AWS CLI",
+            "Bucket Policy Sandbox",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         },
         {
           "title": "Secure Transport is Not Enabled on S3",
-          "desc": "Ensure AWS S3 buckets enforce SSL to secure data in transit"
+          "description": "Ensure AWS S3 buckets enforce SSL to secure data in transit",
+          "severity": "critical",
+          "how_to_find": "Console: AWS Console → S3 → Bucket permissions / Block Public Access. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in Simple Storage Service. Automated: Run Prowler or ScoutSuite and filter findings for \"Secure Transport is Not Enabled on S3\".",
+          "how_to_fix": "Remediation goal: Ensure AWS S3 buckets enforce SSL to secure data in transit Apply least-privilege IAM policies, enable service-specific security defaults, and validate with AWS Config rules.",
+          "tools": [
+            "Prowler",
+            "s3scanner",
+            "AWS CLI",
+            "Bucket Policy Sandbox",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         }
       ]
     },
@@ -183,19 +1033,99 @@
       "items": [
         {
           "title": "CloudTrail Log Encryption Disabled",
-          "desc": "Ensure your AWS CloudTrail logs are encrypted using AWS KMS–Managed Keys (SSE-KMS)."
+          "description": "Ensure your AWS CloudTrail logs are encrypted using AWS KMS–Managed Keys (SSE-KMS).",
+          "severity": "high",
+          "how_to_find": "Console: AWS Console → CloudTrail. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in Cloud Trail. Automated: Run Prowler or ScoutSuite and filter findings for \"CloudTrail Log Encryption Disabled\". Verify encryption-at-rest flags on the resource and default encryption settings.",
+          "how_to_fix": "Remediation goal: Ensure your AWS CloudTrail logs are encrypted using AWS KMS–Managed Keys (SSE-KMS). Enable encryption at rest with AWS KMS CMK. Re-encrypt existing volumes/snapshots where supported.",
+          "tools": [
+            "Prowler",
+            "AWS CLI",
+            "CloudTrail Lake",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         },
         {
           "title": "KMS Customer Master Keys is not used for CloudTrail Encryption",
-          "desc": "Ensure that KMS master keys are used for CloudTrail Encryption"
+          "description": "Ensure that KMS master keys are used for CloudTrail Encryption",
+          "severity": "high",
+          "how_to_find": "Console: AWS Console → CloudTrail. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in Cloud Trail. Automated: Run Prowler or ScoutSuite and filter findings for \"KMS Customer Master Keys is not used for CloudTrail Encryption\". Verify encryption-at-rest flags on the resource and default encryption settings.",
+          "how_to_fix": "Remediation goal: Ensure that KMS master keys are used for CloudTrail Encryption Enable encryption at rest with AWS KMS CMK. Re-encrypt existing volumes/snapshots where supported.",
+          "tools": [
+            "Prowler",
+            "AWS CLI",
+            "CloudTrail Lake",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         },
         {
           "title": "CloudTrail Log File Validation is Disabled",
-          "desc": "Ensure your AWS CloudTrail trails have log file integrity validation enabled."
+          "description": "Ensure your AWS CloudTrail trails have log file integrity validation enabled.",
+          "severity": "low",
+          "how_to_find": "Console: AWS Console → CloudTrail. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in Cloud Trail. Automated: Run Prowler or ScoutSuite and filter findings for \"CloudTrail Log File Validation is Disabled\".",
+          "how_to_fix": "Remediation goal: Ensure your AWS CloudTrail trails have log file integrity validation enabled. Enable logging to a dedicated, encrypted, immutable store. Integrate with CloudWatch/SIEM alerts.",
+          "tools": [
+            "Prowler",
+            "AWS CLI",
+            "CloudTrail Lake",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         },
         {
           "title": "CloudTrail is not integrated with CloudWatch",
-          "desc": "Ensure CloudTrail event monitoring with CloudWatch is enabled."
+          "description": "Ensure CloudTrail event monitoring with CloudWatch is enabled.",
+          "severity": "low",
+          "how_to_find": "Console: AWS Console → CloudTrail. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in Cloud Trail. Automated: Run Prowler or ScoutSuite and filter findings for \"CloudTrail is not integrated with CloudWatch\".",
+          "how_to_fix": "Remediation goal: Ensure CloudTrail event monitoring with CloudWatch is enabled. Enable logging to a dedicated, encrypted, immutable store. Integrate with CloudWatch/SIEM alerts.",
+          "tools": [
+            "Prowler",
+            "AWS CLI",
+            "CloudTrail Lake",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         }
       ]
     },
@@ -204,7 +1134,27 @@
       "items": [
         {
           "title": "No Security Incident Alarm exist for AWS Services",
-          "desc": "Ensure that Security Incident Alarms are created in CloudWatch"
+          "description": "Ensure that Security Incident Alarms are created in CloudWatch",
+          "severity": "low",
+          "how_to_find": "Console: AWS Console → CloudWatch → Alarms. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in CloudWatch. Automated: Run Prowler or ScoutSuite and filter findings for \"No Security Incident Alarm exist for AWS Services\".",
+          "how_to_fix": "Remediation goal: Ensure that Security Incident Alarms are created in CloudWatch Apply least-privilege IAM policies, enable service-specific security defaults, and validate with AWS Config rules.",
+          "tools": [
+            "Prowler",
+            "AWS CLI",
+            "CloudWatch Alarms",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         }
       ]
     },
@@ -213,67 +1163,387 @@
       "items": [
         {
           "title": "RDS Database instance are Publicly accessible",
-          "desc": "Ensure RDS database instances are not publicly accessible and prone to security risks."
+          "description": "Ensure RDS database instances are not publicly accessible and prone to security risks.",
+          "severity": "critical",
+          "how_to_find": "Console: AWS Console → RDS → Databases. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in Relational Database Service. Automated: Run Prowler or ScoutSuite and filter findings for \"RDS Database instance are Publicly accessible\". Check resource policies, ACLs, and security groups for Principal \"*\" or 0.0.0.0/0.",
+          "how_to_fix": "Remediation goal: Ensure RDS database instances are not publicly accessible and prone to security risks. Remove public access blocks bypass, tighten bucket policies / security groups, and require private endpoints or VPC-only access.",
+          "tools": [
+            "Prowler",
+            "ScoutSuite",
+            "AWS CLI",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         },
         {
           "title": "Deletion protection is not Enabled for RDS Instance",
-          "desc": "Ensure Deletion Protection feature is enabled for your AWS RDS database instances."
+          "description": "Ensure Deletion Protection feature is enabled for your AWS RDS database instances.",
+          "severity": "low",
+          "how_to_find": "Console: AWS Console → RDS → Databases. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in Relational Database Service. Automated: Run Prowler or ScoutSuite and filter findings for \"Deletion protection is not Enabled for RDS Instance\".",
+          "how_to_fix": "Remediation goal: Ensure Deletion Protection feature is enabled for your AWS RDS database instances. Apply least-privilege IAM policies, enable service-specific security defaults, and validate with AWS Config rules.",
+          "tools": [
+            "Prowler",
+            "ScoutSuite",
+            "AWS CLI",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         },
         {
           "title": "RDS Automated Backup is not enabled",
-          "desc": "Ensure that Automated Backups are created for the RDS Instances"
+          "description": "Ensure that Automated Backups are created for the RDS Instances",
+          "severity": "medium",
+          "how_to_find": "Console: AWS Console → RDS → Databases. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in Relational Database Service. Automated: Run Prowler or ScoutSuite and filter findings for \"RDS Automated Backup is not enabled\".",
+          "how_to_fix": "Remediation goal: Ensure that Automated Backups are created for the RDS Instances Apply least-privilege IAM policies, enable service-specific security defaults, and validate with AWS Config rules.",
+          "tools": [
+            "Prowler",
+            "ScoutSuite",
+            "AWS CLI",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         },
         {
           "title": "RDS Instance Encryption is not Enabled",
-          "desc": "Ensure AWS RDS instances are encrypted to meet security and compliance requirements."
+          "description": "Ensure AWS RDS instances are encrypted to meet security and compliance requirements.",
+          "severity": "high",
+          "how_to_find": "Console: AWS Console → RDS → Databases. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in Relational Database Service. Automated: Run Prowler or ScoutSuite and filter findings for \"RDS Instance Encryption is not Enabled\". Verify encryption-at-rest flags on the resource and default encryption settings.",
+          "how_to_fix": "Remediation goal: Ensure AWS RDS instances are encrypted to meet security and compliance requirements. Enable encryption at rest with AWS KMS CMK. Re-encrypt existing volumes/snapshots where supported.",
+          "tools": [
+            "Prowler",
+            "ScoutSuite",
+            "AWS CLI",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         },
         {
           "title": "KMS Customer Master Keys is not used for RDS Instance Encryption",
-          "desc": "Ensure RDS instances are encrypted with KMS CMKs in order to have full control over data encryption and decryption."
+          "description": "Ensure RDS instances are encrypted with KMS CMKs in order to have full control over data encryption and decryption.",
+          "severity": "high",
+          "how_to_find": "Console: AWS Console → RDS → Databases. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in Relational Database Service. Automated: Run Prowler or ScoutSuite and filter findings for \"KMS Customer Master Keys is not used for RDS Instance Encryption\". Verify encryption-at-rest flags on the resource and default encryption settings.",
+          "how_to_fix": "Remediation goal: Ensure RDS instances are encrypted with KMS CMKs in order to have full control over data encryption and decryption. Enable encryption at rest with AWS KMS CMK. Re-encrypt existing volumes/snapshots where supported.",
+          "tools": [
+            "Prowler",
+            "ScoutSuite",
+            "AWS CLI",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         },
         {
           "title": "RDS Snapshots Encryption is not Enabled",
-          "desc": "Ensure that AWS RDS snapshots are encrypted to meet security and compliance requirements."
+          "description": "Ensure that AWS RDS snapshots are encrypted to meet security and compliance requirements.",
+          "severity": "high",
+          "how_to_find": "Console: AWS Console → RDS → Databases. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in Relational Database Service. Automated: Run Prowler or ScoutSuite and filter findings for \"RDS Snapshots Encryption is not Enabled\". Verify encryption-at-rest flags on the resource and default encryption settings.",
+          "how_to_fix": "Remediation goal: Ensure that AWS RDS snapshots are encrypted to meet security and compliance requirements. Enable encryption at rest with AWS KMS CMK. Re-encrypt existing volumes/snapshots where supported.",
+          "tools": [
+            "Prowler",
+            "ScoutSuite",
+            "AWS CLI",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         },
         {
           "title": "RDS Snapshots Publicly accessible",
-          "desc": "Ensure that your Amazon RDS database snapshots are not accessible to all AWS accounts."
+          "description": "Ensure that your Amazon RDS database snapshots are not accessible to all AWS accounts.",
+          "severity": "critical",
+          "how_to_find": "Console: AWS Console → RDS → Databases. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in Relational Database Service. Automated: Run Prowler or ScoutSuite and filter findings for \"RDS Snapshots Publicly accessible\". Check resource policies, ACLs, and security groups for Principal \"*\" or 0.0.0.0/0.",
+          "how_to_fix": "Remediation goal: Ensure that your Amazon RDS database snapshots are not accessible to all AWS accounts. Remove public access blocks bypass, tighten bucket policies / security groups, and require private endpoints or VPC-only access.",
+          "tools": [
+            "Prowler",
+            "ScoutSuite",
+            "AWS CLI",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         },
         {
           "title": "RDS Log Exports is not Enabled (RDS MySQL, Aurora and MariaDB)",
-          "desc": "Ensure Log Exports feature is enabled for your AWS RDS MySQL, Aurora and MariaDB database instances."
+          "description": "Ensure Log Exports feature is enabled for your AWS RDS MySQL, Aurora and MariaDB database instances.",
+          "severity": "low",
+          "how_to_find": "Console: AWS Console → RDS → Databases. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in Relational Database Service. Automated: Run Prowler or ScoutSuite and filter findings for \"RDS Log Exports is not Enabled (RDS MySQL, Aurora and MariaDB)\".",
+          "how_to_fix": "Remediation goal: Ensure Log Exports feature is enabled for your AWS RDS MySQL, Aurora and MariaDB database instances. Apply least-privilege IAM policies, enable service-specific security defaults, and validate with AWS Config rules.",
+          "tools": [
+            "Prowler",
+            "ScoutSuite",
+            "AWS CLI",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         },
         {
           "title": "IAM Database Authentication is not Enabled for RDS Instances",
-          "desc": "Ensure IAM Database Authentication feature is enabled for your AWS RDS MySQL and PostgreSQL database instances."
+          "description": "Ensure IAM Database Authentication feature is enabled for your AWS RDS MySQL and PostgreSQL database instances.",
+          "severity": "low",
+          "how_to_find": "Console: AWS Console → RDS → Databases. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in Relational Database Service. Automated: Run Prowler or ScoutSuite and filter findings for \"IAM Database Authentication is not Enabled for RDS Instances\".",
+          "how_to_fix": "Remediation goal: Ensure IAM Database Authentication feature is enabled for your AWS RDS MySQL and PostgreSQL database instances. Apply least-privilege IAM policies, enable service-specific security defaults, and validate with AWS Config rules.",
+          "tools": [
+            "Prowler",
+            "ScoutSuite",
+            "AWS CLI",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         },
         {
           "title": "RDS Auto Minor Version Upgrade Not Enabled",
-          "desc": "Ensure AWS RDS instances have the Auto Minor Version Upgrade feature enabled."
+          "description": "Ensure AWS RDS instances have the Auto Minor Version Upgrade feature enabled.",
+          "severity": "medium",
+          "how_to_find": "Console: AWS Console → RDS → Databases. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in Relational Database Service. Automated: Run Prowler or ScoutSuite and filter findings for \"RDS Auto Minor Version Upgrade Not Enabled\".",
+          "how_to_fix": "Remediation goal: Ensure AWS RDS instances have the Auto Minor Version Upgrade feature enabled. Apply least-privilege IAM policies, enable service-specific security defaults, and validate with AWS Config rules.",
+          "tools": [
+            "Prowler",
+            "ScoutSuite",
+            "AWS CLI",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         },
         {
           "title": "RDS Database Instance not updated",
-          "desc": "Ensure that the RDS Instance is Updated"
+          "description": "Ensure that the RDS Instance is Updated",
+          "severity": "low",
+          "how_to_find": "Console: AWS Console → RDS → Databases. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in Relational Database Service. Automated: Run Prowler or ScoutSuite and filter findings for \"RDS Database Instance not updated\".",
+          "how_to_fix": "Remediation goal: Ensure that the RDS Instance is Updated Apply least-privilege IAM policies, enable service-specific security defaults, and validate with AWS Config rules.",
+          "tools": [
+            "Prowler",
+            "ScoutSuite",
+            "AWS CLI",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         },
         {
           "title": "RDS Automated Backup is not enabled",
-          "desc": "Ensure AWS RDS instances have Automated Backups feature enabled."
+          "description": "Ensure AWS RDS instances have Automated Backups feature enabled.",
+          "severity": "medium",
+          "how_to_find": "Console: AWS Console → RDS → Databases. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in Relational Database Service. Automated: Run Prowler or ScoutSuite and filter findings for \"RDS Automated Backup is not enabled\".",
+          "how_to_fix": "Remediation goal: Ensure AWS RDS instances have Automated Backups feature enabled. Apply least-privilege IAM policies, enable service-specific security defaults, and validate with AWS Config rules.",
+          "tools": [
+            "Prowler",
+            "ScoutSuite",
+            "AWS CLI",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         },
         {
           "title": "RDS Secure Transport is not Enabled (SQL Server, PostgreSQL)",
-          "desc": "Ensure AWS RDS SQL Server instances have Transport Encryption feature enabled."
+          "description": "Ensure AWS RDS SQL Server instances have Transport Encryption feature enabled.",
+          "severity": "high",
+          "how_to_find": "Console: AWS Console → RDS → Databases. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in Relational Database Service. Automated: Run Prowler or ScoutSuite and filter findings for \"RDS Secure Transport is not Enabled (SQL Server, PostgreSQL)\".",
+          "how_to_fix": "Remediation goal: Ensure AWS RDS SQL Server instances have Transport Encryption feature enabled. Apply least-privilege IAM policies, enable service-specific security defaults, and validate with AWS Config rules.",
+          "tools": [
+            "Prowler",
+            "ScoutSuite",
+            "AWS CLI",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         },
         {
           "title": "RDS Backup Retention Period is not enough",
-          "desc": "Ensure AWS RDS instances have sufficient backup retention period for compliance purposes."
+          "description": "Ensure AWS RDS instances have sufficient backup retention period for compliance purposes.",
+          "severity": "medium",
+          "how_to_find": "Console: AWS Console → RDS → Databases. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in Relational Database Service. Automated: Run Prowler or ScoutSuite and filter findings for \"RDS Backup Retention Period is not enough\".",
+          "how_to_fix": "Remediation goal: Ensure AWS RDS instances have sufficient backup retention period for compliance purposes. Apply least-privilege IAM policies, enable service-specific security defaults, and validate with AWS Config rules.",
+          "tools": [
+            "Prowler",
+            "ScoutSuite",
+            "AWS CLI",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         },
         {
           "title": "SSL/TLS Certificates Already Expired for RDS",
-          "desc": "Ensure that RDS Instance is using the updated SSL Certificate"
+          "description": "Ensure that RDS Instance is using the updated SSL Certificate",
+          "severity": "low",
+          "how_to_find": "Console: AWS Console → RDS → Databases. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in Relational Database Service. Automated: Run Prowler or ScoutSuite and filter findings for \"SSL/TLS Certificates Already Expired for RDS\".",
+          "how_to_fix": "Remediation goal: Ensure that RDS Instance is using the updated SSL Certificate Apply least-privilege IAM policies, enable service-specific security defaults, and validate with AWS Config rules.",
+          "tools": [
+            "Prowler",
+            "ScoutSuite",
+            "AWS CLI",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         },
         {
           "title": "RDS not using Multi-AZ deployment",
-          "desc": "Ensure AWS RDS clusters have the Multi-AZ feature enabled."
+          "description": "Ensure AWS RDS clusters have the Multi-AZ feature enabled.",
+          "severity": "low",
+          "how_to_find": "Console: AWS Console → RDS → Databases. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in Relational Database Service. Automated: Run Prowler or ScoutSuite and filter findings for \"RDS not using Multi-AZ deployment\".",
+          "how_to_fix": "Remediation goal: Ensure AWS RDS clusters have the Multi-AZ feature enabled. Apply least-privilege IAM policies, enable service-specific security defaults, and validate with AWS Config rules.",
+          "tools": [
+            "Prowler",
+            "ScoutSuite",
+            "AWS CLI",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         }
       ]
     },
@@ -282,19 +1552,95 @@
       "items": [
         {
           "title": "Cross-Account Access for SNS Topics",
-          "desc": "Ensure Amazon SNS topics do not allow unknown cross account access."
+          "description": "Ensure Amazon SNS topics do not allow unknown cross account access.",
+          "severity": "low",
+          "how_to_find": "Console: AWS Console → SNS → Topics. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in Simple Notification Service. Automated: Run Prowler or ScoutSuite and filter findings for \"Cross-Account Access for SNS Topics\".",
+          "how_to_fix": "Remediation goal: Ensure Amazon SNS topics do not allow unknown cross account access. Apply least-privilege IAM policies, enable service-specific security defaults, and validate with AWS Config rules.",
+          "tools": [
+            "Prowler",
+            "AWS CLI",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         },
         {
           "title": "SNS Topics Exposed to Everyone",
-          "desc": "Ensure that AWS Simple Notification Service (SNS) topics are not exposed to everyone."
+          "description": "Ensure that AWS Simple Notification Service (SNS) topics are not exposed to everyone.",
+          "severity": "critical",
+          "how_to_find": "Console: AWS Console → SNS → Topics. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in Simple Notification Service. Automated: Run Prowler or ScoutSuite and filter findings for \"SNS Topics Exposed to Everyone\". Check resource policies, ACLs, and security groups for Principal \"*\" or 0.0.0.0/0.",
+          "how_to_fix": "Remediation goal: Ensure that AWS Simple Notification Service (SNS) topics are not exposed to everyone. Remove public access blocks bypass, tighten bucket policies / security groups, and require private endpoints or VPC-only access.",
+          "tools": [
+            "Prowler",
+            "AWS CLI",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         },
         {
           "title": "Server-Side Encryption is Not Enabled for AWS SNS Topics",
-          "desc": "Ensure that Amazon SNS topics enforce Server-Side Encryption (SSE)."
+          "description": "Ensure that Amazon SNS topics enforce Server-Side Encryption (SSE).",
+          "severity": "critical",
+          "how_to_find": "Console: AWS Console → SNS → Topics. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in Simple Notification Service. Automated: Run Prowler or ScoutSuite and filter findings for \"Server-Side Encryption is Not Enabled for AWS SNS Topics\". Verify encryption-at-rest flags on the resource and default encryption settings.",
+          "how_to_fix": "Remediation goal: Ensure that Amazon SNS topics enforce Server-Side Encryption (SSE). Enable encryption at rest with AWS KMS CMK. Re-encrypt existing volumes/snapshots where supported.",
+          "tools": [
+            "Prowler",
+            "AWS CLI",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         },
         {
           "title": "KMS Customer Master Keys is not used for SNS Topics Encryption",
-          "desc": "Ensure that Amazon SNS topics are encrypted with KMS Customer Master Keys (CMKs)."
+          "description": "Ensure that Amazon SNS topics are encrypted with KMS Customer Master Keys (CMKs).",
+          "severity": "high",
+          "how_to_find": "Console: AWS Console → SNS → Topics. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in Simple Notification Service. Automated: Run Prowler or ScoutSuite and filter findings for \"KMS Customer Master Keys is not used for SNS Topics Encryption\". Verify encryption-at-rest flags on the resource and default encryption settings.",
+          "how_to_fix": "Remediation goal: Ensure that Amazon SNS topics are encrypted with KMS Customer Master Keys (CMKs). Enable encryption at rest with AWS KMS CMK. Re-encrypt existing volumes/snapshots where supported.",
+          "tools": [
+            "Prowler",
+            "AWS CLI",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         }
       ]
     },
@@ -303,15 +1649,75 @@
       "items": [
         {
           "title": "Lack of KMS Key Rotation",
-          "desc": "Ensure KMS key rotation feature is enabled for all your Customer Master Keys (CMK)."
+          "description": "Ensure KMS key rotation feature is enabled for all your Customer Master Keys (CMK).",
+          "severity": "medium",
+          "how_to_find": "Console: AWS Console → KMS. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in Key Management Service. Automated: Run Prowler or ScoutSuite and filter findings for \"Lack of KMS Key Rotation\".",
+          "how_to_fix": "Remediation goal: Ensure KMS key rotation feature is enabled for all your Customer Master Keys (CMK). Rotate keys/credentials on a 90-day schedule. Prefer IAM roles over long-lived access keys.",
+          "tools": [
+            "Prowler",
+            "AWS CLI",
+            "Key Management Service",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         },
         {
           "title": "AWS Keys Exposed to Everyone",
-          "desc": "Ensure Amazon KMS master keys are not exposed to everyone."
+          "description": "Ensure Amazon KMS master keys are not exposed to everyone.",
+          "severity": "critical",
+          "how_to_find": "Console: AWS Console → KMS. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in Key Management Service. Automated: Run Prowler or ScoutSuite and filter findings for \"AWS Keys Exposed to Everyone\". Check resource policies, ACLs, and security groups for Principal \"*\" or 0.0.0.0/0.",
+          "how_to_fix": "Remediation goal: Ensure Amazon KMS master keys are not exposed to everyone. Remove public access blocks bypass, tighten bucket policies / security groups, and require private endpoints or VPC-only access.",
+          "tools": [
+            "Prowler",
+            "AWS CLI",
+            "Key Management Service",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         },
         {
           "title": "Cross-Account Access for KMS Service",
-          "desc": "Ensure Amazon KMS master keys do not allow unknown cross account access."
+          "description": "Ensure Amazon KMS master keys do not allow unknown cross account access.",
+          "severity": "low",
+          "how_to_find": "Console: AWS Console → KMS. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in Key Management Service. Automated: Run Prowler or ScoutSuite and filter findings for \"Cross-Account Access for KMS Service\".",
+          "how_to_fix": "Remediation goal: Ensure Amazon KMS master keys do not allow unknown cross account access. Apply least-privilege IAM policies, enable service-specific security defaults, and validate with AWS Config rules.",
+          "tools": [
+            "Prowler",
+            "AWS CLI",
+            "Key Management Service",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         }
       ]
     },
@@ -320,27 +1726,147 @@
       "items": [
         {
           "title": "Code Signing is not Enabled for Lambda Functions",
-          "desc": "Ensure that Code Signing is enabled for your Amazon Lambda functions."
+          "description": "Ensure that Code Signing is enabled for your Amazon Lambda functions.",
+          "severity": "low",
+          "how_to_find": "Console: AWS Console → Lambda. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in Lambda. Automated: Run Prowler or ScoutSuite and filter findings for \"Code Signing is not Enabled for Lambda Functions\".",
+          "how_to_fix": "Remediation goal: Ensure that Code Signing is enabled for your Amazon Lambda functions. Apply least-privilege IAM policies, enable service-specific security defaults, and validate with AWS Config rules.",
+          "tools": [
+            "Prowler",
+            "AWS CLI",
+            "Lambda Inspector",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         },
         {
           "title": "Lambda Runtime Environment Version is not Latest",
-          "desc": "Ensure that the latest version of the runtime environment is used for your AWS Lambda functions."
+          "description": "Ensure that the latest version of the runtime environment is used for your AWS Lambda functions.",
+          "severity": "medium",
+          "how_to_find": "Console: AWS Console → Lambda. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in Lambda. Automated: Run Prowler or ScoutSuite and filter findings for \"Lambda Runtime Environment Version is not Latest\".",
+          "how_to_fix": "Remediation goal: Ensure that the latest version of the runtime environment is used for your AWS Lambda functions. Apply least-privilege IAM policies, enable service-specific security defaults, and validate with AWS Config rules.",
+          "tools": [
+            "Prowler",
+            "AWS CLI",
+            "Lambda Inspector",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         },
         {
           "title": "Cross-Account Access for Lambda Functions Queues",
-          "desc": "Ensure AWS Lambda functions do not allow unknown cross account access via permission policies."
+          "description": "Ensure AWS Lambda functions do not allow unknown cross account access via permission policies.",
+          "severity": "low",
+          "how_to_find": "Console: AWS Console → Lambda. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in Lambda. Automated: Run Prowler or ScoutSuite and filter findings for \"Cross-Account Access for Lambda Functions Queues\".",
+          "how_to_fix": "Remediation goal: Ensure AWS Lambda functions do not allow unknown cross account access via permission policies. Apply least-privilege IAM policies, enable service-specific security defaults, and validate with AWS Config rules.",
+          "tools": [
+            "Prowler",
+            "AWS CLI",
+            "Lambda Inspector",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         },
         {
           "title": "Lambda Function Exposed to Everyone",
-          "desc": "Ensure that your Amazon Lambda functions are not exposed to everyone."
+          "description": "Ensure that your Amazon Lambda functions are not exposed to everyone.",
+          "severity": "critical",
+          "how_to_find": "Console: AWS Console → Lambda. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in Lambda. Automated: Run Prowler or ScoutSuite and filter findings for \"Lambda Function Exposed to Everyone\". Check resource policies, ACLs, and security groups for Principal \"*\" or 0.0.0.0/0.",
+          "how_to_fix": "Remediation goal: Ensure that your Amazon Lambda functions are not exposed to everyone. Remove public access blocks bypass, tighten bucket policies / security groups, and require private endpoints or VPC-only access.",
+          "tools": [
+            "Prowler",
+            "AWS CLI",
+            "Lambda Inspector",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         },
         {
           "title": "Lambda Environment Variables are not Encrypted",
-          "desc": "Ensure encryption is enabled for the AWS Lambda environment variables that store sensitive information."
+          "description": "Ensure encryption is enabled for the AWS Lambda environment variables that store sensitive information.",
+          "severity": "high",
+          "how_to_find": "Console: AWS Console → Lambda. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in Lambda. Automated: Run Prowler or ScoutSuite and filter findings for \"Lambda Environment Variables are not Encrypted\". Verify encryption-at-rest flags on the resource and default encryption settings.",
+          "how_to_fix": "Remediation goal: Ensure encryption is enabled for the AWS Lambda environment variables that store sensitive information. Enable encryption at rest with AWS KMS CMK. Re-encrypt existing volumes/snapshots where supported.",
+          "tools": [
+            "Prowler",
+            "AWS CLI",
+            "Lambda Inspector",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         },
         {
           "title": "KMS Customer Master Keys is not used for Lambda Environment Variables Encryption",
-          "desc": "Ensure Lambda environment variables are encrypted with KMS Customer Master Keys (CMKs) to gain full control over data encryption and decryption."
+          "description": "Ensure Lambda environment variables are encrypted with KMS Customer Master Keys (CMKs) to gain full control over data encryption and decryption.",
+          "severity": "high",
+          "how_to_find": "Console: AWS Console → Lambda. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in Lambda. Automated: Run Prowler or ScoutSuite and filter findings for \"KMS Customer Master Keys is not used for Lambda Environment Variables Encryption\". Verify encryption-at-rest flags on the resource and default encryption settings.",
+          "how_to_fix": "Remediation goal: Ensure Lambda environment variables are encrypted with KMS Customer Master Keys (CMKs) to gain full control over data encryption and decryption. Enable encryption at rest with AWS KMS CMK. Re-encrypt existing volumes/snapshots where supported.",
+          "tools": [
+            "Prowler",
+            "AWS CLI",
+            "Lambda Inspector",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         }
       ]
     },
@@ -349,11 +1875,51 @@
       "items": [
         {
           "title": "AWS Config Not Used",
-          "desc": "Ensure AWS Config is enabled in all regions to get the optimal visibility of the activity on your account."
+          "description": "Ensure AWS Config is enabled in all regions to get the optimal visibility of the activity on your account.",
+          "severity": "low",
+          "how_to_find": "Console: AWS Console → AWS Config. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in AWS Config. Automated: Run Prowler or ScoutSuite and filter findings for \"AWS Config Not Used\".",
+          "how_to_fix": "Remediation goal: Ensure AWS Config is enabled in all regions to get the optimal visibility of the activity on your account. Apply least-privilege IAM policies, enable service-specific security defaults, and validate with AWS Config rules.",
+          "tools": [
+            "AWS Config",
+            "Prowler",
+            "Conformance packs",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         },
         {
           "title": "Validate AWS Config Rules",
-          "desc": "Validate the AWS Config Rules and check for NonCompliant Rules"
+          "description": "Validate the AWS Config Rules and check for NonCompliant Rules",
+          "severity": "low",
+          "how_to_find": "Console: AWS Console → AWS Config. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in AWS Config. Automated: Run Prowler or ScoutSuite and filter findings for \"Validate AWS Config Rules\".",
+          "how_to_fix": "Remediation goal: Validate the AWS Config Rules and check for NonCompliant Rules Apply least-privilege IAM policies, enable service-specific security defaults, and validate with AWS Config rules.",
+          "tools": [
+            "AWS Config",
+            "Prowler",
+            "Conformance packs",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         }
       ]
     },
@@ -362,11 +1928,51 @@
       "items": [
         {
           "title": "AWS GuardDuty Not Used",
-          "desc": "Ensure Amazon GuardDuty is enabled to help you protect your AWS accounts and workloads against security threats."
+          "description": "Ensure Amazon GuardDuty is enabled to help you protect your AWS accounts and workloads against security threats.",
+          "severity": "low",
+          "how_to_find": "Console: AWS Console → GuardDuty. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in AWS GuardDuty. Automated: Run Prowler or ScoutSuite and filter findings for \"AWS GuardDuty Not Used\".",
+          "how_to_fix": "Remediation goal: Ensure Amazon GuardDuty is enabled to help you protect your AWS accounts and workloads against security threats. Apply least-privilege IAM policies, enable service-specific security defaults, and validate with AWS Config rules.",
+          "tools": [
+            "GuardDuty",
+            "Security Hub",
+            "Prowler",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         },
         {
           "title": "Validate the AWS GuardDuty Findings",
-          "desc": "Always validate the findings that are reported by GuardDuty"
+          "description": "Always validate the findings that are reported by GuardDuty",
+          "severity": "low",
+          "how_to_find": "Console: AWS Console → GuardDuty. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in AWS GuardDuty. Automated: Run Prowler or ScoutSuite and filter findings for \"Validate the AWS GuardDuty Findings\".",
+          "how_to_fix": "Remediation goal: Always validate the findings that are reported by GuardDuty Apply least-privilege IAM policies, enable service-specific security defaults, and validate with AWS Config rules.",
+          "tools": [
+            "GuardDuty",
+            "Security Hub",
+            "Prowler",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         }
       ]
     },
@@ -375,23 +1981,123 @@
       "items": [
         {
           "title": "Route 53 Domain Transfer Lock is not Enabled",
-          "desc": "Ensure your domain names have the Transfer Lock feature enabled in order to keep them secure."
+          "description": "Ensure your domain names have the Transfer Lock feature enabled in order to keep them secure.",
+          "severity": "low",
+          "how_to_find": "Console: AWS Console → Route 53. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in Route 53. Automated: Run Prowler or ScoutSuite and filter findings for \"Route 53 Domain Transfer Lock is not Enabled\".",
+          "how_to_fix": "Remediation goal: Ensure your domain names have the Transfer Lock feature enabled in order to keep them secure. Apply least-privilege IAM policies, enable service-specific security defaults, and validate with AWS Config rules.",
+          "tools": [
+            "Prowler",
+            "AWS CLI",
+            "dig",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         },
         {
           "title": "SPF Record not Present",
-          "desc": "Ensure there is an SPF record set for each MX DNS record in order to stop spammers from spoofing your domains."
+          "description": "Ensure there is an SPF record set for each MX DNS record in order to stop spammers from spoofing your domains.",
+          "severity": "low",
+          "how_to_find": "Console: AWS Console → Route 53. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in Route 53. Automated: Run Prowler or ScoutSuite and filter findings for \"SPF Record not Present\".",
+          "how_to_fix": "Remediation goal: Ensure there is an SPF record set for each MX DNS record in order to stop spammers from spoofing your domains. Apply least-privilege IAM policies, enable service-specific security defaults, and validate with AWS Config rules.",
+          "tools": [
+            "Prowler",
+            "AWS CLI",
+            "dig",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         },
         {
           "title": "Route53 Domains Already Expired",
-          "desc": "Ensure expired AWS Route 53 domains names are restored."
+          "description": "Ensure expired AWS Route 53 domains names are restored.",
+          "severity": "low",
+          "how_to_find": "Console: AWS Console → Route 53. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in Route 53. Automated: Run Prowler or ScoutSuite and filter findings for \"Route53 Domains Already Expired\".",
+          "how_to_fix": "Remediation goal: Ensure expired AWS Route 53 domains names are restored. Apply least-privilege IAM policies, enable service-specific security defaults, and validate with AWS Config rules.",
+          "tools": [
+            "Prowler",
+            "AWS CLI",
+            "dig",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         },
         {
           "title": "Route53 Domains are about to Expire",
-          "desc": "Ensure AWS Route 53 domain names are renewed before their expiration (90 days before expiration)."
+          "description": "Ensure AWS Route 53 domain names are renewed before their expiration (90 days before expiration).",
+          "severity": "medium",
+          "how_to_find": "Console: AWS Console → Route 53. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in Route 53. Automated: Run Prowler or ScoutSuite and filter findings for \"Route53 Domains are about to Expire\".",
+          "how_to_fix": "Remediation goal: Ensure AWS Route 53 domain names are renewed before their expiration (90 days before expiration). Apply least-privilege IAM policies, enable service-specific security defaults, and validate with AWS Config rules.",
+          "tools": [
+            "Prowler",
+            "AWS CLI",
+            "dig",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         },
         {
           "title": "DNSSEC Signing for Route 53 Hosted Zones is not Enabled",
-          "desc": "Ensure that DNSSEC signing is enabled for your Amazon Route 53 Hosted Zones."
+          "description": "Ensure that DNSSEC signing is enabled for your Amazon Route 53 Hosted Zones.",
+          "severity": "low",
+          "how_to_find": "Console: AWS Console → Route 53. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in Route 53. Automated: Run Prowler or ScoutSuite and filter findings for \"DNSSEC Signing for Route 53 Hosted Zones is not Enabled\".",
+          "how_to_fix": "Remediation goal: Ensure that DNSSEC signing is enabled for your Amazon Route 53 Hosted Zones. Apply least-privilege IAM policies, enable service-specific security defaults, and validate with AWS Config rules.",
+          "tools": [
+            "Prowler",
+            "AWS CLI",
+            "dig",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         }
       ]
     },
@@ -400,19 +2106,103 @@
       "items": [
         {
           "title": "EKS Secret Encryption is not Enabled",
-          "desc": "Ensure that envelope encryption of Kubernetes secrets using Amazon KMS is enabled."
+          "description": "Ensure that envelope encryption of Kubernetes secrets using Amazon KMS is enabled.",
+          "severity": "high",
+          "how_to_find": "Console: AWS Console → EKS → Clusters. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in Elastic Kubernetes Service. Automated: Run Prowler or ScoutSuite and filter findings for \"EKS Secret Encryption is not Enabled\". Verify encryption-at-rest flags on the resource and default encryption settings.",
+          "how_to_fix": "Remediation goal: Ensure that envelope encryption of Kubernetes secrets using Amazon KMS is enabled. Enable encryption at rest with AWS KMS CMK. Re-encrypt existing volumes/snapshots where supported.",
+          "tools": [
+            "Prowler",
+            "kube-hunter",
+            "kubectl",
+            "AWS CLI",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         },
         {
           "title": "Kubernetes Cluster Logging is not Enabled",
-          "desc": "Ensure that EKS control plane logging is enabled for your Amazon EKS clusters."
+          "description": "Ensure that EKS control plane logging is enabled for your Amazon EKS clusters.",
+          "severity": "low",
+          "how_to_find": "Console: AWS Console → EKS → Clusters. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in Elastic Kubernetes Service. Automated: Run Prowler or ScoutSuite and filter findings for \"Kubernetes Cluster Logging is not Enabled\".",
+          "how_to_fix": "Remediation goal: Ensure that EKS control plane logging is enabled for your Amazon EKS clusters. Enable logging to a dedicated, encrypted, immutable store. Integrate with CloudWatch/SIEM alerts.",
+          "tools": [
+            "Prowler",
+            "kube-hunter",
+            "kubectl",
+            "AWS CLI",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         },
         {
           "title": "Kubernetes Cluster Version is not Updated",
-          "desc": "Ensure that the latest version of Kubernetes is installed on your Amazon EKS clusters."
+          "description": "Ensure that the latest version of Kubernetes is installed on your Amazon EKS clusters.",
+          "severity": "medium",
+          "how_to_find": "Console: AWS Console → EKS → Clusters. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in Elastic Kubernetes Service. Automated: Run Prowler or ScoutSuite and filter findings for \"Kubernetes Cluster Version is not Updated\".",
+          "how_to_fix": "Remediation goal: Ensure that the latest version of Kubernetes is installed on your Amazon EKS clusters. Apply least-privilege IAM policies, enable service-specific security defaults, and validate with AWS Config rules.",
+          "tools": [
+            "Prowler",
+            "kube-hunter",
+            "kubectl",
+            "AWS CLI",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         },
         {
           "title": "Cluster Endpoints are Publicly accessible",
-          "desc": "Ensure that AWS EKS cluster endpoint access is not public and prone to security risks."
+          "description": "Ensure that AWS EKS cluster endpoint access is not public and prone to security risks.",
+          "severity": "critical",
+          "how_to_find": "Console: AWS Console → EKS → Clusters. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in Elastic Kubernetes Service. Automated: Run Prowler or ScoutSuite and filter findings for \"Cluster Endpoints are Publicly accessible\". Check resource policies, ACLs, and security groups for Principal \"*\" or 0.0.0.0/0.",
+          "how_to_fix": "Remediation goal: Ensure that AWS EKS cluster endpoint access is not public and prone to security risks. Remove public access blocks bypass, tighten bucket policies / security groups, and require private endpoints or VPC-only access.",
+          "tools": [
+            "Prowler",
+            "kube-hunter",
+            "kubectl",
+            "AWS CLI",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         }
       ]
     },
@@ -421,19 +2211,95 @@
       "items": [
         {
           "title": "Server-Side Encryption is not Enabled for SQS Queues",
-          "desc": "Ensure Amazon SQS queues enforce Server-Side Encryption (SSE)."
+          "description": "Ensure Amazon SQS queues enforce Server-Side Encryption (SSE).",
+          "severity": "critical",
+          "how_to_find": "Console: AWS Console → SQS. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in Simple Queue Service. Automated: Run Prowler or ScoutSuite and filter findings for \"Server-Side Encryption is not Enabled for SQS Queues\". Verify encryption-at-rest flags on the resource and default encryption settings.",
+          "how_to_fix": "Remediation goal: Ensure Amazon SQS queues enforce Server-Side Encryption (SSE). Enable encryption at rest with AWS KMS CMK. Re-encrypt existing volumes/snapshots where supported.",
+          "tools": [
+            "Prowler",
+            "AWS CLI",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         },
         {
           "title": "KMS Customer Master Keys is not used for SQS Queue Encryption",
-          "desc": "Ensure SQS queues are encrypted with KMS CMKs to gain full control over data encryption and decryption."
+          "description": "Ensure SQS queues are encrypted with KMS CMKs to gain full control over data encryption and decryption.",
+          "severity": "high",
+          "how_to_find": "Console: AWS Console → SQS. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in Simple Queue Service. Automated: Run Prowler or ScoutSuite and filter findings for \"KMS Customer Master Keys is not used for SQS Queue Encryption\". Verify encryption-at-rest flags on the resource and default encryption settings.",
+          "how_to_fix": "Remediation goal: Ensure SQS queues are encrypted with KMS CMKs to gain full control over data encryption and decryption. Enable encryption at rest with AWS KMS CMK. Re-encrypt existing volumes/snapshots where supported.",
+          "tools": [
+            "Prowler",
+            "AWS CLI",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         },
         {
           "title": "SQS Queue Exposed to Everyone",
-          "desc": "Ensure that AWS Simple Queue Service (SQS) queues are not exposed to everyone."
+          "description": "Ensure that AWS Simple Queue Service (SQS) queues are not exposed to everyone.",
+          "severity": "critical",
+          "how_to_find": "Console: AWS Console → SQS. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in Simple Queue Service. Automated: Run Prowler or ScoutSuite and filter findings for \"SQS Queue Exposed to Everyone\". Check resource policies, ACLs, and security groups for Principal \"*\" or 0.0.0.0/0.",
+          "how_to_fix": "Remediation goal: Ensure that AWS Simple Queue Service (SQS) queues are not exposed to everyone. Remove public access blocks bypass, tighten bucket policies / security groups, and require private endpoints or VPC-only access.",
+          "tools": [
+            "Prowler",
+            "AWS CLI",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         },
         {
           "title": "Cross-Account Access for SQS Queues",
-          "desc": "Ensure AWS Simple Queue Service (SQS) queues do not allow unknown cross account access."
+          "description": "Ensure AWS Simple Queue Service (SQS) queues do not allow unknown cross account access.",
+          "severity": "low",
+          "how_to_find": "Console: AWS Console → SQS. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in Simple Queue Service. Automated: Run Prowler or ScoutSuite and filter findings for \"Cross-Account Access for SQS Queues\".",
+          "how_to_fix": "Remediation goal: Ensure AWS Simple Queue Service (SQS) queues do not allow unknown cross account access. Apply least-privilege IAM policies, enable service-specific security defaults, and validate with AWS Config rules.",
+          "tools": [
+            "Prowler",
+            "AWS CLI",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         }
       ]
     },
@@ -442,11 +2308,49 @@
       "items": [
         {
           "title": "Continuous Backup is Not Enabled for DynamoDB",
-          "desc": "Ensure that continous backup is enabld for all the DynamoDB"
+          "description": "Ensure that continous backup is enabld for all the DynamoDB",
+          "severity": "medium",
+          "how_to_find": "Console: AWS Console → DynamoDB. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in DynamoDB. Automated: Run Prowler or ScoutSuite and filter findings for \"Continuous Backup is Not Enabled for DynamoDB\".",
+          "how_to_fix": "Remediation goal: Ensure that continous backup is enabld for all the DynamoDB Apply least-privilege IAM policies, enable service-specific security defaults, and validate with AWS Config rules.",
+          "tools": [
+            "Prowler",
+            "AWS CLI",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         },
         {
           "title": "KMS Customer Master Keys is not used for DynamoDB Table Encryption",
-          "desc": "Ensure that for all the DynamoDB tables are using KMS Customers Master Keys for encryption"
+          "description": "Ensure that for all the DynamoDB tables are using KMS Customers Master Keys for encryption",
+          "severity": "high",
+          "how_to_find": "Console: AWS Console → DynamoDB. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in DynamoDB. Automated: Run Prowler or ScoutSuite and filter findings for \"KMS Customer Master Keys is not used for DynamoDB Table Encryption\". Verify encryption-at-rest flags on the resource and default encryption settings.",
+          "how_to_fix": "Remediation goal: Ensure that for all the DynamoDB tables are using KMS Customers Master Keys for encryption Enable encryption at rest with AWS KMS CMK. Re-encrypt existing volumes/snapshots where supported.",
+          "tools": [
+            "Prowler",
+            "AWS CLI",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         }
       ]
     },
@@ -455,7 +2359,27 @@
       "items": [
         {
           "title": "AWS Backup Vault is Not Prevented from Accidental Deletion",
-          "desc": "Ensure that Accidental Deletion is enabled for AWS Backup Vault"
+          "description": "Ensure that Accidental Deletion is enabled for AWS Backup Vault",
+          "severity": "medium",
+          "how_to_find": "Console: AWS Console → AWS Backup. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in AWS Backups. Automated: Run Prowler or ScoutSuite and filter findings for \"AWS Backup Vault is Not Prevented from Accidental Deletion\".",
+          "how_to_fix": "Remediation goal: Ensure that Accidental Deletion is enabled for AWS Backup Vault Apply least-privilege IAM policies, enable service-specific security defaults, and validate with AWS Config rules.",
+          "tools": [
+            "Prowler",
+            "AWS Backup",
+            "AWS CLI",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         }
       ]
     },
@@ -464,7 +2388,26 @@
       "items": [
         {
           "title": "Redshift Cluster is publicly accessible",
-          "desc": "Ensure that Redshift Cluster is not publicly accessible"
+          "description": "Ensure that Redshift Cluster is not publicly accessible",
+          "severity": "critical",
+          "how_to_find": "Console: AWS Console → Amazon Redshift. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in RedShift. Automated: Run Prowler or ScoutSuite and filter findings for \"Redshift Cluster is publicly accessible\". Check resource policies, ACLs, and security groups for Principal \"*\" or 0.0.0.0/0.",
+          "how_to_fix": "Remediation goal: Ensure that Redshift Cluster is not publicly accessible Remove public access blocks bypass, tighten bucket policies / security groups, and require private endpoints or VPC-only access.",
+          "tools": [
+            "Prowler",
+            "AWS CLI",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         }
       ]
     },
@@ -473,7 +2416,26 @@
       "items": [
         {
           "title": "Workspaces Volume Encryption is not Enabled",
-          "desc": "Ensure that the volume encryption is enabled for all the Workspaces"
+          "description": "Ensure that the volume encryption is enabled for all the Workspaces",
+          "severity": "high",
+          "how_to_find": "Console: AWS Console → WorkSpaces. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in WorkSpaces. Automated: Run Prowler or ScoutSuite and filter findings for \"Workspaces Volume Encryption is not Enabled\". Verify encryption-at-rest flags on the resource and default encryption settings.",
+          "how_to_fix": "Remediation goal: Ensure that the volume encryption is enabled for all the Workspaces Enable encryption at rest with AWS KMS CMK. Re-encrypt existing volumes/snapshots where supported.",
+          "tools": [
+            "Prowler",
+            "AWS CLI",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         }
       ]
     },
@@ -482,11 +2444,49 @@
       "items": [
         {
           "title": "Older Version of ElastiCache Engine in Use",
-          "desc": "Ensure that you are not using an older version of elasticache and use the latest version that is available"
+          "description": "Ensure that you are not using an older version of elasticache and use the latest version that is available",
+          "severity": "medium",
+          "how_to_find": "Console: AWS Console → ElastiCache. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in ElastiCache. Automated: Run Prowler or ScoutSuite and filter findings for \"Older Version of ElastiCache Engine in Use\".",
+          "how_to_fix": "Remediation goal: Ensure that you are not using an older version of elasticache and use the latest version that is available Apply least-privilege IAM policies, enable service-specific security defaults, and validate with AWS Config rules.",
+          "tools": [
+            "Prowler",
+            "AWS CLI",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         },
         {
           "title": "ElastiCache Redis cluster In-Transit and At-rest Encryption not enabled",
-          "desc": "Ensure that redis clusters data In-transit and At-rest encryptions are enabled"
+          "description": "Ensure that redis clusters data In-transit and At-rest encryptions are enabled",
+          "severity": "high",
+          "how_to_find": "Console: AWS Console → ElastiCache. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in ElastiCache. Automated: Run Prowler or ScoutSuite and filter findings for \"ElastiCache Redis cluster In-Transit and At-rest Encryption not enabled\". Verify encryption-at-rest flags on the resource and default encryption settings.",
+          "how_to_fix": "Remediation goal: Ensure that redis clusters data In-transit and At-rest encryptions are enabled Enable encryption at rest with AWS KMS CMK. Re-encrypt existing volumes/snapshots where supported.",
+          "tools": [
+            "Prowler",
+            "AWS CLI",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         }
       ]
     },
@@ -495,15 +2495,75 @@
       "items": [
         {
           "title": "Access logging disabled for CloudFront",
-          "desc": "Ensure that access logging is enabled for Cloudfront"
+          "description": "Ensure that access logging is enabled for Cloudfront",
+          "severity": "high",
+          "how_to_find": "Console: AWS Console → CloudFront. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in CloudFront. Automated: Run Prowler or ScoutSuite and filter findings for \"Access logging disabled for CloudFront\".",
+          "how_to_fix": "Remediation goal: Ensure that access logging is enabled for Cloudfront Enable logging to a dedicated, encrypted, immutable store. Integrate with CloudWatch/SIEM alerts.",
+          "tools": [
+            "Prowler",
+            "AWS CLI",
+            "WAF",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         },
         {
           "title": "WAF is Not Enabled in CloudFront",
-          "desc": "Ensure that WAF is enabled for all the available Cloudfront"
+          "description": "Ensure that WAF is enabled for all the available Cloudfront",
+          "severity": "low",
+          "how_to_find": "Console: AWS Console → CloudFront. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in CloudFront. Automated: Run Prowler or ScoutSuite and filter findings for \"WAF is Not Enabled in CloudFront\".",
+          "how_to_fix": "Remediation goal: Ensure that WAF is enabled for all the available Cloudfront Attach AWS WAF web ACL with managed rule groups. Block known bad inputs and rate-limit abusive clients.",
+          "tools": [
+            "Prowler",
+            "AWS CLI",
+            "WAF",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         },
         {
           "title": "TLSv1.0 Supported by CloudFront Distribution",
-          "desc": "Ensure that you are using latest TLS version for all Cloudfront"
+          "description": "Ensure that you are using latest TLS version for all Cloudfront",
+          "severity": "medium",
+          "how_to_find": "Console: AWS Console → CloudFront. Review resources matching this finding. CLI: Use AWS CLI to list and describe resources in CloudFront. Automated: Run Prowler or ScoutSuite and filter findings for \"TLSv1.0 Supported by CloudFront Distribution\".",
+          "how_to_fix": "Remediation goal: Ensure that you are using latest TLS version for all Cloudfront Apply least-privilege IAM policies, enable service-specific security defaults, and validate with AWS Config rules.",
+          "tools": [
+            "Prowler",
+            "AWS CLI",
+            "WAF",
+            "AWS Security Hub",
+            "Steampipe"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub controls",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html"
+            },
+            {
+              "title": "Prowler AWS checks",
+              "url": "https://github.com/prowler-cloud/prowler"
+            }
+          ]
         }
       ]
     }

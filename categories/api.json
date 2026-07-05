@@ -7,19 +7,83 @@
       "items": [
         {
           "title": "Broken object level authorization (BOLA/IDOR)",
-          "desc": "Swap object IDs across users and roles; test horizontal and vertical access."
+          "description": "Swap object IDs across users and roles; test horizontal and vertical access.",
+          "severity": "high",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Swap object IDs across users and roles; test horizontal and vertical access. Test \"Broken object level authorization (BOLA/IDOR)\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ]
         },
         {
           "title": "JWT validation flaws",
-          "desc": "alg:none, weak secrets, missing exp/aud, and key confusion attacks."
+          "description": "alg:none, weak secrets, missing exp/aud, and key confusion attacks.",
+          "severity": "low",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. alg:none, weak secrets, missing exp/aud, and key confusion attacks. Test \"JWT validation flaws\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ]
         },
         {
           "title": "OAuth misconfiguration",
-          "desc": "Redirect URI validation, state parameter, and scope escalation."
+          "description": "Redirect URI validation, state parameter, and scope escalation.",
+          "severity": "low",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Redirect URI validation, state parameter, and scope escalation. Test \"OAuth misconfiguration\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ]
         },
         {
           "title": "API key exposure",
-          "desc": "Keys not in client bundles, logs, or referrer headers."
+          "description": "Keys not in client bundles, logs, or referrer headers.",
+          "severity": "low",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Keys not in client bundles, logs, or referrer headers. Test \"API key exposure\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ]
         }
       ]
     },
@@ -28,23 +92,103 @@
       "items": [
         {
           "title": "Mass assignment",
-          "desc": "Extra JSON fields like role:admin accepted by backend."
+          "description": "Extra JSON fields like role:admin accepted by backend.",
+          "severity": "low",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Extra JSON fields like role:admin accepted by backend. Test \"Mass assignment\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ]
         },
         {
           "title": "Rate limiting and brute force",
-          "desc": "OTP, login, and password reset endpoints throttled."
+          "description": "OTP, login, and password reset endpoints throttled.",
+          "severity": "critical",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. OTP, login, and password reset endpoints throttled. Test \"Rate limiting and brute force\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ]
         },
         {
           "title": "GraphQL introspection and depth limits",
-          "desc": "Disable introspection in prod; limit query depth and cost."
+          "description": "Disable introspection in prod; limit query depth and cost.",
+          "severity": "low",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Disable introspection in prod; limit query depth and cost. Test \"GraphQL introspection and depth limits\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ]
         },
         {
           "title": "Version sprawl",
-          "desc": "Old /api/v1 endpoints not left live with weaker auth."
+          "description": "Old /api/v1 endpoints not left live with weaker auth.",
+          "severity": "medium",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Old /api/v1 endpoints not left live with weaker auth. Test \"Version sprawl\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ]
         },
         {
           "title": "Error message leakage",
-          "desc": "Stack traces and internal IDs not returned to clients."
+          "description": "Stack traces and internal IDs not returned to clients.",
+          "severity": "low",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Stack traces and internal IDs not returned to clients. Test \"Error message leakage\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ]
         }
       ]
     }

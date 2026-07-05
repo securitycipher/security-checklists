@@ -7,27 +7,129 @@
       "items": [
         {
           "title": "Decompile and review APK",
-          "desc": "Use jadx or apktool to inspect source, manifest, and hardcoded secrets."
+          "description": "Use jadx or apktool to inspect source, manifest, and hardcoded secrets.",
+          "severity": "critical",
+          "how_to_find": "Platform: Android. Use jadx or apktool to inspect source, manifest, and hardcoded secrets. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Decompile and review APK.",
+          "how_to_fix": "Remediate \"Decompile and review APK\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
+          "tools": [
+            "jadx",
+            "apktool",
+            "MobSF",
+            "Frida",
+            "objection",
+            "Burp Suite"
+          ],
+          "references": [
+            {
+              "title": "OWASP MSTG",
+              "url": "https://owasp.org/www-project-mobile-security-testing-guide/"
+            }
+          ]
         },
         {
           "title": "AndroidManifest exported components",
-          "desc": "Flag exported activities, services, receivers, and providers without proper permissions."
+          "description": "Flag exported activities, services, receivers, and providers without proper permissions.",
+          "severity": "low",
+          "how_to_find": "Platform: Android. Flag exported activities, services, receivers, and providers without proper permissions. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: AndroidManifest exported components.",
+          "how_to_fix": "Remediate \"AndroidManifest exported components\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
+          "tools": [
+            "jadx",
+            "apktool",
+            "MobSF",
+            "Frida",
+            "objection",
+            "Burp Suite"
+          ],
+          "references": [
+            {
+              "title": "OWASP MSTG",
+              "url": "https://owasp.org/www-project-mobile-security-testing-guide/"
+            }
+          ]
         },
         {
           "title": "Hardcoded API keys and secrets",
-          "desc": "Search decompiled code and resources for keys, tokens, and credentials."
+          "description": "Search decompiled code and resources for keys, tokens, and credentials.",
+          "severity": "critical",
+          "how_to_find": "Platform: Android. Search decompiled code and resources for keys, tokens, and credentials. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Hardcoded API keys and secrets.",
+          "how_to_fix": "Remediate \"Hardcoded API keys and secrets\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
+          "tools": [
+            "jadx",
+            "apktool",
+            "MobSF",
+            "Frida",
+            "objection",
+            "Burp Suite"
+          ],
+          "references": [
+            {
+              "title": "OWASP MSTG",
+              "url": "https://owasp.org/www-project-mobile-security-testing-guide/"
+            }
+          ]
         },
         {
           "title": "Insecure local storage",
-          "desc": "Check SharedPreferences, SQLite, and external storage for sensitive data."
+          "description": "Check SharedPreferences, SQLite, and external storage for sensitive data.",
+          "severity": "high",
+          "how_to_find": "Platform: Android. Check SharedPreferences, SQLite, and external storage for sensitive data. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Insecure local storage.",
+          "how_to_fix": "Remediate \"Insecure local storage\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
+          "tools": [
+            "jadx",
+            "apktool",
+            "MobSF",
+            "Frida",
+            "objection",
+            "Burp Suite"
+          ],
+          "references": [
+            {
+              "title": "OWASP MSTG",
+              "url": "https://owasp.org/www-project-mobile-security-testing-guide/"
+            }
+          ]
         },
         {
           "title": "Backup allowed",
-          "desc": "Verify android:allowBackup is false for apps handling sensitive data."
+          "description": "Verify android:allowBackup is false for apps handling sensitive data.",
+          "severity": "medium",
+          "how_to_find": "Platform: Android. Verify android:allowBackup is false for apps handling sensitive data. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Backup allowed.",
+          "how_to_fix": "Remediate \"Backup allowed\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
+          "tools": [
+            "jadx",
+            "apktool",
+            "MobSF",
+            "Frida",
+            "objection",
+            "Burp Suite"
+          ],
+          "references": [
+            {
+              "title": "OWASP MSTG",
+              "url": "https://owasp.org/www-project-mobile-security-testing-guide/"
+            }
+          ]
         },
         {
           "title": "Debuggable flag",
-          "desc": "Ensure release builds are not debuggable."
+          "description": "Ensure release builds are not debuggable.",
+          "severity": "low",
+          "how_to_find": "Platform: Android. Ensure release builds are not debuggable. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Debuggable flag.",
+          "how_to_fix": "Remediate \"Debuggable flag\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
+          "tools": [
+            "jadx",
+            "apktool",
+            "MobSF",
+            "Frida",
+            "objection",
+            "Burp Suite"
+          ],
+          "references": [
+            {
+              "title": "OWASP MSTG",
+              "url": "https://owasp.org/www-project-mobile-security-testing-guide/"
+            }
+          ]
         }
       ]
     },
@@ -36,27 +138,129 @@
       "items": [
         {
           "title": "Certificate pinning bypass",
-          "desc": "Test with Frida/objection if traffic can be intercepted via Burp."
+          "description": "Test with Frida/objection if traffic can be intercepted via Burp.",
+          "severity": "critical",
+          "how_to_find": "Platform: Android. Test with Frida/objection if traffic can be intercepted via Burp. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Certificate pinning bypass.",
+          "how_to_fix": "Remediate \"Certificate pinning bypass\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
+          "tools": [
+            "jadx",
+            "apktool",
+            "MobSF",
+            "Frida",
+            "objection",
+            "Burp Suite"
+          ],
+          "references": [
+            {
+              "title": "OWASP MSTG",
+              "url": "https://owasp.org/www-project-mobile-security-testing-guide/"
+            }
+          ]
         },
         {
           "title": "Root detection bypass",
-          "desc": "Attempt to run app on rooted device or emulator with hooks."
+          "description": "Attempt to run app on rooted device or emulator with hooks.",
+          "severity": "low",
+          "how_to_find": "Platform: Android. Attempt to run app on rooted device or emulator with hooks. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Root detection bypass.",
+          "how_to_fix": "Remediate \"Root detection bypass\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
+          "tools": [
+            "jadx",
+            "apktool",
+            "MobSF",
+            "Frida",
+            "objection",
+            "Burp Suite"
+          ],
+          "references": [
+            {
+              "title": "OWASP MSTG",
+              "url": "https://owasp.org/www-project-mobile-security-testing-guide/"
+            }
+          ]
         },
         {
           "title": "Deep link hijacking",
-          "desc": "Test custom URL schemes and App Links for takeover by malicious apps."
+          "description": "Test custom URL schemes and App Links for takeover by malicious apps.",
+          "severity": "low",
+          "how_to_find": "Platform: Android. Test custom URL schemes and App Links for takeover by malicious apps. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Deep link hijacking.",
+          "how_to_fix": "Remediate \"Deep link hijacking\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
+          "tools": [
+            "jadx",
+            "apktool",
+            "MobSF",
+            "Frida",
+            "objection",
+            "Burp Suite"
+          ],
+          "references": [
+            {
+              "title": "OWASP MSTG",
+              "url": "https://owasp.org/www-project-mobile-security-testing-guide/"
+            }
+          ]
         },
         {
           "title": "IPC abuse",
-          "desc": "Use drozer to test content providers and inter-process communication."
+          "description": "Use drozer to test content providers and inter-process communication.",
+          "severity": "low",
+          "how_to_find": "Platform: Android. Use drozer to test content providers and inter-process communication. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: IPC abuse.",
+          "how_to_fix": "Remediate \"IPC abuse\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
+          "tools": [
+            "jadx",
+            "apktool",
+            "MobSF",
+            "Frida",
+            "objection",
+            "Burp Suite"
+          ],
+          "references": [
+            {
+              "title": "OWASP MSTG",
+              "url": "https://owasp.org/www-project-mobile-security-testing-guide/"
+            }
+          ]
         },
         {
           "title": "Runtime instrumentation",
-          "desc": "Hook crypto, auth, and SSL routines with Frida."
+          "description": "Hook crypto, auth, and SSL routines with Frida.",
+          "severity": "low",
+          "how_to_find": "Platform: Android. Hook crypto, auth, and SSL routines with Frida. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Runtime instrumentation.",
+          "how_to_fix": "Remediate \"Runtime instrumentation\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
+          "tools": [
+            "jadx",
+            "apktool",
+            "MobSF",
+            "Frida",
+            "objection",
+            "Burp Suite"
+          ],
+          "references": [
+            {
+              "title": "OWASP MSTG",
+              "url": "https://owasp.org/www-project-mobile-security-testing-guide/"
+            }
+          ]
         },
         {
           "title": "Backend API replay",
-          "desc": "Capture and replay mobile API calls in Burp; test IDOR and auth."
+          "description": "Capture and replay mobile API calls in Burp; test IDOR and auth.",
+          "severity": "high",
+          "how_to_find": "Platform: Android. Capture and replay mobile API calls in Burp; test IDOR and auth. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Backend API replay.",
+          "how_to_fix": "Remediate \"Backend API replay\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
+          "tools": [
+            "jadx",
+            "apktool",
+            "MobSF",
+            "Frida",
+            "objection",
+            "Burp Suite"
+          ],
+          "references": [
+            {
+              "title": "OWASP MSTG",
+              "url": "https://owasp.org/www-project-mobile-security-testing-guide/"
+            }
+          ]
         }
       ]
     },
@@ -65,19 +269,91 @@
       "items": [
         {
           "title": "Binary analysis",
-          "desc": "Inspect IPA with class-dump, Hopper, or Ghidra for secrets and logic."
+          "description": "Inspect IPA with class-dump, Hopper, or Ghidra for secrets and logic.",
+          "severity": "low",
+          "how_to_find": "Platform: iOS. Inspect IPA with class-dump, Hopper, or Ghidra for secrets and logic. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Binary analysis.",
+          "how_to_fix": "Remediate \"Binary analysis\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
+          "tools": [
+            "objection",
+            "Frida",
+            "Hopper",
+            "MobSF",
+            "Burp Suite",
+            "jadx",
+            "apktool"
+          ],
+          "references": [
+            {
+              "title": "OWASP MSTG",
+              "url": "https://owasp.org/www-project-mobile-security-testing-guide/"
+            }
+          ]
         },
         {
           "title": "Info.plist review",
-          "desc": "Check ATS settings, URL schemes, and sensitive plist keys."
+          "description": "Check ATS settings, URL schemes, and sensitive plist keys.",
+          "severity": "low",
+          "how_to_find": "Platform: iOS. Check ATS settings, URL schemes, and sensitive plist keys. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Info.plist review.",
+          "how_to_fix": "Remediate \"Info.plist review\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
+          "tools": [
+            "objection",
+            "Frida",
+            "Hopper",
+            "MobSF",
+            "Burp Suite",
+            "jadx",
+            "apktool"
+          ],
+          "references": [
+            {
+              "title": "OWASP MSTG",
+              "url": "https://owasp.org/www-project-mobile-security-testing-guide/"
+            }
+          ]
         },
         {
           "title": "Hardcoded secrets in bundle",
-          "desc": "Search strings and plists for API keys and credentials."
+          "description": "Search strings and plists for API keys and credentials.",
+          "severity": "low",
+          "how_to_find": "Platform: iOS. Search strings and plists for API keys and credentials. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Hardcoded secrets in bundle.",
+          "how_to_fix": "Remediate \"Hardcoded secrets in bundle\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
+          "tools": [
+            "objection",
+            "Frida",
+            "Hopper",
+            "MobSF",
+            "Burp Suite",
+            "jadx",
+            "apktool"
+          ],
+          "references": [
+            {
+              "title": "OWASP MSTG",
+              "url": "https://owasp.org/www-project-mobile-security-testing-guide/"
+            }
+          ]
         },
         {
           "title": "Jailbreak detection",
-          "desc": "Identify and test bypass of jailbreak/root checks."
+          "description": "Identify and test bypass of jailbreak/root checks.",
+          "severity": "low",
+          "how_to_find": "Platform: iOS. Identify and test bypass of jailbreak/root checks. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Jailbreak detection.",
+          "how_to_fix": "Remediate \"Jailbreak detection\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
+          "tools": [
+            "objection",
+            "Frida",
+            "Hopper",
+            "MobSF",
+            "Burp Suite",
+            "jadx",
+            "apktool"
+          ],
+          "references": [
+            {
+              "title": "OWASP MSTG",
+              "url": "https://owasp.org/www-project-mobile-security-testing-guide/"
+            }
+          ]
         }
       ]
     },
@@ -86,27 +362,135 @@
       "items": [
         {
           "title": "Keychain accessibility",
-          "desc": "Dump keychain with objection; verify kSecAttrAccessible classes."
+          "description": "Dump keychain with objection; verify kSecAttrAccessible classes.",
+          "severity": "low",
+          "how_to_find": "Platform: iOS. Dump keychain with objection; verify kSecAttrAccessible classes. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Keychain accessibility.",
+          "how_to_fix": "Remediate \"Keychain accessibility\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
+          "tools": [
+            "objection",
+            "Frida",
+            "Hopper",
+            "MobSF",
+            "Burp Suite",
+            "jadx",
+            "apktool"
+          ],
+          "references": [
+            {
+              "title": "OWASP MSTG",
+              "url": "https://owasp.org/www-project-mobile-security-testing-guide/"
+            }
+          ]
         },
         {
           "title": "SSL pinning bypass",
-          "desc": "Use Frida/objection ios sslpinning disable and proxy traffic."
+          "description": "Use Frida/objection ios sslpinning disable and proxy traffic.",
+          "severity": "low",
+          "how_to_find": "Platform: iOS. Use Frida/objection ios sslpinning disable and proxy traffic. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: SSL pinning bypass.",
+          "how_to_fix": "Remediate \"SSL pinning bypass\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
+          "tools": [
+            "objection",
+            "Frida",
+            "Hopper",
+            "MobSF",
+            "Burp Suite",
+            "jadx",
+            "apktool"
+          ],
+          "references": [
+            {
+              "title": "OWASP MSTG",
+              "url": "https://owasp.org/www-project-mobile-security-testing-guide/"
+            }
+          ]
         },
         {
           "title": "Universal link hijacking",
-          "desc": "Test associated domains and URL scheme handlers."
+          "description": "Test associated domains and URL scheme handlers.",
+          "severity": "low",
+          "how_to_find": "Platform: iOS. Test associated domains and URL scheme handlers. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Universal link hijacking.",
+          "how_to_fix": "Remediate \"Universal link hijacking\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
+          "tools": [
+            "objection",
+            "Frida",
+            "Hopper",
+            "MobSF",
+            "Burp Suite",
+            "jadx",
+            "apktool"
+          ],
+          "references": [
+            {
+              "title": "OWASP MSTG",
+              "url": "https://owasp.org/www-project-mobile-security-testing-guide/"
+            }
+          ]
         },
         {
           "title": "Sensitive data in logs",
-          "desc": "Monitor device logs during auth and payment flows."
+          "description": "Monitor device logs during auth and payment flows.",
+          "severity": "low",
+          "how_to_find": "Platform: iOS. Monitor device logs during auth and payment flows. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Sensitive data in logs.",
+          "how_to_fix": "Remediate \"Sensitive data in logs\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
+          "tools": [
+            "objection",
+            "Frida",
+            "Hopper",
+            "MobSF",
+            "Burp Suite",
+            "jadx",
+            "apktool"
+          ],
+          "references": [
+            {
+              "title": "OWASP MSTG",
+              "url": "https://owasp.org/www-project-mobile-security-testing-guide/"
+            }
+          ]
         },
         {
           "title": "Backend API security",
-          "desc": "Apply web/API testing to endpoints the app calls."
+          "description": "Apply web/API testing to endpoints the app calls.",
+          "severity": "low",
+          "how_to_find": "Platform: iOS. Apply web/API testing to endpoints the app calls. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Backend API security.",
+          "how_to_fix": "Remediate \"Backend API security\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
+          "tools": [
+            "objection",
+            "Frida",
+            "Hopper",
+            "MobSF",
+            "Burp Suite",
+            "jadx",
+            "apktool"
+          ],
+          "references": [
+            {
+              "title": "OWASP MSTG",
+              "url": "https://owasp.org/www-project-mobile-security-testing-guide/"
+            }
+          ]
         },
         {
           "title": "Clipboard and screenshot leaks",
-          "desc": "Verify sensitive fields are not copied or captured."
+          "description": "Verify sensitive fields are not copied or captured.",
+          "severity": "low",
+          "how_to_find": "Platform: iOS. Verify sensitive fields are not copied or captured. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Clipboard and screenshot leaks.",
+          "how_to_fix": "Remediate \"Clipboard and screenshot leaks\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
+          "tools": [
+            "objection",
+            "Frida",
+            "Hopper",
+            "MobSF",
+            "Burp Suite",
+            "jadx",
+            "apktool"
+          ],
+          "references": [
+            {
+              "title": "OWASP MSTG",
+              "url": "https://owasp.org/www-project-mobile-security-testing-guide/"
+            }
+          ]
         }
       ]
     }

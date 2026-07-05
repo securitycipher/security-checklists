@@ -7,23 +7,123 @@
       "items": [
         {
           "title": "Complete MCP inventory documented",
-          "desc": "Configs, transports, owners, and credential scope for every server."
+          "description": "Configs, transports, owners, and credential scope for every server.",
+          "severity": "low",
+          "how_to_find": "MCP review (Inventory and Configuration): inventory all hosts (Cursor, Claude Desktop, LiteLLM, custom agents). Configs, transports, owners, and credential scope for every server. Grep configs for `command`, `args`, `env`, and remote URLs. Probe HTTP MCP with unauthenticated tools/list. Review tool descriptions for hidden instructions.",
+          "how_to_fix": "Allowlist STDIO launchers, pin package versions, sandbox each server, scope credentials per tool, require auth on remote MCP, human-in-the-loop for destructive actions, patch CVE-2026-30623 / MCPoison / Inspector issues, and alert on new MCP child processes.",
+          "tools": [
+            "MCP Inspector",
+            "nmap",
+            "config review",
+            "process monitor",
+            "LiteLLM logs"
+          ],
+          "references": [
+            {
+              "title": "Model Context Protocol",
+              "url": "https://modelcontextprotocol.io/"
+            },
+            {
+              "title": "SecurityCipher MCP security post",
+              "url": "https://securitycipher.com/blog/"
+            }
+          ]
         },
         {
           "title": "No shell wrappers in STDIO command",
-          "desc": "Block sh -c and unpinned npx package installs in MCP config."
+          "description": "Block sh -c and unpinned npx package installs in MCP config.",
+          "severity": "critical",
+          "how_to_find": "MCP review (Inventory and Configuration): inventory all hosts (Cursor, Claude Desktop, LiteLLM, custom agents). Block sh -c and unpinned npx package installs in MCP config. Grep configs for `command`, `args`, `env`, and remote URLs. Probe HTTP MCP with unauthenticated tools/list. Review tool descriptions for hidden instructions.",
+          "how_to_fix": "Allowlist STDIO launchers, pin package versions, sandbox each server, scope credentials per tool, require auth on remote MCP, human-in-the-loop for destructive actions, patch CVE-2026-30623 / MCPoison / Inspector issues, and alert on new MCP child processes.",
+          "tools": [
+            "MCP Inspector",
+            "nmap",
+            "config review",
+            "process monitor",
+            "LiteLLM logs"
+          ],
+          "references": [
+            {
+              "title": "Model Context Protocol",
+              "url": "https://modelcontextprotocol.io/"
+            },
+            {
+              "title": "SecurityCipher MCP security post",
+              "url": "https://securitycipher.com/blog/"
+            }
+          ]
         },
         {
           "title": "Config changes require review",
-          "desc": "MCP configs in git need code review and hash pinning or re-approval."
+          "description": "MCP configs in git need code review and hash pinning or re-approval.",
+          "severity": "low",
+          "how_to_find": "MCP review (Inventory and Configuration): inventory all hosts (Cursor, Claude Desktop, LiteLLM, custom agents). MCP configs in git need code review and hash pinning or re-approval. Grep configs for `command`, `args`, `env`, and remote URLs. Probe HTTP MCP with unauthenticated tools/list. Review tool descriptions for hidden instructions.",
+          "how_to_fix": "Allowlist STDIO launchers, pin package versions, sandbox each server, scope credentials per tool, require auth on remote MCP, human-in-the-loop for destructive actions, patch CVE-2026-30623 / MCPoison / Inspector issues, and alert on new MCP child processes.",
+          "tools": [
+            "MCP Inspector",
+            "nmap",
+            "config review",
+            "process monitor",
+            "LiteLLM logs"
+          ],
+          "references": [
+            {
+              "title": "Model Context Protocol",
+              "url": "https://modelcontextprotocol.io/"
+            },
+            {
+              "title": "SecurityCipher MCP security post",
+              "url": "https://securitycipher.com/blog/"
+            }
+          ]
         },
         {
           "title": "Pinned package versions",
-          "desc": "Lock MCP server package versions; reject floating latest tags."
+          "description": "Lock MCP server package versions; reject floating latest tags.",
+          "severity": "medium",
+          "how_to_find": "MCP review (Inventory and Configuration): inventory all hosts (Cursor, Claude Desktop, LiteLLM, custom agents). Lock MCP server package versions; reject floating latest tags. Grep configs for `command`, `args`, `env`, and remote URLs. Probe HTTP MCP with unauthenticated tools/list. Review tool descriptions for hidden instructions.",
+          "how_to_fix": "Allowlist STDIO launchers, pin package versions, sandbox each server, scope credentials per tool, require auth on remote MCP, human-in-the-loop for destructive actions, patch CVE-2026-30623 / MCPoison / Inspector issues, and alert on new MCP child processes.",
+          "tools": [
+            "MCP Inspector",
+            "nmap",
+            "config review",
+            "process monitor",
+            "LiteLLM logs"
+          ],
+          "references": [
+            {
+              "title": "Model Context Protocol",
+              "url": "https://modelcontextprotocol.io/"
+            },
+            {
+              "title": "SecurityCipher MCP security post",
+              "url": "https://securitycipher.com/blog/"
+            }
+          ]
         },
         {
           "title": "Separate OS user or container per server",
-          "desc": "MCP processes must not share host secrets namespace with agents."
+          "description": "MCP processes must not share host secrets namespace with agents.",
+          "severity": "low",
+          "how_to_find": "MCP review (Inventory and Configuration): inventory all hosts (Cursor, Claude Desktop, LiteLLM, custom agents). MCP processes must not share host secrets namespace with agents. Grep configs for `command`, `args`, `env`, and remote URLs. Probe HTTP MCP with unauthenticated tools/list. Review tool descriptions for hidden instructions.",
+          "how_to_fix": "Allowlist STDIO launchers, pin package versions, sandbox each server, scope credentials per tool, require auth on remote MCP, human-in-the-loop for destructive actions, patch CVE-2026-30623 / MCPoison / Inspector issues, and alert on new MCP child processes.",
+          "tools": [
+            "MCP Inspector",
+            "nmap",
+            "config review",
+            "process monitor",
+            "LiteLLM logs"
+          ],
+          "references": [
+            {
+              "title": "Model Context Protocol",
+              "url": "https://modelcontextprotocol.io/"
+            },
+            {
+              "title": "SecurityCipher MCP security post",
+              "url": "https://securitycipher.com/blog/"
+            }
+          ]
         }
       ]
     },
@@ -32,23 +132,123 @@
       "items": [
         {
           "title": "Tool descriptions reviewed",
-          "desc": "Hunt hidden instructions, abnormal length, and adversarial schema text."
+          "description": "Hunt hidden instructions, abnormal length, and adversarial schema text.",
+          "severity": "low",
+          "how_to_find": "MCP review (Tool Trust and Transport): inventory all hosts (Cursor, Claude Desktop, LiteLLM, custom agents). Hunt hidden instructions, abnormal length, and adversarial schema text. Grep configs for `command`, `args`, `env`, and remote URLs. Probe HTTP MCP with unauthenticated tools/list. Review tool descriptions for hidden instructions.",
+          "how_to_fix": "Allowlist STDIO launchers, pin package versions, sandbox each server, scope credentials per tool, require auth on remote MCP, human-in-the-loop for destructive actions, patch CVE-2026-30623 / MCPoison / Inspector issues, and alert on new MCP child processes.",
+          "tools": [
+            "MCP Inspector",
+            "nmap",
+            "config review",
+            "process monitor",
+            "LiteLLM logs"
+          ],
+          "references": [
+            {
+              "title": "Model Context Protocol",
+              "url": "https://modelcontextprotocol.io/"
+            },
+            {
+              "title": "SecurityCipher MCP security post",
+              "url": "https://securitycipher.com/blog/"
+            }
+          ]
         },
         {
           "title": "Remote MCP requires authentication",
-          "desc": "tools/list and tools/call must not be anonymously reachable."
+          "description": "tools/list and tools/call must not be anonymously reachable.",
+          "severity": "low",
+          "how_to_find": "MCP review (Tool Trust and Transport): inventory all hosts (Cursor, Claude Desktop, LiteLLM, custom agents). tools/list and tools/call must not be anonymously reachable. Grep configs for `command`, `args`, `env`, and remote URLs. Probe HTTP MCP with unauthenticated tools/list. Review tool descriptions for hidden instructions.",
+          "how_to_fix": "Allowlist STDIO launchers, pin package versions, sandbox each server, scope credentials per tool, require auth on remote MCP, human-in-the-loop for destructive actions, patch CVE-2026-30623 / MCPoison / Inspector issues, and alert on new MCP child processes.",
+          "tools": [
+            "MCP Inspector",
+            "nmap",
+            "config review",
+            "process monitor",
+            "LiteLLM logs"
+          ],
+          "references": [
+            {
+              "title": "Model Context Protocol",
+              "url": "https://modelcontextprotocol.io/"
+            },
+            {
+              "title": "SecurityCipher MCP security post",
+              "url": "https://securitycipher.com/blog/"
+            }
+          ]
         },
         {
           "title": "Cross-server shadowing tested",
-          "desc": "Multi-server sessions checked for one server hijacking another tool."
+          "description": "Multi-server sessions checked for one server hijacking another tool.",
+          "severity": "low",
+          "how_to_find": "MCP review (Tool Trust and Transport): inventory all hosts (Cursor, Claude Desktop, LiteLLM, custom agents). Multi-server sessions checked for one server hijacking another tool. Grep configs for `command`, `args`, `env`, and remote URLs. Probe HTTP MCP with unauthenticated tools/list. Review tool descriptions for hidden instructions.",
+          "how_to_fix": "Allowlist STDIO launchers, pin package versions, sandbox each server, scope credentials per tool, require auth on remote MCP, human-in-the-loop for destructive actions, patch CVE-2026-30623 / MCPoison / Inspector issues, and alert on new MCP child processes.",
+          "tools": [
+            "MCP Inspector",
+            "nmap",
+            "config review",
+            "process monitor",
+            "LiteLLM logs"
+          ],
+          "references": [
+            {
+              "title": "Model Context Protocol",
+              "url": "https://modelcontextprotocol.io/"
+            },
+            {
+              "title": "SecurityCipher MCP security post",
+              "url": "https://securitycipher.com/blog/"
+            }
+          ]
         },
         {
           "title": "Human approval for destructive tools",
-          "desc": "File delete, email send, SQL, payments require explicit confirm."
+          "description": "File delete, email send, SQL, payments require explicit confirm.",
+          "severity": "low",
+          "how_to_find": "MCP review (Tool Trust and Transport): inventory all hosts (Cursor, Claude Desktop, LiteLLM, custom agents). File delete, email send, SQL, payments require explicit confirm. Grep configs for `command`, `args`, `env`, and remote URLs. Probe HTTP MCP with unauthenticated tools/list. Review tool descriptions for hidden instructions.",
+          "how_to_fix": "Allowlist STDIO launchers, pin package versions, sandbox each server, scope credentials per tool, require auth on remote MCP, human-in-the-loop for destructive actions, patch CVE-2026-30623 / MCPoison / Inspector issues, and alert on new MCP child processes.",
+          "tools": [
+            "MCP Inspector",
+            "nmap",
+            "config review",
+            "process monitor",
+            "LiteLLM logs"
+          ],
+          "references": [
+            {
+              "title": "Model Context Protocol",
+              "url": "https://modelcontextprotocol.io/"
+            },
+            {
+              "title": "SecurityCipher MCP security post",
+              "url": "https://securitycipher.com/blog/"
+            }
+          ]
         },
         {
           "title": "HTTP MCP not exposed to internet",
-          "desc": "No unauthenticated MCP endpoints on public interfaces."
+          "description": "No unauthenticated MCP endpoints on public interfaces.",
+          "severity": "critical",
+          "how_to_find": "MCP review (Tool Trust and Transport): inventory all hosts (Cursor, Claude Desktop, LiteLLM, custom agents). No unauthenticated MCP endpoints on public interfaces. Grep configs for `command`, `args`, `env`, and remote URLs. Probe HTTP MCP with unauthenticated tools/list. Review tool descriptions for hidden instructions.",
+          "how_to_fix": "Allowlist STDIO launchers, pin package versions, sandbox each server, scope credentials per tool, require auth on remote MCP, human-in-the-loop for destructive actions, patch CVE-2026-30623 / MCPoison / Inspector issues, and alert on new MCP child processes.",
+          "tools": [
+            "MCP Inspector",
+            "nmap",
+            "config review",
+            "process monitor",
+            "LiteLLM logs"
+          ],
+          "references": [
+            {
+              "title": "Model Context Protocol",
+              "url": "https://modelcontextprotocol.io/"
+            },
+            {
+              "title": "SecurityCipher MCP security post",
+              "url": "https://securitycipher.com/blog/"
+            }
+          ]
         }
       ]
     },
@@ -57,23 +257,123 @@
       "items": [
         {
           "title": "Known CVE versions patched",
-          "desc": "LiteLLM, Cursor, MCP Inspector, gateway stack at patched versions."
+          "description": "LiteLLM, Cursor, MCP Inspector, gateway stack at patched versions.",
+          "severity": "medium",
+          "how_to_find": "MCP review (Patching and Monitoring): inventory all hosts (Cursor, Claude Desktop, LiteLLM, custom agents). LiteLLM, Cursor, MCP Inspector, gateway stack at patched versions. Grep configs for `command`, `args`, `env`, and remote URLs. Probe HTTP MCP with unauthenticated tools/list. Review tool descriptions for hidden instructions.",
+          "how_to_fix": "Allowlist STDIO launchers, pin package versions, sandbox each server, scope credentials per tool, require auth on remote MCP, human-in-the-loop for destructive actions, patch CVE-2026-30623 / MCPoison / Inspector issues, and alert on new MCP child processes.",
+          "tools": [
+            "MCP Inspector",
+            "nmap",
+            "config review",
+            "process monitor",
+            "LiteLLM logs"
+          ],
+          "references": [
+            {
+              "title": "Model Context Protocol",
+              "url": "https://modelcontextprotocol.io/"
+            },
+            {
+              "title": "SecurityCipher MCP security post",
+              "url": "https://securitycipher.com/blog/"
+            }
+          ]
         },
         {
           "title": "Logging on new server registration",
-          "desc": "Alert when new MCP servers or unexpected child processes spawn."
+          "description": "Alert when new MCP servers or unexpected child processes spawn.",
+          "severity": "low",
+          "how_to_find": "MCP review (Patching and Monitoring): inventory all hosts (Cursor, Claude Desktop, LiteLLM, custom agents). Alert when new MCP servers or unexpected child processes spawn. Grep configs for `command`, `args`, `env`, and remote URLs. Probe HTTP MCP with unauthenticated tools/list. Review tool descriptions for hidden instructions.",
+          "how_to_fix": "Allowlist STDIO launchers, pin package versions, sandbox each server, scope credentials per tool, require auth on remote MCP, human-in-the-loop for destructive actions, patch CVE-2026-30623 / MCPoison / Inspector issues, and alert on new MCP child processes.",
+          "tools": [
+            "MCP Inspector",
+            "nmap",
+            "config review",
+            "process monitor",
+            "LiteLLM logs"
+          ],
+          "references": [
+            {
+              "title": "Model Context Protocol",
+              "url": "https://modelcontextprotocol.io/"
+            },
+            {
+              "title": "SecurityCipher MCP security post",
+              "url": "https://securitycipher.com/blog/"
+            }
+          ]
         },
         {
           "title": "User content isolation from privileged tools",
-          "desc": "Untrusted prompts cannot reach high-privilege MCP without approval."
+          "description": "Untrusted prompts cannot reach high-privilege MCP without approval.",
+          "severity": "low",
+          "how_to_find": "MCP review (Patching and Monitoring): inventory all hosts (Cursor, Claude Desktop, LiteLLM, custom agents). Untrusted prompts cannot reach high-privilege MCP without approval. Grep configs for `command`, `args`, `env`, and remote URLs. Probe HTTP MCP with unauthenticated tools/list. Review tool descriptions for hidden instructions.",
+          "how_to_fix": "Allowlist STDIO launchers, pin package versions, sandbox each server, scope credentials per tool, require auth on remote MCP, human-in-the-loop for destructive actions, patch CVE-2026-30623 / MCPoison / Inspector issues, and alert on new MCP child processes.",
+          "tools": [
+            "MCP Inspector",
+            "nmap",
+            "config review",
+            "process monitor",
+            "LiteLLM logs"
+          ],
+          "references": [
+            {
+              "title": "Model Context Protocol",
+              "url": "https://modelcontextprotocol.io/"
+            },
+            {
+              "title": "SecurityCipher MCP security post",
+              "url": "https://securitycipher.com/blog/"
+            }
+          ]
         },
         {
           "title": "Credential scoping per server",
-          "desc": "Fine-grained PATs per repo, not org-wide admin tokens."
+          "description": "Fine-grained PATs per repo, not org-wide admin tokens.",
+          "severity": "low",
+          "how_to_find": "MCP review (Patching and Monitoring): inventory all hosts (Cursor, Claude Desktop, LiteLLM, custom agents). Fine-grained PATs per repo, not org-wide admin tokens. Grep configs for `command`, `args`, `env`, and remote URLs. Probe HTTP MCP with unauthenticated tools/list. Review tool descriptions for hidden instructions.",
+          "how_to_fix": "Allowlist STDIO launchers, pin package versions, sandbox each server, scope credentials per tool, require auth on remote MCP, human-in-the-loop for destructive actions, patch CVE-2026-30623 / MCPoison / Inspector issues, and alert on new MCP child processes.",
+          "tools": [
+            "MCP Inspector",
+            "nmap",
+            "config review",
+            "process monitor",
+            "LiteLLM logs"
+          ],
+          "references": [
+            {
+              "title": "Model Context Protocol",
+              "url": "https://modelcontextprotocol.io/"
+            },
+            {
+              "title": "SecurityCipher MCP security post",
+              "url": "https://securitycipher.com/blog/"
+            }
+          ]
         },
         {
           "title": "Registry provenance verified",
-          "desc": "Only install MCP packages from signed releases or org-owned repos."
+          "description": "Only install MCP packages from signed releases or org-owned repos.",
+          "severity": "low",
+          "how_to_find": "MCP review (Patching and Monitoring): inventory all hosts (Cursor, Claude Desktop, LiteLLM, custom agents). Only install MCP packages from signed releases or org-owned repos. Grep configs for `command`, `args`, `env`, and remote URLs. Probe HTTP MCP with unauthenticated tools/list. Review tool descriptions for hidden instructions.",
+          "how_to_fix": "Allowlist STDIO launchers, pin package versions, sandbox each server, scope credentials per tool, require auth on remote MCP, human-in-the-loop for destructive actions, patch CVE-2026-30623 / MCPoison / Inspector issues, and alert on new MCP child processes.",
+          "tools": [
+            "MCP Inspector",
+            "nmap",
+            "config review",
+            "process monitor",
+            "LiteLLM logs"
+          ],
+          "references": [
+            {
+              "title": "Model Context Protocol",
+              "url": "https://modelcontextprotocol.io/"
+            },
+            {
+              "title": "SecurityCipher MCP security post",
+              "url": "https://securitycipher.com/blog/"
+            }
+          ]
         }
       ]
     }

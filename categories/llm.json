@@ -7,19 +7,95 @@
       "items": [
         {
           "title": "Business case and risk acceptance documented",
-          "desc": "Legal, regulatory, and privacy review before production LLM use."
+          "description": "Legal, regulatory, and privacy review before production LLM use.",
+          "severity": "low",
+          "how_to_find": "Review LLM pipeline in \"Governance and Risk\". Legal, regulatory, and privacy review before production LLM use. Inspect prompts, RAG corpora, tool schemas, and agent logs. Run red-team prompts (direct/indirect injection) and verify guardrails block exfiltration.",
+          "how_to_fix": "Implement OWASP LLM Top 10 controls: input/output filtering, tool allowlists, human approval for sensitive actions, tenant isolation for RAG, model/version pinning, and audit logs without storing secrets in plain text.",
+          "tools": [
+            "Garak",
+            "Promptfoo",
+            "Burp Suite",
+            "Custom red-team scripts"
+          ],
+          "references": [
+            {
+              "title": "OWASP LLM Top 10",
+              "url": "https://owasp.org/www-project-top-10-for-large-language-model-applications/"
+            },
+            {
+              "title": "SecurityCipher LLM checklist",
+              "url": "https://securitycipher.com/llm-ai-security-checklist/"
+            }
+          ]
         },
         {
           "title": "Model cards and risk cards published",
-          "desc": "Document capabilities, limitations, and known failure modes."
+          "description": "Document capabilities, limitations, and known failure modes.",
+          "severity": "low",
+          "how_to_find": "Review LLM pipeline in \"Governance and Risk\". Document capabilities, limitations, and known failure modes. Inspect prompts, RAG corpora, tool schemas, and agent logs. Run red-team prompts (direct/indirect injection) and verify guardrails block exfiltration.",
+          "how_to_fix": "Implement OWASP LLM Top 10 controls: input/output filtering, tool allowlists, human approval for sensitive actions, tenant isolation for RAG, model/version pinning, and audit logs without storing secrets in plain text.",
+          "tools": [
+            "Garak",
+            "Promptfoo",
+            "Burp Suite",
+            "Custom red-team scripts"
+          ],
+          "references": [
+            {
+              "title": "OWASP LLM Top 10",
+              "url": "https://owasp.org/www-project-top-10-for-large-language-model-applications/"
+            },
+            {
+              "title": "SecurityCipher LLM checklist",
+              "url": "https://securitycipher.com/llm-ai-security-checklist/"
+            }
+          ]
         },
         {
           "title": "Data classification for training and RAG",
-          "desc": "No PII or secrets in fine-tuning or retrieval corpora without controls."
+          "description": "No PII or secrets in fine-tuning or retrieval corpora without controls.",
+          "severity": "low",
+          "how_to_find": "Review LLM pipeline in \"Governance and Risk\". No PII or secrets in fine-tuning or retrieval corpora without controls. Inspect prompts, RAG corpora, tool schemas, and agent logs. Run red-team prompts (direct/indirect injection) and verify guardrails block exfiltration.",
+          "how_to_fix": "Implement OWASP LLM Top 10 controls: input/output filtering, tool allowlists, human approval for sensitive actions, tenant isolation for RAG, model/version pinning, and audit logs without storing secrets in plain text.",
+          "tools": [
+            "Garak",
+            "Promptfoo",
+            "Burp Suite",
+            "Custom red-team scripts"
+          ],
+          "references": [
+            {
+              "title": "OWASP LLM Top 10",
+              "url": "https://owasp.org/www-project-top-10-for-large-language-model-applications/"
+            },
+            {
+              "title": "SecurityCipher LLM checklist",
+              "url": "https://securitycipher.com/llm-ai-security-checklist/"
+            }
+          ]
         },
         {
           "title": "Third-party model vendor due diligence",
-          "desc": "Review API terms, data retention, and subprocessors."
+          "description": "Review API terms, data retention, and subprocessors.",
+          "severity": "low",
+          "how_to_find": "Review LLM pipeline in \"Governance and Risk\". Review API terms, data retention, and subprocessors. Inspect prompts, RAG corpora, tool schemas, and agent logs. Run red-team prompts (direct/indirect injection) and verify guardrails block exfiltration.",
+          "how_to_fix": "Implement OWASP LLM Top 10 controls: input/output filtering, tool allowlists, human approval for sensitive actions, tenant isolation for RAG, model/version pinning, and audit logs without storing secrets in plain text.",
+          "tools": [
+            "Garak",
+            "Promptfoo",
+            "Burp Suite",
+            "Custom red-team scripts"
+          ],
+          "references": [
+            {
+              "title": "OWASP LLM Top 10",
+              "url": "https://owasp.org/www-project-top-10-for-large-language-model-applications/"
+            },
+            {
+              "title": "SecurityCipher LLM checklist",
+              "url": "https://securitycipher.com/llm-ai-security-checklist/"
+            }
+          ]
         }
       ]
     },
@@ -28,19 +104,95 @@
       "items": [
         {
           "title": "TEVV before deployment",
-          "desc": "Testing, evaluation, verification, and validation on representative prompts."
+          "description": "Testing, evaluation, verification, and validation on representative prompts.",
+          "severity": "low",
+          "how_to_find": "Review LLM pipeline in \"Testing and Red Teaming\". Testing, evaluation, verification, and validation on representative prompts. Inspect prompts, RAG corpora, tool schemas, and agent logs. Run red-team prompts (direct/indirect injection) and verify guardrails block exfiltration.",
+          "how_to_fix": "Implement OWASP LLM Top 10 controls: input/output filtering, tool allowlists, human approval for sensitive actions, tenant isolation for RAG, model/version pinning, and audit logs without storing secrets in plain text.",
+          "tools": [
+            "Garak",
+            "Promptfoo",
+            "Burp Suite",
+            "Custom red-team scripts"
+          ],
+          "references": [
+            {
+              "title": "OWASP LLM Top 10",
+              "url": "https://owasp.org/www-project-top-10-for-large-language-model-applications/"
+            },
+            {
+              "title": "SecurityCipher LLM checklist",
+              "url": "https://securitycipher.com/llm-ai-security-checklist/"
+            }
+          ]
         },
         {
           "title": "Prompt injection and jailbreak tests",
-          "desc": "Direct and indirect injection via user content and tool outputs."
+          "description": "Direct and indirect injection via user content and tool outputs.",
+          "severity": "low",
+          "how_to_find": "Review LLM pipeline in \"Testing and Red Teaming\". Direct and indirect injection via user content and tool outputs. Inspect prompts, RAG corpora, tool schemas, and agent logs. Run red-team prompts (direct/indirect injection) and verify guardrails block exfiltration.",
+          "how_to_fix": "Implement OWASP LLM Top 10 controls: input/output filtering, tool allowlists, human approval for sensitive actions, tenant isolation for RAG, model/version pinning, and audit logs without storing secrets in plain text.",
+          "tools": [
+            "Garak",
+            "Promptfoo",
+            "Burp Suite",
+            "Custom red-team scripts"
+          ],
+          "references": [
+            {
+              "title": "OWASP LLM Top 10",
+              "url": "https://owasp.org/www-project-top-10-for-large-language-model-applications/"
+            },
+            {
+              "title": "SecurityCipher LLM checklist",
+              "url": "https://securitycipher.com/llm-ai-security-checklist/"
+            }
+          ]
         },
         {
           "title": "AI red team exercises",
-          "desc": "Adversarial testing for data exfil, tool abuse, and policy bypass."
+          "description": "Adversarial testing for data exfil, tool abuse, and policy bypass.",
+          "severity": "low",
+          "how_to_find": "Review LLM pipeline in \"Testing and Red Teaming\". Adversarial testing for data exfil, tool abuse, and policy bypass. Inspect prompts, RAG corpora, tool schemas, and agent logs. Run red-team prompts (direct/indirect injection) and verify guardrails block exfiltration.",
+          "how_to_fix": "Implement OWASP LLM Top 10 controls: input/output filtering, tool allowlists, human approval for sensitive actions, tenant isolation for RAG, model/version pinning, and audit logs without storing secrets in plain text.",
+          "tools": [
+            "Garak",
+            "Promptfoo",
+            "Burp Suite",
+            "Custom red-team scripts"
+          ],
+          "references": [
+            {
+              "title": "OWASP LLM Top 10",
+              "url": "https://owasp.org/www-project-top-10-for-large-language-model-applications/"
+            },
+            {
+              "title": "SecurityCipher LLM checklist",
+              "url": "https://securitycipher.com/llm-ai-security-checklist/"
+            }
+          ]
         },
         {
           "title": "RAG poisoning assessment",
-          "desc": "Test if malicious documents in retrieval change model behavior."
+          "description": "Test if malicious documents in retrieval change model behavior.",
+          "severity": "high",
+          "how_to_find": "Review LLM pipeline in \"Testing and Red Teaming\". Test if malicious documents in retrieval change model behavior. Inspect prompts, RAG corpora, tool schemas, and agent logs. Run red-team prompts (direct/indirect injection) and verify guardrails block exfiltration.",
+          "how_to_fix": "Implement OWASP LLM Top 10 controls: input/output filtering, tool allowlists, human approval for sensitive actions, tenant isolation for RAG, model/version pinning, and audit logs without storing secrets in plain text.",
+          "tools": [
+            "Garak",
+            "Promptfoo",
+            "Burp Suite",
+            "Custom red-team scripts"
+          ],
+          "references": [
+            {
+              "title": "OWASP LLM Top 10",
+              "url": "https://owasp.org/www-project-top-10-for-large-language-model-applications/"
+            },
+            {
+              "title": "SecurityCipher LLM checklist",
+              "url": "https://securitycipher.com/llm-ai-security-checklist/"
+            }
+          ]
         }
       ]
     },
@@ -49,19 +201,95 @@
       "items": [
         {
           "title": "Output filtering and guardrails",
-          "desc": "Block PII leakage, harmful content, and off-topic tool calls."
+          "description": "Block PII leakage, harmful content, and off-topic tool calls.",
+          "severity": "low",
+          "how_to_find": "Review LLM pipeline in \"Deployment Controls\". Block PII leakage, harmful content, and off-topic tool calls. Inspect prompts, RAG corpora, tool schemas, and agent logs. Run red-team prompts (direct/indirect injection) and verify guardrails block exfiltration.",
+          "how_to_fix": "Implement OWASP LLM Top 10 controls: input/output filtering, tool allowlists, human approval for sensitive actions, tenant isolation for RAG, model/version pinning, and audit logs without storing secrets in plain text.",
+          "tools": [
+            "Garak",
+            "Promptfoo",
+            "Burp Suite",
+            "Custom red-team scripts"
+          ],
+          "references": [
+            {
+              "title": "OWASP LLM Top 10",
+              "url": "https://owasp.org/www-project-top-10-for-large-language-model-applications/"
+            },
+            {
+              "title": "SecurityCipher LLM checklist",
+              "url": "https://securitycipher.com/llm-ai-security-checklist/"
+            }
+          ]
         },
         {
           "title": "Rate limits and abuse detection",
-          "desc": "Prevent automated scraping and resource exhaustion."
+          "description": "Prevent automated scraping and resource exhaustion.",
+          "severity": "critical",
+          "how_to_find": "Review LLM pipeline in \"Deployment Controls\". Prevent automated scraping and resource exhaustion. Inspect prompts, RAG corpora, tool schemas, and agent logs. Run red-team prompts (direct/indirect injection) and verify guardrails block exfiltration.",
+          "how_to_fix": "Implement OWASP LLM Top 10 controls: input/output filtering, tool allowlists, human approval for sensitive actions, tenant isolation for RAG, model/version pinning, and audit logs without storing secrets in plain text.",
+          "tools": [
+            "Garak",
+            "Promptfoo",
+            "Burp Suite",
+            "Custom red-team scripts"
+          ],
+          "references": [
+            {
+              "title": "OWASP LLM Top 10",
+              "url": "https://owasp.org/www-project-top-10-for-large-language-model-applications/"
+            },
+            {
+              "title": "SecurityCipher LLM checklist",
+              "url": "https://securitycipher.com/llm-ai-security-checklist/"
+            }
+          ]
         },
         {
           "title": "Audit logs for prompts and tool calls",
-          "desc": "Retain logs for incident response without storing secrets in plain text."
+          "description": "Retain logs for incident response without storing secrets in plain text.",
+          "severity": "low",
+          "how_to_find": "Review LLM pipeline in \"Deployment Controls\". Retain logs for incident response without storing secrets in plain text. Inspect prompts, RAG corpora, tool schemas, and agent logs. Run red-team prompts (direct/indirect injection) and verify guardrails block exfiltration.",
+          "how_to_fix": "Implement OWASP LLM Top 10 controls: input/output filtering, tool allowlists, human approval for sensitive actions, tenant isolation for RAG, model/version pinning, and audit logs without storing secrets in plain text.",
+          "tools": [
+            "Garak",
+            "Promptfoo",
+            "Burp Suite",
+            "Custom red-team scripts"
+          ],
+          "references": [
+            {
+              "title": "OWASP LLM Top 10",
+              "url": "https://owasp.org/www-project-top-10-for-large-language-model-applications/"
+            },
+            {
+              "title": "SecurityCipher LLM checklist",
+              "url": "https://securitycipher.com/llm-ai-security-checklist/"
+            }
+          ]
         },
         {
           "title": "OWASP LLM Top 10 coverage",
-          "desc": "Map controls to LLM01-LLM10 risks for the application."
+          "description": "Map controls to LLM01-LLM10 risks for the application.",
+          "severity": "low",
+          "how_to_find": "Review LLM pipeline in \"Deployment Controls\". Map controls to LLM01-LLM10 risks for the application. Inspect prompts, RAG corpora, tool schemas, and agent logs. Run red-team prompts (direct/indirect injection) and verify guardrails block exfiltration.",
+          "how_to_fix": "Implement OWASP LLM Top 10 controls: input/output filtering, tool allowlists, human approval for sensitive actions, tenant isolation for RAG, model/version pinning, and audit logs without storing secrets in plain text.",
+          "tools": [
+            "Garak",
+            "Promptfoo",
+            "Burp Suite",
+            "Custom red-team scripts"
+          ],
+          "references": [
+            {
+              "title": "OWASP LLM Top 10",
+              "url": "https://owasp.org/www-project-top-10-for-large-language-model-applications/"
+            },
+            {
+              "title": "SecurityCipher LLM checklist",
+              "url": "https://securitycipher.com/llm-ai-security-checklist/"
+            }
+          ]
         }
       ]
     }

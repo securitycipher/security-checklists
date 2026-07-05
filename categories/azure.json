@@ -7,23 +7,118 @@
       "items": [
         {
           "title": "MFA enforced for privileged roles",
-          "desc": "Require MFA for Global Admin, Security Admin, and privileged roles."
+          "description": "Require MFA for Global Admin, Security Admin, and privileged roles.",
+          "severity": "critical",
+          "how_to_find": "AZURE portal → Identity and Access (Azure AD / Entra ID). Audit configuration against \"MFA enforced for privileged roles\". CLI: use `az` to list resources and IAM bindings. Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings.",
+          "how_to_fix": "Require MFA for Global Admin, Security Admin, and privileged roles. Apply CIS benchmark controls: least-privilege IAM, private endpoints, encryption with customer-managed keys, centralized logging, and alert rules for policy changes. Document exceptions and set remediation SLAs by severity.",
+          "tools": [
+            "Microsoft Defender for Cloud",
+            "Azure CLI",
+            "Prowler",
+            "ScoutSuite"
+          ],
+          "references": [
+            {
+              "title": "Prowler AZURE",
+              "url": "https://github.com/prowler-cloud/prowler"
+            },
+            {
+              "title": "CIS Cloud Benchmarks",
+              "url": "https://www.cisecurity.org/cis-benchmarks"
+            }
+          ]
         },
         {
           "title": "Conditional Access policies",
-          "desc": "Block legacy auth, require compliant devices, and restrict risky sign-ins."
+          "description": "Block legacy auth, require compliant devices, and restrict risky sign-ins.",
+          "severity": "low",
+          "how_to_find": "AZURE portal → Identity and Access (Azure AD / Entra ID). Audit configuration against \"Conditional Access policies\". CLI: use `az` to list resources and IAM bindings. Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings.",
+          "how_to_fix": "Block legacy auth, require compliant devices, and restrict risky sign-ins. Apply CIS benchmark controls: least-privilege IAM, private endpoints, encryption with customer-managed keys, centralized logging, and alert rules for policy changes. Document exceptions and set remediation SLAs by severity.",
+          "tools": [
+            "Microsoft Defender for Cloud",
+            "Azure CLI",
+            "Prowler",
+            "ScoutSuite"
+          ],
+          "references": [
+            {
+              "title": "Prowler AZURE",
+              "url": "https://github.com/prowler-cloud/prowler"
+            },
+            {
+              "title": "CIS Cloud Benchmarks",
+              "url": "https://www.cisecurity.org/cis-benchmarks"
+            }
+          ]
         },
         {
           "title": "Guest user access restricted",
-          "desc": "Limit external collaboration and review guest permissions regularly."
+          "description": "Limit external collaboration and review guest permissions regularly.",
+          "severity": "low",
+          "how_to_find": "AZURE portal → Identity and Access (Azure AD / Entra ID). Audit configuration against \"Guest user access restricted\". CLI: use `az` to list resources and IAM bindings. Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings.",
+          "how_to_fix": "Limit external collaboration and review guest permissions regularly. Apply CIS benchmark controls: least-privilege IAM, private endpoints, encryption with customer-managed keys, centralized logging, and alert rules for policy changes. Document exceptions and set remediation SLAs by severity.",
+          "tools": [
+            "Microsoft Defender for Cloud",
+            "Azure CLI",
+            "Prowler",
+            "ScoutSuite"
+          ],
+          "references": [
+            {
+              "title": "Prowler AZURE",
+              "url": "https://github.com/prowler-cloud/prowler"
+            },
+            {
+              "title": "CIS Cloud Benchmarks",
+              "url": "https://www.cisecurity.org/cis-benchmarks"
+            }
+          ]
         },
         {
           "title": "Service principal credential rotation",
-          "desc": "Rotate client secrets and certificates; prefer managed identities."
+          "description": "Rotate client secrets and certificates; prefer managed identities.",
+          "severity": "medium",
+          "how_to_find": "AZURE portal → Identity and Access (Azure AD / Entra ID). Audit configuration against \"Service principal credential rotation\". CLI: use `az` to list resources and IAM bindings. Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings.",
+          "how_to_fix": "Rotate client secrets and certificates; prefer managed identities. Apply CIS benchmark controls: least-privilege IAM, private endpoints, encryption with customer-managed keys, centralized logging, and alert rules for policy changes. Document exceptions and set remediation SLAs by severity.",
+          "tools": [
+            "Microsoft Defender for Cloud",
+            "Azure CLI",
+            "Prowler",
+            "ScoutSuite"
+          ],
+          "references": [
+            {
+              "title": "Prowler AZURE",
+              "url": "https://github.com/prowler-cloud/prowler"
+            },
+            {
+              "title": "CIS Cloud Benchmarks",
+              "url": "https://www.cisecurity.org/cis-benchmarks"
+            }
+          ]
         },
         {
           "title": "PIM for just-in-time admin",
-          "desc": "Use Privileged Identity Management for standing admin access."
+          "description": "Use Privileged Identity Management for standing admin access.",
+          "severity": "low",
+          "how_to_find": "AZURE portal → Identity and Access (Azure AD / Entra ID). Audit configuration against \"PIM for just-in-time admin\". CLI: use `az` to list resources and IAM bindings. Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings.",
+          "how_to_fix": "Use Privileged Identity Management for standing admin access. Apply CIS benchmark controls: least-privilege IAM, private endpoints, encryption with customer-managed keys, centralized logging, and alert rules for policy changes. Document exceptions and set remediation SLAs by severity.",
+          "tools": [
+            "Microsoft Defender for Cloud",
+            "Azure CLI",
+            "Prowler",
+            "ScoutSuite"
+          ],
+          "references": [
+            {
+              "title": "Prowler AZURE",
+              "url": "https://github.com/prowler-cloud/prowler"
+            },
+            {
+              "title": "CIS Cloud Benchmarks",
+              "url": "https://www.cisecurity.org/cis-benchmarks"
+            }
+          ]
         }
       ]
     },
@@ -32,23 +127,118 @@
       "items": [
         {
           "title": "NSG rules not over-permissive",
-          "desc": "No 0.0.0.0/0 on RDP, SSH, SQL, or management ports."
+          "description": "No 0.0.0.0/0 on RDP, SSH, SQL, or management ports.",
+          "severity": "critical",
+          "how_to_find": "AZURE portal → Networking. Audit configuration against \"NSG rules not over-permissive\". CLI: use `az` to list resources and IAM bindings. Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings.",
+          "how_to_fix": "No 0.0.0.0/0 on RDP, SSH, SQL, or management ports. Apply CIS benchmark controls: least-privilege IAM, private endpoints, encryption with customer-managed keys, centralized logging, and alert rules for policy changes. Document exceptions and set remediation SLAs by severity.",
+          "tools": [
+            "Microsoft Defender for Cloud",
+            "Azure CLI",
+            "Prowler",
+            "ScoutSuite"
+          ],
+          "references": [
+            {
+              "title": "Prowler AZURE",
+              "url": "https://github.com/prowler-cloud/prowler"
+            },
+            {
+              "title": "CIS Cloud Benchmarks",
+              "url": "https://www.cisecurity.org/cis-benchmarks"
+            }
+          ]
         },
         {
           "title": "VNet flow logs enabled",
-          "desc": "Enable NSG flow logs and traffic analytics for visibility."
+          "description": "Enable NSG flow logs and traffic analytics for visibility.",
+          "severity": "low",
+          "how_to_find": "AZURE portal → Networking. Audit configuration against \"VNet flow logs enabled\". CLI: use `az` to list resources and IAM bindings. Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings.",
+          "how_to_fix": "Enable NSG flow logs and traffic analytics for visibility. Apply CIS benchmark controls: least-privilege IAM, private endpoints, encryption with customer-managed keys, centralized logging, and alert rules for policy changes. Document exceptions and set remediation SLAs by severity.",
+          "tools": [
+            "Microsoft Defender for Cloud",
+            "Azure CLI",
+            "Prowler",
+            "ScoutSuite"
+          ],
+          "references": [
+            {
+              "title": "Prowler AZURE",
+              "url": "https://github.com/prowler-cloud/prowler"
+            },
+            {
+              "title": "CIS Cloud Benchmarks",
+              "url": "https://www.cisecurity.org/cis-benchmarks"
+            }
+          ]
         },
         {
           "title": "Private endpoints for PaaS",
-          "desc": "Use private link for storage, SQL, and Key Vault where possible."
+          "description": "Use private link for storage, SQL, and Key Vault where possible.",
+          "severity": "low",
+          "how_to_find": "AZURE portal → Networking. Audit configuration against \"Private endpoints for PaaS\". CLI: use `az` to list resources and IAM bindings. Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings.",
+          "how_to_fix": "Use private link for storage, SQL, and Key Vault where possible. Apply CIS benchmark controls: least-privilege IAM, private endpoints, encryption with customer-managed keys, centralized logging, and alert rules for policy changes. Document exceptions and set remediation SLAs by severity.",
+          "tools": [
+            "Microsoft Defender for Cloud",
+            "Azure CLI",
+            "Prowler",
+            "ScoutSuite"
+          ],
+          "references": [
+            {
+              "title": "Prowler AZURE",
+              "url": "https://github.com/prowler-cloud/prowler"
+            },
+            {
+              "title": "CIS Cloud Benchmarks",
+              "url": "https://www.cisecurity.org/cis-benchmarks"
+            }
+          ]
         },
         {
           "title": "Azure Firewall or WAF in front of apps",
-          "desc": "Protect public-facing apps with WAF and centralized egress control."
+          "description": "Protect public-facing apps with WAF and centralized egress control.",
+          "severity": "high",
+          "how_to_find": "AZURE portal → Networking. Audit configuration against \"Azure Firewall or WAF in front of apps\". CLI: use `az` to list resources and IAM bindings. Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings.",
+          "how_to_fix": "Protect public-facing apps with WAF and centralized egress control. Apply CIS benchmark controls: least-privilege IAM, private endpoints, encryption with customer-managed keys, centralized logging, and alert rules for policy changes. Document exceptions and set remediation SLAs by severity.",
+          "tools": [
+            "Microsoft Defender for Cloud",
+            "Azure CLI",
+            "Prowler",
+            "ScoutSuite"
+          ],
+          "references": [
+            {
+              "title": "Prowler AZURE",
+              "url": "https://github.com/prowler-cloud/prowler"
+            },
+            {
+              "title": "CIS Cloud Benchmarks",
+              "url": "https://www.cisecurity.org/cis-benchmarks"
+            }
+          ]
         },
         {
           "title": "DDoS Protection Standard",
-          "desc": "Enable on production VNets serving internet-facing workloads."
+          "description": "Enable on production VNets serving internet-facing workloads.",
+          "severity": "low",
+          "how_to_find": "AZURE portal → Networking. Audit configuration against \"DDoS Protection Standard\". CLI: use `az` to list resources and IAM bindings. Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings.",
+          "how_to_fix": "Enable on production VNets serving internet-facing workloads. Apply CIS benchmark controls: least-privilege IAM, private endpoints, encryption with customer-managed keys, centralized logging, and alert rules for policy changes. Document exceptions and set remediation SLAs by severity.",
+          "tools": [
+            "Microsoft Defender for Cloud",
+            "Azure CLI",
+            "Prowler",
+            "ScoutSuite"
+          ],
+          "references": [
+            {
+              "title": "Prowler AZURE",
+              "url": "https://github.com/prowler-cloud/prowler"
+            },
+            {
+              "title": "CIS Cloud Benchmarks",
+              "url": "https://www.cisecurity.org/cis-benchmarks"
+            }
+          ]
         }
       ]
     },
@@ -57,23 +247,118 @@
       "items": [
         {
           "title": "Storage account public access disabled",
-          "desc": "Disable anonymous blob access and review network rules."
+          "description": "Disable anonymous blob access and review network rules.",
+          "severity": "high",
+          "how_to_find": "AZURE portal → Storage and Databases. Audit configuration against \"Storage account public access disabled\". CLI: use `az` to list resources and IAM bindings. Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings.",
+          "how_to_fix": "Disable anonymous blob access and review network rules. Apply CIS benchmark controls: least-privilege IAM, private endpoints, encryption with customer-managed keys, centralized logging, and alert rules for policy changes. Document exceptions and set remediation SLAs by severity.",
+          "tools": [
+            "Microsoft Defender for Cloud",
+            "Azure CLI",
+            "Prowler",
+            "ScoutSuite"
+          ],
+          "references": [
+            {
+              "title": "Prowler AZURE",
+              "url": "https://github.com/prowler-cloud/prowler"
+            },
+            {
+              "title": "CIS Cloud Benchmarks",
+              "url": "https://www.cisecurity.org/cis-benchmarks"
+            }
+          ]
         },
         {
           "title": "Encryption at rest with CMK",
-          "desc": "Use customer-managed keys for storage and databases where required."
+          "description": "Use customer-managed keys for storage and databases where required.",
+          "severity": "high",
+          "how_to_find": "AZURE portal → Storage and Databases. Audit configuration against \"Encryption at rest with CMK\". CLI: use `az` to list resources and IAM bindings. Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings.",
+          "how_to_fix": "Use customer-managed keys for storage and databases where required. Apply CIS benchmark controls: least-privilege IAM, private endpoints, encryption with customer-managed keys, centralized logging, and alert rules for policy changes. Document exceptions and set remediation SLAs by severity.",
+          "tools": [
+            "Microsoft Defender for Cloud",
+            "Azure CLI",
+            "Prowler",
+            "ScoutSuite"
+          ],
+          "references": [
+            {
+              "title": "Prowler AZURE",
+              "url": "https://github.com/prowler-cloud/prowler"
+            },
+            {
+              "title": "CIS Cloud Benchmarks",
+              "url": "https://www.cisecurity.org/cis-benchmarks"
+            }
+          ]
         },
         {
           "title": "SQL TDE and auditing enabled",
-          "desc": "Transparent encryption plus audit logs to Log Analytics."
+          "description": "Transparent encryption plus audit logs to Log Analytics.",
+          "severity": "high",
+          "how_to_find": "AZURE portal → Storage and Databases. Audit configuration against \"SQL TDE and auditing enabled\". CLI: use `az` to list resources and IAM bindings. Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings.",
+          "how_to_fix": "Transparent encryption plus audit logs to Log Analytics. Apply CIS benchmark controls: least-privilege IAM, private endpoints, encryption with customer-managed keys, centralized logging, and alert rules for policy changes. Document exceptions and set remediation SLAs by severity.",
+          "tools": [
+            "Microsoft Defender for Cloud",
+            "Azure CLI",
+            "Prowler",
+            "ScoutSuite"
+          ],
+          "references": [
+            {
+              "title": "Prowler AZURE",
+              "url": "https://github.com/prowler-cloud/prowler"
+            },
+            {
+              "title": "CIS Cloud Benchmarks",
+              "url": "https://www.cisecurity.org/cis-benchmarks"
+            }
+          ]
         },
         {
           "title": "SQL firewall not open to internet",
-          "desc": "Restrict database access to known IPs or private endpoints."
+          "description": "Restrict database access to known IPs or private endpoints.",
+          "severity": "low",
+          "how_to_find": "AZURE portal → Storage and Databases. Audit configuration against \"SQL firewall not open to internet\". CLI: use `az` to list resources and IAM bindings. Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings.",
+          "how_to_fix": "Restrict database access to known IPs or private endpoints. Apply CIS benchmark controls: least-privilege IAM, private endpoints, encryption with customer-managed keys, centralized logging, and alert rules for policy changes. Document exceptions and set remediation SLAs by severity.",
+          "tools": [
+            "Microsoft Defender for Cloud",
+            "Azure CLI",
+            "Prowler",
+            "ScoutSuite"
+          ],
+          "references": [
+            {
+              "title": "Prowler AZURE",
+              "url": "https://github.com/prowler-cloud/prowler"
+            },
+            {
+              "title": "CIS Cloud Benchmarks",
+              "url": "https://www.cisecurity.org/cis-benchmarks"
+            }
+          ]
         },
         {
           "title": "Soft delete and versioning on storage",
-          "desc": "Protect against ransomware and accidental deletion."
+          "description": "Protect against ransomware and accidental deletion.",
+          "severity": "medium",
+          "how_to_find": "AZURE portal → Storage and Databases. Audit configuration against \"Soft delete and versioning on storage\". CLI: use `az` to list resources and IAM bindings. Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings.",
+          "how_to_fix": "Protect against ransomware and accidental deletion. Apply CIS benchmark controls: least-privilege IAM, private endpoints, encryption with customer-managed keys, centralized logging, and alert rules for policy changes. Document exceptions and set remediation SLAs by severity.",
+          "tools": [
+            "Microsoft Defender for Cloud",
+            "Azure CLI",
+            "Prowler",
+            "ScoutSuite"
+          ],
+          "references": [
+            {
+              "title": "Prowler AZURE",
+              "url": "https://github.com/prowler-cloud/prowler"
+            },
+            {
+              "title": "CIS Cloud Benchmarks",
+              "url": "https://www.cisecurity.org/cis-benchmarks"
+            }
+          ]
         }
       ]
     },
@@ -82,23 +367,118 @@
       "items": [
         {
           "title": "VM disk encryption enabled",
-          "desc": "Azure Disk Encryption or server-side encryption for all VMs."
+          "description": "Azure Disk Encryption or server-side encryption for all VMs.",
+          "severity": "high",
+          "how_to_find": "AZURE portal → Compute and Kubernetes. Audit configuration against \"VM disk encryption enabled\". CLI: use `az` to list resources and IAM bindings. Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings.",
+          "how_to_fix": "Azure Disk Encryption or server-side encryption for all VMs. Apply CIS benchmark controls: least-privilege IAM, private endpoints, encryption with customer-managed keys, centralized logging, and alert rules for policy changes. Document exceptions and set remediation SLAs by severity.",
+          "tools": [
+            "Microsoft Defender for Cloud",
+            "Azure CLI",
+            "Prowler",
+            "ScoutSuite"
+          ],
+          "references": [
+            {
+              "title": "Prowler AZURE",
+              "url": "https://github.com/prowler-cloud/prowler"
+            },
+            {
+              "title": "CIS Cloud Benchmarks",
+              "url": "https://www.cisecurity.org/cis-benchmarks"
+            }
+          ]
         },
         {
           "title": "AKS RBAC and private cluster",
-          "desc": "Enable Azure RBAC, private API server, and network policies."
+          "description": "Enable Azure RBAC, private API server, and network policies.",
+          "severity": "low",
+          "how_to_find": "AZURE portal → Compute and Kubernetes. Audit configuration against \"AKS RBAC and private cluster\". CLI: use `az` to list resources and IAM bindings. Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings.",
+          "how_to_fix": "Enable Azure RBAC, private API server, and network policies. Apply CIS benchmark controls: least-privilege IAM, private endpoints, encryption with customer-managed keys, centralized logging, and alert rules for policy changes. Document exceptions and set remediation SLAs by severity.",
+          "tools": [
+            "Microsoft Defender for Cloud",
+            "Azure CLI",
+            "Prowler",
+            "ScoutSuite"
+          ],
+          "references": [
+            {
+              "title": "Prowler AZURE",
+              "url": "https://github.com/prowler-cloud/prowler"
+            },
+            {
+              "title": "CIS Cloud Benchmarks",
+              "url": "https://www.cisecurity.org/cis-benchmarks"
+            }
+          ]
         },
         {
           "title": "Managed identity over secrets",
-          "desc": "Apps and functions use managed identities instead of stored creds."
+          "description": "Apps and functions use managed identities instead of stored creds.",
+          "severity": "low",
+          "how_to_find": "AZURE portal → Compute and Kubernetes. Audit configuration against \"Managed identity over secrets\". CLI: use `az` to list resources and IAM bindings. Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings.",
+          "how_to_fix": "Apps and functions use managed identities instead of stored creds. Apply CIS benchmark controls: least-privilege IAM, private endpoints, encryption with customer-managed keys, centralized logging, and alert rules for policy changes. Document exceptions and set remediation SLAs by severity.",
+          "tools": [
+            "Microsoft Defender for Cloud",
+            "Azure CLI",
+            "Prowler",
+            "ScoutSuite"
+          ],
+          "references": [
+            {
+              "title": "Prowler AZURE",
+              "url": "https://github.com/prowler-cloud/prowler"
+            },
+            {
+              "title": "CIS Cloud Benchmarks",
+              "url": "https://www.cisecurity.org/cis-benchmarks"
+            }
+          ]
         },
         {
           "title": "Defender for Cloud enabled",
-          "desc": "Turn on Defender plans for servers, containers, and databases."
+          "description": "Turn on Defender plans for servers, containers, and databases.",
+          "severity": "low",
+          "how_to_find": "AZURE portal → Compute and Kubernetes. Audit configuration against \"Defender for Cloud enabled\". CLI: use `az` to list resources and IAM bindings. Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings.",
+          "how_to_fix": "Turn on Defender plans for servers, containers, and databases. Apply CIS benchmark controls: least-privilege IAM, private endpoints, encryption with customer-managed keys, centralized logging, and alert rules for policy changes. Document exceptions and set remediation SLAs by severity.",
+          "tools": [
+            "Microsoft Defender for Cloud",
+            "Azure CLI",
+            "Prowler",
+            "ScoutSuite"
+          ],
+          "references": [
+            {
+              "title": "Prowler AZURE",
+              "url": "https://github.com/prowler-cloud/prowler"
+            },
+            {
+              "title": "CIS Cloud Benchmarks",
+              "url": "https://www.cisecurity.org/cis-benchmarks"
+            }
+          ]
         },
         {
           "title": "Patch management baseline",
-          "desc": "Use Update Management or Automanage for timely patching."
+          "description": "Use Update Management or Automanage for timely patching.",
+          "severity": "medium",
+          "how_to_find": "AZURE portal → Compute and Kubernetes. Audit configuration against \"Patch management baseline\". CLI: use `az` to list resources and IAM bindings. Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings.",
+          "how_to_fix": "Use Update Management or Automanage for timely patching. Apply CIS benchmark controls: least-privilege IAM, private endpoints, encryption with customer-managed keys, centralized logging, and alert rules for policy changes. Document exceptions and set remediation SLAs by severity.",
+          "tools": [
+            "Microsoft Defender for Cloud",
+            "Azure CLI",
+            "Prowler",
+            "ScoutSuite"
+          ],
+          "references": [
+            {
+              "title": "Prowler AZURE",
+              "url": "https://github.com/prowler-cloud/prowler"
+            },
+            {
+              "title": "CIS Cloud Benchmarks",
+              "url": "https://www.cisecurity.org/cis-benchmarks"
+            }
+          ]
         }
       ]
     },
@@ -107,23 +487,118 @@
       "items": [
         {
           "title": "Activity Log to Log Analytics",
-          "desc": "Centralize subscription activity and resource logs."
+          "description": "Centralize subscription activity and resource logs.",
+          "severity": "critical",
+          "how_to_find": "AZURE portal → Logging and Key Management. Audit configuration against \"Activity Log to Log Analytics\". CLI: use `az` to list resources and IAM bindings. Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings.",
+          "how_to_fix": "Centralize subscription activity and resource logs. Apply CIS benchmark controls: least-privilege IAM, private endpoints, encryption with customer-managed keys, centralized logging, and alert rules for policy changes. Document exceptions and set remediation SLAs by severity.",
+          "tools": [
+            "Microsoft Defender for Cloud",
+            "Azure CLI",
+            "Prowler",
+            "ScoutSuite"
+          ],
+          "references": [
+            {
+              "title": "Prowler AZURE",
+              "url": "https://github.com/prowler-cloud/prowler"
+            },
+            {
+              "title": "CIS Cloud Benchmarks",
+              "url": "https://www.cisecurity.org/cis-benchmarks"
+            }
+          ]
         },
         {
           "title": "Diagnostic settings on all resources",
-          "desc": "Export metrics and logs for critical resources."
+          "description": "Export metrics and logs for critical resources.",
+          "severity": "critical",
+          "how_to_find": "AZURE portal → Logging and Key Management. Audit configuration against \"Diagnostic settings on all resources\". CLI: use `az` to list resources and IAM bindings. Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings.",
+          "how_to_fix": "Export metrics and logs for critical resources. Apply CIS benchmark controls: least-privilege IAM, private endpoints, encryption with customer-managed keys, centralized logging, and alert rules for policy changes. Document exceptions and set remediation SLAs by severity.",
+          "tools": [
+            "Microsoft Defender for Cloud",
+            "Azure CLI",
+            "Prowler",
+            "ScoutSuite"
+          ],
+          "references": [
+            {
+              "title": "Prowler AZURE",
+              "url": "https://github.com/prowler-cloud/prowler"
+            },
+            {
+              "title": "CIS Cloud Benchmarks",
+              "url": "https://www.cisecurity.org/cis-benchmarks"
+            }
+          ]
         },
         {
           "title": "Key Vault purge protection",
-          "desc": "Enable soft delete and purge protection on production vaults."
+          "description": "Enable soft delete and purge protection on production vaults.",
+          "severity": "low",
+          "how_to_find": "AZURE portal → Logging and Key Management. Audit configuration against \"Key Vault purge protection\". CLI: use `az` to list resources and IAM bindings. Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings.",
+          "how_to_fix": "Enable soft delete and purge protection on production vaults. Apply CIS benchmark controls: least-privilege IAM, private endpoints, encryption with customer-managed keys, centralized logging, and alert rules for policy changes. Document exceptions and set remediation SLAs by severity.",
+          "tools": [
+            "Microsoft Defender for Cloud",
+            "Azure CLI",
+            "Prowler",
+            "ScoutSuite"
+          ],
+          "references": [
+            {
+              "title": "Prowler AZURE",
+              "url": "https://github.com/prowler-cloud/prowler"
+            },
+            {
+              "title": "CIS Cloud Benchmarks",
+              "url": "https://www.cisecurity.org/cis-benchmarks"
+            }
+          ]
         },
         {
           "title": "Key rotation policy",
-          "desc": "Automate rotation for keys and secrets in Key Vault."
+          "description": "Automate rotation for keys and secrets in Key Vault.",
+          "severity": "medium",
+          "how_to_find": "AZURE portal → Logging and Key Management. Audit configuration against \"Key rotation policy\". CLI: use `az` to list resources and IAM bindings. Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings.",
+          "how_to_fix": "Automate rotation for keys and secrets in Key Vault. Apply CIS benchmark controls: least-privilege IAM, private endpoints, encryption with customer-managed keys, centralized logging, and alert rules for policy changes. Document exceptions and set remediation SLAs by severity.",
+          "tools": [
+            "Microsoft Defender for Cloud",
+            "Azure CLI",
+            "Prowler",
+            "ScoutSuite"
+          ],
+          "references": [
+            {
+              "title": "Prowler AZURE",
+              "url": "https://github.com/prowler-cloud/prowler"
+            },
+            {
+              "title": "CIS Cloud Benchmarks",
+              "url": "https://www.cisecurity.org/cis-benchmarks"
+            }
+          ]
         },
         {
           "title": "Alert rules for security events",
-          "desc": "Alert on failed logins, key deletions, and NSG changes."
+          "description": "Alert on failed logins, key deletions, and NSG changes.",
+          "severity": "low",
+          "how_to_find": "AZURE portal → Logging and Key Management. Audit configuration against \"Alert rules for security events\". CLI: use `az` to list resources and IAM bindings. Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings.",
+          "how_to_fix": "Alert on failed logins, key deletions, and NSG changes. Apply CIS benchmark controls: least-privilege IAM, private endpoints, encryption with customer-managed keys, centralized logging, and alert rules for policy changes. Document exceptions and set remediation SLAs by severity.",
+          "tools": [
+            "Microsoft Defender for Cloud",
+            "Azure CLI",
+            "Prowler",
+            "ScoutSuite"
+          ],
+          "references": [
+            {
+              "title": "Prowler AZURE",
+              "url": "https://github.com/prowler-cloud/prowler"
+            },
+            {
+              "title": "CIS Cloud Benchmarks",
+              "url": "https://www.cisecurity.org/cis-benchmarks"
+            }
+          ]
         }
       ]
     }

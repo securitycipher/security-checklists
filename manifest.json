@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0",
+  "version": "2.0.0",
   "updated": "2026-07-05",
   "title": "Security Checklists Hub",
   "hub_url": "https://securitycipher.com/security-checklists/",
@@ -94,5 +94,18 @@
       "legacy_url": "",
       "file": "categories/kubernetes.json"
     }
+  ],
+  "item_schema": {
+    "title": "required",
+    "description": "required - what the control checks",
+    "severity": "critical | high | medium | low",
+    "how_to_find": "detection and testing steps",
+    "how_to_fix": "remediation guidance",
+    "tools": "array of tool names",
+    "references": "optional array of {title, url}"
+  },
+  "source_repos": [
+    "https://github.com/securitycipher/security-checklists",
+    "https://github.com/securitycipher/awsome-websecurity-checklist"
   ]
 }

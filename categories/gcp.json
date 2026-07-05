@@ -7,23 +7,123 @@
       "items": [
         {
           "title": "No primitive roles at project level",
-          "desc": "Avoid owner/editor/viewer; use least-privilege custom roles."
+          "description": "Avoid owner/editor/viewer; use least-privilege custom roles.",
+          "severity": "low",
+          "how_to_find": "GCP portal → IAM and Organization. Audit configuration against \"No primitive roles at project level\". CLI: use `gcloud` to list resources and IAM bindings. Run Prowler (`prowler gcp`) or Defender/Security Command Center for misconfig findings.",
+          "how_to_fix": "Avoid owner/editor/viewer; use least-privilege custom roles. Apply CIS benchmark controls: least-privilege IAM, private endpoints, encryption with customer-managed keys, centralized logging, and alert rules for policy changes. Document exceptions and set remediation SLAs by severity.",
+          "tools": [
+            "gcloud",
+            "Security Command Center",
+            "Prowler",
+            "ScoutSuite",
+            "Forseti"
+          ],
+          "references": [
+            {
+              "title": "Prowler GCP",
+              "url": "https://github.com/prowler-cloud/prowler"
+            },
+            {
+              "title": "CIS Cloud Benchmarks",
+              "url": "https://www.cisecurity.org/cis-benchmarks"
+            }
+          ]
         },
         {
           "title": "Service account key hygiene",
-          "desc": "Rotate keys, avoid user-managed keys where workload identity works."
+          "description": "Rotate keys, avoid user-managed keys where workload identity works.",
+          "severity": "low",
+          "how_to_find": "GCP portal → IAM and Organization. Audit configuration against \"Service account key hygiene\". CLI: use `gcloud` to list resources and IAM bindings. Run Prowler (`prowler gcp`) or Defender/Security Command Center for misconfig findings.",
+          "how_to_fix": "Rotate keys, avoid user-managed keys where workload identity works. Apply CIS benchmark controls: least-privilege IAM, private endpoints, encryption with customer-managed keys, centralized logging, and alert rules for policy changes. Document exceptions and set remediation SLAs by severity.",
+          "tools": [
+            "gcloud",
+            "Security Command Center",
+            "Prowler",
+            "ScoutSuite",
+            "Forseti"
+          ],
+          "references": [
+            {
+              "title": "Prowler GCP",
+              "url": "https://github.com/prowler-cloud/prowler"
+            },
+            {
+              "title": "CIS Cloud Benchmarks",
+              "url": "https://www.cisecurity.org/cis-benchmarks"
+            }
+          ]
         },
         {
           "title": "Organization policies enforced",
-          "desc": "Restrict public IPs, require OS Login, and domain-restricted sharing."
+          "description": "Restrict public IPs, require OS Login, and domain-restricted sharing.",
+          "severity": "critical",
+          "how_to_find": "GCP portal → IAM and Organization. Audit configuration against \"Organization policies enforced\". CLI: use `gcloud` to list resources and IAM bindings. Run Prowler (`prowler gcp`) or Defender/Security Command Center for misconfig findings.",
+          "how_to_fix": "Restrict public IPs, require OS Login, and domain-restricted sharing. Apply CIS benchmark controls: least-privilege IAM, private endpoints, encryption with customer-managed keys, centralized logging, and alert rules for policy changes. Document exceptions and set remediation SLAs by severity.",
+          "tools": [
+            "gcloud",
+            "Security Command Center",
+            "Prowler",
+            "ScoutSuite",
+            "Forseti"
+          ],
+          "references": [
+            {
+              "title": "Prowler GCP",
+              "url": "https://github.com/prowler-cloud/prowler"
+            },
+            {
+              "title": "CIS Cloud Benchmarks",
+              "url": "https://www.cisecurity.org/cis-benchmarks"
+            }
+          ]
         },
         {
           "title": "MFA on org admin accounts",
-          "desc": "Enforce 2FA for accounts with org or billing admin."
+          "description": "Enforce 2FA for accounts with org or billing admin.",
+          "severity": "critical",
+          "how_to_find": "GCP portal → IAM and Organization. Audit configuration against \"MFA on org admin accounts\". CLI: use `gcloud` to list resources and IAM bindings. Run Prowler (`prowler gcp`) or Defender/Security Command Center for misconfig findings.",
+          "how_to_fix": "Enforce 2FA for accounts with org or billing admin. Apply CIS benchmark controls: least-privilege IAM, private endpoints, encryption with customer-managed keys, centralized logging, and alert rules for policy changes. Document exceptions and set remediation SLAs by severity.",
+          "tools": [
+            "gcloud",
+            "Security Command Center",
+            "Prowler",
+            "ScoutSuite",
+            "Forseti"
+          ],
+          "references": [
+            {
+              "title": "Prowler GCP",
+              "url": "https://github.com/prowler-cloud/prowler"
+            },
+            {
+              "title": "CIS Cloud Benchmarks",
+              "url": "https://www.cisecurity.org/cis-benchmarks"
+            }
+          ]
         },
         {
           "title": "Workload Identity Federation",
-          "desc": "Prefer WIF over long-lived service account keys for CI/CD."
+          "description": "Prefer WIF over long-lived service account keys for CI/CD.",
+          "severity": "low",
+          "how_to_find": "GCP portal → IAM and Organization. Audit configuration against \"Workload Identity Federation\". CLI: use `gcloud` to list resources and IAM bindings. Run Prowler (`prowler gcp`) or Defender/Security Command Center for misconfig findings.",
+          "how_to_fix": "Prefer WIF over long-lived service account keys for CI/CD. Apply CIS benchmark controls: least-privilege IAM, private endpoints, encryption with customer-managed keys, centralized logging, and alert rules for policy changes. Document exceptions and set remediation SLAs by severity.",
+          "tools": [
+            "gcloud",
+            "Security Command Center",
+            "Prowler",
+            "ScoutSuite",
+            "Forseti"
+          ],
+          "references": [
+            {
+              "title": "Prowler GCP",
+              "url": "https://github.com/prowler-cloud/prowler"
+            },
+            {
+              "title": "CIS Cloud Benchmarks",
+              "url": "https://www.cisecurity.org/cis-benchmarks"
+            }
+          ]
         }
       ]
     },
@@ -32,23 +132,123 @@
       "items": [
         {
           "title": "VPC firewall rules least privilege",
-          "desc": "No 0.0.0.0/0 on SSH, RDP, or database ports."
+          "description": "No 0.0.0.0/0 on SSH, RDP, or database ports.",
+          "severity": "critical",
+          "how_to_find": "GCP portal → Networking. Audit configuration against \"VPC firewall rules least privilege\". CLI: use `gcloud` to list resources and IAM bindings. Run Prowler (`prowler gcp`) or Defender/Security Command Center for misconfig findings.",
+          "how_to_fix": "No 0.0.0.0/0 on SSH, RDP, or database ports. Apply CIS benchmark controls: least-privilege IAM, private endpoints, encryption with customer-managed keys, centralized logging, and alert rules for policy changes. Document exceptions and set remediation SLAs by severity.",
+          "tools": [
+            "gcloud",
+            "Security Command Center",
+            "Prowler",
+            "ScoutSuite",
+            "Forseti"
+          ],
+          "references": [
+            {
+              "title": "Prowler GCP",
+              "url": "https://github.com/prowler-cloud/prowler"
+            },
+            {
+              "title": "CIS Cloud Benchmarks",
+              "url": "https://www.cisecurity.org/cis-benchmarks"
+            }
+          ]
         },
         {
           "title": "Private Google Access",
-          "desc": "Enable for subnets that reach Google APIs without public IPs."
+          "description": "Enable for subnets that reach Google APIs without public IPs.",
+          "severity": "high",
+          "how_to_find": "GCP portal → Networking. Audit configuration against \"Private Google Access\". CLI: use `gcloud` to list resources and IAM bindings. Run Prowler (`prowler gcp`) or Defender/Security Command Center for misconfig findings.",
+          "how_to_fix": "Enable for subnets that reach Google APIs without public IPs. Apply CIS benchmark controls: least-privilege IAM, private endpoints, encryption with customer-managed keys, centralized logging, and alert rules for policy changes. Document exceptions and set remediation SLAs by severity.",
+          "tools": [
+            "gcloud",
+            "Security Command Center",
+            "Prowler",
+            "ScoutSuite",
+            "Forseti"
+          ],
+          "references": [
+            {
+              "title": "Prowler GCP",
+              "url": "https://github.com/prowler-cloud/prowler"
+            },
+            {
+              "title": "CIS Cloud Benchmarks",
+              "url": "https://www.cisecurity.org/cis-benchmarks"
+            }
+          ]
         },
         {
           "title": "VPC Flow Logs enabled",
-          "desc": "Log all subnet traffic for detection and forensics."
+          "description": "Log all subnet traffic for detection and forensics.",
+          "severity": "low",
+          "how_to_find": "GCP portal → Networking. Audit configuration against \"VPC Flow Logs enabled\". CLI: use `gcloud` to list resources and IAM bindings. Run Prowler (`prowler gcp`) or Defender/Security Command Center for misconfig findings.",
+          "how_to_fix": "Log all subnet traffic for detection and forensics. Apply CIS benchmark controls: least-privilege IAM, private endpoints, encryption with customer-managed keys, centralized logging, and alert rules for policy changes. Document exceptions and set remediation SLAs by severity.",
+          "tools": [
+            "gcloud",
+            "Security Command Center",
+            "Prowler",
+            "ScoutSuite",
+            "Forseti"
+          ],
+          "references": [
+            {
+              "title": "Prowler GCP",
+              "url": "https://github.com/prowler-cloud/prowler"
+            },
+            {
+              "title": "CIS Cloud Benchmarks",
+              "url": "https://www.cisecurity.org/cis-benchmarks"
+            }
+          ]
         },
         {
           "title": "Cloud Armor on load balancers",
-          "desc": "WAF and DDoS protection for internet-facing services."
+          "description": "WAF and DDoS protection for internet-facing services.",
+          "severity": "low",
+          "how_to_find": "GCP portal → Networking. Audit configuration against \"Cloud Armor on load balancers\". CLI: use `gcloud` to list resources and IAM bindings. Run Prowler (`prowler gcp`) or Defender/Security Command Center for misconfig findings.",
+          "how_to_fix": "WAF and DDoS protection for internet-facing services. Apply CIS benchmark controls: least-privilege IAM, private endpoints, encryption with customer-managed keys, centralized logging, and alert rules for policy changes. Document exceptions and set remediation SLAs by severity.",
+          "tools": [
+            "gcloud",
+            "Security Command Center",
+            "Prowler",
+            "ScoutSuite",
+            "Forseti"
+          ],
+          "references": [
+            {
+              "title": "Prowler GCP",
+              "url": "https://github.com/prowler-cloud/prowler"
+            },
+            {
+              "title": "CIS Cloud Benchmarks",
+              "url": "https://www.cisecurity.org/cis-benchmarks"
+            }
+          ]
         },
         {
           "title": "Private Service Connect",
-          "desc": "Use for managed services instead of public endpoints."
+          "description": "Use for managed services instead of public endpoints.",
+          "severity": "high",
+          "how_to_find": "GCP portal → Networking. Audit configuration against \"Private Service Connect\". CLI: use `gcloud` to list resources and IAM bindings. Run Prowler (`prowler gcp`) or Defender/Security Command Center for misconfig findings.",
+          "how_to_fix": "Use for managed services instead of public endpoints. Apply CIS benchmark controls: least-privilege IAM, private endpoints, encryption with customer-managed keys, centralized logging, and alert rules for policy changes. Document exceptions and set remediation SLAs by severity.",
+          "tools": [
+            "gcloud",
+            "Security Command Center",
+            "Prowler",
+            "ScoutSuite",
+            "Forseti"
+          ],
+          "references": [
+            {
+              "title": "Prowler GCP",
+              "url": "https://github.com/prowler-cloud/prowler"
+            },
+            {
+              "title": "CIS Cloud Benchmarks",
+              "url": "https://www.cisecurity.org/cis-benchmarks"
+            }
+          ]
         }
       ]
     },
@@ -57,23 +257,123 @@
       "items": [
         {
           "title": "GCS uniform bucket-level access",
-          "desc": "Disable ACLs; use IAM conditions and public access prevention."
+          "description": "Disable ACLs; use IAM conditions and public access prevention.",
+          "severity": "high",
+          "how_to_find": "GCP portal → Storage and Databases. Audit configuration against \"GCS uniform bucket-level access\". CLI: use `gcloud` to list resources and IAM bindings. Run Prowler (`prowler gcp`) or Defender/Security Command Center for misconfig findings.",
+          "how_to_fix": "Disable ACLs; use IAM conditions and public access prevention. Apply CIS benchmark controls: least-privilege IAM, private endpoints, encryption with customer-managed keys, centralized logging, and alert rules for policy changes. Document exceptions and set remediation SLAs by severity.",
+          "tools": [
+            "gcloud",
+            "Security Command Center",
+            "Prowler",
+            "ScoutSuite",
+            "Forseti"
+          ],
+          "references": [
+            {
+              "title": "Prowler GCP",
+              "url": "https://github.com/prowler-cloud/prowler"
+            },
+            {
+              "title": "CIS Cloud Benchmarks",
+              "url": "https://www.cisecurity.org/cis-benchmarks"
+            }
+          ]
         },
         {
           "title": "Bucket encryption with CMEK",
-          "desc": "Customer-managed encryption keys for sensitive buckets."
+          "description": "Customer-managed encryption keys for sensitive buckets.",
+          "severity": "high",
+          "how_to_find": "GCP portal → Storage and Databases. Audit configuration against \"Bucket encryption with CMEK\". CLI: use `gcloud` to list resources and IAM bindings. Run Prowler (`prowler gcp`) or Defender/Security Command Center for misconfig findings.",
+          "how_to_fix": "Customer-managed encryption keys for sensitive buckets. Apply CIS benchmark controls: least-privilege IAM, private endpoints, encryption with customer-managed keys, centralized logging, and alert rules for policy changes. Document exceptions and set remediation SLAs by severity.",
+          "tools": [
+            "gcloud",
+            "Security Command Center",
+            "Prowler",
+            "ScoutSuite",
+            "Forseti"
+          ],
+          "references": [
+            {
+              "title": "Prowler GCP",
+              "url": "https://github.com/prowler-cloud/prowler"
+            },
+            {
+              "title": "CIS Cloud Benchmarks",
+              "url": "https://www.cisecurity.org/cis-benchmarks"
+            }
+          ]
         },
         {
           "title": "Cloud SQL not public",
-          "desc": "Private IP only; authorized networks tightly scoped."
+          "description": "Private IP only; authorized networks tightly scoped.",
+          "severity": "high",
+          "how_to_find": "GCP portal → Storage and Databases. Audit configuration against \"Cloud SQL not public\". CLI: use `gcloud` to list resources and IAM bindings. Run Prowler (`prowler gcp`) or Defender/Security Command Center for misconfig findings.",
+          "how_to_fix": "Private IP only; authorized networks tightly scoped. Apply CIS benchmark controls: least-privilege IAM, private endpoints, encryption with customer-managed keys, centralized logging, and alert rules for policy changes. Document exceptions and set remediation SLAs by severity.",
+          "tools": [
+            "gcloud",
+            "Security Command Center",
+            "Prowler",
+            "ScoutSuite",
+            "Forseti"
+          ],
+          "references": [
+            {
+              "title": "Prowler GCP",
+              "url": "https://github.com/prowler-cloud/prowler"
+            },
+            {
+              "title": "CIS Cloud Benchmarks",
+              "url": "https://www.cisecurity.org/cis-benchmarks"
+            }
+          ]
         },
         {
           "title": "Cloud SQL automated backups",
-          "desc": "Point-in-time recovery and tested restore procedures."
+          "description": "Point-in-time recovery and tested restore procedures.",
+          "severity": "medium",
+          "how_to_find": "GCP portal → Storage and Databases. Audit configuration against \"Cloud SQL automated backups\". CLI: use `gcloud` to list resources and IAM bindings. Run Prowler (`prowler gcp`) or Defender/Security Command Center for misconfig findings.",
+          "how_to_fix": "Point-in-time recovery and tested restore procedures. Apply CIS benchmark controls: least-privilege IAM, private endpoints, encryption with customer-managed keys, centralized logging, and alert rules for policy changes. Document exceptions and set remediation SLAs by severity.",
+          "tools": [
+            "gcloud",
+            "Security Command Center",
+            "Prowler",
+            "ScoutSuite",
+            "Forseti"
+          ],
+          "references": [
+            {
+              "title": "Prowler GCP",
+              "url": "https://github.com/prowler-cloud/prowler"
+            },
+            {
+              "title": "CIS Cloud Benchmarks",
+              "url": "https://www.cisecurity.org/cis-benchmarks"
+            }
+          ]
         },
         {
           "title": "Object versioning and retention",
-          "desc": "Protect against overwrite and ransomware."
+          "description": "Protect against overwrite and ransomware.",
+          "severity": "medium",
+          "how_to_find": "GCP portal → Storage and Databases. Audit configuration against \"Object versioning and retention\". CLI: use `gcloud` to list resources and IAM bindings. Run Prowler (`prowler gcp`) or Defender/Security Command Center for misconfig findings.",
+          "how_to_fix": "Protect against overwrite and ransomware. Apply CIS benchmark controls: least-privilege IAM, private endpoints, encryption with customer-managed keys, centralized logging, and alert rules for policy changes. Document exceptions and set remediation SLAs by severity.",
+          "tools": [
+            "gcloud",
+            "Security Command Center",
+            "Prowler",
+            "ScoutSuite",
+            "Forseti"
+          ],
+          "references": [
+            {
+              "title": "Prowler GCP",
+              "url": "https://github.com/prowler-cloud/prowler"
+            },
+            {
+              "title": "CIS Cloud Benchmarks",
+              "url": "https://www.cisecurity.org/cis-benchmarks"
+            }
+          ]
         }
       ]
     },
@@ -82,23 +382,123 @@
       "items": [
         {
           "title": "GKE private cluster",
-          "desc": "Private nodes and authorized networks for control plane."
+          "description": "Private nodes and authorized networks for control plane.",
+          "severity": "low",
+          "how_to_find": "GCP portal → GKE and Compute. Audit configuration against \"GKE private cluster\". CLI: use `gcloud` to list resources and IAM bindings. Run Prowler (`prowler gcp`) or Defender/Security Command Center for misconfig findings.",
+          "how_to_fix": "Private nodes and authorized networks for control plane. Apply CIS benchmark controls: least-privilege IAM, private endpoints, encryption with customer-managed keys, centralized logging, and alert rules for policy changes. Document exceptions and set remediation SLAs by severity.",
+          "tools": [
+            "gcloud",
+            "Security Command Center",
+            "Prowler",
+            "ScoutSuite",
+            "Forseti"
+          ],
+          "references": [
+            {
+              "title": "Prowler GCP",
+              "url": "https://github.com/prowler-cloud/prowler"
+            },
+            {
+              "title": "CIS Cloud Benchmarks",
+              "url": "https://www.cisecurity.org/cis-benchmarks"
+            }
+          ]
         },
         {
           "title": "Workload Identity enabled",
-          "desc": "Map K8s service accounts to GCP IAM without JSON keys."
+          "description": "Map K8s service accounts to GCP IAM without JSON keys.",
+          "severity": "low",
+          "how_to_find": "GCP portal → GKE and Compute. Audit configuration against \"Workload Identity enabled\". CLI: use `gcloud` to list resources and IAM bindings. Run Prowler (`prowler gcp`) or Defender/Security Command Center for misconfig findings.",
+          "how_to_fix": "Map K8s service accounts to GCP IAM without JSON keys. Apply CIS benchmark controls: least-privilege IAM, private endpoints, encryption with customer-managed keys, centralized logging, and alert rules for policy changes. Document exceptions and set remediation SLAs by severity.",
+          "tools": [
+            "gcloud",
+            "Security Command Center",
+            "Prowler",
+            "ScoutSuite",
+            "Forseti"
+          ],
+          "references": [
+            {
+              "title": "Prowler GCP",
+              "url": "https://github.com/prowler-cloud/prowler"
+            },
+            {
+              "title": "CIS Cloud Benchmarks",
+              "url": "https://www.cisecurity.org/cis-benchmarks"
+            }
+          ]
         },
         {
           "title": "Shielded GCE VMs",
-          "desc": "Secure Boot and vTPM for production instances."
+          "description": "Secure Boot and vTPM for production instances.",
+          "severity": "low",
+          "how_to_find": "GCP portal → GKE and Compute. Audit configuration against \"Shielded GCE VMs\". CLI: use `gcloud` to list resources and IAM bindings. Run Prowler (`prowler gcp`) or Defender/Security Command Center for misconfig findings.",
+          "how_to_fix": "Secure Boot and vTPM for production instances. Apply CIS benchmark controls: least-privilege IAM, private endpoints, encryption with customer-managed keys, centralized logging, and alert rules for policy changes. Document exceptions and set remediation SLAs by severity.",
+          "tools": [
+            "gcloud",
+            "Security Command Center",
+            "Prowler",
+            "ScoutSuite",
+            "Forseti"
+          ],
+          "references": [
+            {
+              "title": "Prowler GCP",
+              "url": "https://github.com/prowler-cloud/prowler"
+            },
+            {
+              "title": "CIS Cloud Benchmarks",
+              "url": "https://www.cisecurity.org/cis-benchmarks"
+            }
+          ]
         },
         {
           "title": "OS patch management",
-          "desc": "Use OS Config or golden images with regular updates."
+          "description": "Use OS Config or golden images with regular updates.",
+          "severity": "medium",
+          "how_to_find": "GCP portal → GKE and Compute. Audit configuration against \"OS patch management\". CLI: use `gcloud` to list resources and IAM bindings. Run Prowler (`prowler gcp`) or Defender/Security Command Center for misconfig findings.",
+          "how_to_fix": "Use OS Config or golden images with regular updates. Apply CIS benchmark controls: least-privilege IAM, private endpoints, encryption with customer-managed keys, centralized logging, and alert rules for policy changes. Document exceptions and set remediation SLAs by severity.",
+          "tools": [
+            "gcloud",
+            "Security Command Center",
+            "Prowler",
+            "ScoutSuite",
+            "Forseti"
+          ],
+          "references": [
+            {
+              "title": "Prowler GCP",
+              "url": "https://github.com/prowler-cloud/prowler"
+            },
+            {
+              "title": "CIS Cloud Benchmarks",
+              "url": "https://www.cisecurity.org/cis-benchmarks"
+            }
+          ]
         },
         {
           "title": "Binary Authorization for GKE",
-          "desc": "Only deploy signed and approved container images."
+          "description": "Only deploy signed and approved container images.",
+          "severity": "low",
+          "how_to_find": "GCP portal → GKE and Compute. Audit configuration against \"Binary Authorization for GKE\". CLI: use `gcloud` to list resources and IAM bindings. Run Prowler (`prowler gcp`) or Defender/Security Command Center for misconfig findings.",
+          "how_to_fix": "Only deploy signed and approved container images. Apply CIS benchmark controls: least-privilege IAM, private endpoints, encryption with customer-managed keys, centralized logging, and alert rules for policy changes. Document exceptions and set remediation SLAs by severity.",
+          "tools": [
+            "gcloud",
+            "Security Command Center",
+            "Prowler",
+            "ScoutSuite",
+            "Forseti"
+          ],
+          "references": [
+            {
+              "title": "Prowler GCP",
+              "url": "https://github.com/prowler-cloud/prowler"
+            },
+            {
+              "title": "CIS Cloud Benchmarks",
+              "url": "https://www.cisecurity.org/cis-benchmarks"
+            }
+          ]
         }
       ]
     },
@@ -107,23 +507,123 @@
       "items": [
         {
           "title": "Cloud Audit Logs exported",
-          "desc": "Admin, data access, and system events to BigQuery or SIEM."
+          "description": "Admin, data access, and system events to BigQuery or SIEM.",
+          "severity": "low",
+          "how_to_find": "GCP portal → Logging and Security Command Center. Audit configuration against \"Cloud Audit Logs exported\". CLI: use `gcloud` to list resources and IAM bindings. Run Prowler (`prowler gcp`) or Defender/Security Command Center for misconfig findings.",
+          "how_to_fix": "Admin, data access, and system events to BigQuery or SIEM. Apply CIS benchmark controls: least-privilege IAM, private endpoints, encryption with customer-managed keys, centralized logging, and alert rules for policy changes. Document exceptions and set remediation SLAs by severity.",
+          "tools": [
+            "gcloud",
+            "Security Command Center",
+            "Prowler",
+            "ScoutSuite",
+            "Forseti"
+          ],
+          "references": [
+            {
+              "title": "Prowler GCP",
+              "url": "https://github.com/prowler-cloud/prowler"
+            },
+            {
+              "title": "CIS Cloud Benchmarks",
+              "url": "https://www.cisecurity.org/cis-benchmarks"
+            }
+          ]
         },
         {
           "title": "Security Command Center Premium",
-          "desc": "Enable threat detection and vulnerability findings."
+          "description": "Enable threat detection and vulnerability findings.",
+          "severity": "low",
+          "how_to_find": "GCP portal → Logging and Security Command Center. Audit configuration against \"Security Command Center Premium\". CLI: use `gcloud` to list resources and IAM bindings. Run Prowler (`prowler gcp`) or Defender/Security Command Center for misconfig findings.",
+          "how_to_fix": "Enable threat detection and vulnerability findings. Apply CIS benchmark controls: least-privilege IAM, private endpoints, encryption with customer-managed keys, centralized logging, and alert rules for policy changes. Document exceptions and set remediation SLAs by severity.",
+          "tools": [
+            "gcloud",
+            "Security Command Center",
+            "Prowler",
+            "ScoutSuite",
+            "Forseti"
+          ],
+          "references": [
+            {
+              "title": "Prowler GCP",
+              "url": "https://github.com/prowler-cloud/prowler"
+            },
+            {
+              "title": "CIS Cloud Benchmarks",
+              "url": "https://www.cisecurity.org/cis-benchmarks"
+            }
+          ]
         },
         {
           "title": "Log sinks and retention",
-          "desc": "Centralized sinks with appropriate retention for compliance."
+          "description": "Centralized sinks with appropriate retention for compliance.",
+          "severity": "low",
+          "how_to_find": "GCP portal → Logging and Security Command Center. Audit configuration against \"Log sinks and retention\". CLI: use `gcloud` to list resources and IAM bindings. Run Prowler (`prowler gcp`) or Defender/Security Command Center for misconfig findings.",
+          "how_to_fix": "Centralized sinks with appropriate retention for compliance. Apply CIS benchmark controls: least-privilege IAM, private endpoints, encryption with customer-managed keys, centralized logging, and alert rules for policy changes. Document exceptions and set remediation SLAs by severity.",
+          "tools": [
+            "gcloud",
+            "Security Command Center",
+            "Prowler",
+            "ScoutSuite",
+            "Forseti"
+          ],
+          "references": [
+            {
+              "title": "Prowler GCP",
+              "url": "https://github.com/prowler-cloud/prowler"
+            },
+            {
+              "title": "CIS Cloud Benchmarks",
+              "url": "https://www.cisecurity.org/cis-benchmarks"
+            }
+          ]
         },
         {
           "title": "KMS key rotation",
-          "desc": "Automatic rotation for Cloud KMS keys."
+          "description": "Automatic rotation for Cloud KMS keys.",
+          "severity": "medium",
+          "how_to_find": "GCP portal → Logging and Security Command Center. Audit configuration against \"KMS key rotation\". CLI: use `gcloud` to list resources and IAM bindings. Run Prowler (`prowler gcp`) or Defender/Security Command Center for misconfig findings.",
+          "how_to_fix": "Automatic rotation for Cloud KMS keys. Apply CIS benchmark controls: least-privilege IAM, private endpoints, encryption with customer-managed keys, centralized logging, and alert rules for policy changes. Document exceptions and set remediation SLAs by severity.",
+          "tools": [
+            "gcloud",
+            "Security Command Center",
+            "Prowler",
+            "ScoutSuite",
+            "Forseti"
+          ],
+          "references": [
+            {
+              "title": "Prowler GCP",
+              "url": "https://github.com/prowler-cloud/prowler"
+            },
+            {
+              "title": "CIS Cloud Benchmarks",
+              "url": "https://www.cisecurity.org/cis-benchmarks"
+            }
+          ]
         },
         {
           "title": "Alerting on IAM changes",
-          "desc": "Notify on policy bindings, key creation, and firewall edits."
+          "description": "Notify on policy bindings, key creation, and firewall edits.",
+          "severity": "low",
+          "how_to_find": "GCP portal → Logging and Security Command Center. Audit configuration against \"Alerting on IAM changes\". CLI: use `gcloud` to list resources and IAM bindings. Run Prowler (`prowler gcp`) or Defender/Security Command Center for misconfig findings.",
+          "how_to_fix": "Notify on policy bindings, key creation, and firewall edits. Apply CIS benchmark controls: least-privilege IAM, private endpoints, encryption with customer-managed keys, centralized logging, and alert rules for policy changes. Document exceptions and set remediation SLAs by severity.",
+          "tools": [
+            "gcloud",
+            "Security Command Center",
+            "Prowler",
+            "ScoutSuite",
+            "Forseti"
+          ],
+          "references": [
+            {
+              "title": "Prowler GCP",
+              "url": "https://github.com/prowler-cloud/prowler"
+            },
+            {
+              "title": "CIS Cloud Benchmarks",
+              "url": "https://www.cisecurity.org/cis-benchmarks"
+            }
+          ]
         }
       ]
     }
