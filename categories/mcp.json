@@ -81,7 +81,7 @@
           "title": "Pinned package versions",
           "description": "Lock MCP server package versions; reject floating latest tags.",
           "severity": "medium",
-          "how_to_find": "In Inventory and Configuration: In Inventory and Configuration: In Inventory and Configuration: In Inventory and Configuration: Lock MCP server package versions; reject floating latest tags. Cross-check configs, running processes, and gateway logs.",
+          "how_to_find": "In Inventory and Configuration: In Inventory and Configuration: In Inventory and Configuration: In Inventory and Configuration: In Inventory and Configuration: Lock MCP server package versions; reject floating latest tags. Cross-check configs, running processes, and gateway logs.",
           "how_to_fix": "Pin package versions and image digests in config. Fail CI when configs reference `latest` or unpinned npm tags.",
           "tools": [
             "MCP Inspector",
@@ -182,7 +182,7 @@
           "title": "Cross-server shadowing tested",
           "description": "Multi-server sessions checked for one server hijacking another tool.",
           "severity": "low",
-          "how_to_find": "In Tool Trust and Transport: In Tool Trust and Transport: In Tool Trust and Transport: In Tool Trust and Transport: Multi-server sessions checked for one server hijacking another tool. Cross-check configs, running processes, and gateway logs.",
+          "how_to_find": "In Tool Trust and Transport: In Tool Trust and Transport: In Tool Trust and Transport: In Tool Trust and Transport: In Tool Trust and Transport: Multi-server sessions checked for one server hijacking another tool. Cross-check configs, running processes, and gateway logs.",
           "how_to_fix": "Apply least privilege, isolate each MCP server, and monitor for new child processes or config drift.",
           "tools": [
             "MCP Inspector",
@@ -206,7 +206,7 @@
           "title": "Human approval for destructive tools",
           "description": "File delete, email send, SQL, payments require explicit confirm.",
           "severity": "low",
-          "how_to_find": "In Tool Trust and Transport: In Tool Trust and Transport: In Tool Trust and Transport: In Tool Trust and Transport: File delete, email send, SQL, payments require explicit confirm. Cross-check configs, running processes, and gateway logs.",
+          "how_to_find": "In Tool Trust and Transport: In Tool Trust and Transport: In Tool Trust and Transport: In Tool Trust and Transport: In Tool Trust and Transport: File delete, email send, SQL, payments require explicit confirm. Cross-check configs, running processes, and gateway logs.",
           "how_to_fix": "Gate delete, pay, email, and production-write tools behind explicit human approval with context shown to the reviewer.",
           "tools": [
             "MCP Inspector",
@@ -415,7 +415,7 @@
           "title": "Invisible / homoglyph payloads in metadata",
           "description": "Zero-width characters, Unicode tag blocks, and homoglyphs can hide instructions inside otherwise benign-looking tool metadata, defeating human review while still reaching the model.",
           "severity": "low",
-          "how_to_find": "In Tool Definition Security — Tool Poisoning: In Tool Definition Security — Tool Poisoning: In Tool Definition Security — Tool Poisoning: In Tool Definition Security — Tool Poisoning: Verify the client strips or flags non-printable characters before display. Cross-check configs, running processes, and gateway logs.",
+          "how_to_find": "In Tool Definition Security — Tool Poisoning: In Tool Definition Security — Tool Poisoning: In Tool Definition Security — Tool Poisoning: In Tool Definition Security — Tool Poisoning: In Tool Definition Security — Tool Poisoning: Verify the client strips or flags non-printable characters before display. Cross-check configs, running processes, and gateway logs.",
           "how_to_fix": "Apply least privilege, isolate each MCP server, and monitor for new child processes or config drift.",
           "tools": [
             "MCP Inspector",
@@ -446,7 +446,7 @@
           "title": "Schema-driven argument coercion",
           "description": "Crafted parameter descriptions or default values steer the model into populating arguments with sensitive context (conversation history, secrets) it would not otherwise send.",
           "severity": "low",
-          "how_to_find": "In Tool Definition Security — Tool Poisoning: In Tool Definition Security — Tool Poisoning: In Tool Definition Security — Tool Poisoning: In Tool Definition Security — Tool Poisoning: Crafted parameter descriptions or default values steer the model into populating arguments with sensitive context (conversation history, secrets) it would not otherwise send. Cross-check configs, running processes, and gateway logs.",
+          "how_to_find": "In Tool Definition Security — Tool Poisoning: In Tool Definition Security — Tool Poisoning: In Tool Definition Security — Tool Poisoning: In Tool Definition Security — Tool Poisoning: In Tool Definition Security — Tool Poisoning: Crafted parameter descriptions or default values steer the model into populating arguments with sensitive context (conversation history, secrets) it would not otherwise send. Cross-check configs, running processes, and gateway logs.",
           "how_to_fix": "Apply least privilege, isolate each MCP server, and monitor for new child processes or config drift.",
           "tools": [
             "MCP Inspector",
@@ -477,7 +477,7 @@
           "title": "No human-in-the-loop review of tool content",
           "description": "If the client auto-approves tools or only shows names, poisoned descriptions execute without the user ever seeing the instructions the model received.",
           "severity": "critical",
-          "how_to_find": "In Tool Definition Security — Tool Poisoning: In Tool Definition Security — Tool Poisoning: In Tool Definition Security — Tool Poisoning: In Tool Definition Security — Tool Poisoning: Verify there is a re-review path when a server updates its tools. Cross-check configs, running processes, and gateway logs.",
+          "how_to_find": "In Tool Definition Security — Tool Poisoning: In Tool Definition Security — Tool Poisoning: In Tool Definition Security — Tool Poisoning: In Tool Definition Security — Tool Poisoning: In Tool Definition Security — Tool Poisoning: Verify there is a re-review path when a server updates its tools. Cross-check configs, running processes, and gateway logs.",
           "how_to_fix": "Gate delete, pay, email, and production-write tools behind explicit human approval with context shown to the reviewer.",
           "tools": [
             "MCP Inspector",
@@ -513,7 +513,7 @@
           "title": "Tool definitions mutate after approval",
           "description": "A previously approved tool changes its description, schema, or server-side behaviour later — a time-of-check/time-of-use bug against the human trust decision.",
           "severity": "low",
-          "how_to_find": "In Tool Definition Security — Rug Pull (Mutable Definitions): In Tool Definition Security — Rug Pull (Mutable Definitions): In Tool Definition Security — Rug Pull (Mutable Definitions): In Tool Definition Security — Rug Pull (Mutable Definitions): A previously approved tool changes its description, schema, or server-side behaviour later — a time-of-check/time-of-use bug against the human trust decision. Cross-check configs, running processes, and gateway logs.",
+          "how_to_find": "In Tool Definition Security — Rug Pull (Mutable Definitions): In Tool Definition Security — Rug Pull (Mutable Definitions): In Tool Definition Security — Rug Pull (Mutable Definitions): In Tool Definition Security — Rug Pull (Mutable Definitions): In Tool Definition Security — Rug Pull (Mutable Definitions): A previously approved tool changes its description, schema, or server-side behaviour later — a time-of-check/time-of-use bug against the human trust decision. Cross-check configs, running processes, and gateway logs.",
           "how_to_fix": "Gate delete, pay, email, and production-write tools behind explicit human approval with context shown to the reviewer.",
           "tools": [
             "MCP Inspector",
@@ -544,7 +544,7 @@
           "title": "No version pinning or integrity of tool set",
           "description": "Without pinning to a known-good tool definition hash or version, a server (or compromised dependency) can alter the contract the user agreed to without detection.",
           "severity": "medium",
-          "how_to_find": "In Tool Definition Security — Rug Pull (Mutable Definitions): In Tool Definition Security — Rug Pull (Mutable Definitions): In Tool Definition Security — Rug Pull (Mutable Definitions): In Tool Definition Security — Rug Pull (Mutable Definitions): Verify a tools/list_changed event triggers re-validation rather than blind acceptance. Cross-check configs, running processes, and gateway logs.",
+          "how_to_find": "In Tool Definition Security — Rug Pull (Mutable Definitions): In Tool Definition Security — Rug Pull (Mutable Definitions): In Tool Definition Security — Rug Pull (Mutable Definitions): In Tool Definition Security — Rug Pull (Mutable Definitions): In Tool Definition Security — Rug Pull (Mutable Definitions): Verify a tools/list_changed event triggers re-validation rather than blind acceptance. Cross-check configs, running processes, and gateway logs.",
           "how_to_fix": "Pin package versions and image digests in config. Fail CI when configs reference `latest` or unpinned npm tags.",
           "tools": [
             "MCP Inspector",
@@ -606,7 +606,7 @@
           "title": "list_changed notifications not gated",
           "description": "The MCP tools/list_changed mechanism lets a server refresh its tool set at runtime; if the client applies it silently, a rug pull is trivial.",
           "severity": "low",
-          "how_to_find": "In Tool Definition Security — Rug Pull (Mutable Definitions): In Tool Definition Security — Rug Pull (Mutable Definitions): In Tool Definition Security — Rug Pull (Mutable Definitions): In Tool Definition Security — Rug Pull (Mutable Definitions): The MCP tools/list_changed mechanism lets a server refresh its tool set at runtime; if the client applies it silently, a rug pull is trivial. Cross-check configs, running processes, and gateway logs.",
+          "how_to_find": "In Tool Definition Security — Rug Pull (Mutable Definitions): In Tool Definition Security — Rug Pull (Mutable Definitions): In Tool Definition Security — Rug Pull (Mutable Definitions): In Tool Definition Security — Rug Pull (Mutable Definitions): In Tool Definition Security — Rug Pull (Mutable Definitions): The MCP tools/list_changed mechanism lets a server refresh its tool set at runtime; if the client applies it silently, a rug pull is trivial. Cross-check configs, running processes, and gateway logs.",
           "how_to_fix": "Apply least privilege, isolate each MCP server, and monitor for new child processes or config drift.",
           "tools": [
             "MCP Inspector",
@@ -642,7 +642,7 @@
           "title": "Name collisions across servers",
           "description": "Two servers expose tools with identical names; the resolution order can let a malicious server intercept calls meant for a trusted one.",
           "severity": "critical",
-          "how_to_find": "In Tool Definition Security — Tool Shadowing: In Tool Definition Security — Tool Shadowing: In Tool Definition Security — Tool Shadowing: In Tool Definition Security — Tool Shadowing: Verify the client namespaces or qualifies tools per server, and confirm which definition wins on collision. Cross-check configs, running processes, and gateway logs.",
+          "how_to_find": "In Tool Definition Security — Tool Shadowing: In Tool Definition Security — Tool Shadowing: In Tool Definition Security — Tool Shadowing: In Tool Definition Security — Tool Shadowing: In Tool Definition Security — Tool Shadowing: Verify the client namespaces or qualifies tools per server, and confirm which definition wins on collision. Cross-check configs, running processes, and gateway logs.",
           "how_to_fix": "Apply least privilege, isolate each MCP server, and monitor for new child processes or config drift.",
           "tools": [
             "MCP Inspector",
@@ -735,7 +735,7 @@
           "title": "Connection-order dependent resolution",
           "description": "Tool resolution that depends on connection order lets an attacker win collisions simply by connecting their server first or last.",
           "severity": "low",
-          "how_to_find": "In Tool Definition Security — Tool Shadowing: In Tool Definition Security — Tool Shadowing: In Tool Definition Security — Tool Shadowing: In Tool Definition Security — Tool Shadowing: Confirm resolution is deterministic, explicit, and not silently exploitable by ordering. Cross-check configs, running processes, and gateway logs.",
+          "how_to_find": "In Tool Definition Security — Tool Shadowing: In Tool Definition Security — Tool Shadowing: In Tool Definition Security — Tool Shadowing: In Tool Definition Security — Tool Shadowing: In Tool Definition Security — Tool Shadowing: Confirm resolution is deterministic, explicit, and not silently exploitable by ordering. Cross-check configs, running processes, and gateway logs.",
           "how_to_fix": "Apply least privilege, isolate each MCP server, and monitor for new child processes or config drift.",
           "tools": [
             "MCP Inspector",
@@ -771,7 +771,7 @@
           "title": "Over-broad tool capabilities",
           "description": "Tools like \"run_shell\", \"read_any_file\", or \"http_request(url)\" grant near-arbitrary capability; an injection that reaches them is catastrophic.",
           "severity": "low",
-          "how_to_find": "In Tool Definition Security — Excessive Tool Capability: In Tool Definition Security — Excessive Tool Capability: In Tool Definition Security — Excessive Tool Capability: In Tool Definition Security — Excessive Tool Capability: Tools like \"run_shell\", \"read_any_file\", or \"http_request(url)\" grant near-arbitrary capability; an injection that reaches them is catastrophic. Cross-check configs, running processes, and gateway logs.",
+          "how_to_find": "In Tool Definition Security — Excessive Tool Capability: In Tool Definition Security — Excessive Tool Capability: In Tool Definition Security — Excessive Tool Capability: In Tool Definition Security — Excessive Tool Capability: In Tool Definition Security — Excessive Tool Capability: Tools like \"run_shell\", \"read_any_file\", or \"http_request(url)\" grant near-arbitrary capability; an injection that reaches them is catastrophic. Cross-check configs, running processes, and gateway logs.",
           "how_to_fix": "Apply least privilege, isolate each MCP server, and monitor for new child processes or config drift.",
           "tools": [
             "MCP Inspector",
@@ -802,7 +802,7 @@
           "title": "Destructive actions without confirmation",
           "description": "Tools that delete, send, transfer, or pay should require explicit human confirmation; auto-approval turns one bad model decision into real-world damage.",
           "severity": "low",
-          "how_to_find": "In Tool Definition Security — Excessive Tool Capability: In Tool Definition Security — Excessive Tool Capability: In Tool Definition Security — Excessive Tool Capability: In Tool Definition Security — Excessive Tool Capability: Tools that delete, send, transfer, or pay should require explicit human confirmation; auto-approval turns one bad model decision into real-world damage. Cross-check configs, running processes, and gateway logs.",
+          "how_to_find": "In Tool Definition Security — Excessive Tool Capability: In Tool Definition Security — Excessive Tool Capability: In Tool Definition Security — Excessive Tool Capability: In Tool Definition Security — Excessive Tool Capability: In Tool Definition Security — Excessive Tool Capability: Tools that delete, send, transfer, or pay should require explicit human confirmation; auto-approval turns one bad model decision into real-world damage. Cross-check configs, running processes, and gateway logs.",
           "how_to_fix": "Gate delete, pay, email, and production-write tools behind explicit human approval with context shown to the reviewer.",
           "tools": [
             "MCP Inspector",
@@ -864,7 +864,7 @@
           "title": "No rate limiting or quotas on tool use",
           "description": "Unbounded tool invocation lets a runaway or hijacked agent loop, exfiltrate at volume, or exhaust downstream resources.",
           "severity": "critical",
-          "how_to_find": "In Tool Definition Security — Excessive Tool Capability: In Tool Definition Security — Excessive Tool Capability: In Tool Definition Security — Excessive Tool Capability: In Tool Definition Security — Excessive Tool Capability: Unbounded tool invocation lets a runaway or hijacked agent loop, exfiltrate at volume, or exhaust downstream resources. Cross-check configs, running processes, and gateway logs.",
+          "how_to_find": "In Tool Definition Security — Excessive Tool Capability: In Tool Definition Security — Excessive Tool Capability: In Tool Definition Security — Excessive Tool Capability: In Tool Definition Security — Excessive Tool Capability: In Tool Definition Security — Excessive Tool Capability: Unbounded tool invocation lets a runaway or hijacked agent loop, exfiltrate at volume, or exhaust downstream resources. Cross-check configs, running processes, and gateway logs.",
           "how_to_fix": "Apply least privilege, isolate each MCP server, and monitor for new child processes or config drift.",
           "tools": [
             "MCP Inspector",
@@ -900,7 +900,7 @@
           "title": "Tool output treated as instructions",
           "description": "A tool returns attacker-controlled text (a webpage, ticket, email, repo file) and the model follows embedded directives — the canonical indirect prompt injection.",
           "severity": "low",
-          "how_to_find": "In Prompt & Output Injection — Indirect Prompt Injection: In Prompt & Output Injection — Indirect Prompt Injection: In Prompt & Output Injection — Indirect Prompt Injection: In Prompt & Output Injection — Indirect Prompt Injection: Confirm tool outputs are clearly delimited/labelled as untrusted data, not instructions. Cross-check configs, running processes, and gateway logs.",
+          "how_to_find": "In Prompt & Output Injection — Indirect Prompt Injection: In Prompt & Output Injection — Indirect Prompt Injection: In Prompt & Output Injection — Indirect Prompt Injection: In Prompt & Output Injection — Indirect Prompt Injection: In Prompt & Output Injection — Indirect Prompt Injection: Confirm tool outputs are clearly delimited/labelled as untrusted data, not instructions. Cross-check configs, running processes, and gateway logs.",
           "how_to_fix": "Apply least privilege, isolate each MCP server, and monitor for new child processes or config drift.",
           "tools": [
             "MCP Inspector",
@@ -931,7 +931,7 @@
           "title": "No data/instruction separation in context",
           "description": "If retrieved data and system/user instructions are concatenated without clear boundaries, attacker text in the data channel can be interpreted as a command.",
           "severity": "low",
-          "how_to_find": "In Prompt & Output Injection — Indirect Prompt Injection: In Prompt & Output Injection — Indirect Prompt Injection: In Prompt & Output Injection — Indirect Prompt Injection: In Prompt & Output Injection — Indirect Prompt Injection: Confirm untrusted output is fenced, tagged, or otherwise distinguished, and that the system prompt instructs the model to treat tool output as data only. Cross-check configs, running processes, and gateway logs.",
+          "how_to_find": "In Prompt & Output Injection — Indirect Prompt Injection: In Prompt & Output Injection — Indirect Prompt Injection: In Prompt & Output Injection — Indirect Prompt Injection: In Prompt & Output Injection — Indirect Prompt Injection: In Prompt & Output Injection — Indirect Prompt Injection: Confirm untrusted output is fenced, tagged, or otherwise distinguished, and that the system prompt instructs the model to treat tool output as data only. Cross-check configs, running processes, and gateway logs.",
           "how_to_fix": "Apply least privilege, isolate each MCP server, and monitor for new child processes or config drift.",
           "tools": [
             "MCP Inspector",
@@ -962,7 +962,7 @@
           "title": "Injection chaining into further tool calls",
           "description": "Injected instructions in one tool's output can drive the model to call other, more dangerous tools (e.g.",
           "severity": "low",
-          "how_to_find": "In Prompt & Output Injection — Indirect Prompt Injection: In Prompt & Output Injection — Indirect Prompt Injection: In Prompt & Output Injection — Indirect Prompt Injection: In Prompt & Output Injection — Indirect Prompt Injection: Verify high-impact tools require fresh consent and are not auto-chained from untrusted output. Cross-check configs, running processes, and gateway logs.",
+          "how_to_find": "In Prompt & Output Injection — Indirect Prompt Injection: In Prompt & Output Injection — Indirect Prompt Injection: In Prompt & Output Injection — Indirect Prompt Injection: In Prompt & Output Injection — Indirect Prompt Injection: In Prompt & Output Injection — Indirect Prompt Injection: Verify high-impact tools require fresh consent and are not auto-chained from untrusted output. Cross-check configs, running processes, and gateway logs.",
           "how_to_fix": "Apply least privilege, isolate each MCP server, and monitor for new child processes or config drift.",
           "tools": [
             "MCP Inspector",
@@ -1060,7 +1060,7 @@
           "title": "Malicious instructions embedded in resources",
           "description": "A server exposes a resource (README, config, doc) containing injection payloads; reading it into context hijacks the agent.",
           "severity": "critical",
-          "how_to_find": "In Prompt & Output Injection — Resource Poisoning: In Prompt & Output Injection — Resource Poisoning: In Prompt & Output Injection — Resource Poisoning: In Prompt & Output Injection — Resource Poisoning: Confirm resource content is treated as untrusted data, the same as tool output. Cross-check configs, running processes, and gateway logs.",
+          "how_to_find": "In Prompt & Output Injection — Resource Poisoning: In Prompt & Output Injection — Resource Poisoning: In Prompt & Output Injection — Resource Poisoning: In Prompt & Output Injection — Resource Poisoning: In Prompt & Output Injection — Resource Poisoning: Confirm resource content is treated as untrusted data, the same as tool output. Cross-check configs, running processes, and gateway logs.",
           "how_to_fix": "Apply least privilege, isolate each MCP server, and monitor for new child processes or config drift.",
           "tools": [
             "MCP Inspector",
@@ -1122,7 +1122,7 @@
           "title": "MIME / content-type confusion",
           "description": "Mislabelled resource content types can cause clients to render or interpret content unexpectedly, enabling injection or client-side execution.",
           "severity": "critical",
-          "how_to_find": "In Prompt & Output Injection — Resource Poisoning: In Prompt & Output Injection — Resource Poisoning: In Prompt & Output Injection — Resource Poisoning: In Prompt & Output Injection — Resource Poisoning: Test mismatched declared vs actual content for unsafe handling. Cross-check configs, running processes, and gateway logs.",
+          "how_to_find": "In Prompt & Output Injection — Resource Poisoning: In Prompt & Output Injection — Resource Poisoning: In Prompt & Output Injection — Resource Poisoning: In Prompt & Output Injection — Resource Poisoning: In Prompt & Output Injection — Resource Poisoning: Test mismatched declared vs actual content for unsafe handling. Cross-check configs, running processes, and gateway logs.",
           "how_to_fix": "Apply least privilege, isolate each MCP server, and monitor for new child processes or config drift.",
           "tools": [
             "MCP Inspector",
@@ -1153,7 +1153,7 @@
           "title": "Auto-loaded resources without consent",
           "description": "If a server can push resources into context automatically, poisoned content reaches the model with no user gate.",
           "severity": "critical",
-          "how_to_find": "In Prompt & Output Injection — Resource Poisoning: In Prompt & Output Injection — Resource Poisoning: In Prompt & Output Injection — Resource Poisoning: In Prompt & Output Injection — Resource Poisoning: Verify subscription/notification mechanisms cannot force unreviewed content into context. Cross-check configs, running processes, and gateway logs.",
+          "how_to_find": "In Prompt & Output Injection — Resource Poisoning: In Prompt & Output Injection — Resource Poisoning: In Prompt & Output Injection — Resource Poisoning: In Prompt & Output Injection — Resource Poisoning: In Prompt & Output Injection — Resource Poisoning: Verify subscription/notification mechanisms cannot force unreviewed content into context. Cross-check configs, running processes, and gateway logs.",
           "how_to_fix": "Apply least privilege, isolate each MCP server, and monitor for new child processes or config drift.",
           "tools": [
             "MCP Inspector",
@@ -1189,7 +1189,7 @@
           "title": "Server performs privileged action on model say-so",
           "description": "A server with its own credentials executes whatever the model asks; if the model is injected, the server becomes a confused deputy carrying out the attacker's will.",
           "severity": "low",
-          "how_to_find": "In Prompt & Output Injection — Confused Deputy: In Prompt & Output Injection — Confused Deputy: In Prompt & Output Injection — Confused Deputy: In Prompt & Output Injection — Confused Deputy: Test whether attacker-influenced model instructions can drive privileged actions. Cross-check configs, running processes, and gateway logs.",
+          "how_to_find": "In Prompt & Output Injection — Confused Deputy: In Prompt & Output Injection — Confused Deputy: In Prompt & Output Injection — Confused Deputy: In Prompt & Output Injection — Confused Deputy: In Prompt & Output Injection — Confused Deputy: Test whether attacker-influenced model instructions can drive privileged actions. Cross-check configs, running processes, and gateway logs.",
           "how_to_fix": "Apply least privilege, isolate each MCP server, and monitor for new child processes or config drift.",
           "tools": [
             "MCP Inspector",
@@ -1282,7 +1282,7 @@
           "title": "Actions not bound to verified user intent",
           "description": "High-impact actions should be tied to a confirmed user request; without intent binding, an injected model decision is indistinguishable from a real one.",
           "severity": "low",
-          "how_to_find": "In Prompt & Output Injection — Confused Deputy: In Prompt & Output Injection — Confused Deputy: In Prompt & Output Injection — Confused Deputy: In Prompt & Output Injection — Confused Deputy: High-impact actions should be tied to a confirmed user request; without intent binding, an injected model decision is indistinguishable from a real one. Cross-check configs, running processes, and gateway logs.",
+          "how_to_find": "In Prompt & Output Injection — Confused Deputy: In Prompt & Output Injection — Confused Deputy: In Prompt & Output Injection — Confused Deputy: In Prompt & Output Injection — Confused Deputy: In Prompt & Output Injection — Confused Deputy: High-impact actions should be tied to a confirmed user request; without intent binding, an injected model decision is indistinguishable from a real one. Cross-check configs, running processes, and gateway logs.",
           "how_to_fix": "Apply least privilege, isolate each MCP server, and monitor for new child processes or config drift.",
           "tools": [
             "MCP Inspector",
@@ -1380,7 +1380,7 @@
           "title": "Insecure token / credential storage",
           "description": "Access tokens, refresh tokens, and API keys stored in world-readable config, plaintext files, or env dumps are easily harvested by local malware or other tools.",
           "severity": "low",
-          "how_to_find": "In Authentication & Authorization — Server Authentication & OAuth: In Authentication & Authorization — Server Authentication & OAuth: In Authentication & Authorization — Server Authentication & OAuth: In Authentication & Authorization — Server Authentication & OAuth: Confirm restrictive permissions, OS keychain or encrypted storage, and that secrets are not logged or exposed via other tools. Cross-check configs, running processes, and gateway logs.",
+          "how_to_find": "In Authentication & Authorization — Server Authentication & OAuth: In Authentication & Authorization — Server Authentication & OAuth: In Authentication & Authorization — Server Authentication & OAuth: In Authentication & Authorization — Server Authentication & OAuth: In Authentication & Authorization — Server Authentication & OAuth: Confirm restrictive permissions, OS keychain or encrypted storage, and that secrets are not logged or exposed via other tools. Cross-check configs, running processes, and gateway logs.",
           "how_to_fix": "Issue least-privilege tokens per server and rotate on schedule. Never reuse org-wide admin PATs across MCP integrations.",
           "tools": [
             "MCP Inspector",
@@ -1411,7 +1411,7 @@
           "title": "Long-lived tokens & weak revocation",
           "description": "Long-lived or non-revocable tokens widen the window after compromise; absent rotation and revocation, a leaked token grants lasting access.",
           "severity": "medium",
-          "how_to_find": "In Authentication & Authorization — Server Authentication & OAuth: In Authentication & Authorization — Server Authentication & OAuth: In Authentication & Authorization — Server Authentication & OAuth: In Authentication & Authorization — Server Authentication & OAuth: Test that a revoked/expired token is rejected by the server. Cross-check configs, running processes, and gateway logs.",
+          "how_to_find": "In Authentication & Authorization — Server Authentication & OAuth: In Authentication & Authorization — Server Authentication & OAuth: In Authentication & Authorization — Server Authentication & OAuth: In Authentication & Authorization — Server Authentication & OAuth: In Authentication & Authorization — Server Authentication & OAuth: Test that a revoked/expired token is rejected by the server. Cross-check configs, running processes, and gateway logs.",
           "how_to_fix": "Issue least-privilege tokens per server and rotate on schedule. Never reuse org-wide admin PATs across MCP integrations.",
           "tools": [
             "MCP Inspector",
@@ -1478,7 +1478,7 @@
           "title": "Per-tool / per-action consent",
           "description": "Blanket \"approve this server\" consent lets every tool run; granular consent limits damage if one tool is poisoned or misused.",
           "severity": "low",
-          "how_to_find": "In Authentication & Authorization — Scope & Consent Control: In Authentication & Authorization — Scope & Consent Control: In Authentication & Authorization — Scope & Consent Control: In Authentication & Authorization — Scope & Consent Control: Blanket \"approve this server\" consent lets every tool run; granular consent limits damage if one tool is poisoned or misused. Cross-check configs, running processes, and gateway logs.",
+          "how_to_find": "In Authentication & Authorization — Scope & Consent Control: In Authentication & Authorization — Scope & Consent Control: In Authentication & Authorization — Scope & Consent Control: In Authentication & Authorization — Scope & Consent Control: In Authentication & Authorization — Scope & Consent Control: Blanket \"approve this server\" consent lets every tool run; granular consent limits damage if one tool is poisoned or misused. Cross-check configs, running processes, and gateway logs.",
           "how_to_fix": "Apply least privilege, isolate each MCP server, and monitor for new child processes or config drift.",
           "tools": [
             "MCP Inspector",
@@ -1607,7 +1607,7 @@
           "title": "Audience (aud) claim not validated",
           "description": "A server that accepts tokens without checking the audience can be handed a token minted for another resource, enabling cross-service token reuse.",
           "severity": "critical",
-          "how_to_find": "In Authentication & Authorization — Token Passthrough & Audience Confusion: In Authentication & Authorization — Token Passthrough & Audience Confusion: In Authentication & Authorization — Token Passthrough & Audience Confusion: In Authentication & Authorization — Token Passthrough & Audience Confusion: A server that accepts tokens without checking the audience can be handed a token minted for another resource, enabling cross-service token reuse. Cross-check configs, running processes, and gateway logs.",
+          "how_to_find": "In Authentication & Authorization — Token Passthrough & Audience Confusion: In Authentication & Authorization — Token Passthrough & Audience Confusion: In Authentication & Authorization — Token Passthrough & Audience Confusion: In Authentication & Authorization — Token Passthrough & Audience Confusion: In Authentication & Authorization — Token Passthrough & Audience Confusion: A server that accepts tokens without checking the audience can be handed a token minted for another resource, enabling cross-service token reuse. Cross-check configs, running processes, and gateway logs.",
           "how_to_fix": "Apply least privilege, isolate each MCP server, and monitor for new child processes or config drift.",
           "tools": [
             "MCP Inspector",
@@ -1638,7 +1638,7 @@
           "title": "Untrusted token issuers accepted",
           "description": "Accepting tokens from issuers the server has no relationship with allows forged or attacker-issued tokens to be honoured.",
           "severity": "low",
-          "how_to_find": "In Authentication & Authorization — Token Passthrough & Audience Confusion: In Authentication & Authorization — Token Passthrough & Audience Confusion: In Authentication & Authorization — Token Passthrough & Audience Confusion: In Authentication & Authorization — Token Passthrough & Audience Confusion: Test tokens from unexpected issuers. Cross-check configs, running processes, and gateway logs.",
+          "how_to_find": "In Authentication & Authorization — Token Passthrough & Audience Confusion: In Authentication & Authorization — Token Passthrough & Audience Confusion: In Authentication & Authorization — Token Passthrough & Audience Confusion: In Authentication & Authorization — Token Passthrough & Audience Confusion: In Authentication & Authorization — Token Passthrough & Audience Confusion: Test tokens from unexpected issuers. Cross-check configs, running processes, and gateway logs.",
           "how_to_fix": "Issue least-privilege tokens per server and rotate on schedule. Never reuse org-wide admin PATs across MCP integrations.",
           "tools": [
             "MCP Inspector",
@@ -1669,7 +1669,7 @@
           "title": "Passthrough enables scope escalation",
           "description": "Reused tokens may carry broader scopes than the MCP interaction needs, so a compromised server inherits the full power of the original grant.",
           "severity": "low",
-          "how_to_find": "In Authentication & Authorization — Token Passthrough & Audience Confusion: In Authentication & Authorization — Token Passthrough & Audience Confusion: In Authentication & Authorization — Token Passthrough & Audience Confusion: In Authentication & Authorization — Token Passthrough & Audience Confusion: Confirm the server cannot exercise scopes beyond what the MCP task requires, ideally via token exchange to a narrower grant. Cross-check configs, running processes, and gateway logs.",
+          "how_to_find": "In Authentication & Authorization — Token Passthrough & Audience Confusion: In Authentication & Authorization — Token Passthrough & Audience Confusion: In Authentication & Authorization — Token Passthrough & Audience Confusion: In Authentication & Authorization — Token Passthrough & Audience Confusion: In Authentication & Authorization — Token Passthrough & Audience Confusion: Confirm the server cannot exercise scopes beyond what the MCP task requires, ideally via token exchange to a narrower grant. Cross-check configs, running processes, and gateway logs.",
           "how_to_fix": "Apply least privilege, isolate each MCP server, and monitor for new child processes or config drift.",
           "tools": [
             "MCP Inspector",
@@ -1705,7 +1705,7 @@
           "title": "TLS on remote (HTTP/SSE) transport",
           "description": "Remote MCP over plain HTTP exposes tokens, tool arguments, and results to interception and tampering on the wire.",
           "severity": "critical",
-          "how_to_find": "In Transport & Server Hardening — Transport Security: In Transport & Server Hardening — Transport Security: In Transport & Server Hardening — Transport Security: In Transport & Server Hardening — Transport Security: Attempt plaintext/downgrade and verify it is refused. Cross-check configs, running processes, and gateway logs.",
+          "how_to_find": "In Transport & Server Hardening — Transport Security: In Transport & Server Hardening — Transport Security: In Transport & Server Hardening — Transport Security: In Transport & Server Hardening — Transport Security: In Transport & Server Hardening — Transport Security: Attempt plaintext/downgrade and verify it is refused. Cross-check configs, running processes, and gateway logs.",
           "how_to_fix": "Apply least privilege, isolate each MCP server, and monitor for new child processes or config drift.",
           "tools": [
             "MCP Inspector",
@@ -1767,7 +1767,7 @@
           "title": "Unintended network exposure of local server",
           "description": "A \"local\" server bound to all interfaces or exposed via port-forward becomes reachable by other hosts, often with no auth.",
           "severity": "low",
-          "how_to_find": "In Transport & Server Hardening — Transport Security: In Transport & Server Hardening — Transport Security: In Transport & Server Hardening — Transport Security: In Transport & Server Hardening — Transport Security: Confirm it is not bound to a routable interface and is not reachable from the network without explicit, authenticated intent. Cross-check configs, running processes, and gateway logs.",
+          "how_to_find": "In Transport & Server Hardening — Transport Security: In Transport & Server Hardening — Transport Security: In Transport & Server Hardening — Transport Security: In Transport & Server Hardening — Transport Security: In Transport & Server Hardening — Transport Security: Confirm it is not bound to a routable interface and is not reachable from the network without explicit, authenticated intent. Cross-check configs, running processes, and gateway logs.",
           "how_to_fix": "Apply least privilege, isolate each MCP server, and monitor for new child processes or config drift.",
           "tools": [
             "MCP Inspector",
@@ -1798,7 +1798,7 @@
           "title": "Session ID handling on Streamable HTTP",
           "description": "Streamable HTTP sessions identified by guessable or non-bound session IDs are vulnerable to hijack and message injection.",
           "severity": "low",
-          "how_to_find": "In Transport & Server Hardening — Transport Security: In Transport & Server Hardening — Transport Security: In Transport & Server Hardening — Transport Security: In Transport & Server Hardening — Transport Security: Test reuse of a session ID by a different client. Cross-check configs, running processes, and gateway logs.",
+          "how_to_find": "In Transport & Server Hardening — Transport Security: In Transport & Server Hardening — Transport Security: In Transport & Server Hardening — Transport Security: In Transport & Server Hardening — Transport Security: In Transport & Server Hardening — Transport Security: Test reuse of a session ID by a different client. Cross-check configs, running processes, and gateway logs.",
           "how_to_fix": "Apply least privilege, isolate each MCP server, and monitor for new child processes or config drift.",
           "tools": [
             "MCP Inspector",
@@ -1829,7 +1829,7 @@
           "title": "Server identity verification & impersonation",
           "description": "Test whether a substituted endpoint or binary is accepted without identity verification.",
           "severity": "critical",
-          "how_to_find": "In Transport & Server Hardening — Transport Security: In Transport & Server Hardening — Transport Security: In Transport & Server Hardening — Transport Security: In Transport & Server Hardening — Transport Security: Test whether a substituted endpoint or binary is accepted without identity verification. Cross-check configs, running processes, and gateway logs.",
+          "how_to_find": "In Transport & Server Hardening — Transport Security: In Transport & Server Hardening — Transport Security: In Transport & Server Hardening — Transport Security: In Transport & Server Hardening — Transport Security: In Transport & Server Hardening — Transport Security: Test whether a substituted endpoint or binary is accepted without identity verification. Cross-check configs, running processes, and gateway logs.",
           "how_to_fix": "Apply least privilege, isolate each MCP server, and monitor for new child processes or config drift.",
           "tools": [
             "MCP Inspector",
@@ -1866,7 +1866,7 @@
           "title": "OS command built from tool arguments",
           "description": "A tool that passes arguments into a shell (e.g.",
           "severity": "critical",
-          "how_to_find": "In Transport & Server Hardening — Command Injection: In Transport & Server Hardening — Command Injection: In Transport & Server Hardening — Command Injection: In Transport & Server Hardening — Command Injection: exec(`git ${branch}`)) lets injected metacharacters run arbitrary commands on the server host. Cross-check configs, running processes, and gateway logs.",
+          "how_to_find": "In Transport & Server Hardening — Command Injection: In Transport & Server Hardening — Command Injection: In Transport & Server Hardening — Command Injection: In Transport & Server Hardening — Command Injection: In Transport & Server Hardening — Command Injection: exec(`git ${branch}`)) lets injected metacharacters run arbitrary commands on the server host. Cross-check configs, running processes, and gateway logs.",
           "how_to_fix": "Apply least privilege, isolate each MCP server, and monitor for new child processes or config drift.",
           "tools": [
             "MCP Inspector",
@@ -1897,7 +1897,7 @@
           "title": "Insufficient argument validation against schema",
           "description": "Even with a JSON schema, missing server-side validation (types, allowlists, length) lets malformed or hostile values reach dangerous sinks.",
           "severity": "low",
-          "how_to_find": "In Transport & Server Hardening — Command Injection: In Transport & Server Hardening — Command Injection: In Transport & Server Hardening — Command Injection: In Transport & Server Hardening — Command Injection: Confirm the server validates against the schema server-side and rejects unexpected input rather than trusting the model. Cross-check configs, running processes, and gateway logs.",
+          "how_to_find": "In Transport & Server Hardening — Command Injection: In Transport & Server Hardening — Command Injection: In Transport & Server Hardening — Command Injection: In Transport & Server Hardening — Command Injection: In Transport & Server Hardening — Command Injection: Confirm the server validates against the schema server-side and rejects unexpected input rather than trusting the model. Cross-check configs, running processes, and gateway logs.",
           "how_to_fix": "Apply least privilege, isolate each MCP server, and monitor for new child processes or config drift.",
           "tools": [
             "MCP Inspector",
@@ -1928,7 +1928,7 @@
           "title": "Dynamic code evaluation from arguments",
           "description": "Tools that eval/exec interpreted code (Python eval, JS Function, template engines) from arguments give direct code execution.",
           "severity": "critical",
-          "how_to_find": "In Transport & Server Hardening — Command Injection: In Transport & Server Hardening — Command Injection: In Transport & Server Hardening — Command Injection: In Transport & Server Hardening — Command Injection: Test for code/template injection. Cross-check configs, running processes, and gateway logs.",
+          "how_to_find": "In Transport & Server Hardening — Command Injection: In Transport & Server Hardening — Command Injection: In Transport & Server Hardening — Command Injection: In Transport & Server Hardening — Command Injection: In Transport & Server Hardening — Command Injection: Test for code/template injection. Cross-check configs, running processes, and gateway logs.",
           "how_to_fix": "Apply least privilege, isolate each MCP server, and monitor for new child processes or config drift.",
           "tools": [
             "MCP Inspector",
@@ -1959,7 +1959,7 @@
           "title": "Path / filename arguments enabling traversal",
           "description": "Tools that take file paths can be steered to read/write outside intended directories when paths are not canonicalised and bounded.",
           "severity": "critical",
-          "how_to_find": "In Transport & Server Hardening — Command Injection: In Transport & Server Hardening — Command Injection: In Transport & Server Hardening — Command Injection: In Transport & Server Hardening — Command Injection: Confirm the server canonicalises and enforces a root jail before any filesystem access. Cross-check configs, running processes, and gateway logs.",
+          "how_to_find": "In Transport & Server Hardening — Command Injection: In Transport & Server Hardening — Command Injection: In Transport & Server Hardening — Command Injection: In Transport & Server Hardening — Command Injection: In Transport & Server Hardening — Command Injection: Confirm the server canonicalises and enforces a root jail before any filesystem access. Cross-check configs, running processes, and gateway logs.",
           "how_to_fix": "Issue least-privilege tokens per server and rotate on schedule. Never reuse org-wide admin PATs across MCP integrations.",
           "tools": [
             "MCP Inspector",
@@ -1995,7 +1995,7 @@
           "title": "URL fetched from tool argument without validation",
           "description": "A \"fetch\", \"scrape\", or \"webhook\" tool that requests an arbitrary URL from arguments enables SSRF into internal networks.",
           "severity": "low",
-          "how_to_find": "In Transport & Server Hardening — Server-Side Request Forgery: In Transport & Server Hardening — Server-Side Request Forgery: In Transport & Server Hardening — Server-Side Request Forgery: In Transport & Server Hardening — Server-Side Request Forgery: Test redirect-based and DNS-rebinding SSRF. Cross-check configs, running processes, and gateway logs.",
+          "how_to_find": "In Transport & Server Hardening — Server-Side Request Forgery: In Transport & Server Hardening — Server-Side Request Forgery: In Transport & Server Hardening — Server-Side Request Forgery: In Transport & Server Hardening — Server-Side Request Forgery: In Transport & Server Hardening — Server-Side Request Forgery: Test redirect-based and DNS-rebinding SSRF. Cross-check configs, running processes, and gateway logs.",
           "how_to_fix": "Apply least privilege, isolate each MCP server, and monitor for new child processes or config drift.",
           "tools": [
             "MCP Inspector",
@@ -2026,7 +2026,7 @@
           "title": "Access to cloud metadata endpoints",
           "description": "SSRF reaching 169.254.169.254 (or equivalent) can harvest cloud instance credentials, a frequent privilege-escalation pivot.",
           "severity": "low",
-          "how_to_find": "In Transport & Server Hardening — Server-Side Request Forgery: In Transport & Server Hardening — Server-Side Request Forgery: In Transport & Server Hardening — Server-Side Request Forgery: In Transport & Server Hardening — Server-Side Request Forgery: Confirm it is blocked, IMDSv2/hop-limit hardening is in place, and the server has no standing high-privilege metadata credentials. Cross-check configs, running processes, and gateway logs.",
+          "how_to_find": "In Transport & Server Hardening — Server-Side Request Forgery: In Transport & Server Hardening — Server-Side Request Forgery: In Transport & Server Hardening — Server-Side Request Forgery: In Transport & Server Hardening — Server-Side Request Forgery: In Transport & Server Hardening — Server-Side Request Forgery: Confirm it is blocked, IMDSv2/hop-limit hardening is in place, and the server has no standing high-privilege metadata credentials. Cross-check configs, running processes, and gateway logs.",
           "how_to_fix": "Apply least privilege, isolate each MCP server, and monitor for new child processes or config drift.",
           "tools": [
             "MCP Inspector",
@@ -2057,7 +2057,7 @@
           "title": "Dangerous URL schemes accepted",
           "description": "Accepting non-HTTP schemes (file://, gopher://, ftp://, dict://) broadens SSRF into file reads and protocol smuggling.",
           "severity": "low",
-          "how_to_find": "In Transport & Server Hardening — Server-Side Request Forgery: In Transport & Server Hardening — Server-Side Request Forgery: In Transport & Server Hardening — Server-Side Request Forgery: In Transport & Server Hardening — Server-Side Request Forgery: Confirm only an allowlist of safe schemes (https) is permitted and others are rejected. Cross-check configs, running processes, and gateway logs.",
+          "how_to_find": "In Transport & Server Hardening — Server-Side Request Forgery: In Transport & Server Hardening — Server-Side Request Forgery: In Transport & Server Hardening — Server-Side Request Forgery: In Transport & Server Hardening — Server-Side Request Forgery: In Transport & Server Hardening — Server-Side Request Forgery: Confirm only an allowlist of safe schemes (https) is permitted and others are rejected. Cross-check configs, running processes, and gateway logs.",
           "how_to_fix": "Apply least privilege, isolate each MCP server, and monitor for new child processes or config drift.",
           "tools": [
             "MCP Inspector",
@@ -2088,7 +2088,7 @@
           "title": "Blind SSRF / out-of-band egress",
           "description": "Even without a response body, a fetch tool can be used for blind SSRF and as a covert data-exfiltration channel via attacker-controlled URLs.",
           "severity": "low",
-          "how_to_find": "In Transport & Server Hardening — Server-Side Request Forgery: In Transport & Server Hardening — Server-Side Request Forgery: In Transport & Server Hardening — Server-Side Request Forgery: In Transport & Server Hardening — Server-Side Request Forgery: Confirm egress is constrained and monitored. Cross-check configs, running processes, and gateway logs.",
+          "how_to_find": "In Transport & Server Hardening — Server-Side Request Forgery: In Transport & Server Hardening — Server-Side Request Forgery: In Transport & Server Hardening — Server-Side Request Forgery: In Transport & Server Hardening — Server-Side Request Forgery: In Transport & Server Hardening — Server-Side Request Forgery: Confirm egress is constrained and monitored. Cross-check configs, running processes, and gateway logs.",
           "how_to_fix": "Apply least privilege, isolate each MCP server, and monitor for new child processes or config drift.",
           "tools": [
             "MCP Inspector",
@@ -2124,7 +2124,7 @@
           "title": "Untrusted / unverified server source",
           "description": "Installing a community MCP server from an unverified registry or repo runs arbitrary code with the user's privileges and exposes them to poisoned tools.",
           "severity": "critical",
-          "how_to_find": "In Transport & Server Hardening — Supply Chain & Server Provenance: In Transport & Server Hardening — Supply Chain & Server Provenance: In Transport & Server Hardening — Supply Chain & Server Provenance: In Transport & Server Hardening — Supply Chain & Server Provenance: Installing a community MCP server from an unverified registry or repo runs arbitrary code with the user's privileges and exposes them to poisoned tools. Cross-check configs, running processes, and gateway logs.",
+          "how_to_find": "In Transport & Server Hardening — Supply Chain & Server Provenance: In Transport & Server Hardening — Supply Chain & Server Provenance: In Transport & Server Hardening — Supply Chain & Server Provenance: In Transport & Server Hardening — Supply Chain & Server Provenance: In Transport & Server Hardening — Supply Chain & Server Provenance: Installing a community MCP server from an unverified registry or repo runs arbitrary code with the user's privileges and exposes them to poisoned tools. Cross-check configs, running processes, and gateway logs.",
           "how_to_fix": "Apply least privilege, isolate each MCP server, and monitor for new child processes or config drift.",
           "tools": [
             "MCP Inspector",
@@ -2155,7 +2155,7 @@
           "title": "Unpinned dependencies / install scripts",
           "description": "Servers installed via npx/uvx with unpinned versions or postinstall scripts can pull in malicious code at install or update time.",
           "severity": "medium",
-          "how_to_find": "In Transport & Server Hardening — Supply Chain & Server Provenance: In Transport & Server Hardening — Supply Chain & Server Provenance: In Transport & Server Hardening — Supply Chain & Server Provenance: In Transport & Server Hardening — Supply Chain & Server Provenance: Test that updates are not silently auto-applied. Cross-check configs, running processes, and gateway logs.",
+          "how_to_find": "In Transport & Server Hardening — Supply Chain & Server Provenance: In Transport & Server Hardening — Supply Chain & Server Provenance: In Transport & Server Hardening — Supply Chain & Server Provenance: In Transport & Server Hardening — Supply Chain & Server Provenance: In Transport & Server Hardening — Supply Chain & Server Provenance: Test that updates are not silently auto-applied. Cross-check configs, running processes, and gateway logs.",
           "how_to_fix": "Pin package versions and image digests in config. Fail CI when configs reference `latest` or unpinned npm tags.",
           "tools": [
             "MCP Inspector",
@@ -2217,7 +2217,7 @@
           "title": "No integrity verification on updates",
           "description": "Without signature/hash verification, a server update can swap benign code for malicious without the user noticing — a supply-chain rug pull.",
           "severity": "low",
-          "how_to_find": "In Transport & Server Hardening — Supply Chain & Server Provenance: In Transport & Server Hardening — Supply Chain & Server Provenance: In Transport & Server Hardening — Supply Chain & Server Provenance: In Transport & Server Hardening — Supply Chain & Server Provenance: Test whether a modified package is detected and refused. Cross-check configs, running processes, and gateway logs.",
+          "how_to_find": "In Transport & Server Hardening — Supply Chain & Server Provenance: In Transport & Server Hardening — Supply Chain & Server Provenance: In Transport & Server Hardening — Supply Chain & Server Provenance: In Transport & Server Hardening — Supply Chain & Server Provenance: In Transport & Server Hardening — Supply Chain & Server Provenance: Test whether a modified package is detected and refused. Cross-check configs, running processes, and gateway logs.",
           "how_to_fix": "Apply least privilege, isolate each MCP server, and monitor for new child processes or config drift.",
           "tools": [
             "MCP Inspector",
@@ -2253,7 +2253,7 @@
           "title": "Sensitive data egress through send/post tools",
           "description": "Tools that email, message, upload, or webhook data can exfiltrate secrets and PII the agent has access to, particularly under injection.",
           "severity": "low",
-          "how_to_find": "In Data Exposure & Privacy — Data Exfiltration via Tools: In Data Exposure & Privacy — Data Exfiltration via Tools: In Data Exposure & Privacy — Data Exfiltration via Tools: In Data Exposure & Privacy — Data Exfiltration via Tools: Test whether injected instructions can route sensitive context to attacker-controlled destinations. Cross-check configs, running processes, and gateway logs.",
+          "how_to_find": "In Data Exposure & Privacy — Data Exfiltration via Tools: In Data Exposure & Privacy — Data Exfiltration via Tools: In Data Exposure & Privacy — Data Exfiltration via Tools: In Data Exposure & Privacy — Data Exfiltration via Tools: In Data Exposure & Privacy — Data Exfiltration via Tools: Test whether injected instructions can route sensitive context to attacker-controlled destinations. Cross-check configs, running processes, and gateway logs.",
           "how_to_fix": "Apply least privilege, isolate each MCP server, and monitor for new child processes or config drift.",
           "tools": [
             "MCP Inspector",
@@ -2284,7 +2284,7 @@
           "title": "Encoded / covert exfiltration channels",
           "description": "Data can be smuggled in URL params, image links, DNS lookups, or markdown the client auto-fetches — covert channels that bypass obvious egress review.",
           "severity": "low",
-          "how_to_find": "In Data Exposure & Privacy — Data Exfiltration via Tools: In Data Exposure & Privacy — Data Exfiltration via Tools: In Data Exposure & Privacy — Data Exfiltration via Tools: In Data Exposure & Privacy — Data Exfiltration via Tools: Confirm the client does not auto-fetch attacker URLs and that outbound content is inspected for embedded secrets. Cross-check configs, running processes, and gateway logs.",
+          "how_to_find": "In Data Exposure & Privacy — Data Exfiltration via Tools: In Data Exposure & Privacy — Data Exfiltration via Tools: In Data Exposure & Privacy — Data Exfiltration via Tools: In Data Exposure & Privacy — Data Exfiltration via Tools: In Data Exposure & Privacy — Data Exfiltration via Tools: Confirm the client does not auto-fetch attacker URLs and that outbound content is inspected for embedded secrets. Cross-check configs, running processes, and gateway logs.",
           "how_to_fix": "Apply least privilege, isolate each MCP server, and monitor for new child processes or config drift.",
           "tools": [
             "MCP Inspector",
@@ -2315,7 +2315,7 @@
           "title": "Over-broad data access feeding egress",
           "description": "A tool that can read large or sensitive datasets, combined with any egress path, creates a high-volume exfiltration risk.",
           "severity": "low",
-          "how_to_find": "In Data Exposure & Privacy — Data Exfiltration via Tools: In Data Exposure & Privacy — Data Exfiltration via Tools: In Data Exposure & Privacy — Data Exfiltration via Tools: In Data Exposure & Privacy — Data Exfiltration via Tools: Confirm sensitive datasets are not freely readable by tools that also have, or can reach, egress. Cross-check configs, running processes, and gateway logs.",
+          "how_to_find": "In Data Exposure & Privacy — Data Exfiltration via Tools: In Data Exposure & Privacy — Data Exfiltration via Tools: In Data Exposure & Privacy — Data Exfiltration via Tools: In Data Exposure & Privacy — Data Exfiltration via Tools: In Data Exposure & Privacy — Data Exfiltration via Tools: Confirm sensitive datasets are not freely readable by tools that also have, or can reach, egress. Cross-check configs, running processes, and gateway logs.",
           "how_to_fix": "Apply least privilege, isolate each MCP server, and monitor for new child processes or config drift.",
           "tools": [
             "MCP Inspector",
@@ -2346,7 +2346,7 @@
           "title": "No egress monitoring / DLP",
           "description": "Without monitoring or data-loss-prevention on outbound tool actions, exfiltration goes undetected.",
           "severity": "low",
-          "how_to_find": "In Data Exposure & Privacy — Data Exfiltration via Tools: In Data Exposure & Privacy — Data Exfiltration via Tools: In Data Exposure & Privacy — Data Exfiltration via Tools: In Data Exposure & Privacy — Data Exfiltration via Tools: Test whether a bulk send triggers any alert. Cross-check configs, running processes, and gateway logs.",
+          "how_to_find": "In Data Exposure & Privacy — Data Exfiltration via Tools: In Data Exposure & Privacy — Data Exfiltration via Tools: In Data Exposure & Privacy — Data Exfiltration via Tools: In Data Exposure & Privacy — Data Exfiltration via Tools: In Data Exposure & Privacy — Data Exfiltration via Tools: Test whether a bulk send triggers any alert. Cross-check configs, running processes, and gateway logs.",
           "how_to_fix": "Apply least privilege, isolate each MCP server, and monitor for new child processes or config drift.",
           "tools": [
             "MCP Inspector",
@@ -2382,7 +2382,7 @@
           "title": "Secrets / tokens written to logs",
           "description": "Logging full requests or auth headers persists access tokens and API keys to disk where they can be harvested.",
           "severity": "low",
-          "how_to_find": "In Data Exposure & Privacy — Logging Hygiene: In Data Exposure & Privacy — Logging Hygiene: In Data Exposure & Privacy — Logging Hygiene: In Data Exposure & Privacy — Logging Hygiene: Confirm secrets are redacted before logging and log files have restrictive permissions. Cross-check configs, running processes, and gateway logs.",
+          "how_to_find": "In Data Exposure & Privacy — Logging Hygiene: In Data Exposure & Privacy — Logging Hygiene: In Data Exposure & Privacy — Logging Hygiene: In Data Exposure & Privacy — Logging Hygiene: In Data Exposure & Privacy — Logging Hygiene: Confirm secrets are redacted before logging and log files have restrictive permissions. Cross-check configs, running processes, and gateway logs.",
           "how_to_fix": "Issue least-privilege tokens per server and rotate on schedule. Never reuse org-wide admin PATs across MCP integrations.",
           "tools": [
             "MCP Inspector",
@@ -2413,7 +2413,7 @@
           "title": "PII / payloads logged verbatim",
           "description": "Logging full tool arguments and results can persist personal data and confidential content, creating privacy and compliance exposure.",
           "severity": "low",
-          "how_to_find": "In Data Exposure & Privacy — Logging Hygiene: In Data Exposure & Privacy — Logging Hygiene: In Data Exposure & Privacy — Logging Hygiene: In Data Exposure & Privacy — Logging Hygiene: Confirm PII is minimised/redacted, retention is bounded, and logs are access-controlled. Cross-check configs, running processes, and gateway logs.",
+          "how_to_find": "In Data Exposure & Privacy — Logging Hygiene: In Data Exposure & Privacy — Logging Hygiene: In Data Exposure & Privacy — Logging Hygiene: In Data Exposure & Privacy — Logging Hygiene: In Data Exposure & Privacy — Logging Hygiene: Confirm PII is minimised/redacted, retention is bounded, and logs are access-controlled. Cross-check configs, running processes, and gateway logs.",
           "how_to_fix": "Apply least privilege, isolate each MCP server, and monitor for new child processes or config drift.",
           "tools": [
             "MCP Inspector",
@@ -2444,7 +2444,7 @@
           "title": "Log injection / forging via tool input",
           "description": "Unescaped tool inputs written to logs allow newline/control-character injection to forge or corrupt log entries, hampering forensics.",
           "severity": "low",
-          "how_to_find": "In Data Exposure & Privacy — Logging Hygiene: In Data Exposure & Privacy — Logging Hygiene: In Data Exposure & Privacy — Logging Hygiene: In Data Exposure & Privacy — Logging Hygiene: Confirm log writes neutralise control characters and structured logging is used. Cross-check configs, running processes, and gateway logs.",
+          "how_to_find": "In Data Exposure & Privacy — Logging Hygiene: In Data Exposure & Privacy — Logging Hygiene: In Data Exposure & Privacy — Logging Hygiene: In Data Exposure & Privacy — Logging Hygiene: In Data Exposure & Privacy — Logging Hygiene: Confirm log writes neutralise control characters and structured logging is used. Cross-check configs, running processes, and gateway logs.",
           "how_to_fix": "Apply least privilege, isolate each MCP server, and monitor for new child processes or config drift.",
           "tools": [
             "MCP Inspector",
@@ -2511,7 +2511,7 @@
           "title": "Filesystem access not jailed",
           "description": "A server (or filesystem tool) with access beyond its intended directory can read or write anything the host user can, including SSH keys and credentials.",
           "severity": "critical",
-          "how_to_find": "In Data Exposure & Privacy — Sandboxing & Isolation: In Data Exposure & Privacy — Sandboxing & Isolation: In Data Exposure & Privacy — Sandboxing & Isolation: In Data Exposure & Privacy — Sandboxing & Isolation: Confirm a jail/allowlist root is enforced and sensitive paths (~/.ssh, credential stores) are unreachable. Cross-check configs, running processes, and gateway logs.",
+          "how_to_find": "In Data Exposure & Privacy — Sandboxing & Isolation: In Data Exposure & Privacy — Sandboxing & Isolation: In Data Exposure & Privacy — Sandboxing & Isolation: In Data Exposure & Privacy — Sandboxing & Isolation: In Data Exposure & Privacy — Sandboxing & Isolation: Confirm a jail/allowlist root is enforced and sensitive paths (~/.ssh, credential stores) are unreachable. Cross-check configs, running processes, and gateway logs.",
           "how_to_fix": "Apply least privilege, isolate each MCP server, and monitor for new child processes or config drift.",
           "tools": [
             "MCP Inspector",
@@ -2542,7 +2542,7 @@
           "title": "Unrestricted network egress from server",
           "description": "A server with open outbound network access can be used for SSRF, exfiltration, and C2; egress should be constrained to what the server needs.",
           "severity": "low",
-          "how_to_find": "In Data Exposure & Privacy — Sandboxing & Isolation: In Data Exposure & Privacy — Sandboxing & Isolation: In Data Exposure & Privacy — Sandboxing & Isolation: In Data Exposure & Privacy — Sandboxing & Isolation: Confirm egress is restricted to required destinations and that arbitrary outbound connections are blocked at the sandbox/network layer. Cross-check configs, running processes, and gateway logs.",
+          "how_to_find": "In Data Exposure & Privacy — Sandboxing & Isolation: In Data Exposure & Privacy — Sandboxing & Isolation: In Data Exposure & Privacy — Sandboxing & Isolation: In Data Exposure & Privacy — Sandboxing & Isolation: In Data Exposure & Privacy — Sandboxing & Isolation: Confirm egress is restricted to required destinations and that arbitrary outbound connections are blocked at the sandbox/network layer. Cross-check configs, running processes, and gateway logs.",
           "how_to_fix": "Apply least privilege, isolate each MCP server, and monitor for new child processes or config drift.",
           "tools": [
             "MCP Inspector",
@@ -2573,7 +2573,7 @@
           "title": "No process / container isolation",
           "description": "Running servers as the host user with no containerisation means a server RCE compromises the whole user environment.",
           "severity": "critical",
-          "how_to_find": "In Data Exposure & Privacy — Sandboxing & Isolation: In Data Exposure & Privacy — Sandboxing & Isolation: In Data Exposure & Privacy — Sandboxing & Isolation: In Data Exposure & Privacy — Sandboxing & Isolation: Running servers as the host user with no containerisation means a server RCE compromises the whole user environment. Cross-check configs, running processes, and gateway logs.",
+          "how_to_find": "In Data Exposure & Privacy — Sandboxing & Isolation: In Data Exposure & Privacy — Sandboxing & Isolation: In Data Exposure & Privacy — Sandboxing & Isolation: In Data Exposure & Privacy — Sandboxing & Isolation: In Data Exposure & Privacy — Sandboxing & Isolation: Running servers as the host user with no containerisation means a server RCE compromises the whole user environment. Cross-check configs, running processes, and gateway logs.",
           "how_to_fix": "Apply least privilege, isolate each MCP server, and monitor for new child processes or config drift.",
           "tools": [
             "MCP Inspector",

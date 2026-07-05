@@ -9,7 +9,7 @@
           "title": "No primitive roles at project level",
           "description": "Avoid owner/editor/viewer; use least-privilege custom roles.",
           "severity": "low",
-          "how_to_find": "IAM and Organization: IAM and Organization: IAM and Organization: IAM and Organization: Run Prowler (`prowler gcp`) or Defender/Security Command Center for misconfig findings",
+          "how_to_find": "IAM and Organization: IAM and Organization: IAM and Organization: IAM and Organization: IAM and Organization: Run Prowler (`prowler gcp`) or Defender/Security Command Center for misconfig findings",
           "how_to_fix": "Assign an owner for no primitive roles at project level, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "gcloud",
@@ -33,7 +33,7 @@
           "title": "Service account key hygiene",
           "description": "Rotate keys, avoid user-managed keys where workload identity works.",
           "severity": "low",
-          "how_to_find": "IAM and Organization: IAM and Organization: IAM and Organization: IAM and Organization: Run Prowler (`prowler gcp`) or Defender/Security Command Center for misconfig findings",
+          "how_to_find": "IAM and Organization: IAM and Organization: IAM and Organization: IAM and Organization: IAM and Organization: Run Prowler (`prowler gcp`) or Defender/Security Command Center for misconfig findings",
           "how_to_fix": "Assign an owner for service account key hygiene, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "gcloud",
@@ -57,7 +57,7 @@
           "title": "Organization policies enforced",
           "description": "Restrict public IPs, require OS Login, and domain-restricted sharing.",
           "severity": "critical",
-          "how_to_find": "IAM and Organization: IAM and Organization: IAM and Organization: IAM and Organization: Run Prowler (`prowler gcp`) or Defender/Security Command Center for misconfig findings",
+          "how_to_find": "IAM and Organization: IAM and Organization: IAM and Organization: IAM and Organization: IAM and Organization: Run Prowler (`prowler gcp`) or Defender/Security Command Center for misconfig findings",
           "how_to_fix": "Assign an owner for organization policies enforced, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "gcloud",
@@ -81,7 +81,7 @@
           "title": "MFA on org admin accounts",
           "description": "Enforce 2FA for accounts with org or billing admin.",
           "severity": "critical",
-          "how_to_find": "IAM and Organization: IAM and Organization: IAM and Organization: IAM and Organization: Run Prowler (`prowler gcp`) or Defender/Security Command Center for misconfig findings",
+          "how_to_find": "IAM and Organization: IAM and Organization: IAM and Organization: IAM and Organization: IAM and Organization: Run Prowler (`prowler gcp`) or Defender/Security Command Center for misconfig findings",
           "how_to_fix": "Assign an owner for mfa on org admin accounts, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "gcloud",
@@ -105,7 +105,7 @@
           "title": "Workload Identity Federation",
           "description": "Prefer WIF over long-lived service account keys for CI/CD.",
           "severity": "low",
-          "how_to_find": "IAM and Organization: IAM and Organization: IAM and Organization: IAM and Organization: Run Prowler (`prowler gcp`) or Defender/Security Command Center for misconfig findings",
+          "how_to_find": "IAM and Organization: IAM and Organization: IAM and Organization: IAM and Organization: IAM and Organization: Run Prowler (`prowler gcp`) or Defender/Security Command Center for misconfig findings",
           "how_to_fix": "Assign an owner for workload identity federation, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "gcloud",
@@ -134,7 +134,7 @@
           "title": "VPC firewall rules least privilege",
           "description": "No 0.0.0.0/0 on SSH, RDP, or database ports.",
           "severity": "critical",
-          "how_to_find": "Networking: Networking: Networking: Networking: Run Prowler (`prowler gcp`) or Defender/Security Command Center for misconfig findings",
+          "how_to_find": "Networking: Networking: Networking: Networking: Networking: Run Prowler (`prowler gcp`) or Defender/Security Command Center for misconfig findings",
           "how_to_fix": "Assign an owner for vpc firewall rules least privilege, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "gcloud",
@@ -158,7 +158,7 @@
           "title": "Private Google Access",
           "description": "Enable for subnets that reach Google APIs without public IPs.",
           "severity": "high",
-          "how_to_find": "Networking: Networking: Networking: Networking: Run Prowler (`prowler gcp`) or Defender/Security Command Center for misconfig findings",
+          "how_to_find": "Networking: Networking: Networking: Networking: Networking: Run Prowler (`prowler gcp`) or Defender/Security Command Center for misconfig findings",
           "how_to_fix": "Assign an owner for private google access, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "gcloud",
@@ -182,7 +182,7 @@
           "title": "VPC Flow Logs enabled",
           "description": "Log all subnet traffic for detection and forensics.",
           "severity": "low",
-          "how_to_find": "Networking: Networking: Networking: Networking: Run Prowler (`prowler gcp`) or Defender/Security Command Center for misconfig findings",
+          "how_to_find": "Networking: Networking: Networking: Networking: Networking: Run Prowler (`prowler gcp`) or Defender/Security Command Center for misconfig findings",
           "how_to_fix": "Assign an owner for vpc flow logs enabled, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "gcloud",
@@ -206,7 +206,7 @@
           "title": "Cloud Armor on load balancers",
           "description": "WAF and DDoS protection for internet-facing services.",
           "severity": "low",
-          "how_to_find": "Networking: Networking: Networking: Networking: Run Prowler (`prowler gcp`) or Defender/Security Command Center for misconfig findings",
+          "how_to_find": "Networking: Networking: Networking: Networking: Networking: Run Prowler (`prowler gcp`) or Defender/Security Command Center for misconfig findings",
           "how_to_fix": "Assign an owner for cloud armor on load balancers, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "gcloud",
@@ -230,7 +230,7 @@
           "title": "Private Service Connect",
           "description": "Use for managed services instead of public endpoints.",
           "severity": "high",
-          "how_to_find": "Networking: Networking: Networking: Networking: Run Prowler (`prowler gcp`) or Defender/Security Command Center for misconfig findings",
+          "how_to_find": "Networking: Networking: Networking: Networking: Networking: Run Prowler (`prowler gcp`) or Defender/Security Command Center for misconfig findings",
           "how_to_fix": "Assign an owner for private service connect, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "gcloud",
@@ -259,7 +259,7 @@
           "title": "GCS uniform bucket-level access",
           "description": "Disable ACLs; use IAM conditions and public access prevention.",
           "severity": "high",
-          "how_to_find": "Storage and Databases: Storage and Databases: Storage and Databases: Storage and Databases: Run Prowler (`prowler gcp`) or Defender/Security Command Center for misconfig findings",
+          "how_to_find": "Storage and Databases: Storage and Databases: Storage and Databases: Storage and Databases: Storage and Databases: Run Prowler (`prowler gcp`) or Defender/Security Command Center for misconfig findings",
           "how_to_fix": "Assign an owner for gcs uniform bucket-level access, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "gcloud",
@@ -283,7 +283,7 @@
           "title": "Bucket encryption with CMEK",
           "description": "Customer-managed encryption keys for sensitive buckets.",
           "severity": "high",
-          "how_to_find": "Storage and Databases: Storage and Databases: Storage and Databases: Storage and Databases: Run Prowler (`prowler gcp`) or Defender/Security Command Center for misconfig findings",
+          "how_to_find": "Storage and Databases: Storage and Databases: Storage and Databases: Storage and Databases: Storage and Databases: Run Prowler (`prowler gcp`) or Defender/Security Command Center for misconfig findings",
           "how_to_fix": "Assign an owner for bucket encryption with cmek, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "gcloud",
@@ -307,7 +307,7 @@
           "title": "Cloud SQL not public",
           "description": "Private IP only; authorized networks tightly scoped.",
           "severity": "high",
-          "how_to_find": "Storage and Databases: Storage and Databases: Storage and Databases: Storage and Databases: Run Prowler (`prowler gcp`) or Defender/Security Command Center for misconfig findings",
+          "how_to_find": "Storage and Databases: Storage and Databases: Storage and Databases: Storage and Databases: Storage and Databases: Run Prowler (`prowler gcp`) or Defender/Security Command Center for misconfig findings",
           "how_to_fix": "Assign an owner for cloud sql not public, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "gcloud",
@@ -331,7 +331,7 @@
           "title": "Cloud SQL automated backups",
           "description": "Point-in-time recovery and tested restore procedures.",
           "severity": "medium",
-          "how_to_find": "Storage and Databases: Storage and Databases: Storage and Databases: Storage and Databases: Run Prowler (`prowler gcp`) or Defender/Security Command Center for misconfig findings",
+          "how_to_find": "Storage and Databases: Storage and Databases: Storage and Databases: Storage and Databases: Storage and Databases: Run Prowler (`prowler gcp`) or Defender/Security Command Center for misconfig findings",
           "how_to_fix": "Assign an owner for cloud sql automated backups, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "gcloud",
@@ -355,7 +355,7 @@
           "title": "Object versioning and retention",
           "description": "Protect against overwrite and ransomware.",
           "severity": "medium",
-          "how_to_find": "Storage and Databases: Storage and Databases: Storage and Databases: Storage and Databases: Run Prowler (`prowler gcp`) or Defender/Security Command Center for misconfig findings",
+          "how_to_find": "Storage and Databases: Storage and Databases: Storage and Databases: Storage and Databases: Storage and Databases: Run Prowler (`prowler gcp`) or Defender/Security Command Center for misconfig findings",
           "how_to_fix": "Assign an owner for object versioning and retention, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "gcloud",
@@ -384,7 +384,7 @@
           "title": "GKE private cluster",
           "description": "Private nodes and authorized networks for control plane.",
           "severity": "low",
-          "how_to_find": "GKE and Compute: GKE and Compute: GKE and Compute: GKE and Compute: Run Prowler (`prowler gcp`) or Defender/Security Command Center for misconfig findings",
+          "how_to_find": "GKE and Compute: GKE and Compute: GKE and Compute: GKE and Compute: GKE and Compute: Run Prowler (`prowler gcp`) or Defender/Security Command Center for misconfig findings",
           "how_to_fix": "Assign an owner for gke private cluster, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "gcloud",
@@ -408,7 +408,7 @@
           "title": "Workload Identity enabled",
           "description": "Map K8s service accounts to GCP IAM without JSON keys.",
           "severity": "low",
-          "how_to_find": "GKE and Compute: GKE and Compute: GKE and Compute: GKE and Compute: Run Prowler (`prowler gcp`) or Defender/Security Command Center for misconfig findings",
+          "how_to_find": "GKE and Compute: GKE and Compute: GKE and Compute: GKE and Compute: GKE and Compute: Run Prowler (`prowler gcp`) or Defender/Security Command Center for misconfig findings",
           "how_to_fix": "Assign an owner for workload identity enabled, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "gcloud",
@@ -432,7 +432,7 @@
           "title": "Shielded GCE VMs",
           "description": "Secure Boot and vTPM for production instances.",
           "severity": "low",
-          "how_to_find": "GKE and Compute: GKE and Compute: GKE and Compute: GKE and Compute: Run Prowler (`prowler gcp`) or Defender/Security Command Center for misconfig findings",
+          "how_to_find": "GKE and Compute: GKE and Compute: GKE and Compute: GKE and Compute: GKE and Compute: Run Prowler (`prowler gcp`) or Defender/Security Command Center for misconfig findings",
           "how_to_fix": "Assign an owner for shielded gce vms, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "gcloud",
@@ -456,7 +456,7 @@
           "title": "OS patch management",
           "description": "Use OS Config or golden images with regular updates.",
           "severity": "medium",
-          "how_to_find": "GKE and Compute: GKE and Compute: GKE and Compute: GKE and Compute: Run Prowler (`prowler gcp`) or Defender/Security Command Center for misconfig findings",
+          "how_to_find": "GKE and Compute: GKE and Compute: GKE and Compute: GKE and Compute: GKE and Compute: Run Prowler (`prowler gcp`) or Defender/Security Command Center for misconfig findings",
           "how_to_fix": "Assign an owner for os patch management, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "gcloud",
@@ -480,7 +480,7 @@
           "title": "Binary Authorization for GKE",
           "description": "Only deploy signed and approved container images.",
           "severity": "low",
-          "how_to_find": "GKE and Compute: GKE and Compute: GKE and Compute: GKE and Compute: Run Prowler (`prowler gcp`) or Defender/Security Command Center for misconfig findings",
+          "how_to_find": "GKE and Compute: GKE and Compute: GKE and Compute: GKE and Compute: GKE and Compute: Run Prowler (`prowler gcp`) or Defender/Security Command Center for misconfig findings",
           "how_to_fix": "Assign an owner for binary authorization for gke, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "gcloud",
@@ -509,7 +509,7 @@
           "title": "Cloud Audit Logs exported",
           "description": "Admin, data access, and system events to BigQuery or SIEM.",
           "severity": "low",
-          "how_to_find": "Logging and Security Command Center: Logging and Security Command Center: Logging and Security Command Center: Logging and Security Command Center: Run Prowler (`prowler gcp`) or Defender/Security Command Center for misconfig findings",
+          "how_to_find": "Logging and Security Command Center: Logging and Security Command Center: Logging and Security Command Center: Logging and Security Command Center: Logging and Security Command Center: Run Prowler (`prowler gcp`) or Defender/Security Command Center for misconfig findings",
           "how_to_fix": "Assign an owner for cloud audit logs exported, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "gcloud",
@@ -533,7 +533,7 @@
           "title": "Security Command Center Premium",
           "description": "Enable threat detection and vulnerability findings.",
           "severity": "low",
-          "how_to_find": "Logging and Security Command Center: Logging and Security Command Center: Logging and Security Command Center: Logging and Security Command Center: Run Prowler (`prowler gcp`) or Defender/Security Command Center for misconfig findings",
+          "how_to_find": "Logging and Security Command Center: Logging and Security Command Center: Logging and Security Command Center: Logging and Security Command Center: Logging and Security Command Center: Run Prowler (`prowler gcp`) or Defender/Security Command Center for misconfig findings",
           "how_to_fix": "Assign an owner for security command center premium, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "gcloud",
@@ -557,7 +557,7 @@
           "title": "Log sinks and retention",
           "description": "Centralized sinks with appropriate retention for compliance.",
           "severity": "low",
-          "how_to_find": "Logging and Security Command Center: Logging and Security Command Center: Logging and Security Command Center: Logging and Security Command Center: Run Prowler (`prowler gcp`) or Defender/Security Command Center for misconfig findings",
+          "how_to_find": "Logging and Security Command Center: Logging and Security Command Center: Logging and Security Command Center: Logging and Security Command Center: Logging and Security Command Center: Run Prowler (`prowler gcp`) or Defender/Security Command Center for misconfig findings",
           "how_to_fix": "Assign an owner for log sinks and retention, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "gcloud",
@@ -581,7 +581,7 @@
           "title": "KMS key rotation",
           "description": "Automatic rotation for Cloud KMS keys. Schedule remediation once higher-severity gaps are closed.",
           "severity": "medium",
-          "how_to_find": "Logging and Security Command Center: Logging and Security Command Center: Logging and Security Command Center: Logging and Security Command Center: Run Prowler (`prowler gcp`) or Defender/Security Command Center for misconfig findings",
+          "how_to_find": "Logging and Security Command Center: Logging and Security Command Center: Logging and Security Command Center: Logging and Security Command Center: Logging and Security Command Center: Run Prowler (`prowler gcp`) or Defender/Security Command Center for misconfig findings",
           "how_to_fix": "Assign an owner for kms key rotation, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "gcloud",
@@ -605,7 +605,7 @@
           "title": "Alerting on IAM changes",
           "description": "Notify on policy bindings, key creation, and firewall edits.",
           "severity": "low",
-          "how_to_find": "Logging and Security Command Center: Logging and Security Command Center: Logging and Security Command Center: Logging and Security Command Center: Run Prowler (`prowler gcp`) or Defender/Security Command Center for misconfig findings",
+          "how_to_find": "Logging and Security Command Center: Logging and Security Command Center: Logging and Security Command Center: Logging and Security Command Center: Logging and Security Command Center: Run Prowler (`prowler gcp`) or Defender/Security Command Center for misconfig findings",
           "how_to_fix": "Assign an owner for alerting on iam changes, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "gcloud",

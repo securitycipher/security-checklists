@@ -72,7 +72,7 @@
           "title": "Insecure local storage",
           "description": "Check SharedPreferences, SQLite, and external storage for sensitive data.",
           "severity": "high",
-          "how_to_find": "Android - Static Analysis: Android - Static Analysis: Android - Static Analysis: Android - Static Analysis: Check SharedPreferences, SQLite, and external storage for sensitive data",
+          "how_to_find": "Android - Static Analysis: Android - Static Analysis: Android - Static Analysis: Android - Static Analysis: Android - Static Analysis: Check SharedPreferences, SQLite, and external storage for sensitive data",
           "how_to_fix": "Assign an owner for insecure local storage, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "jadx",
@@ -93,7 +93,7 @@
           "title": "Backup allowed",
           "description": "Verify android:allowBackup is false for apps handling sensitive data.",
           "severity": "medium",
-          "how_to_find": "Android - Static Analysis: Android - Static Analysis: Android - Static Analysis: Android - Static Analysis: Verify android:allowBackup is false for apps handling sensitive data",
+          "how_to_find": "Android - Static Analysis: Android - Static Analysis: Android - Static Analysis: Android - Static Analysis: Android - Static Analysis: Verify android:allowBackup is false for apps handling sensitive data",
           "how_to_fix": "Assign an owner for backup allowed, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "jadx",
@@ -140,7 +140,7 @@
           "title": "Certificate pinning bypass",
           "description": "Test with Frida/objection if traffic can be intercepted via Burp.",
           "severity": "critical",
-          "how_to_find": "Android - Dynamic Analysis: Android - Dynamic Analysis: Android - Dynamic Analysis: Android - Dynamic Analysis: Test with Frida/objection if traffic can be intercepted via Burp",
+          "how_to_find": "Android - Dynamic Analysis: Android - Dynamic Analysis: Android - Dynamic Analysis: Android - Dynamic Analysis: Android - Dynamic Analysis: Test with Frida/objection if traffic can be intercepted via Burp",
           "how_to_fix": "Assign an owner for certificate pinning bypass, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "jadx",
@@ -161,7 +161,7 @@
           "title": "Root detection bypass",
           "description": "Attempt to run app on rooted device or emulator with hooks.",
           "severity": "low",
-          "how_to_find": "Android - Dynamic Analysis: Android - Dynamic Analysis: Android - Dynamic Analysis: Android - Dynamic Analysis: Attempt to run app on rooted device or emulator with hooks",
+          "how_to_find": "Android - Dynamic Analysis: Android - Dynamic Analysis: Android - Dynamic Analysis: Android - Dynamic Analysis: Android - Dynamic Analysis: Attempt to run app on rooted device or emulator with hooks",
           "how_to_fix": "Assign an owner for root detection bypass, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "jadx",
@@ -182,7 +182,7 @@
           "title": "Deep link hijacking",
           "description": "Test custom URL schemes and App Links for takeover by malicious apps.",
           "severity": "low",
-          "how_to_find": "Android - Dynamic Analysis: Android - Dynamic Analysis: Android - Dynamic Analysis: Android - Dynamic Analysis: Test custom URL schemes and App Links for takeover by malicious apps",
+          "how_to_find": "Android - Dynamic Analysis: Android - Dynamic Analysis: Android - Dynamic Analysis: Android - Dynamic Analysis: Android - Dynamic Analysis: Test custom URL schemes and App Links for takeover by malicious apps",
           "how_to_fix": "Assign an owner for deep link hijacking, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "jadx",
@@ -203,7 +203,7 @@
           "title": "IPC abuse",
           "description": "Use drozer to test content providers and inter-process communication.",
           "severity": "low",
-          "how_to_find": "Android - Dynamic Analysis: Android - Dynamic Analysis: Android - Dynamic Analysis: Android - Dynamic Analysis: Use drozer to test content providers and inter-process communication",
+          "how_to_find": "Android - Dynamic Analysis: Android - Dynamic Analysis: Android - Dynamic Analysis: Android - Dynamic Analysis: Android - Dynamic Analysis: Use drozer to test content providers and inter-process communication",
           "how_to_fix": "Assign an owner for ipc abuse, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "jadx",
@@ -224,7 +224,7 @@
           "title": "Runtime instrumentation",
           "description": "Hook crypto, auth, and SSL routines with Frida.",
           "severity": "low",
-          "how_to_find": "Android - Dynamic Analysis: Android - Dynamic Analysis: Android - Dynamic Analysis: Android - Dynamic Analysis: Control: Runtime instrumentation",
+          "how_to_find": "Android - Dynamic Analysis: Android - Dynamic Analysis: Android - Dynamic Analysis: Android - Dynamic Analysis: Android - Dynamic Analysis: Control: Runtime instrumentation",
           "how_to_fix": "Assign an owner for runtime instrumentation, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "jadx",
@@ -245,7 +245,7 @@
           "title": "Backend API replay",
           "description": "Capture and replay mobile API calls in Burp; test IDOR and auth.",
           "severity": "high",
-          "how_to_find": "Android - Dynamic Analysis: Android - Dynamic Analysis: Android - Dynamic Analysis: Android - Dynamic Analysis: Capture and replay mobile API calls in Burp; test IDOR and auth",
+          "how_to_find": "Android - Dynamic Analysis: Android - Dynamic Analysis: Android - Dynamic Analysis: Android - Dynamic Analysis: Android - Dynamic Analysis: Capture and replay mobile API calls in Burp; test IDOR and auth",
           "how_to_fix": "Assign an owner for backend api replay, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "jadx",
@@ -293,7 +293,7 @@
           "title": "Info.plist review",
           "description": "Check ATS settings, URL schemes, and sensitive plist keys.",
           "severity": "low",
-          "how_to_find": "iOS - Static Analysis: iOS - Static Analysis: iOS - Static Analysis: iOS - Static Analysis: Check ATS settings, URL schemes, and sensitive plist keys",
+          "how_to_find": "iOS - Static Analysis: iOS - Static Analysis: iOS - Static Analysis: iOS - Static Analysis: iOS - Static Analysis: Check ATS settings, URL schemes, and sensitive plist keys",
           "how_to_fix": "Assign an owner for info.plist review, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "objection",
@@ -337,7 +337,7 @@
           "title": "Jailbreak detection",
           "description": "Identify and test bypass of jailbreak/root checks.",
           "severity": "low",
-          "how_to_find": "iOS - Static Analysis: iOS - Static Analysis: iOS - Static Analysis: iOS - Static Analysis: Identify and test bypass of jailbreak/root checks",
+          "how_to_find": "iOS - Static Analysis: iOS - Static Analysis: iOS - Static Analysis: iOS - Static Analysis: iOS - Static Analysis: Identify and test bypass of jailbreak/root checks",
           "how_to_fix": "Assign an owner for jailbreak detection, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "objection",
@@ -364,7 +364,7 @@
           "title": "Keychain accessibility",
           "description": "Dump keychain with objection; verify kSecAttrAccessible classes.",
           "severity": "low",
-          "how_to_find": "iOS - Dynamic Analysis: iOS - Dynamic Analysis: iOS - Dynamic Analysis: iOS - Dynamic Analysis: Dump keychain with objection; verify kSecAttrAccessible classes",
+          "how_to_find": "iOS - Dynamic Analysis: iOS - Dynamic Analysis: iOS - Dynamic Analysis: iOS - Dynamic Analysis: iOS - Dynamic Analysis: Dump keychain with objection; verify kSecAttrAccessible classes",
           "how_to_fix": "Assign an owner for keychain accessibility, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "objection",
@@ -408,7 +408,7 @@
           "title": "Universal link hijacking",
           "description": "Test associated domains and URL scheme handlers.",
           "severity": "low",
-          "how_to_find": "iOS - Dynamic Analysis: iOS - Dynamic Analysis: iOS - Dynamic Analysis: iOS - Dynamic Analysis: Test associated domains and URL scheme handlers",
+          "how_to_find": "iOS - Dynamic Analysis: iOS - Dynamic Analysis: iOS - Dynamic Analysis: iOS - Dynamic Analysis: iOS - Dynamic Analysis: Test associated domains and URL scheme handlers",
           "how_to_fix": "Assign an owner for universal link hijacking, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "objection",
@@ -452,7 +452,7 @@
           "title": "Backend API security",
           "description": "Apply web/API testing to endpoints the app calls.",
           "severity": "low",
-          "how_to_find": "iOS - Dynamic Analysis: iOS - Dynamic Analysis: iOS - Dynamic Analysis: iOS - Dynamic Analysis: Apply web/API testing to endpoints the app calls",
+          "how_to_find": "iOS - Dynamic Analysis: iOS - Dynamic Analysis: iOS - Dynamic Analysis: iOS - Dynamic Analysis: iOS - Dynamic Analysis: Apply web/API testing to endpoints the app calls",
           "how_to_fix": "Assign an owner for backend api security, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "objection",
@@ -474,7 +474,7 @@
           "title": "Clipboard and screenshot leaks",
           "description": "Verify sensitive fields are not copied or captured.",
           "severity": "low",
-          "how_to_find": "iOS - Dynamic Analysis: iOS - Dynamic Analysis: iOS - Dynamic Analysis: iOS - Dynamic Analysis: Verify sensitive fields are not copied or captured",
+          "how_to_find": "iOS - Dynamic Analysis: iOS - Dynamic Analysis: iOS - Dynamic Analysis: iOS - Dynamic Analysis: iOS - Dynamic Analysis: Verify sensitive fields are not copied or captured",
           "how_to_fix": "Assign an owner for clipboard and screenshot leaks, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "objection",
@@ -501,7 +501,7 @@
           "title": "Sensitive data in SharedPreferences / NSUserDefaults",
           "description": "Tokens, passwords or PII written to SharedPreferences (Android) or NSUserDefaults (iOS) are stored as cleartext XML/plist and are trivially readable on a rooted/jailbroken device or via backup.",
           "severity": "medium",
-          "how_to_find": "Data Storage & Privacy — Insecure Data Storage: Data Storage & Privacy — Insecure Data Storage: Data Storage & Privacy — Insecure Data Storage: Data Storage & Privacy — Insecure Data Storage: Confirm no secrets are stored here unencrypted",
+          "how_to_find": "Data Storage & Privacy — Insecure Data Storage: Data Storage & Privacy — Insecure Data Storage: Data Storage & Privacy — Insecure Data Storage: Data Storage & Privacy — Insecure Data Storage: Data Storage & Privacy — Insecure Data Storage: Confirm no secrets are stored here unencrypted",
           "how_to_fix": "Assign an owner for sensitive data in sharedpreferences / nsuserdefaults, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "objection",
@@ -794,7 +794,7 @@
           "title": "Key material extractable at runtime",
           "description": "Keys imported into memory or exported from the keystore (rather than used via opaque handles) can be hooked and dumped at runtime with Frida.",
           "severity": "low",
-          "how_to_find": "Data Storage & Privacy — Keychain / Keystore Usage: Data Storage & Privacy — Keychain / Keystore Usage: Data Storage & Privacy — Keychain / Keystore Usage: Data Storage & Privacy — Keychain / Keystore Usage: Keys imported into memory or exported from the keystore (rather than used via opaque handles) can be hooked and dumped at runtime with Frida",
+          "how_to_find": "Data Storage & Privacy — Keychain / Keystore Usage: Data Storage & Privacy — Keychain / Keystore Usage: Data Storage & Privacy — Keychain / Keystore Usage: Data Storage & Privacy — Keychain / Keystore Usage: Data Storage & Privacy — Keychain / Keystore Usage: Keys imported into memory or exported from the keystore (rather than used via opaque handles) can be hooked and dumped at runtime with Frida",
           "how_to_fix": "Assign an owner for key material extractable at runtime, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "objection",
@@ -1125,7 +1125,7 @@
           "title": "Client-side local authentication bypass",
           "description": "When the login/PIN decision is made only on the device, hooking the check or patching the binary lets an attacker bypass authentication entirely.",
           "severity": "critical",
-          "how_to_find": "Authentication & Cryptography — Authentication & Session: Authentication & Cryptography — Authentication & Session: Authentication & Cryptography — Authentication & Session: Authentication & Cryptography — Authentication & Session: When the login/PIN decision is made only on the device, hooking the check or patching the binary lets an attacker bypass authentication entirely",
+          "how_to_find": "Authentication & Cryptography — Authentication & Session: Authentication & Cryptography — Authentication & Session: Authentication & Cryptography — Authentication & Session: Authentication & Cryptography — Authentication & Session: Authentication & Cryptography — Authentication & Session: When the login/PIN decision is made only on the device, hooking the check or patching the binary lets an attacker bypass authentication entirely",
           "how_to_fix": "Assign an owner for client-side local authentication bypass, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "objection",
@@ -1453,7 +1453,7 @@
           "title": "Unprotected exported components",
           "description": "Exported activities, services, broadcast receivers and content providers without permission checks let other apps invoke privileged functionality.",
           "severity": "high",
-          "how_to_find": "Platform Interaction — IPC & Exported Components: Platform Interaction — IPC & Exported Components: Platform Interaction — IPC & Exported Components: Platform Interaction — IPC & Exported Components: Exported activities, services, broadcast receivers and content providers without permission checks let other apps invoke privileged functionality",
+          "how_to_find": "Platform Interaction — IPC & Exported Components: Platform Interaction — IPC & Exported Components: Platform Interaction — IPC & Exported Components: Platform Interaction — IPC & Exported Components: Platform Interaction — IPC & Exported Components: Exported activities, services, broadcast receivers and content providers without permission checks let other apps invoke privileged functionality",
           "how_to_fix": "Assign an owner for unprotected exported components, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "objection",
@@ -1624,7 +1624,7 @@
           "title": "Tapjacking and overlay attacks",
           "description": "Sensitive Android screens that do not filter touches obscured by overlays can be tapjacked: a malicious app draws over the UI and tricks the user into approving actions or leaking input.",
           "severity": "low",
-          "how_to_find": "Platform Interaction — IPC & Exported Components: Platform Interaction — IPC & Exported Components: Platform Interaction — IPC & Exported Components: Platform Interaction — IPC & Exported Components: On iOS, verify sensitive flows are not capturable via screen recording/overlay where applicable",
+          "how_to_find": "Platform Interaction — IPC & Exported Components: Platform Interaction — IPC & Exported Components: Platform Interaction — IPC & Exported Components: Platform Interaction — IPC & Exported Components: Platform Interaction — IPC & Exported Components: On iOS, verify sensitive flows are not capturable via screen recording/overlay where applicable",
           "how_to_fix": "Assign an owner for tapjacking and overlay attacks, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "objection",
@@ -1834,7 +1834,7 @@
           "title": "App shipped as debuggable",
           "description": "A release build with android:debuggable=true (or get-task-allow on iOS) lets anyone attach a debugger, dump memory and inspect runtime state.",
           "severity": "low",
-          "how_to_find": "Code Quality & Resilience — Reverse Engineering & Resilience: Code Quality & Resilience — Reverse Engineering & Resilience: Code Quality & Resilience — Reverse Engineering & Resilience: Code Quality & Resilience — Reverse Engineering & Resilience: A release build with android:debuggable=true (or get-task-allow on iOS) lets anyone attach a debugger, dump memory and inspect runtime state",
+          "how_to_find": "Code Quality & Resilience — Reverse Engineering & Resilience: Code Quality & Resilience — Reverse Engineering & Resilience: Code Quality & Resilience — Reverse Engineering & Resilience: Code Quality & Resilience — Reverse Engineering & Resilience: Code Quality & Resilience — Reverse Engineering & Resilience: A release build with android:debuggable=true (or get-task-allow on iOS) lets anyone attach a debugger, dump memory and inspect runtime state",
           "how_to_fix": "Assign an owner for app shipped as debuggable, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "objection",
@@ -1863,7 +1863,7 @@
           "title": "Missing root / jailbreak detection",
           "description": "Absent root/jailbreak detection means the app runs on fully compromised devices where storage, memory and pinning protections are void, with no resistance signal.",
           "severity": "low",
-          "how_to_find": "Code Quality & Resilience — Reverse Engineering & Resilience: Code Quality & Resilience — Reverse Engineering & Resilience: Code Quality & Resilience — Reverse Engineering & Resilience: Code Quality & Resilience — Reverse Engineering & Resilience: Absent root/jailbreak detection means the app runs on fully compromised devices where storage, memory and pinning protections are void, with no resistance signal",
+          "how_to_find": "Code Quality & Resilience — Reverse Engineering & Resilience: Code Quality & Resilience — Reverse Engineering & Resilience: Code Quality & Resilience — Reverse Engineering & Resilience: Code Quality & Resilience — Reverse Engineering & Resilience: Code Quality & Resilience — Reverse Engineering & Resilience: Absent root/jailbreak detection means the app runs on fully compromised devices where storage, memory and pinning protections are void, with no resistance signal",
           "how_to_fix": "Assign an owner for missing root / jailbreak detection, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "objection",
@@ -1892,7 +1892,7 @@
           "title": "Missing integrity / anti-tamper checks",
           "description": "Without signature/integrity verification, an attacker can repackage and resign the app (strip pinning, inject code) and distribute a modified build.",
           "severity": "low",
-          "how_to_find": "Code Quality & Resilience — Reverse Engineering & Resilience: Code Quality & Resilience — Reverse Engineering & Resilience: Code Quality & Resilience — Reverse Engineering & Resilience: Code Quality & Resilience — Reverse Engineering & Resilience: Control: Missing integrity / anti-tamper checks",
+          "how_to_find": "Code Quality & Resilience — Reverse Engineering & Resilience: Code Quality & Resilience — Reverse Engineering & Resilience: Code Quality & Resilience — Reverse Engineering & Resilience: Code Quality & Resilience — Reverse Engineering & Resilience: Code Quality & Resilience — Reverse Engineering & Resilience: Control: Missing integrity / anti-tamper checks",
           "how_to_fix": "Assign an owner for missing integrity / anti-tamper checks, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "objection",
@@ -1921,7 +1921,7 @@
           "title": "Missing Frida / emulator / hooking detection",
           "description": "No detection of dynamic instrumentation (Frida/Xposed) or emulators allows full runtime manipulation of the app, defeating client-side controls.",
           "severity": "low",
-          "how_to_find": "Code Quality & Resilience — Reverse Engineering & Resilience: Code Quality & Resilience — Reverse Engineering & Resilience: Code Quality & Resilience — Reverse Engineering & Resilience: Code Quality & Resilience — Reverse Engineering & Resilience: No detection of dynamic instrumentation (Frida/Xposed) or emulators allows full runtime manipulation of the app, defeating client-side controls",
+          "how_to_find": "Code Quality & Resilience — Reverse Engineering & Resilience: Code Quality & Resilience — Reverse Engineering & Resilience: Code Quality & Resilience — Reverse Engineering & Resilience: Code Quality & Resilience — Reverse Engineering & Resilience: Code Quality & Resilience — Reverse Engineering & Resilience: No detection of dynamic instrumentation (Frida/Xposed) or emulators allows full runtime manipulation of the app, defeating client-side controls",
           "how_to_fix": "Assign an owner for missing frida / emulator / hooking detection, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "objection",
@@ -2013,7 +2013,7 @@
           "title": "Exposed Firebase / cloud configuration",
           "description": "Firebase config, cloud bucket URLs and tokens in the app can reveal open databases/buckets or misconfigured rules, leading to data exposure.",
           "severity": "critical",
-          "how_to_find": "Code Quality & Resilience — Hardcoded Secrets: Code Quality & Resilience — Hardcoded Secrets: Code Quality & Resilience — Hardcoded Secrets: Code Quality & Resilience — Hardcoded Secrets: /.json on RTDB, public buckets); confirm backend rules enforce auth",
+          "how_to_find": "Code Quality & Resilience — Hardcoded Secrets: Code Quality & Resilience — Hardcoded Secrets: Code Quality & Resilience — Hardcoded Secrets: Code Quality & Resilience — Hardcoded Secrets: Code Quality & Resilience — Hardcoded Secrets: /.json on RTDB, public buckets); confirm backend rules enforce auth",
           "how_to_fix": "Assign an owner for exposed firebase / cloud configuration, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "objection",

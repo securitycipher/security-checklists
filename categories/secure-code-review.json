@@ -9,7 +9,7 @@
           "title": "Build a lightweight threat model before reading code",
           "description": "Identify assets, trust boundaries, and the most likely attackers so review time targets the riskiest code paths first.",
           "severity": "info",
-          "how_to_find": "Review Methodology — Review Approach: Review Methodology — Review Approach: Review Methodology — Review Approach: Review Methodology — Review Approach: Confirm a threat model or data-flow diagram exists; map authentication boundaries, privilege levels, and where untrusted data enters the system",
+          "how_to_find": "Review Methodology — Review Approach: Review Methodology — Review Approach: Review Methodology — Review Approach: Review Methodology — Review Approach: Review Methodology — Review Approach: Confirm a threat model or data-flow diagram exists; map authentication boundaries, privilege levels, and where untrusted data enters the system",
           "how_to_fix": "Assign an owner for build a lightweight threat model before reading code, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "OWASP Threat Dragon",
@@ -93,7 +93,7 @@
           "title": "Inspect trust boundary crossings",
           "description": "Wherever data crosses a trust boundary (client to server, service to service, tenant to tenant) validation and authorization must be re-applied server-side.",
           "severity": "high",
-          "how_to_find": "Review Methodology — Review Approach: Review Methodology — Review Approach: Review Methodology — Review Approach: Review Methodology — Review Approach: Confirm validation is not delegated to the client; check that server-side code re-validates and re-authorizes data received from less-trusted layers",
+          "how_to_find": "Review Methodology — Review Approach: Review Methodology — Review Approach: Review Methodology — Review Approach: Review Methodology — Review Approach: Review Methodology — Review Approach: Confirm validation is not delegated to the client; check that server-side code re-validates and re-authorizes data received from less-trusted layers",
           "how_to_fix": "Assign an owner for inspect trust boundary crossings, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "CodeQL",
@@ -121,7 +121,7 @@
           "title": "Prioritize security-relevant diffs in PR reviews",
           "description": "In incremental reviews, focus on changes touching auth, crypto, parsers, queries, and dependency updates rather than reviewing line-by-line uniformly.",
           "severity": "low",
-          "how_to_find": "Review Methodology — Review Approach: Review Methodology — Review Approach: Review Methodology — Review Approach: Review Methodology — Review Approach: Confirm the diff is reviewed for risky changes: new sinks, weakened checks, removed validation, or added dependencies",
+          "how_to_find": "Review Methodology — Review Approach: Review Methodology — Review Approach: Review Methodology — Review Approach: Review Methodology — Review Approach: Review Methodology — Review Approach: Confirm the diff is reviewed for risky changes: new sinks, weakened checks, removed validation, or added dependencies",
           "how_to_fix": "Assign an owner for prioritize security-relevant diffs in pr reviews, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Semgrep",
@@ -154,7 +154,7 @@
           "title": "Configure SAST with project-appropriate rulesets",
           "description": "Stand up a SAST engine (Semgrep, CodeQL, SonarQube) tuned to the languages and frameworks in use, and run it in CI on every change.",
           "severity": "medium",
-          "how_to_find": "Review Methodology — Tooling & Automation: Review Methodology — Tooling & Automation: Review Methodology — Tooling & Automation: Review Methodology — Tooling & Automation: Confirm SAST runs in CI, uses curated rule packs for the stack, and that high-severity findings block merges or require sign-off",
+          "how_to_find": "Review Methodology — Tooling & Automation: Review Methodology — Tooling & Automation: Review Methodology — Tooling & Automation: Review Methodology — Tooling & Automation: Review Methodology — Tooling & Automation: Confirm SAST runs in CI, uses curated rule packs for the stack, and that high-severity findings block merges or require sign-off",
           "how_to_fix": "Assign an owner for configure sast with project-appropriate rulesets, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Semgrep",
@@ -182,7 +182,7 @@
           "title": "Grep for dangerous sink patterns",
           "description": "Use ripgrep to quickly locate high-risk APIs: exec/system, raw SQL, eval, deserializers, innerHTML, and disabled TLS verification.",
           "severity": "low",
-          "how_to_find": "Review Methodology — Tooling & Automation: Review Methodology — Tooling & Automation: Review Methodology — Tooling & Automation: Review Methodology — Tooling & Automation: Run targeted patterns (e.g",
+          "how_to_find": "Review Methodology — Tooling & Automation: Review Methodology — Tooling & Automation: Review Methodology — Tooling & Automation: Review Methodology — Tooling & Automation: Review Methodology — Tooling & Automation: Run targeted patterns (e.g",
           "how_to_fix": "Assign an owner for grep for dangerous sink patterns, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "grep/ripgrep",
@@ -209,7 +209,7 @@
           "title": "Write custom rules for project-specific sinks",
           "description": "Encode internal dangerous helpers (custom query builders, in-house exec wrappers) as Semgrep/CodeQL rules so they are caught automatically.",
           "severity": "low",
-          "how_to_find": "Review Methodology — Tooling & Automation: Review Methodology — Tooling & Automation: Review Methodology — Tooling & Automation: Review Methodology — Tooling & Automation: Confirm custom Semgrep patterns or CodeQL queries exist for project-specific sink functions and unsafe internal wrappers",
+          "how_to_find": "Review Methodology — Tooling & Automation: Review Methodology — Tooling & Automation: Review Methodology — Tooling & Automation: Review Methodology — Tooling & Automation: Review Methodology — Tooling & Automation: Confirm custom Semgrep patterns or CodeQL queries exist for project-specific sink functions and unsafe internal wrappers",
           "how_to_fix": "Assign an owner for write custom rules for project-specific sinks, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Semgrep",
@@ -236,7 +236,7 @@
           "title": "Triage SAST findings and suppress with justification",
           "description": "Investigate findings for exploitability and false positives; suppress only with a documented reason, never blanket-disable rules.",
           "severity": "info",
-          "how_to_find": "Review Methodology — Tooling & Automation: Review Methodology — Tooling & Automation: Review Methodology — Tooling & Automation: Review Methodology — Tooling & Automation: Check that suppressions (nosem, // codeql, sonar:ignore) carry a justification and are reviewed, and that suppression counts are not growing unchecked",
+          "how_to_find": "Review Methodology — Tooling & Automation: Review Methodology — Tooling & Automation: Review Methodology — Tooling & Automation: Review Methodology — Tooling & Automation: Review Methodology — Tooling & Automation: Check that suppressions (nosem, // codeql, sonar:ignore) carry a justification and are reviewed, and that suppression counts are not growing unchecked",
           "how_to_fix": "Assign an owner for triage sast findings and suppress with justification, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Semgrep",
@@ -264,7 +264,7 @@
           "title": "Diff against history to spot weakened controls",
           "description": "Compare versions to detect removed validation, downgraded crypto, new debug flags, or silently added dependencies.",
           "severity": "low",
-          "how_to_find": "Review Methodology — Tooling & Automation: Review Methodology — Tooling & Automation: Review Methodology — Tooling & Automation: Review Methodology — Tooling & Automation: Use git diff/blame across the change range to confirm no security control was removed or weakened and that risky additions are intentional",
+          "how_to_find": "Review Methodology — Tooling & Automation: Review Methodology — Tooling & Automation: Review Methodology — Tooling & Automation: Review Methodology — Tooling & Automation: Review Methodology — Tooling & Automation: Use git diff/blame across the change range to confirm no security control was removed or weakened and that risky additions are intentional",
           "how_to_fix": "Assign an owner for diff against history to spot weakened controls, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "git",
@@ -325,7 +325,7 @@
           "title": "Review ORM raw query and rawSQL escape hatches",
           "description": "ORMs are safe by default but expose raw query methods (e.g.",
           "severity": "high",
-          "how_to_find": "Injection Sinks — SQL Injection Sinks: Injection Sinks — SQL Injection Sinks: Injection Sinks — SQL Injection Sinks: Injection Sinks — SQL Injection Sinks: Search for ORM raw query APIs and confirm any user input is passed as parameters, not concatenated into the raw string",
+          "how_to_find": "Injection Sinks — SQL Injection Sinks: Injection Sinks — SQL Injection Sinks: Injection Sinks — SQL Injection Sinks: Injection Sinks — SQL Injection Sinks: Injection Sinks — SQL Injection Sinks: Search for ORM raw query APIs and confirm any user input is passed as parameters, not concatenated into the raw string",
           "how_to_fix": "Assign an owner for review orm raw query and rawsql escape hatches, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Semgrep",
@@ -353,7 +353,7 @@
           "title": "Check dynamic table/column identifiers and ORDER BY",
           "description": "Parameterization does not cover identifiers (table/column names, ORDER BY, LIMIT); these must be allowlisted, not bound.",
           "severity": "high",
-          "how_to_find": "Injection Sinks — SQL Injection Sinks: Injection Sinks — SQL Injection Sinks: Injection Sinks — SQL Injection Sinks: Injection Sinks — SQL Injection Sinks: Find dynamic ORDER BY, column, or table names derived from input and confirm they are validated against a strict allowlist",
+          "how_to_find": "Injection Sinks — SQL Injection Sinks: Injection Sinks — SQL Injection Sinks: Injection Sinks — SQL Injection Sinks: Injection Sinks — SQL Injection Sinks: Injection Sinks — SQL Injection Sinks: Find dynamic ORDER BY, column, or table names derived from input and confirm they are validated against a strict allowlist",
           "how_to_fix": "Assign an owner for check dynamic table/column identifiers and order by, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Semgrep",
@@ -441,7 +441,7 @@
           "title": "Flag shell-interpreted command execution",
           "description": "Calls like system(), os.system, exec with shell=True, Runtime.exec(\"sh -c ...\"), or child_process.exec invoke a shell and are injectable.",
           "severity": "critical",
-          "how_to_find": "Injection Sinks — OS Command Injection Sinks: Injection Sinks — OS Command Injection Sinks: Injection Sinks — OS Command Injection Sinks: Injection Sinks — OS Command Injection Sinks: Calls like system(), os.system, exec with shell=True, Runtime.exec(\"sh -c ...\"), or child_process.exec invoke a shell and are injectable",
+          "how_to_find": "Injection Sinks — OS Command Injection Sinks: Injection Sinks — OS Command Injection Sinks: Injection Sinks — OS Command Injection Sinks: Injection Sinks — OS Command Injection Sinks: Injection Sinks — OS Command Injection Sinks: Calls like system(), os.system, exec with shell=True, Runtime.exec(\"sh -c ...\"), or child_process.exec invoke a shell and are injectable",
           "how_to_fix": "Assign an owner for flag shell-interpreted command execution, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Semgrep",
@@ -470,7 +470,7 @@
           "title": "Prefer argument-array execution without a shell",
           "description": "Even array-based exec is risky if the program/path is attacker-controlled or arguments allow option injection (e.g.",
           "severity": "high",
-          "how_to_find": "Injection Sinks — OS Command Injection Sinks: Injection Sinks — OS Command Injection Sinks: Injection Sinks — OS Command Injection Sinks: Injection Sinks — OS Command Injection Sinks: Confirm command name is fixed/allowlisted, arguments are passed as an array, and option-injection is mitigated with -- separators",
+          "how_to_find": "Injection Sinks — OS Command Injection Sinks: Injection Sinks — OS Command Injection Sinks: Injection Sinks — OS Command Injection Sinks: Injection Sinks — OS Command Injection Sinks: Injection Sinks — OS Command Injection Sinks: Confirm command name is fixed/allowlisted, arguments are passed as an array, and option-injection is mitigated with -- separators",
           "how_to_fix": "Assign an owner for prefer argument-array execution without a shell, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Semgrep",
@@ -498,7 +498,7 @@
           "title": "Audit per-language process APIs",
           "description": "Review Python subprocess/os, Node child_process, Java ProcessBuilder/Runtime, Ruby Kernel#system/backticks, Go os/exec, and PHP exec/passthru/proc_open.",
           "severity": "high",
-          "how_to_find": "Injection Sinks — OS Command Injection Sinks: Injection Sinks — OS Command Injection Sinks: Injection Sinks — OS Command Injection Sinks: Injection Sinks — OS Command Injection Sinks: Enumerate language-specific exec APIs and confirm none receive concatenated untrusted input via a shell",
+          "how_to_find": "Injection Sinks — OS Command Injection Sinks: Injection Sinks — OS Command Injection Sinks: Injection Sinks — OS Command Injection Sinks: Injection Sinks — OS Command Injection Sinks: Injection Sinks — OS Command Injection Sinks: Enumerate language-specific exec APIs and confirm none receive concatenated untrusted input via a shell",
           "how_to_fix": "Assign an owner for audit per-language process apis, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "grep/ripgrep",
@@ -527,7 +527,7 @@
           "title": "Check indirect command execution via templates and config",
           "description": "Build scripts, Makefiles, CI YAML, and templating that interpolate input into shell commands are command-injection sinks too.",
           "severity": "medium",
-          "how_to_find": "Injection Sinks — OS Command Injection Sinks: Injection Sinks — OS Command Injection Sinks: Injection Sinks — OS Command Injection Sinks: Injection Sinks — OS Command Injection Sinks: Look for run: steps, Makefile recipes, or template-rendered shell commands that embed externally controlled values",
+          "how_to_find": "Injection Sinks — OS Command Injection Sinks: Injection Sinks — OS Command Injection Sinks: Injection Sinks — OS Command Injection Sinks: Injection Sinks — OS Command Injection Sinks: Injection Sinks — OS Command Injection Sinks: Look for run: steps, Makefile recipes, or template-rendered shell commands that embed externally controlled values",
           "how_to_fix": "Assign an owner for check indirect command execution via templates and config, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "grep/ripgrep",
@@ -559,7 +559,7 @@
           "title": "Detect file paths built from user input",
           "description": "Concatenating request data into a file path enables ../ traversal to read or write outside the intended directory.",
           "severity": "high",
-          "how_to_find": "Injection Sinks — Path Traversal Sinks: Injection Sinks — Path Traversal Sinks: Injection Sinks — Path Traversal Sinks: Injection Sinks — Path Traversal Sinks: Find open/read/write/sendFile/include calls where the path includes user input; confirm canonicalization and a base-directory prefix check",
+          "how_to_find": "Injection Sinks — Path Traversal Sinks: Injection Sinks — Path Traversal Sinks: Injection Sinks — Path Traversal Sinks: Injection Sinks — Path Traversal Sinks: Injection Sinks — Path Traversal Sinks: Find open/read/write/sendFile/include calls where the path includes user input; confirm canonicalization and a base-directory prefix check",
           "how_to_fix": "Assign an owner for detect file paths built from user input, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Semgrep",
@@ -587,7 +587,7 @@
           "title": "Verify canonicalization happens before the boundary check",
           "description": "Checks must resolve symlinks and normalize (realpath/Path.normalize) and then verify the result is still within the allowed root.",
           "severity": "high",
-          "how_to_find": "Injection Sinks — Path Traversal Sinks: Injection Sinks — Path Traversal Sinks: Injection Sinks — Path Traversal Sinks: Injection Sinks — Path Traversal Sinks: Confirm the code canonicalizes the path and then validates the resolved path starts with the allowed base, not the raw input",
+          "how_to_find": "Injection Sinks — Path Traversal Sinks: Injection Sinks — Path Traversal Sinks: Injection Sinks — Path Traversal Sinks: Injection Sinks — Path Traversal Sinks: Injection Sinks — Path Traversal Sinks: Confirm the code canonicalizes the path and then validates the resolved path starts with the allowed base, not the raw input",
           "how_to_fix": "Assign an owner for verify canonicalization happens before the boundary check, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "CodeQL",
@@ -615,7 +615,7 @@
           "title": "Account for encoding and null-byte bypasses",
           "description": "Naive blocklists for ../ are bypassed via URL/double/Unicode encoding or null bytes; rely on canonicalization, not filtering.",
           "severity": "medium",
-          "how_to_find": "Injection Sinks — Path Traversal Sinks: Injection Sinks — Path Traversal Sinks: Injection Sinks — Path Traversal Sinks: Injection Sinks — Path Traversal Sinks: Check that traversal defense decodes input fully before validation and is not a simple replace(\"..\", \"\") blocklist",
+          "how_to_find": "Injection Sinks — Path Traversal Sinks: Injection Sinks — Path Traversal Sinks: Injection Sinks — Path Traversal Sinks: Injection Sinks — Path Traversal Sinks: Injection Sinks — Path Traversal Sinks: Check that traversal defense decodes input fully before validation and is not a simple replace(\"..\", \"\") blocklist",
           "how_to_fix": "Assign an owner for account for encoding and null-byte bypasses, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Semgrep",
@@ -642,7 +642,7 @@
           "title": "Check archive extraction for Zip Slip",
           "description": "Extracting zip/tar entries using their stored names allows ../ entries to write outside the target directory (Zip Slip).",
           "severity": "high",
-          "how_to_find": "Injection Sinks — Path Traversal Sinks: Injection Sinks — Path Traversal Sinks: Injection Sinks — Path Traversal Sinks: Injection Sinks — Path Traversal Sinks: Confirm extraction code validates each entry path resolves inside the destination before writing",
+          "how_to_find": "Injection Sinks — Path Traversal Sinks: Injection Sinks — Path Traversal Sinks: Injection Sinks — Path Traversal Sinks: Injection Sinks — Path Traversal Sinks: Injection Sinks — Path Traversal Sinks: Confirm extraction code validates each entry path resolves inside the destination before writing",
           "how_to_fix": "Assign an owner for check archive extraction for zip slip, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Semgrep",
@@ -675,7 +675,7 @@
           "title": "Detect Java native deserialization (ObjectInputStream)",
           "description": "readObject on attacker data with vulnerable gadget classes on the classpath leads to RCE.",
           "severity": "critical",
-          "how_to_find": "Injection Sinks — Insecure Deserialization Sinks: Injection Sinks — Insecure Deserialization Sinks: Injection Sinks — Insecure Deserialization Sinks: Injection Sinks — Insecure Deserialization Sinks: Find ObjectInputStream.readObject / XMLDecoder / unsafe Jackson polymorphic typing on untrusted input; confirm look-ahead filters or safe formats",
+          "how_to_find": "Injection Sinks — Insecure Deserialization Sinks: Injection Sinks — Insecure Deserialization Sinks: Injection Sinks — Insecure Deserialization Sinks: Injection Sinks — Insecure Deserialization Sinks: Injection Sinks — Insecure Deserialization Sinks: Find ObjectInputStream.readObject / XMLDecoder / unsafe Jackson polymorphic typing on untrusted input; confirm look-ahead filters or safe formats",
           "how_to_fix": "Assign an owner for detect java native deserialization (objectinputstream), apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "CodeQL",
@@ -731,7 +731,7 @@
           "title": "Detect PHP unserialize() on untrusted input",
           "description": "unserialize() of attacker data triggers magic methods (__wakeup/__destruct) enabling POP-chain exploitation.",
           "severity": "critical",
-          "how_to_find": "Injection Sinks — Insecure Deserialization Sinks: Injection Sinks — Insecure Deserialization Sinks: Injection Sinks — Insecure Deserialization Sinks: Injection Sinks — Insecure Deserialization Sinks: Find unserialize() on cookies, request params, or stored data; confirm allowed_classes is restricted or JSON is used instead",
+          "how_to_find": "Injection Sinks — Insecure Deserialization Sinks: Injection Sinks — Insecure Deserialization Sinks: Injection Sinks — Insecure Deserialization Sinks: Injection Sinks — Insecure Deserialization Sinks: Injection Sinks — Insecure Deserialization Sinks: Find unserialize() on cookies, request params, or stored data; confirm allowed_classes is restricted or JSON is used instead",
           "how_to_fix": "Assign an owner for detect php unserialize() on untrusted input, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Semgrep",
@@ -819,7 +819,7 @@
           "title": "Detect server-side template injection (SSTI)",
           "description": "Rendering user input as a template (Jinja2, Twig, Freemarker, Velocity, ERB, Handlebars) instead of as data leads to RCE.",
           "severity": "critical",
-          "how_to_find": "Injection Sinks — Template Injection & Dynamic Eval: Injection Sinks — Template Injection & Dynamic Eval: Injection Sinks — Template Injection & Dynamic Eval: Injection Sinks — Template Injection & Dynamic Eval: Find template render calls where the template string itself, not just the context, is user-controlled; confirm input is passed as data only",
+          "how_to_find": "Injection Sinks — Template Injection & Dynamic Eval: Injection Sinks — Template Injection & Dynamic Eval: Injection Sinks — Template Injection & Dynamic Eval: Injection Sinks — Template Injection & Dynamic Eval: Injection Sinks — Template Injection & Dynamic Eval: Find template render calls where the template string itself, not just the context, is user-controlled; confirm input is passed as data only",
           "how_to_fix": "Assign an owner for detect server-side template injection (ssti), apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Semgrep",
@@ -847,7 +847,7 @@
           "title": "Detect dynamic code evaluation (eval/exec)",
           "description": "eval, exec, Function(), setTimeout(string), compile, and runtime code generation on user input execute arbitrary code.",
           "severity": "critical",
-          "how_to_find": "Injection Sinks — Template Injection & Dynamic Eval: Injection Sinks — Template Injection & Dynamic Eval: Injection Sinks — Template Injection & Dynamic Eval: Injection Sinks — Template Injection & Dynamic Eval: Find eval/exec/Function/new Function/vm.runInContext where any argument derives from untrusted input",
+          "how_to_find": "Injection Sinks — Template Injection & Dynamic Eval: Injection Sinks — Template Injection & Dynamic Eval: Injection Sinks — Template Injection & Dynamic Eval: Injection Sinks — Template Injection & Dynamic Eval: Injection Sinks — Template Injection & Dynamic Eval: Find eval/exec/Function/new Function/vm.runInContext where any argument derives from untrusted input",
           "how_to_fix": "Assign an owner for detect dynamic code evaluation (eval/exec), apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Semgrep",
@@ -876,7 +876,7 @@
           "title": "Check expression-language and SpEL injection",
           "description": "Spring SpEL, OGNL, MVEL, and similar expression evaluators on user input enable code execution.",
           "severity": "high",
-          "how_to_find": "Injection Sinks — Template Injection & Dynamic Eval: Injection Sinks — Template Injection & Dynamic Eval: Injection Sinks — Template Injection & Dynamic Eval: Injection Sinks — Template Injection & Dynamic Eval: Search for SpelExpressionParser, Ognl.getValue, and @Value/@PreAuthorize using untrusted strings; confirm expressions are static",
+          "how_to_find": "Injection Sinks — Template Injection & Dynamic Eval: Injection Sinks — Template Injection & Dynamic Eval: Injection Sinks — Template Injection & Dynamic Eval: Injection Sinks — Template Injection & Dynamic Eval: Injection Sinks — Template Injection & Dynamic Eval: Search for SpelExpressionParser, Ognl.getValue, and @Value/@PreAuthorize using untrusted strings; confirm expressions are static",
           "how_to_fix": "Assign an owner for check expression-language and spel injection, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "CodeQL",
@@ -904,7 +904,7 @@
           "title": "Check dynamic module loading and reflection",
           "description": "require/import, Class.forName, getattr, and reflection driven by user input can load and invoke unexpected code paths.",
           "severity": "medium",
-          "how_to_find": "Injection Sinks — Template Injection & Dynamic Eval: Injection Sinks — Template Injection & Dynamic Eval: Injection Sinks — Template Injection & Dynamic Eval: Injection Sinks — Template Injection & Dynamic Eval: Find dynamic require/import/reflection where the module or class name is user-controlled; confirm an allowlist constrains it",
+          "how_to_find": "Injection Sinks — Template Injection & Dynamic Eval: Injection Sinks — Template Injection & Dynamic Eval: Injection Sinks — Template Injection & Dynamic Eval: Injection Sinks — Template Injection & Dynamic Eval: Injection Sinks — Template Injection & Dynamic Eval: Find dynamic require/import/reflection where the module or class name is user-controlled; confirm an allowlist constrains it",
           "how_to_fix": "Assign an owner for check dynamic module loading and reflection, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Semgrep",
@@ -965,7 +965,7 @@
           "title": "Verify password/token comparison is constant-time",
           "description": "Comparing secrets with == leaks length/timing; use constant-time comparison, and verify passwords via slow KDFs.",
           "severity": "medium",
-          "how_to_find": "AuthN & AuthZ Flaws — Authentication Logic: AuthN & AuthZ Flaws — Authentication Logic: AuthN & AuthZ Flaws — Authentication Logic: AuthN & AuthZ Flaws — Authentication Logic: Find secret comparisons using == or .equals; confirm constant-time helpers (hmac.compare_digest, crypto.timingSafeEqual) for tokens",
+          "how_to_find": "AuthN & AuthZ Flaws — Authentication Logic: AuthN & AuthZ Flaws — Authentication Logic: AuthN & AuthZ Flaws — Authentication Logic: AuthN & AuthZ Flaws — Authentication Logic: AuthN & AuthZ Flaws — Authentication Logic: Find secret comparisons using == or .equals; confirm constant-time helpers (hmac.compare_digest, crypto.timingSafeEqual) for tokens",
           "how_to_fix": "Assign an owner for verify password/token comparison is constant-time, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Semgrep",
@@ -993,7 +993,7 @@
           "title": "Verify password hashing uses a strong KDF",
           "description": "Passwords must be stored with bcrypt, scrypt, Argon2, or PBKDF2 with appropriate cost — never plaintext or fast hashes.",
           "severity": "high",
-          "how_to_find": "AuthN & AuthZ Flaws — Authentication Logic: AuthN & AuthZ Flaws — Authentication Logic: AuthN & AuthZ Flaws — Authentication Logic: AuthN & AuthZ Flaws — Authentication Logic: Find password persistence; confirm a slow salted KDF is used with sane parameters and no fast hash (MD5/SHA-x) or plaintext",
+          "how_to_find": "AuthN & AuthZ Flaws — Authentication Logic: AuthN & AuthZ Flaws — Authentication Logic: AuthN & AuthZ Flaws — Authentication Logic: AuthN & AuthZ Flaws — Authentication Logic: AuthN & AuthZ Flaws — Authentication Logic: Find password persistence; confirm a slow salted KDF is used with sane parameters and no fast hash (MD5/SHA-x) or plaintext",
           "how_to_fix": "Assign an owner for verify password hashing uses a strong kdf, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Semgrep",
@@ -1021,7 +1021,7 @@
           "title": "Check brute-force protection on auth endpoints",
           "description": "Login, OTP, and password-reset endpoints need rate limiting and lockout to resist credential stuffing and brute force.",
           "severity": "medium",
-          "how_to_find": "AuthN & AuthZ Flaws — Authentication Logic: AuthN & AuthZ Flaws — Authentication Logic: AuthN & AuthZ Flaws — Authentication Logic: AuthN & AuthZ Flaws — Authentication Logic: Confirm authentication and reset flows enforce rate limiting/lockout and that error messages do not enable user enumeration",
+          "how_to_find": "AuthN & AuthZ Flaws — Authentication Logic: AuthN & AuthZ Flaws — Authentication Logic: AuthN & AuthZ Flaws — Authentication Logic: AuthN & AuthZ Flaws — Authentication Logic: AuthN & AuthZ Flaws — Authentication Logic: Confirm authentication and reset flows enforce rate limiting/lockout and that error messages do not enable user enumeration",
           "how_to_fix": "Assign an owner for check brute-force protection on auth endpoints, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "grep/ripgrep",
@@ -1081,7 +1081,7 @@
           "title": "Detect missing object-level authorization (IDOR)",
           "description": "Handlers that fetch a resource by id from input without verifying ownership allow access to other users records.",
           "severity": "critical",
-          "how_to_find": "AuthN & AuthZ Flaws — Access Control: AuthN & AuthZ Flaws — Access Control: AuthN & AuthZ Flaws — Access Control: AuthN & AuthZ Flaws — Access Control: For each by-id fetch, confirm an ownership/tenant check ties the resource to the authenticated principal before returning or modifying it",
+          "how_to_find": "AuthN & AuthZ Flaws — Access Control: AuthN & AuthZ Flaws — Access Control: AuthN & AuthZ Flaws — Access Control: AuthN & AuthZ Flaws — Access Control: AuthN & AuthZ Flaws — Access Control: For each by-id fetch, confirm an ownership/tenant check ties the resource to the authenticated principal before returning or modifying it",
           "how_to_fix": "Assign an owner for detect missing object-level authorization (idor), apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "CodeQL",
@@ -1109,7 +1109,7 @@
           "title": "Detect missing function-level authorization",
           "description": "Admin/privileged actions must check role/permission server-side, not rely on hidden UI or client-side gating.",
           "severity": "high",
-          "how_to_find": "AuthN & AuthZ Flaws — Access Control: AuthN & AuthZ Flaws — Access Control: AuthN & AuthZ Flaws — Access Control: AuthN & AuthZ Flaws — Access Control: Confirm privileged handlers verify role/permission server-side; flag any that depend solely on UI hiding or client checks",
+          "how_to_find": "AuthN & AuthZ Flaws — Access Control: AuthN & AuthZ Flaws — Access Control: AuthN & AuthZ Flaws — Access Control: AuthN & AuthZ Flaws — Access Control: AuthN & AuthZ Flaws — Access Control: Confirm privileged handlers verify role/permission server-side; flag any that depend solely on UI hiding or client checks",
           "how_to_fix": "Assign an owner for detect missing function-level authorization, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "CodeQL",
@@ -1137,7 +1137,7 @@
           "title": "Check for mass assignment / over-posting",
           "description": "Binding request bodies directly to models lets attackers set protected fields (isAdmin, role, balance).",
           "severity": "high",
-          "how_to_find": "AuthN & AuthZ Flaws — Access Control: AuthN & AuthZ Flaws — Access Control: AuthN & AuthZ Flaws — Access Control: AuthN & AuthZ Flaws — Access Control: Find model binding from request bodies; confirm an allowlist of writable fields or DTOs excludes privilege/ownership fields",
+          "how_to_find": "AuthN & AuthZ Flaws — Access Control: AuthN & AuthZ Flaws — Access Control: AuthN & AuthZ Flaws — Access Control: AuthN & AuthZ Flaws — Access Control: AuthN & AuthZ Flaws — Access Control: Find model binding from request bodies; confirm an allowlist of writable fields or DTOs excludes privilege/ownership fields",
           "how_to_fix": "Assign an owner for check for mass assignment / over-posting, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Semgrep",
@@ -1165,7 +1165,7 @@
           "title": "Verify tenant isolation in multi-tenant queries",
           "description": "Every data query in a multi-tenant system must be scoped by tenant id to prevent cross-tenant data exposure.",
           "severity": "critical",
-          "how_to_find": "AuthN & AuthZ Flaws — Access Control: AuthN & AuthZ Flaws — Access Control: AuthN & AuthZ Flaws — Access Control: AuthN & AuthZ Flaws — Access Control: Confirm queries include a tenant/org filter derived from the session, not from request input, and that no global queries leak across tenants",
+          "how_to_find": "AuthN & AuthZ Flaws — Access Control: AuthN & AuthZ Flaws — Access Control: AuthN & AuthZ Flaws — Access Control: AuthN & AuthZ Flaws — Access Control: AuthN & AuthZ Flaws — Access Control: Confirm queries include a tenant/org filter derived from the session, not from request input, and that no global queries leak across tenants",
           "how_to_fix": "Assign an owner for verify tenant isolation in multi-tenant queries, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "CodeQL",
@@ -1193,7 +1193,7 @@
           "title": "Confirm authorization is centralized and deny-by-default",
           "description": "Scattered, ad-hoc permission checks are error-prone; a central policy layer that defaults to deny is more reliable.",
           "severity": "medium",
-          "how_to_find": "AuthN & AuthZ Flaws — Access Control: AuthN & AuthZ Flaws — Access Control: AuthN & AuthZ Flaws — Access Control: AuthN & AuthZ Flaws — Access Control: Scattered, ad-hoc permission checks are error-prone; a central policy layer that defaults to deny is more reliable",
+          "how_to_find": "AuthN & AuthZ Flaws — Access Control: AuthN & AuthZ Flaws — Access Control: AuthN & AuthZ Flaws — Access Control: AuthN & AuthZ Flaws — Access Control: AuthN & AuthZ Flaws — Access Control: Scattered, ad-hoc permission checks are error-prone; a central policy layer that defaults to deny is more reliable",
           "how_to_fix": "Assign an owner for confirm authorization is centralized and deny-by-default, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "CodeQL",
@@ -1226,7 +1226,7 @@
           "title": "Verify session cookie security attributes",
           "description": "Session cookies must set HttpOnly, Secure, and an appropriate SameSite to resist theft and CSRF.",
           "severity": "medium",
-          "how_to_find": "AuthN & AuthZ Flaws — Session & Token Handling: AuthN & AuthZ Flaws — Session & Token Handling: AuthN & AuthZ Flaws — Session & Token Handling: AuthN & AuthZ Flaws — Session & Token Handling: Find cookie/session config; confirm HttpOnly, Secure, and SameSite are set and that the cookie scope (path/domain) is minimal",
+          "how_to_find": "AuthN & AuthZ Flaws — Session & Token Handling: AuthN & AuthZ Flaws — Session & Token Handling: AuthN & AuthZ Flaws — Session & Token Handling: AuthN & AuthZ Flaws — Session & Token Handling: AuthN & AuthZ Flaws — Session & Token Handling: Find cookie/session config; confirm HttpOnly, Secure, and SameSite are set and that the cookie scope (path/domain) is minimal",
           "how_to_fix": "Assign an owner for verify session cookie security attributes, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Semgrep",
@@ -1254,7 +1254,7 @@
           "title": "Check session regeneration on privilege change",
           "description": "Sessions must be regenerated on login and privilege elevation to prevent session fixation.",
           "severity": "medium",
-          "how_to_find": "AuthN & AuthZ Flaws — Session & Token Handling: AuthN & AuthZ Flaws — Session & Token Handling: AuthN & AuthZ Flaws — Session & Token Handling: AuthN & AuthZ Flaws — Session & Token Handling: Confirm the session id is rotated after authentication and on role change; flag flows that keep the pre-login session id",
+          "how_to_find": "AuthN & AuthZ Flaws — Session & Token Handling: AuthN & AuthZ Flaws — Session & Token Handling: AuthN & AuthZ Flaws — Session & Token Handling: AuthN & AuthZ Flaws — Session & Token Handling: AuthN & AuthZ Flaws — Session & Token Handling: Confirm the session id is rotated after authentication and on role change; flag flows that keep the pre-login session id",
           "how_to_fix": "Assign an owner for check session regeneration on privilege change, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "grep/ripgrep",
@@ -1281,7 +1281,7 @@
           "title": "Verify JWT signature and algorithm validation",
           "description": "JWT verification must enforce a fixed algorithm and reject alg=none; never trust unsigned or attacker-chosen-algorithm tokens.",
           "severity": "critical",
-          "how_to_find": "AuthN & AuthZ Flaws — Session & Token Handling: AuthN & AuthZ Flaws — Session & Token Handling: AuthN & AuthZ Flaws — Session & Token Handling: AuthN & AuthZ Flaws — Session & Token Handling: Find JWT verify calls; confirm an explicit algorithm allowlist, no alg=none acceptance, and verification (not just decode) before trust",
+          "how_to_find": "AuthN & AuthZ Flaws — Session & Token Handling: AuthN & AuthZ Flaws — Session & Token Handling: AuthN & AuthZ Flaws — Session & Token Handling: AuthN & AuthZ Flaws — Session & Token Handling: AuthN & AuthZ Flaws — Session & Token Handling: Find JWT verify calls; confirm an explicit algorithm allowlist, no alg=none acceptance, and verification (not just decode) before trust",
           "how_to_fix": "Assign an owner for verify jwt signature and algorithm validation, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Semgrep",
@@ -1309,7 +1309,7 @@
           "title": "Check token expiry, revocation, and refresh handling",
           "description": "Tokens need bounded lifetimes, server-side revocation for stateful needs (logout, compromise), and safe refresh rotation.",
           "severity": "medium",
-          "how_to_find": "AuthN & AuthZ Flaws — Session & Token Handling: AuthN & AuthZ Flaws — Session & Token Handling: AuthN & AuthZ Flaws — Session & Token Handling: AuthN & AuthZ Flaws — Session & Token Handling: Confirm tokens carry expiry, are checked, and that logout/revocation actually invalidates them; review refresh-token rotation and reuse detection",
+          "how_to_find": "AuthN & AuthZ Flaws — Session & Token Handling: AuthN & AuthZ Flaws — Session & Token Handling: AuthN & AuthZ Flaws — Session & Token Handling: AuthN & AuthZ Flaws — Session & Token Handling: AuthN & AuthZ Flaws — Session & Token Handling: Confirm tokens carry expiry, are checked, and that logout/revocation actually invalidates them; review refresh-token rotation and reuse detection",
           "how_to_fix": "Assign an owner for check token expiry, revocation, and refresh handling, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "grep/ripgrep",
@@ -1336,7 +1336,7 @@
           "title": "Verify session/token identifiers are unpredictable",
           "description": "Session ids and reset tokens must come from a CSPRNG with sufficient entropy, not sequential ids or weak RNG.",
           "severity": "high",
-          "how_to_find": "AuthN & AuthZ Flaws — Session & Token Handling: AuthN & AuthZ Flaws — Session & Token Handling: AuthN & AuthZ Flaws — Session & Token Handling: AuthN & AuthZ Flaws — Session & Token Handling: Find token generation; confirm a cryptographically secure RNG and adequate length, not Math.random/rand or predictable sequences",
+          "how_to_find": "AuthN & AuthZ Flaws — Session & Token Handling: AuthN & AuthZ Flaws — Session & Token Handling: AuthN & AuthZ Flaws — Session & Token Handling: AuthN & AuthZ Flaws — Session & Token Handling: AuthN & AuthZ Flaws — Session & Token Handling: Find token generation; confirm a cryptographically secure RNG and adequate length, not Math.random/rand or predictable sequences",
           "how_to_fix": "Assign an owner for verify session/token identifiers are unpredictable, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Semgrep",
@@ -1398,7 +1398,7 @@
           "title": "Check config files and committed env files for secrets",
           "description": "Secrets in application.properties, appsettings.json, .env, or Helm/Terraform files frequently get committed by mistake.",
           "severity": "high",
-          "how_to_find": "Cryptography & Secrets — Hardcoded Secrets: Cryptography & Secrets — Hardcoded Secrets: Cryptography & Secrets — Hardcoded Secrets: Cryptography & Secrets — Hardcoded Secrets: Find committed .env/config files with credentials; confirm secrets come from a vault/secret manager and that .gitignore excludes env files",
+          "how_to_find": "Cryptography & Secrets — Hardcoded Secrets: Cryptography & Secrets — Hardcoded Secrets: Cryptography & Secrets — Hardcoded Secrets: Cryptography & Secrets — Hardcoded Secrets: Cryptography & Secrets — Hardcoded Secrets: Find committed .env/config files with credentials; confirm secrets come from a vault/secret manager and that .gitignore excludes env files",
           "how_to_fix": "Assign an owner for check config files and committed env files for secrets, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "gitleaks",
@@ -1426,7 +1426,7 @@
           "title": "Scan git history for previously committed secrets",
           "description": "Removing a secret from HEAD does not remove it from history; leaked secrets must be rotated, not just deleted.",
           "severity": "high",
-          "how_to_find": "Cryptography & Secrets — Hardcoded Secrets: Cryptography & Secrets — Hardcoded Secrets: Cryptography & Secrets — Hardcoded Secrets: Cryptography & Secrets — Hardcoded Secrets: Run a history-aware scanner across all commits; confirm any historical secret has been rotated/revoked, not merely deleted from the latest commit",
+          "how_to_find": "Cryptography & Secrets — Hardcoded Secrets: Cryptography & Secrets — Hardcoded Secrets: Cryptography & Secrets — Hardcoded Secrets: Cryptography & Secrets — Hardcoded Secrets: Cryptography & Secrets — Hardcoded Secrets: Run a history-aware scanner across all commits; confirm any historical secret has been rotated/revoked, not merely deleted from the latest commit",
           "how_to_fix": "Assign an owner for scan git history for previously committed secrets, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "TruffleHog",
@@ -1516,7 +1516,7 @@
           "title": "Detect insecure cipher modes (ECB) and missing auth",
           "description": "ECB leaks patterns and unauthenticated CBC is malleable; prefer authenticated modes like AES-GCM.",
           "severity": "high",
-          "how_to_find": "Cryptography & Secrets — Weak & Misused Cryptography: Cryptography & Secrets — Weak & Misused Cryptography: Cryptography & Secrets — Weak & Misused Cryptography: Cryptography & Secrets — Weak & Misused Cryptography: Find cipher configuration; flag ECB mode and CBC without a MAC, and confirm an authenticated mode (GCM/ChaCha20-Poly1305) is used",
+          "how_to_find": "Cryptography & Secrets — Weak & Misused Cryptography: Cryptography & Secrets — Weak & Misused Cryptography: Cryptography & Secrets — Weak & Misused Cryptography: Cryptography & Secrets — Weak & Misused Cryptography: Cryptography & Secrets — Weak & Misused Cryptography: Find cipher configuration; flag ECB mode and CBC without a MAC, and confirm an authenticated mode (GCM/ChaCha20-Poly1305) is used",
           "how_to_fix": "Assign an owner for detect insecure cipher modes (ecb) and missing auth, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Semgrep",
@@ -1544,7 +1544,7 @@
           "title": "Detect static/reused IVs and nonces",
           "description": "A constant or reused IV/nonce destroys the security of stream ciphers and GCM; nonces must be unique per encryption.",
           "severity": "high",
-          "how_to_find": "Cryptography & Secrets — Weak & Misused Cryptography: Cryptography & Secrets — Weak & Misused Cryptography: Cryptography & Secrets — Weak & Misused Cryptography: Cryptography & Secrets — Weak & Misused Cryptography: Find IV/nonce assignment; confirm it is randomly generated per operation (or a counter), never a hardcoded constant or reused value",
+          "how_to_find": "Cryptography & Secrets — Weak & Misused Cryptography: Cryptography & Secrets — Weak & Misused Cryptography: Cryptography & Secrets — Weak & Misused Cryptography: Cryptography & Secrets — Weak & Misused Cryptography: Cryptography & Secrets — Weak & Misused Cryptography: Find IV/nonce assignment; confirm it is randomly generated per operation (or a counter), never a hardcoded constant or reused value",
           "how_to_fix": "Assign an owner for detect static/reused ivs and nonces, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Semgrep",
@@ -1572,7 +1572,7 @@
           "title": "Detect weak random number generation for secrets",
           "description": "Math.random, java.util.Random, rand(), and mt_rand are not cryptographically secure for tokens, keys, or IVs.",
           "severity": "high",
-          "how_to_find": "Cryptography & Secrets — Weak & Misused Cryptography: Cryptography & Secrets — Weak & Misused Cryptography: Cryptography & Secrets — Weak & Misused Cryptography: Cryptography & Secrets — Weak & Misused Cryptography: Find RNG used to generate security values; confirm a CSPRNG (crypto.randomBytes, SecureRandom, secrets module) is used instead",
+          "how_to_find": "Cryptography & Secrets — Weak & Misused Cryptography: Cryptography & Secrets — Weak & Misused Cryptography: Cryptography & Secrets — Weak & Misused Cryptography: Cryptography & Secrets — Weak & Misused Cryptography: Cryptography & Secrets — Weak & Misused Cryptography: Find RNG used to generate security values; confirm a CSPRNG (crypto.randomBytes, SecureRandom, secrets module) is used instead",
           "how_to_fix": "Assign an owner for detect weak random number generation for secrets, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Semgrep",
@@ -1601,7 +1601,7 @@
           "title": "Review key management and key derivation",
           "description": "Keys derived from low-entropy material, reused across purposes, or hardcoded undermine otherwise sound crypto.",
           "severity": "medium",
-          "how_to_find": "Cryptography & Secrets — Weak & Misused Cryptography: Cryptography & Secrets — Weak & Misused Cryptography: Cryptography & Secrets — Weak & Misused Cryptography: Cryptography & Secrets — Weak & Misused Cryptography: Confirm keys come from a KMS/secure store, are purpose-separated, and derived via a proper KDF when from passwords (Argon2/PBKDF2/scrypt)",
+          "how_to_find": "Cryptography & Secrets — Weak & Misused Cryptography: Cryptography & Secrets — Weak & Misused Cryptography: Cryptography & Secrets — Weak & Misused Cryptography: Cryptography & Secrets — Weak & Misused Cryptography: Cryptography & Secrets — Weak & Misused Cryptography: Confirm keys come from a KMS/secure store, are purpose-separated, and derived via a proper KDF when from passwords (Argon2/PBKDF2/scrypt)",
           "how_to_fix": "Assign an owner for review key management and key derivation, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Semgrep",
@@ -1634,7 +1634,7 @@
           "title": "Detect disabled TLS certificate verification",
           "description": "Disabling verification (verify=False, rejectUnauthorized:false, InsecureSkipVerify, trust-all managers) enables MITM.",
           "severity": "high",
-          "how_to_find": "Cryptography & Secrets — Certificate & TLS Validation: Cryptography & Secrets — Certificate & TLS Validation: Cryptography & Secrets — Certificate & TLS Validation: Cryptography & Secrets — Certificate & TLS Validation: Find HTTP/TLS client config; flag verify=False, rejectUnauthorized:false, InsecureSkipVerify:true, and all-trusting TrustManagers/SSLContexts",
+          "how_to_find": "Cryptography & Secrets — Certificate & TLS Validation: Cryptography & Secrets — Certificate & TLS Validation: Cryptography & Secrets — Certificate & TLS Validation: Cryptography & Secrets — Certificate & TLS Validation: Cryptography & Secrets — Certificate & TLS Validation: Find HTTP/TLS client config; flag verify=False, rejectUnauthorized:false, InsecureSkipVerify:true, and all-trusting TrustManagers/SSLContexts",
           "how_to_fix": "Assign an owner for detect disabled tls certificate verification, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Semgrep",
@@ -1663,7 +1663,7 @@
           "title": "Verify hostname verification is enabled",
           "description": "Validating the chain but not the hostname still permits MITM with any valid certificate; hostname checks must be on.",
           "severity": "high",
-          "how_to_find": "Cryptography & Secrets — Certificate & TLS Validation: Cryptography & Secrets — Certificate & TLS Validation: Cryptography & Secrets — Certificate & TLS Validation: Cryptography & Secrets — Certificate & TLS Validation: Confirm hostname verification is not disabled (e.g",
+          "how_to_find": "Cryptography & Secrets — Certificate & TLS Validation: Cryptography & Secrets — Certificate & TLS Validation: Cryptography & Secrets — Certificate & TLS Validation: Cryptography & Secrets — Certificate & TLS Validation: Cryptography & Secrets — Certificate & TLS Validation: Confirm hostname verification is not disabled (e.g",
           "how_to_fix": "Assign an owner for verify hostname verification is enabled, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Semgrep",
@@ -1691,7 +1691,7 @@
           "title": "Check for outdated TLS versions and weak ciphers",
           "description": "Forcing SSLv3/TLS 1.0/1.1 or enabling weak cipher suites weakens confidentiality; require TLS 1.2+.",
           "severity": "medium",
-          "how_to_find": "Cryptography & Secrets — Certificate & TLS Validation: Cryptography & Secrets — Certificate & TLS Validation: Cryptography & Secrets — Certificate & TLS Validation: Cryptography & Secrets — Certificate & TLS Validation: Find TLS protocol/cipher configuration; confirm minimum TLS 1.2 and that deprecated protocols and weak ciphers are not enabled",
+          "how_to_find": "Cryptography & Secrets — Certificate & TLS Validation: Cryptography & Secrets — Certificate & TLS Validation: Cryptography & Secrets — Certificate & TLS Validation: Cryptography & Secrets — Certificate & TLS Validation: Cryptography & Secrets — Certificate & TLS Validation: Find TLS protocol/cipher configuration; confirm minimum TLS 1.2 and that deprecated protocols and weak ciphers are not enabled",
           "how_to_fix": "Assign an owner for check for outdated tls versions and weak ciphers, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Semgrep",
@@ -1719,7 +1719,7 @@
           "title": "Review certificate pinning implementation (mobile)",
           "description": "Mobile and high-assurance clients may pin certificates; broken or bypassable pinning gives false confidence.",
           "severity": "low",
-          "how_to_find": "Cryptography & Secrets — Certificate & TLS Validation: Cryptography & Secrets — Certificate & TLS Validation: Cryptography & Secrets — Certificate & TLS Validation: Cryptography & Secrets — Certificate & TLS Validation: If pinning is used, confirm it is correctly implemented, has a backup pin, and is not silently disabled in debug builds",
+          "how_to_find": "Cryptography & Secrets — Certificate & TLS Validation: Cryptography & Secrets — Certificate & TLS Validation: Cryptography & Secrets — Certificate & TLS Validation: Cryptography & Secrets — Certificate & TLS Validation: Cryptography & Secrets — Certificate & TLS Validation: If pinning is used, confirm it is correctly implemented, has a backup pin, and is not silently disabled in debug builds",
           "how_to_fix": "Assign an owner for review certificate pinning implementation (mobile), apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "grep/ripgrep",
@@ -1751,7 +1751,7 @@
           "title": "Detect unencoded output in HTML context",
           "description": "Writing user input into HTML without context-appropriate encoding produces reflected or stored XSS.",
           "severity": "high",
-          "how_to_find": "Input / Output Handling — XSS Output Sinks: Input / Output Handling — XSS Output Sinks: Input / Output Handling — XSS Output Sinks: Input / Output Handling — XSS Output Sinks: Trace user input into HTML responses; confirm contextual output encoding/auto-escaping and that escaping is not bypassed (raw/safe filters)",
+          "how_to_find": "Input / Output Handling — XSS Output Sinks: Input / Output Handling — XSS Output Sinks: Input / Output Handling — XSS Output Sinks: Input / Output Handling — XSS Output Sinks: Input / Output Handling — XSS Output Sinks: Trace user input into HTML responses; confirm contextual output encoding/auto-escaping and that escaping is not bypassed (raw/safe filters)",
           "how_to_fix": "Assign an owner for detect unencoded output in html context, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Semgrep",
@@ -1779,7 +1779,7 @@
           "title": "Detect innerHTML and DOM XSS sinks",
           "description": "Assigning user input to innerHTML, outerHTML, document.write, or insertAdjacentHTML executes injected markup.",
           "severity": "high",
-          "how_to_find": "Input / Output Handling — XSS Output Sinks: Input / Output Handling — XSS Output Sinks: Input / Output Handling — XSS Output Sinks: Input / Output Handling — XSS Output Sinks: Find DOM sinks (innerHTML, document.write, eval, location) fed by sources (location, postMessage, input); confirm sanitization or safe APIs",
+          "how_to_find": "Input / Output Handling — XSS Output Sinks: Input / Output Handling — XSS Output Sinks: Input / Output Handling — XSS Output Sinks: Input / Output Handling — XSS Output Sinks: Input / Output Handling — XSS Output Sinks: Find DOM sinks (innerHTML, document.write, eval, location) fed by sources (location, postMessage, input); confirm sanitization or safe APIs",
           "how_to_fix": "Assign an owner for detect innerhtml and dom xss sinks, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Semgrep",
@@ -1807,7 +1807,7 @@
           "title": "Audit dangerouslySetInnerHTML and v-html usage",
           "description": "Framework escape hatches (React dangerouslySetInnerHTML, Vue v-html, Angular bypassSecurityTrust) reintroduce XSS.",
           "severity": "high",
-          "how_to_find": "Input / Output Handling — XSS Output Sinks: Input / Output Handling — XSS Output Sinks: Input / Output Handling — XSS Output Sinks: Input / Output Handling — XSS Output Sinks: Find each framework HTML-injection escape hatch; confirm content is sanitized (DOMPurify) and never raw user input",
+          "how_to_find": "Input / Output Handling — XSS Output Sinks: Input / Output Handling — XSS Output Sinks: Input / Output Handling — XSS Output Sinks: Input / Output Handling — XSS Output Sinks: Input / Output Handling — XSS Output Sinks: Find each framework HTML-injection escape hatch; confirm content is sanitized (DOMPurify) and never raw user input",
           "how_to_fix": "Assign an owner for audit dangerouslysetinnerhtml and v-html usage, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Semgrep",
@@ -1835,7 +1835,7 @@
           "title": "Check attribute and URL context injection",
           "description": "User input in href/src or event-handler attributes enables javascript: URLs and attribute-breaking XSS.",
           "severity": "medium",
-          "how_to_find": "Input / Output Handling — XSS Output Sinks: Input / Output Handling — XSS Output Sinks: Input / Output Handling — XSS Output Sinks: Input / Output Handling — XSS Output Sinks: Find input placed in href/src or on* attributes; confirm URL scheme allowlisting and attribute-context encoding",
+          "how_to_find": "Input / Output Handling — XSS Output Sinks: Input / Output Handling — XSS Output Sinks: Input / Output Handling — XSS Output Sinks: Input / Output Handling — XSS Output Sinks: Input / Output Handling — XSS Output Sinks: Find input placed in href/src or on* attributes; confirm URL scheme allowlisting and attribute-context encoding",
           "how_to_fix": "Assign an owner for check attribute and url context injection, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Semgrep",
@@ -1868,7 +1868,7 @@
           "title": "Detect server-side fetch of user-supplied URLs",
           "description": "Fetching a URL from user input lets attackers reach internal services and cloud metadata endpoints.",
           "severity": "high",
-          "how_to_find": "Input / Output Handling — SSRF Sinks: Input / Output Handling — SSRF Sinks: Input / Output Handling — SSRF Sinks: Input / Output Handling — SSRF Sinks: Find HTTP client calls (requests, fetch, http, curl, URLConnection) where the URL/host comes from input; confirm allowlisting",
+          "how_to_find": "Input / Output Handling — SSRF Sinks: Input / Output Handling — SSRF Sinks: Input / Output Handling — SSRF Sinks: Input / Output Handling — SSRF Sinks: Input / Output Handling — SSRF Sinks: Find HTTP client calls (requests, fetch, http, curl, URLConnection) where the URL/host comes from input; confirm allowlisting",
           "how_to_fix": "Assign an owner for detect server-side fetch of user-supplied urls, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Semgrep",
@@ -1896,7 +1896,7 @@
           "title": "Verify destination allowlisting and metadata blocking",
           "description": "Defenses should allowlist destinations and block link-local/private/metadata ranges (169.254.169.254) after DNS resolution.",
           "severity": "high",
-          "how_to_find": "Input / Output Handling — SSRF Sinks: Input / Output Handling — SSRF Sinks: Input / Output Handling — SSRF Sinks: Input / Output Handling — SSRF Sinks: Confirm SSRF defense resolves the host and blocks internal/link-local IPs, rather than relying on a hostname blocklist",
+          "how_to_find": "Input / Output Handling — SSRF Sinks: Input / Output Handling — SSRF Sinks: Input / Output Handling — SSRF Sinks: Input / Output Handling — SSRF Sinks: Input / Output Handling — SSRF Sinks: Confirm SSRF defense resolves the host and blocks internal/link-local IPs, rather than relying on a hostname blocklist",
           "how_to_fix": "Assign an owner for verify destination allowlisting and metadata blocking, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Semgrep",
@@ -1924,7 +1924,7 @@
           "title": "Check for redirect-following and DNS rebinding gaps",
           "description": "Allowlist checks before a request can be bypassed by redirects to internal hosts or DNS rebinding (TOCTOU on resolution).",
           "severity": "medium",
-          "how_to_find": "Input / Output Handling — SSRF Sinks: Input / Output Handling — SSRF Sinks: Input / Output Handling — SSRF Sinks: Input / Output Handling — SSRF Sinks: Confirm redirects are restricted/validated on each hop and that validation and connection use the same resolved IP",
+          "how_to_find": "Input / Output Handling — SSRF Sinks: Input / Output Handling — SSRF Sinks: Input / Output Handling — SSRF Sinks: Input / Output Handling — SSRF Sinks: Input / Output Handling — SSRF Sinks: Confirm redirects are restricted/validated on each hop and that validation and connection use the same resolved IP",
           "how_to_fix": "Assign an owner for check for redirect-following and dns rebinding gaps, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Semgrep",
@@ -1952,7 +1952,7 @@
           "title": "Audit indirect SSRF via parsers and integrations",
           "description": "PDF/HTML/image converters, webhooks, XML external entities, and URL preview features are common SSRF entry points.",
           "severity": "medium",
-          "how_to_find": "Input / Output Handling — SSRF Sinks: Input / Output Handling — SSRF Sinks: Input / Output Handling — SSRF Sinks: Input / Output Handling — SSRF Sinks: Find features that fetch remote resources implicitly (image rendering, link previews, webhooks); confirm they apply SSRF protections",
+          "how_to_find": "Input / Output Handling — SSRF Sinks: Input / Output Handling — SSRF Sinks: Input / Output Handling — SSRF Sinks: Input / Output Handling — SSRF Sinks: Input / Output Handling — SSRF Sinks: Find features that fetch remote resources implicitly (image rendering, link previews, webhooks); confirm they apply SSRF protections",
           "how_to_fix": "Assign an owner for audit indirect ssrf via parsers and integrations, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Semgrep",
@@ -1985,7 +1985,7 @@
           "title": "Verify upload content-type and magic-byte validation",
           "description": "Relying on the client-supplied Content-Type or extension allows uploading executable or malicious content.",
           "severity": "high",
-          "how_to_find": "Input / Output Handling — File Upload Handling: Input / Output Handling — File Upload Handling: Input / Output Handling — File Upload Handling: Input / Output Handling — File Upload Handling: Confirm uploads are validated by server-side content inspection (magic bytes) and an allowlist, not just the declared extension/MIME",
+          "how_to_find": "Input / Output Handling — File Upload Handling: Input / Output Handling — File Upload Handling: Input / Output Handling — File Upload Handling: Input / Output Handling — File Upload Handling: Input / Output Handling — File Upload Handling: Confirm uploads are validated by server-side content inspection (magic bytes) and an allowlist, not just the declared extension/MIME",
           "how_to_fix": "Assign an owner for verify upload content-type and magic-byte validation, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Semgrep",
@@ -2013,7 +2013,7 @@
           "title": "Check upload filename and storage path handling",
           "description": "Using the client filename to build the storage path enables traversal and overwriting of sensitive files.",
           "severity": "high",
-          "how_to_find": "Input / Output Handling — File Upload Handling: Input / Output Handling — File Upload Handling: Input / Output Handling — File Upload Handling: Input / Output Handling — File Upload Handling: Confirm uploaded filenames are sanitized/replaced with generated names and stored outside the web root with traversal blocked",
+          "how_to_find": "Input / Output Handling — File Upload Handling: Input / Output Handling — File Upload Handling: Input / Output Handling — File Upload Handling: Input / Output Handling — File Upload Handling: Input / Output Handling — File Upload Handling: Confirm uploaded filenames are sanitized/replaced with generated names and stored outside the web root with traversal blocked",
           "how_to_fix": "Assign an owner for check upload filename and storage path handling, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Semgrep",
@@ -2041,7 +2041,7 @@
           "title": "Verify uploads cannot be executed by the server",
           "description": "Uploads stored in a web-executable directory (or interpreted by the app server) can lead to RCE via uploaded scripts.",
           "severity": "critical",
-          "how_to_find": "Input / Output Handling — File Upload Handling: Input / Output Handling — File Upload Handling: Input / Output Handling — File Upload Handling: Input / Output Handling — File Upload Handling: Confirm the upload directory disables script execution, is served with safe content disposition, and is ideally on separate storage",
+          "how_to_find": "Input / Output Handling — File Upload Handling: Input / Output Handling — File Upload Handling: Input / Output Handling — File Upload Handling: Input / Output Handling — File Upload Handling: Input / Output Handling — File Upload Handling: Confirm the upload directory disables script execution, is served with safe content disposition, and is ideally on separate storage",
           "how_to_fix": "Assign an owner for verify uploads cannot be executed by the server, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "grep/ripgrep",
@@ -2068,7 +2068,7 @@
           "title": "Check size limits, decompression, and malware scanning",
           "description": "Missing size limits enable DoS, nested archives cause zip bombs, and unscanned files can distribute malware.",
           "severity": "medium",
-          "how_to_find": "Input / Output Handling — File Upload Handling: Input / Output Handling — File Upload Handling: Input / Output Handling — File Upload Handling: Input / Output Handling — File Upload Handling: Confirm enforced size limits, decompression-ratio limits for archives, and antivirus/malware scanning of stored uploads",
+          "how_to_find": "Input / Output Handling — File Upload Handling: Input / Output Handling — File Upload Handling: Input / Output Handling — File Upload Handling: Input / Output Handling — File Upload Handling: Input / Output Handling — File Upload Handling: Confirm enforced size limits, decompression-ratio limits for archives, and antivirus/malware scanning of stored uploads",
           "how_to_fix": "Assign an owner for check size limits, decompression, and malware scanning, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "grep/ripgrep",
@@ -2100,7 +2100,7 @@
           "title": "Detect XML parsers that resolve external entities",
           "description": "Parsers that process external entities on untrusted XML enable file disclosure, SSRF, and DoS (billion laughs).",
           "severity": "high",
-          "how_to_find": "Input / Output Handling — XXE & XML Parser Sinks: Input / Output Handling — XXE & XML Parser Sinks: Input / Output Handling — XXE & XML Parser Sinks: Input / Output Handling — XXE & XML Parser Sinks: Find XML parser construction; confirm external entity and DTD processing are disabled (FEATURE_SECURE_PROCESSING, disallow-doctype)",
+          "how_to_find": "Input / Output Handling — XXE & XML Parser Sinks: Input / Output Handling — XXE & XML Parser Sinks: Input / Output Handling — XXE & XML Parser Sinks: Input / Output Handling — XXE & XML Parser Sinks: Input / Output Handling — XXE & XML Parser Sinks: Find XML parser construction; confirm external entity and DTD processing are disabled (FEATURE_SECURE_PROCESSING, disallow-doctype)",
           "how_to_fix": "Assign an owner for detect xml parsers that resolve external entities, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Semgrep",
@@ -2129,7 +2129,7 @@
           "title": "Audit per-language XML parser hardening",
           "description": "Java (DocumentBuilderFactory/SAX), .NET (XmlReader/XmlDocument), Python (lxml/xml), and PHP (libxml) all need explicit hardening.",
           "severity": "high",
-          "how_to_find": "Input / Output Handling — XXE & XML Parser Sinks: Input / Output Handling — XXE & XML Parser Sinks: Input / Output Handling — XXE & XML Parser Sinks: Input / Output Handling — XXE & XML Parser Sinks: For each parser, confirm the language-specific secure configuration is applied (e.g",
+          "how_to_find": "Input / Output Handling — XXE & XML Parser Sinks: Input / Output Handling — XXE & XML Parser Sinks: Input / Output Handling — XXE & XML Parser Sinks: Input / Output Handling — XXE & XML Parser Sinks: Input / Output Handling — XXE & XML Parser Sinks: For each parser, confirm the language-specific secure configuration is applied (e.g",
           "how_to_fix": "Assign an owner for audit per-language xml parser hardening, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Semgrep",
@@ -2158,7 +2158,7 @@
           "title": "Check entity-expansion and DoS limits",
           "description": "Even with external entities off, recursive internal entity expansion can exhaust memory (billion laughs / quadratic blowup).",
           "severity": "medium",
-          "how_to_find": "Input / Output Handling — XXE & XML Parser Sinks: Input / Output Handling — XXE & XML Parser Sinks: Input / Output Handling — XXE & XML Parser Sinks: Input / Output Handling — XXE & XML Parser Sinks: Confirm entity expansion limits are enforced or DTDs are fully disabled to prevent expansion-based DoS",
+          "how_to_find": "Input / Output Handling — XXE & XML Parser Sinks: Input / Output Handling — XXE & XML Parser Sinks: Input / Output Handling — XXE & XML Parser Sinks: Input / Output Handling — XXE & XML Parser Sinks: Input / Output Handling — XXE & XML Parser Sinks: Confirm entity expansion limits are enforced or DTDs are fully disabled to prevent expansion-based DoS",
           "how_to_fix": "Assign an owner for check entity-expansion and dos limits, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Semgrep",
@@ -2185,7 +2185,7 @@
           "title": "Check XML-adjacent formats (SVG, DOCX, SAML)",
           "description": "SVG, OOXML documents, and SAML assertions are XML under the hood and inherit XXE risk when parsed unsafely.",
           "severity": "medium",
-          "how_to_find": "Input / Output Handling — XXE & XML Parser Sinks: Input / Output Handling — XXE & XML Parser Sinks: Input / Output Handling — XXE & XML Parser Sinks: Input / Output Handling — XXE & XML Parser Sinks: Find parsing of SVG/OOXML/SAML; confirm the underlying XML parser is hardened against XXE before processing user-supplied files",
+          "how_to_find": "Input / Output Handling — XXE & XML Parser Sinks: Input / Output Handling — XXE & XML Parser Sinks: Input / Output Handling — XXE & XML Parser Sinks: Input / Output Handling — XXE & XML Parser Sinks: Input / Output Handling — XXE & XML Parser Sinks: Find parsing of SVG/OOXML/SAML; confirm the underlying XML parser is hardened against XXE before processing user-supplied files",
           "how_to_fix": "Assign an owner for check xml-adjacent formats (svg, docx, saml), apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Semgrep",
@@ -2218,7 +2218,7 @@
           "title": "Scan dependencies for known vulnerabilities",
           "description": "Third-party libraries with published CVEs are a top breach vector; every dependency tree should be scanned.",
           "severity": "high",
-          "how_to_find": "Configuration & Dependencies — Dependency Risk: Configuration & Dependencies — Dependency Risk: Configuration & Dependencies — Dependency Risk: Configuration & Dependencies — Dependency Risk: Run an SCA scan; confirm direct and transitive dependencies have no unaddressed high/critical advisories, and review the upgrade path",
+          "how_to_find": "Configuration & Dependencies — Dependency Risk: Configuration & Dependencies — Dependency Risk: Configuration & Dependencies — Dependency Risk: Configuration & Dependencies — Dependency Risk: Configuration & Dependencies — Dependency Risk: Run an SCA scan; confirm direct and transitive dependencies have no unaddressed high/critical advisories, and review the upgrade path",
           "how_to_fix": "Assign an owner for scan dependencies for known vulnerabilities, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "npm audit",
@@ -2247,7 +2247,7 @@
           "title": "Verify lockfiles pin and integrity-check dependencies",
           "description": "Without a committed lockfile with integrity hashes, builds can pull in unexpected or tampered versions.",
           "severity": "medium",
-          "how_to_find": "Configuration & Dependencies — Dependency Risk: Configuration & Dependencies — Dependency Risk: Configuration & Dependencies — Dependency Risk: Configuration & Dependencies — Dependency Risk: Confirm a lockfile (package-lock.json, poetry.lock, go.sum, Gemfile.lock) is committed and that installs use pinned, integrity-checked versions",
+          "how_to_find": "Configuration & Dependencies — Dependency Risk: Configuration & Dependencies — Dependency Risk: Configuration & Dependencies — Dependency Risk: Configuration & Dependencies — Dependency Risk: Configuration & Dependencies — Dependency Risk: Confirm a lockfile (package-lock.json, poetry.lock, go.sum, Gemfile.lock) is committed and that installs use pinned, integrity-checked versions",
           "how_to_fix": "Assign an owner for verify lockfiles pin and integrity-check dependencies, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "npm audit",
@@ -2303,7 +2303,7 @@
           "title": "Identify unmaintained or end-of-life dependencies",
           "description": "Abandoned libraries do not receive security fixes; depending on them is accumulating unpatched risk.",
           "severity": "low",
-          "how_to_find": "Configuration & Dependencies — Dependency Risk: Configuration & Dependencies — Dependency Risk: Configuration & Dependencies — Dependency Risk: Configuration & Dependencies — Dependency Risk: Flag dependencies with no recent releases, EOL runtimes, or archived repositories and plan migration off them",
+          "how_to_find": "Configuration & Dependencies — Dependency Risk: Configuration & Dependencies — Dependency Risk: Configuration & Dependencies — Dependency Risk: Configuration & Dependencies — Dependency Risk: Configuration & Dependencies — Dependency Risk: Flag dependencies with no recent releases, EOL runtimes, or archived repositories and plan migration off them",
           "how_to_fix": "Assign an owner for identify unmaintained or end-of-life dependencies, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Snyk",
@@ -2336,7 +2336,7 @@
           "title": "Detect debug mode enabled in production",
           "description": "Frameworks in debug mode (DEBUG=True, app.debug, development profile) expose stack traces, consoles, and secrets.",
           "severity": "high",
-          "how_to_find": "Configuration & Dependencies — Debug & Configuration Exposure: Configuration & Dependencies — Debug & Configuration Exposure: Configuration & Dependencies — Debug & Configuration Exposure: Configuration & Dependencies — Debug & Configuration Exposure: Confirm debug flags are disabled in production config and not hardcoded on; check for interactive debuggers (Werkzeug, Rails web-console)",
+          "how_to_find": "Configuration & Dependencies — Debug & Configuration Exposure: Configuration & Dependencies — Debug & Configuration Exposure: Configuration & Dependencies — Debug & Configuration Exposure: Configuration & Dependencies — Debug & Configuration Exposure: Configuration & Dependencies — Debug & Configuration Exposure: Confirm debug flags are disabled in production config and not hardcoded on; check for interactive debuggers (Werkzeug, Rails web-console)",
           "how_to_fix": "Assign an owner for detect debug mode enabled in production, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Semgrep",
@@ -2364,7 +2364,7 @@
           "title": "Check for verbose error and stack-trace exposure",
           "description": "Returning raw exceptions, stack traces, or SQL errors to clients leaks internal structure useful to attackers.",
           "severity": "medium",
-          "how_to_find": "Configuration & Dependencies — Debug & Configuration Exposure: Configuration & Dependencies — Debug & Configuration Exposure: Configuration & Dependencies — Debug & Configuration Exposure: Configuration & Dependencies — Debug & Configuration Exposure: Find error handlers that send exception details/stack traces to clients; confirm generic messages with server-side logging instead",
+          "how_to_find": "Configuration & Dependencies — Debug & Configuration Exposure: Configuration & Dependencies — Debug & Configuration Exposure: Configuration & Dependencies — Debug & Configuration Exposure: Configuration & Dependencies — Debug & Configuration Exposure: Configuration & Dependencies — Debug & Configuration Exposure: Find error handlers that send exception details/stack traces to clients; confirm generic messages with server-side logging instead",
           "how_to_fix": "Assign an owner for check for verbose error and stack-trace exposure, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Semgrep",
@@ -2392,7 +2392,7 @@
           "title": "Detect exposed admin and management endpoints",
           "description": "Actuator, metrics, GraphQL introspection, swagger, and admin panels left exposed leak data and attack surface.",
           "severity": "medium",
-          "how_to_find": "Configuration & Dependencies — Debug & Configuration Exposure: Configuration & Dependencies — Debug & Configuration Exposure: Configuration & Dependencies — Debug & Configuration Exposure: Configuration & Dependencies — Debug & Configuration Exposure: Find management/admin/introspection endpoints; confirm they are disabled or access-restricted in production",
+          "how_to_find": "Configuration & Dependencies — Debug & Configuration Exposure: Configuration & Dependencies — Debug & Configuration Exposure: Configuration & Dependencies — Debug & Configuration Exposure: Configuration & Dependencies — Debug & Configuration Exposure: Configuration & Dependencies — Debug & Configuration Exposure: Find management/admin/introspection endpoints; confirm they are disabled or access-restricted in production",
           "how_to_fix": "Assign an owner for detect exposed admin and management endpoints, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "grep/ripgrep",
@@ -2419,7 +2419,7 @@
           "title": "Check security headers and CORS configuration",
           "description": "Missing CSP/HSTS or an overly permissive CORS policy (origin reflection with credentials) weakens browser protections.",
           "severity": "medium",
-          "how_to_find": "Configuration & Dependencies — Debug & Configuration Exposure: Configuration & Dependencies — Debug & Configuration Exposure: Configuration & Dependencies — Debug & Configuration Exposure: Configuration & Dependencies — Debug & Configuration Exposure: Confirm security headers are set and that CORS does not reflect arbitrary origins with credentials or use a wildcard with cookies",
+          "how_to_find": "Configuration & Dependencies — Debug & Configuration Exposure: Configuration & Dependencies — Debug & Configuration Exposure: Configuration & Dependencies — Debug & Configuration Exposure: Configuration & Dependencies — Debug & Configuration Exposure: Configuration & Dependencies — Debug & Configuration Exposure: Confirm security headers are set and that CORS does not reflect arbitrary origins with credentials or use a wildcard with cookies",
           "how_to_fix": "Assign an owner for check security headers and cors configuration, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Semgrep",
@@ -2452,7 +2452,7 @@
           "title": "Detect prototype pollution in JavaScript",
           "description": "Recursive merge/clone/set on attacker-controlled keys (__proto__, constructor, prototype) can pollute Object.prototype.",
           "severity": "high",
-          "how_to_find": "Configuration & Dependencies — Language-Specific Pitfalls: Configuration & Dependencies — Language-Specific Pitfalls: Configuration & Dependencies — Language-Specific Pitfalls: Configuration & Dependencies — Language-Specific Pitfalls: Find deep-merge/set-by-path/extend functions operating on user input; confirm __proto__/constructor keys are blocked or a null-proto map is used",
+          "how_to_find": "Configuration & Dependencies — Language-Specific Pitfalls: Configuration & Dependencies — Language-Specific Pitfalls: Configuration & Dependencies — Language-Specific Pitfalls: Configuration & Dependencies — Language-Specific Pitfalls: Configuration & Dependencies — Language-Specific Pitfalls: Find deep-merge/set-by-path/extend functions operating on user input; confirm __proto__/constructor keys are blocked or a null-proto map is used",
           "how_to_fix": "Assign an owner for detect prototype pollution in javascript, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Semgrep",
@@ -2508,7 +2508,7 @@
           "title": "Detect PHP type juggling and loose comparison",
           "description": "Loose comparison (==) and functions like strcmp on arrays cause authentication and integrity bypasses in PHP.",
           "severity": "high",
-          "how_to_find": "Configuration & Dependencies — Language-Specific Pitfalls: Configuration & Dependencies — Language-Specific Pitfalls: Configuration & Dependencies — Language-Specific Pitfalls: Configuration & Dependencies — Language-Specific Pitfalls: Find == comparisons of secrets/hashes and in_array without strict mode; confirm strict (===) comparison and type checks",
+          "how_to_find": "Configuration & Dependencies — Language-Specific Pitfalls: Configuration & Dependencies — Language-Specific Pitfalls: Configuration & Dependencies — Language-Specific Pitfalls: Configuration & Dependencies — Language-Specific Pitfalls: Configuration & Dependencies — Language-Specific Pitfalls: Find == comparisons of secrets/hashes and in_array without strict mode; confirm strict (===) comparison and type checks",
           "how_to_fix": "Assign an owner for detect php type juggling and loose comparison, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Semgrep",
