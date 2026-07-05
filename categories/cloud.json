@@ -7,9 +7,9 @@
       "items": [
         {
           "title": "Wildcard actions and resources in IAM policies",
-          "description": "Policies containing \"Action\": \"*\" or \"Resource\": \"*\" (AWS), Owner/Contributor at subscription scope (Azure), or roles/owner and primitive roles (GCP) grant excessive access that violates least privilege. Worth prioritising in your next assessment cycle.",
+          "description": "Policies containing \"Action\": \"*\" or \"Resource\": \"*\" (AWS), Owner/Contributor at subscription scope (Azure), or roles/owner and primitive roles (GCP) grant excessive access that violates least privilege.",
           "severity": "high",
-          "how_to_find": "Identity & Access Management — Privilege Escalation & Over-Privileged Roles: Confirm whether any human or service identity is bound to them",
+          "how_to_find": "Identity & Access Management — Privilege Escalation & Over-Privileged Roles: Identity & Access Management — Privilege Escalation & Over-Privileged Roles: Identity & Access Management — Privilege Escalation & Over-Privileged Roles: Identity & Access Management — Privilege Escalation & Over-Privileged Roles: Confirm whether any human or service identity is bound to them",
           "how_to_fix": "Assign an owner for wildcard actions and resources in iam policies, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Prowler",
@@ -36,9 +36,9 @@
         },
         {
           "title": "Known IAM privilege-escalation paths",
-          "description": "Permissions such as iam:CreatePolicyVersion, iam:PassRole + ec2:RunInstances, lambda:UpdateFunctionCode, or sts:AssumeRole chains can be abused to escalate from a low-privileged identity to admin. Treat failures here as release blockers.",
+          "description": "Permissions such as iam:CreatePolicyVersion, iam:PassRole + ec2:RunInstances, lambda:UpdateFunctionCode, or sts:AssumeRole chains can be abused to escalate from a low-privileged identity to admin.",
           "severity": "critical",
-          "how_to_find": "Identity & Access Management — Privilege Escalation & Over-Privileged Roles: Attempt safe enumeration in an authorized test account",
+          "how_to_find": "Identity & Access Management — Privilege Escalation & Over-Privileged Roles: Identity & Access Management — Privilege Escalation & Over-Privileged Roles: Identity & Access Management — Privilege Escalation & Over-Privileged Roles: Identity & Access Management — Privilege Escalation & Over-Privileged Roles: Attempt safe enumeration in an authorized test account",
           "how_to_fix": "Assign an owner for known iam privilege-escalation paths, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Pacu",
@@ -65,9 +65,9 @@
         },
         {
           "title": "iam:PassRole and actAs abuse",
-          "description": "An identity allowed to pass a more privileged role to a compute service (EC2, Lambda, ECS, GCE, Cloud Functions) can assume that role indirectly and inherit its permissions. Worth prioritising in your next assessment cycle.",
+          "description": "An identity allowed to pass a more privileged role to a compute service (EC2, Lambda, ECS, GCE, Cloud Functions) can assume that role indirectly and inherit its permissions.",
           "severity": "high",
-          "how_to_find": "Identity & Access Management — Privilege Escalation & Over-Privileged Roles: Find identities with PassRole/actAs combined with a service that runs the role",
+          "how_to_find": "Identity & Access Management — Privilege Escalation & Over-Privileged Roles: Identity & Access Management — Privilege Escalation & Over-Privileged Roles: Identity & Access Management — Privilege Escalation & Over-Privileged Roles: Identity & Access Management — Privilege Escalation & Over-Privileged Roles: Find identities with PassRole/actAs combined with a service that runs the role",
           "how_to_fix": "Assign an owner for iam:passrole and actas abuse, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "cloudsplaining",
@@ -94,7 +94,7 @@
         },
         {
           "title": "Unused and stale permissions",
-          "description": "Permissions and identities granted but never used widen the attack surface. Validate this during security reviews, under Identity & Access Management — Privilege Escalation & Over-Privileged Roles. Schedule remediation once higher-severity gaps are closed.",
+          "description": "Permissions and identities granted but never used widen the attack surface.",
           "severity": "medium",
           "how_to_find": "Compare granted permissions against last-used data (AWS Access Advisor, GCP IAM Recommender). Report permissions unused beyond the policy window as candidates for removal.",
           "how_to_fix": "Assign an owner for unused and stale permissions, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
@@ -128,9 +128,9 @@
       "items": [
         {
           "title": "Leaked access keys in code, repos, and artifacts",
-          "description": "AWS access keys, Azure client secrets, and GCP service account JSON keys are frequently committed to source control, container images, CI logs, and public buckets. Treat failures here as release blockers.",
+          "description": "AWS access keys, Azure client secrets, and GCP service account JSON keys are frequently committed to source control, container images, CI logs, and public buckets.",
           "severity": "critical",
-          "how_to_find": "Identity & Access Management — Access Keys & Long-Lived Credentials: Validate any discovered key against the cloud API (e.g., aws sts get-caller-identity) to confirm it is live",
+          "how_to_find": "Identity & Access Management — Access Keys & Long-Lived Credentials: Identity & Access Management — Access Keys & Long-Lived Credentials: Identity & Access Management — Access Keys & Long-Lived Credentials: Identity & Access Management — Access Keys & Long-Lived Credentials: Validate any discovered key against the cloud API (e.g., aws sts get-caller-identity) to confirm it is live",
           "how_to_fix": "Assign an owner for leaked access keys in code, repos, and artifacts, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "trufflehog",
@@ -157,7 +157,7 @@
         },
         {
           "title": "Long-lived static credentials",
-          "description": "Static keys without expiry (AWS IAM user keys, Azure SP secrets, GCP SA keys) should be replaced by short-lived roles, workload identity federation, or instance/managed identities. Worth prioritising in your next assessment cycle.",
+          "description": "Static keys without expiry (AWS IAM user keys, Azure SP secrets, GCP SA keys) should be replaced by short-lived roles, workload identity federation, or instance/managed identities.",
           "severity": "high",
           "how_to_find": "Inventory all static credentials and their age. Flag any long-lived key where a federated or role-based alternative is available.",
           "how_to_fix": "Assign an owner for long-lived static credentials, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
@@ -186,9 +186,9 @@
         },
         {
           "title": "Missing or stale key rotation",
-          "description": "Credentials not rotated within policy windows increase the impact of a leak. Validate this during security reviews, under Identity & Access Management — Access Keys & Long-Lived Credentials. Schedule remediation once higher-severity gaps are closed.",
+          "description": "Credentials not rotated within policy windows increase the impact of a leak.",
           "severity": "medium",
-          "how_to_find": "Identity & Access Management — Access Keys & Long-Lived Credentials: Check create/last-rotated timestamps for all keys and secrets",
+          "how_to_find": "Identity & Access Management — Access Keys & Long-Lived Credentials: Identity & Access Management — Access Keys & Long-Lived Credentials: Identity & Access Management — Access Keys & Long-Lived Credentials: Identity & Access Management — Access Keys & Long-Lived Credentials: Check create/last-rotated timestamps for all keys and secrets",
           "how_to_fix": "Assign an owner for missing or stale key rotation, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Prowler",
@@ -214,7 +214,7 @@
         },
         {
           "title": "Active credentials on inactive or dormant identities",
-          "description": "Service accounts and users that are no longer used but still hold active keys are prime targets for credential-stuffing and reuse. Schedule remediation once higher-severity gaps are closed.",
+          "description": "Service accounts and users that are no longer used but still hold active keys are prime targets for credential-stuffing and reuse.",
           "severity": "medium",
           "how_to_find": "Correlate credential last-used data with identity activity. Flag active keys belonging to identities with no recent API activity.",
           "how_to_fix": "Assign an owner for active credentials on inactive or dormant identities, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
@@ -248,9 +248,9 @@
       "items": [
         {
           "title": "Missing MFA on console/privileged users",
-          "description": "Human identities with console access and no MFA are vulnerable to phishing and password reuse. Worth prioritising in your next assessment cycle.",
+          "description": "Human identities with console access and no MFA are vulnerable to phishing and password reuse.",
           "severity": "high",
-          "how_to_find": "Identity & Access Management — MFA & Root/Privileged Account Hygiene: Enumerate users with passwords/interactive sign-in and check MFA enrollment",
+          "how_to_find": "Identity & Access Management — MFA & Root/Privileged Account Hygiene: Identity & Access Management — MFA & Root/Privileged Account Hygiene: Identity & Access Management — MFA & Root/Privileged Account Hygiene: Identity & Access Management — MFA & Root/Privileged Account Hygiene: Enumerate users with passwords/interactive sign-in and check MFA enrollment",
           "how_to_fix": "Assign an owner for missing mfa on console/privileged users, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Prowler",
@@ -277,9 +277,9 @@
         },
         {
           "title": "Root / Global Admin account usage",
-          "description": "The AWS root account, Azure Global Administrator, and GCP super admin should be locked down with MFA, no access keys, and used only for break-glass scenarios. Treat failures here as release blockers.",
+          "description": "The AWS root account, Azure Global Administrator, and GCP super admin should be locked down with MFA, no access keys, and used only for break-glass scenarios.",
           "severity": "critical",
-          "how_to_find": "Identity & Access Management — MFA & Root/Privileged Account Hygiene: Check for recent root/super-admin sign-ins and API activity, presence of root access keys, and MFA status",
+          "how_to_find": "Identity & Access Management — MFA & Root/Privileged Account Hygiene: Identity & Access Management — MFA & Root/Privileged Account Hygiene: Identity & Access Management — MFA & Root/Privileged Account Hygiene: Identity & Access Management — MFA & Root/Privileged Account Hygiene: Check for recent root/super-admin sign-ins and API activity, presence of root access keys, and MFA status",
           "how_to_fix": "Assign an owner for root / global admin account usage, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Prowler",
@@ -305,7 +305,7 @@
         },
         {
           "title": "Weak MFA factors on highly privileged identities",
-          "description": "SMS and TOTP can be phished; phishing-resistant factors (FIDO2/hardware keys) are recommended for break-glass and admin identities. Schedule remediation once higher-severity gaps are closed.",
+          "description": "SMS and TOTP can be phished; phishing-resistant factors (FIDO2/hardware keys) are recommended for break-glass and admin identities.",
           "severity": "medium",
           "how_to_find": "Review configured MFA factor types for privileged identities. Flag privileged accounts relying solely on phishable factors.",
           "how_to_fix": "Assign an owner for weak mfa factors on highly privileged identities, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
@@ -333,9 +333,9 @@
         },
         {
           "title": "Access keys present on root/super-admin",
-          "description": "Root and super-admin accounts should never have programmatic access keys; their existence drastically increases blast radius if leaked. Worth prioritising in your next assessment cycle.",
+          "description": "Root and super-admin accounts should never have programmatic access keys; their existence drastically increases blast radius if leaked.",
           "severity": "high",
-          "how_to_find": "Identity & Access Management — MFA & Root/Privileged Account Hygiene: Confirm no access keys exist for the AWS root account or GCP organization super admin",
+          "how_to_find": "Identity & Access Management — MFA & Root/Privileged Account Hygiene: Identity & Access Management — MFA & Root/Privileged Account Hygiene: Identity & Access Management — MFA & Root/Privileged Account Hygiene: Identity & Access Management — MFA & Root/Privileged Account Hygiene: Confirm no access keys exist for the AWS root account or GCP organization super admin",
           "how_to_fix": "Assign an owner for access keys present on root/super-admin, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Prowler",
@@ -365,7 +365,7 @@
       "items": [
         {
           "title": "Over-broad assume-role trust policies",
-          "description": "Trust policies allowing Principal \"*\" or entire external accounts to assume a role can let attackers pivot into the account. Treat failures here as release blockers.",
+          "description": "Trust policies allowing Principal \"*\" or entire external accounts to assume a role can let attackers pivot into the account.",
           "severity": "critical",
           "how_to_find": "Enumerate role trust policies and flag wildcard principals, broad external account trust, or trust without condition keys.",
           "how_to_fix": "Assign an owner for over-broad assume-role trust policies, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
@@ -394,9 +394,9 @@
         },
         {
           "title": "Confused deputy via missing ExternalId / condition",
-          "description": "Cross-account roles assumed by third parties must enforce sts:ExternalId or source conditions to prevent a confused-deputy attack. Worth prioritising in your next assessment cycle.",
+          "description": "Cross-account roles assumed by third parties must enforce sts:ExternalId or source conditions to prevent a confused-deputy attack.",
           "severity": "high",
-          "how_to_find": "Identity & Access Management — Trust Policies & Federation: Check third-party-assumable roles for ExternalId or aws:SourceAccount/SourceArn conditions",
+          "how_to_find": "Identity & Access Management — Trust Policies & Federation: Identity & Access Management — Trust Policies & Federation: Identity & Access Management — Trust Policies & Federation: Identity & Access Management — Trust Policies & Federation: Check third-party-assumable roles for ExternalId or aws:SourceAccount/SourceArn conditions",
           "how_to_fix": "Assign an owner for confused deputy via missing externalid / condition, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Prowler",
@@ -422,7 +422,7 @@
         },
         {
           "title": "Misconfigured OIDC / workload identity federation",
-          "description": "GitHub Actions OIDC, GCP Workload Identity Federation, and Azure federated credentials with overly broad subject/audience claims let untrusted repos or workloads assume cloud roles. Worth prioritising in your next assessment cycle.",
+          "description": "GitHub Actions OIDC, GCP Workload Identity Federation, and Azure federated credentials with overly broad subject/audience claims let untrusted repos or workloads assume cloud roles.",
           "severity": "high",
           "how_to_find": "Inspect OIDC provider trust conditions (sub, aud, repository claims). Flag wildcards or missing claim restrictions that allow any repo/branch to assume the role.",
           "how_to_fix": "Assign an owner for misconfigured oidc / workload identity federation, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
@@ -451,7 +451,7 @@
         },
         {
           "title": "Excessive service principal / managed identity grants",
-          "description": "Azure service principals and managed identities, and GCP service accounts, with broad directory or project roles can be abused for lateral movement and persistence. Worth prioritising in your next assessment cycle.",
+          "description": "Azure service principals and managed identities, and GCP service accounts, with broad directory or project roles can be abused for lateral movement and persistence.",
           "severity": "high",
           "how_to_find": "Enumerate service principal/SA role assignments and API permissions (e.g., Graph application permissions). Flag high-privilege grants such as directory-wide write or project owner.",
           "how_to_fix": "Assign an owner for excessive service principal / managed identity grants, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
@@ -484,9 +484,9 @@
       "items": [
         {
           "title": "Public-read buckets / containers",
-          "description": "S3 buckets, Azure blob containers, and GCS buckets granting read to AllUsers/anonymous expose data to anyone on the internet. Treat failures here as release blockers.",
+          "description": "S3 buckets, Azure blob containers, and GCS buckets granting read to AllUsers/anonymous expose data to anyone on the internet.",
           "severity": "critical",
-          "how_to_find": "Storage — Public Buckets & ACL/Policy Misconfiguration: Attempt unauthenticated reads to confirm exposure",
+          "how_to_find": "Storage — Public Buckets & ACL/Policy Misconfiguration: Storage — Public Buckets & ACL/Policy Misconfiguration: Storage — Public Buckets & ACL/Policy Misconfiguration: Storage — Public Buckets & ACL/Policy Misconfiguration: Attempt unauthenticated reads to confirm exposure",
           "how_to_fix": "Assign an owner for public-read buckets / containers, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Prowler",
@@ -513,9 +513,9 @@
         },
         {
           "title": "Public-write / world-writable buckets",
-          "description": "Buckets allowing anonymous PUT/DELETE enable defacement, malware hosting, and supply-chain attacks on assets served from the bucket. Treat failures here as release blockers.",
+          "description": "Buckets allowing anonymous PUT/DELETE enable defacement, malware hosting, and supply-chain attacks on assets served from the bucket.",
           "severity": "critical",
-          "how_to_find": "Storage — Public Buckets & ACL/Policy Misconfiguration: Test for anonymous write permission against discovered buckets in authorized scope",
+          "how_to_find": "Storage — Public Buckets & ACL/Policy Misconfiguration: Storage — Public Buckets & ACL/Policy Misconfiguration: Storage — Public Buckets & ACL/Policy Misconfiguration: Storage — Public Buckets & ACL/Policy Misconfiguration: Test for anonymous write permission against discovered buckets in authorized scope",
           "how_to_fix": "Assign an owner for public-write / world-writable buckets, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "aws cli",
@@ -541,9 +541,9 @@
         },
         {
           "title": "Overly permissive bucket resource policies",
-          "description": "Resource policies with wildcard principals or broad cross-account access can expose data even when ACLs appear restricted. Worth prioritising in your next assessment cycle.",
+          "description": "Resource policies with wildcard principals or broad cross-account access can expose data even when ACLs appear restricted.",
           "severity": "high",
-          "how_to_find": "Storage — Public Buckets & ACL/Policy Misconfiguration: Confirm whether Block Public Access / public access prevention overrides them",
+          "how_to_find": "Storage — Public Buckets & ACL/Policy Misconfiguration: Storage — Public Buckets & ACL/Policy Misconfiguration: Storage — Public Buckets & ACL/Policy Misconfiguration: Storage — Public Buckets & ACL/Policy Misconfiguration: Confirm whether Block Public Access / public access prevention overrides them",
           "how_to_fix": "Assign an owner for overly permissive bucket resource policies, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Prowler",
@@ -569,9 +569,9 @@
         },
         {
           "title": "Dangling / claimable bucket names",
-          "description": "References to deleted buckets (in code, DNS, or web assets) can be re-registered by attackers to serve malicious content (bucket takeover/squatting). Schedule remediation once higher-severity gaps are closed.",
+          "description": "References to deleted buckets (in code, DNS, or web assets) can be re-registered by attackers to serve malicious content (bucket takeover/squatting).",
           "severity": "medium",
-          "how_to_find": "Storage — Public Buckets & ACL/Policy Misconfiguration: Identify bucket references that return NoSuchBucket and confirm the name is registerable in the same provider/region",
+          "how_to_find": "Storage — Public Buckets & ACL/Policy Misconfiguration: Storage — Public Buckets & ACL/Policy Misconfiguration: Storage — Public Buckets & ACL/Policy Misconfiguration: Storage — Public Buckets & ACL/Policy Misconfiguration: Identify bucket references that return NoSuchBucket and confirm the name is registerable in the same provider/region",
           "how_to_fix": "Assign an owner for dangling / claimable bucket names, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "nuclei",
@@ -602,9 +602,9 @@
       "items": [
         {
           "title": "Unencrypted storage at rest",
-          "description": "Buckets, disks, and databases without encryption at rest fail most compliance baselines and increase impact of physical or backup compromise. Schedule remediation once higher-severity gaps are closed.",
+          "description": "Buckets, disks, and databases without encryption at rest fail most compliance baselines and increase impact of physical or backup compromise.",
           "severity": "medium",
-          "how_to_find": "Storage — Encryption at Rest & Key Management: Enumerate storage resources and confirm default encryption is enabled",
+          "how_to_find": "Storage — Encryption at Rest & Key Management: Storage — Encryption at Rest & Key Management: Storage — Encryption at Rest & Key Management: Storage — Encryption at Rest & Key Management: Enumerate storage resources and confirm default encryption is enabled",
           "how_to_fix": "Assign an owner for unencrypted storage at rest, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Prowler",
@@ -631,9 +631,9 @@
         },
         {
           "title": "Weak KMS key policies and shared keys",
-          "description": "KMS/Key Vault key policies with wildcard principals, or use of a single shared key across sensitive datasets, weaken cryptographic isolation. Worth prioritising in your next assessment cycle.",
+          "description": "KMS/Key Vault key policies with wildcard principals, or use of a single shared key across sensitive datasets, weaken cryptographic isolation.",
           "severity": "high",
-          "how_to_find": "Storage — Encryption at Rest & Key Management: Review key policies for over-broad principals and check whether sensitive data uses dedicated customer-managed keys",
+          "how_to_find": "Storage — Encryption at Rest & Key Management: Storage — Encryption at Rest & Key Management: Storage — Encryption at Rest & Key Management: Storage — Encryption at Rest & Key Management: Review key policies for over-broad principals and check whether sensitive data uses dedicated customer-managed keys",
           "how_to_fix": "Assign an owner for weak kms key policies and shared keys, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Prowler",
@@ -660,9 +660,9 @@
         },
         {
           "title": "Missing key rotation",
-          "description": "KMS/Key Vault keys without automatic rotation increase exposure window if a key is compromised. Good hygiene that pays off over time.",
+          "description": "KMS/Key Vault keys without automatic rotation increase exposure window if a key is compromised.",
           "severity": "low",
-          "how_to_find": "Storage — Encryption at Rest & Key Management: Check rotation settings for customer-managed keys",
+          "how_to_find": "Storage — Encryption at Rest & Key Management: Storage — Encryption at Rest & Key Management: Storage — Encryption at Rest & Key Management: Storage — Encryption at Rest & Key Management: Check rotation settings for customer-managed keys",
           "how_to_fix": "Assign an owner for missing key rotation, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Prowler",
@@ -688,9 +688,9 @@
         },
         {
           "title": "Encryption in transit not enforced",
-          "description": "Storage that allows plaintext HTTP access (no aws:SecureTransport / HTTPS-only) risks interception of data in transit. Schedule remediation once higher-severity gaps are closed.",
+          "description": "Storage that allows plaintext HTTP access (no aws:SecureTransport / HTTPS-only) risks interception of data in transit.",
           "severity": "medium",
-          "how_to_find": "Storage — Encryption at Rest & Key Management: Check bucket policies / settings for enforced TLS (deny non-HTTPS)",
+          "how_to_find": "Storage — Encryption at Rest & Key Management: Storage — Encryption at Rest & Key Management: Storage — Encryption at Rest & Key Management: Storage — Encryption at Rest & Key Management: Check bucket policies / settings for enforced TLS (deny non-HTTPS)",
           "how_to_fix": "Assign an owner for encryption in transit not enforced, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Prowler",
@@ -721,7 +721,7 @@
       "items": [
         {
           "title": "Pre-signed / SAS URL abuse",
-          "description": "Long-lived or over-scoped pre-signed URLs (S3), SAS tokens (Azure), and signed URLs (GCS) can grant broad, hard-to-revoke access if leaked. Worth prioritising in your next assessment cycle.",
+          "description": "Long-lived or over-scoped pre-signed URLs (S3), SAS tokens (Azure), and signed URLs (GCS) can grant broad, hard-to-revoke access if leaked.",
           "severity": "high",
           "how_to_find": "Review generation patterns for signed URLs/SAS tokens: expiry duration, scope (object vs container), and permissions. Flag long-lived or account-level SAS tokens.",
           "how_to_fix": "Assign an owner for pre-signed / sas url abuse, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
@@ -749,9 +749,9 @@
         },
         {
           "title": "Object listing enabled",
-          "description": "Buckets that allow listing let attackers enumerate all object keys, turning a single leak into full data discovery. Schedule remediation once higher-severity gaps are closed.",
+          "description": "Buckets that allow listing let attackers enumerate all object keys, turning a single leak into full data discovery.",
           "severity": "medium",
-          "how_to_find": "Storage — Signed URLs & Object Listing: Test whether ListBucket/list is permitted for the relevant principal (including anonymous)",
+          "how_to_find": "Storage — Signed URLs & Object Listing: Storage — Signed URLs & Object Listing: Storage — Signed URLs & Object Listing: Storage — Signed URLs & Object Listing: Test whether ListBucket/list is permitted for the relevant principal (including anonymous)",
           "how_to_fix": "Assign an owner for object listing enabled, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "aws cli",
@@ -777,9 +777,9 @@
         },
         {
           "title": "Sensitive data in object versions / backups",
-          "description": "Deleted or rotated secrets may persist in object version history, snapshots, and lifecycle-managed backups accessible to over-privileged principals. Schedule remediation once higher-severity gaps are closed.",
+          "description": "Deleted or rotated secrets may persist in object version history, snapshots, and lifecycle-managed backups accessible to over-privileged principals.",
           "severity": "medium",
-          "how_to_find": "Storage — Signed URLs & Object Listing: Check whether versioning exposes prior object versions to readers and whether old versions contain secrets",
+          "how_to_find": "Storage — Signed URLs & Object Listing: Storage — Signed URLs & Object Listing: Storage — Signed URLs & Object Listing: Storage — Signed URLs & Object Listing: Check whether versioning exposes prior object versions to readers and whether old versions contain secrets",
           "how_to_fix": "Assign an owner for sensitive data in object versions / backups, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "aws cli",
@@ -810,9 +810,9 @@
       "items": [
         {
           "title": "IMDSv1 enabled (no token requirement)",
-          "description": "IMDSv1 responds to simple GET requests, so any SSRF on the instance can read metadata and steal role credentials. Worth prioritising in your next assessment cycle.",
+          "description": "IMDSv1 responds to simple GET requests, so any SSRF on the instance can read metadata and steal role credentials.",
           "severity": "high",
-          "how_to_find": "Compute & Metadata — Instance Metadata & SSRF: Check instance metadata options; flag instances allowing IMDSv1 (HttpTokens=optional)",
+          "how_to_find": "Compute & Metadata — Instance Metadata & SSRF: Compute & Metadata — Instance Metadata & SSRF: Compute & Metadata — Instance Metadata & SSRF: Compute & Metadata — Instance Metadata & SSRF: Check instance metadata options; flag instances allowing IMDSv1 (HttpTokens=optional)",
           "how_to_fix": "Assign an owner for imdsv1 enabled (no token requirement), apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Prowler",
@@ -839,9 +839,9 @@
         },
         {
           "title": "Role credential theft via metadata SSRF",
-          "description": "Reaching /latest/meta-data/iam/security-credentials/ (AWS), the Azure IMDS token endpoint, or the GCP metadata endpoint exposes temporary credentials usable from anywhere. Treat failures here as release blockers.",
+          "description": "Reaching /latest/meta-data/iam/security-credentials/ (AWS), the Azure IMDS token endpoint, or the GCP metadata endpoint exposes temporary credentials usable from anywhere.",
           "severity": "critical",
-          "how_to_find": "Compute & Metadata — Instance Metadata & SSRF: Where an authorized SSRF exists, attempt to retrieve role/identity credentials from the metadata endpoint and confirm they authenticate via the provider API",
+          "how_to_find": "Compute & Metadata — Instance Metadata & SSRF: Compute & Metadata — Instance Metadata & SSRF: Compute & Metadata — Instance Metadata & SSRF: Compute & Metadata — Instance Metadata & SSRF: Where an authorized SSRF exists, attempt to retrieve role/identity credentials from the metadata endpoint and confirm they authenticate via the provider API",
           "how_to_fix": "Assign an owner for role credential theft via metadata ssrf, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Pacu",
@@ -868,9 +868,9 @@
         },
         {
           "title": "Azure/GCP metadata header bypass exposure",
-          "description": "Azure IMDS requires the Metadata:true header and GCP requires Metadata-Flavor:Google; SSRF that can set arbitrary headers can still reach them. Worth prioritising in your next assessment cycle.",
+          "description": "Azure IMDS requires the Metadata:true header and GCP requires Metadata-Flavor:Google; SSRF that can set arbitrary headers can still reach them.",
           "severity": "high",
-          "how_to_find": "Compute & Metadata — Instance Metadata & SSRF: Test whether reachable apps allow attacker-controlled headers to the metadata endpoint",
+          "how_to_find": "Compute & Metadata — Instance Metadata & SSRF: Compute & Metadata — Instance Metadata & SSRF: Compute & Metadata — Instance Metadata & SSRF: Compute & Metadata — Instance Metadata & SSRF: Test whether reachable apps allow attacker-controlled headers to the metadata endpoint",
           "how_to_fix": "Assign an owner for azure/gcp metadata header bypass exposure, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "nuclei",
@@ -896,9 +896,9 @@
         },
         {
           "title": "IMDSv2 hop limit allows container access",
-          "description": "A metadata hop limit greater than 1 lets containers on the host reach IMDS, expanding the SSRF/credential-theft surface to compromised containers. Schedule remediation once higher-severity gaps are closed.",
+          "description": "A metadata hop limit greater than 1 lets containers on the host reach IMDS, expanding the SSRF/credential-theft surface to compromised containers.",
           "severity": "medium",
-          "how_to_find": "Compute & Metadata — Instance Metadata & SSRF: Check instance metadata hop limit; flag values above 1 on hosts running untrusted or internet-facing containers",
+          "how_to_find": "Compute & Metadata — Instance Metadata & SSRF: Compute & Metadata — Instance Metadata & SSRF: Compute & Metadata — Instance Metadata & SSRF: Compute & Metadata — Instance Metadata & SSRF: Check instance metadata hop limit; flag values above 1 on hosts running untrusted or internet-facing containers",
           "how_to_fix": "Assign an owner for imdsv2 hop limit allows container access, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Prowler",
@@ -929,7 +929,7 @@
       "items": [
         {
           "title": "Over-privileged instance profiles / identities",
-          "description": "Instance profiles (AWS), managed identities (Azure), and attached service accounts (GCP) with broad permissions become a powerful pivot if the host is compromised. Worth prioritising in your next assessment cycle.",
+          "description": "Instance profiles (AWS), managed identities (Azure), and attached service accounts (GCP) with broad permissions become a powerful pivot if the host is compromised.",
           "severity": "high",
           "how_to_find": "Enumerate roles/identities attached to compute and assess effective permissions against least privilege. Flag admin-equivalent or broad data access.",
           "how_to_fix": "Assign an owner for over-privileged instance profiles / identities, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
@@ -958,7 +958,7 @@
         },
         {
           "title": "Secrets in user-data / startup scripts",
-          "description": "Passwords, API keys, and tokens placed in EC2 user-data, Azure custom data, or GCP startup-script metadata are readable by any process that can reach the metadata service. Worth prioritising in your next assessment cycle.",
+          "description": "Passwords, API keys, and tokens placed in EC2 user-data, Azure custom data, or GCP startup-script metadata are readable by any process that can reach the metadata service.",
           "severity": "high",
           "how_to_find": "Retrieve user-data/startup-script metadata and scan for embedded secrets. Any plaintext credential is a finding.",
           "how_to_fix": "Assign an owner for secrets in user-data / startup scripts, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
@@ -987,7 +987,7 @@
         },
         {
           "title": "Secrets in instance/container environment",
-          "description": "Credentials injected as environment variables on instances and containers can leak via debug endpoints, process listing, or compromised dependencies. Schedule remediation once higher-severity gaps are closed.",
+          "description": "Credentials injected as environment variables on instances and containers can leak via debug endpoints, process listing, or compromised dependencies.",
           "severity": "medium",
           "how_to_find": "Review how secrets reach compute (env vs secret manager). Flag plaintext secrets in environment or task/pod definitions.",
           "how_to_fix": "Assign an owner for secrets in instance/container environment, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
@@ -1015,9 +1015,9 @@
         },
         {
           "title": "Remote-access / agent paths to instances",
-          "description": "SSM Session Manager (AWS), Azure Bastion/Run Command, and GCP OS Login/serial console can grant interactive access; over-broad permission to these is a stealthy compromise path. Schedule remediation once higher-severity gaps are closed.",
+          "description": "SSM Session Manager (AWS), Azure Bastion/Run Command, and GCP OS Login/serial console can grant interactive access; over-broad permission to these is a stealthy compromise path.",
           "severity": "medium",
-          "how_to_find": "Compute & Metadata — Instance Profiles & User-Data Secrets: Check which identities can run commands or start sessions on instances (ssm:StartSession, RunCommand, OS Login)",
+          "how_to_find": "Compute & Metadata — Instance Profiles & User-Data Secrets: Compute & Metadata — Instance Profiles & User-Data Secrets: Compute & Metadata — Instance Profiles & User-Data Secrets: Compute & Metadata — Instance Profiles & User-Data Secrets: Check which identities can run commands or start sessions on instances (ssm:StartSession, RunCommand, OS Login)",
           "how_to_fix": "Assign an owner for remote-access / agent paths to instances, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Prowler",
@@ -1049,7 +1049,7 @@
       "items": [
         {
           "title": "Public AMIs / shared images",
-          "description": "AMIs (AWS), images (GCP), and VM images (Azure) shared publicly or with external accounts may contain baked-in secrets, source code, or configuration. Worth prioritising in your next assessment cycle.",
+          "description": "AMIs (AWS), images (GCP), and VM images (Azure) shared publicly or with external accounts may contain baked-in secrets, source code, or configuration.",
           "severity": "high",
           "how_to_find": "Enumerate images and their sharing settings. Flag any image shared publicly or with unexpected accounts and inspect for embedded secrets.",
           "how_to_fix": "Assign an owner for public amis / shared images, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
@@ -1078,9 +1078,9 @@
         },
         {
           "title": "Public EBS / disk snapshots",
-          "description": "Publicly shared EBS snapshots, Azure managed disk snapshots, and GCP disk snapshots can be mounted by attackers to extract data and credentials. Treat failures here as release blockers.",
+          "description": "Publicly shared EBS snapshots, Azure managed disk snapshots, and GCP disk snapshots can be mounted by attackers to extract data and credentials.",
           "severity": "critical",
-          "how_to_find": "Compute & Metadata — Public Images, Snapshots & Disks: Where authorized, mount a copy to confirm sensitive content",
+          "how_to_find": "Compute & Metadata — Public Images, Snapshots & Disks: Compute & Metadata — Public Images, Snapshots & Disks: Compute & Metadata — Public Images, Snapshots & Disks: Compute & Metadata — Public Images, Snapshots & Disks: Where authorized, mount a copy to confirm sensitive content",
           "how_to_fix": "Assign an owner for public ebs / disk snapshots, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Pacu",
@@ -1107,7 +1107,7 @@
         },
         {
           "title": "Snapshots shared with untrusted accounts",
-          "description": "Snapshots and images shared with specific external accounts can be exfiltrated if those accounts are compromised or no longer trusted. Schedule remediation once higher-severity gaps are closed.",
+          "description": "Snapshots and images shared with specific external accounts can be exfiltrated if those accounts are compromised or no longer trusted.",
           "severity": "medium",
           "how_to_find": "Review explicit account share lists on images/snapshots and validate each external account is current and authorized.",
           "how_to_fix": "Assign an owner for snapshots shared with untrusted accounts, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
@@ -1135,9 +1135,9 @@
         },
         {
           "title": "Unencrypted snapshots and volumes",
-          "description": "Unencrypted volumes and snapshots increase impact when shared or copied, since data is readable without keys. Good hygiene that pays off over time.",
+          "description": "Unencrypted volumes and snapshots increase impact when shared or copied, since data is readable without keys.",
           "severity": "low",
-          "how_to_find": "Compute & Metadata — Public Images, Snapshots & Disks: Check encryption status of volumes and snapshots",
+          "how_to_find": "Compute & Metadata — Public Images, Snapshots & Disks: Compute & Metadata — Public Images, Snapshots & Disks: Compute & Metadata — Public Images, Snapshots & Disks: Compute & Metadata — Public Images, Snapshots & Disks: Check encryption status of volumes and snapshots",
           "how_to_fix": "Assign an owner for unencrypted snapshots and volumes, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Prowler",
@@ -1168,9 +1168,9 @@
       "items": [
         {
           "title": "Management ports open to 0.0.0.0/0",
-          "description": "SSH (22), RDP (3389), and admin ports exposed to the entire internet via security groups, NSGs, or VPC firewall rules invite brute-force and exploitation. Worth prioritising in your next assessment cycle.",
+          "description": "SSH (22), RDP (3389), and admin ports exposed to the entire internet via security groups, NSGs, or VPC firewall rules invite brute-force and exploitation.",
           "severity": "high",
-          "how_to_find": "Networking — Open Security Groups & NSGs: Confirm reachability of exposed hosts",
+          "how_to_find": "Networking — Open Security Groups & NSGs: Networking — Open Security Groups & NSGs: Networking — Open Security Groups & NSGs: Networking — Open Security Groups & NSGs: Confirm reachability of exposed hosts",
           "how_to_fix": "Assign an owner for management ports open to 0.0.0.0/0, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Prowler",
@@ -1197,7 +1197,7 @@
         },
         {
           "title": "Databases / data services exposed publicly",
-          "description": "Database ports (3306, 5432, 1433, 27017, 6379) and managed data services reachable from the internet are high-value targets and frequent breach causes. Treat failures here as release blockers.",
+          "description": "Database ports (3306, 5432, 1433, 27017, 6379) and managed data services reachable from the internet are high-value targets and frequent breach causes.",
           "severity": "critical",
           "how_to_find": "Detect public ingress to database/data ports and managed service public endpoints. Flag any internet-reachable data service.",
           "how_to_fix": "Assign an owner for databases / data services exposed publicly, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
@@ -1226,7 +1226,7 @@
         },
         {
           "title": "Overly broad allow rules",
-          "description": "Rules permitting all ports/protocols from wide ranges undermine segmentation and make lateral movement easy after a single compromise. Schedule remediation once higher-severity gaps are closed.",
+          "description": "Rules permitting all ports/protocols from wide ranges undermine segmentation and make lateral movement easy after a single compromise.",
           "severity": "medium",
           "how_to_find": "Review rules for all-port/all-protocol grants and large source ranges. Flag rules far broader than the service requires.",
           "how_to_fix": "Assign an owner for overly broad allow rules, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
@@ -1254,9 +1254,9 @@
         },
         {
           "title": "Use of default / permissive network groups",
-          "description": "Default security groups and unrestricted default firewall rules often carry permissive settings and should not be used for production workloads. Good hygiene that pays off over time.",
+          "description": "Default security groups and unrestricted default firewall rules often carry permissive settings and should not be used for production workloads.",
           "severity": "low",
-          "how_to_find": "Networking — Open Security Groups & NSGs: Check whether resources rely on default security groups/firewalls and whether those defaults are locked down",
+          "how_to_find": "Networking — Open Security Groups & NSGs: Networking — Open Security Groups & NSGs: Networking — Open Security Groups & NSGs: Networking — Open Security Groups & NSGs: Check whether resources rely on default security groups/firewalls and whether those defaults are locked down",
           "how_to_fix": "Assign an owner for use of default / permissive network groups, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Prowler",
@@ -1287,7 +1287,7 @@
       "items": [
         {
           "title": "Over-broad VPC peering / VNet connections",
-          "description": "Wide peering or hub-spoke designs without route filtering can let a compromise in one network reach many others. Schedule remediation once higher-severity gaps are closed.",
+          "description": "Wide peering or hub-spoke designs without route filtering can let a compromise in one network reach many others.",
           "severity": "medium",
           "how_to_find": "Map peering/VNet connections and route tables. Flag peerings that grant broader reachability than necessary.",
           "how_to_fix": "Assign an owner for over-broad vpc peering / vnet connections, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
@@ -1316,7 +1316,7 @@
         },
         {
           "title": "Missing private endpoints for managed services",
-          "description": "Accessing managed services over public endpoints instead of PrivateLink/Private Endpoint/Private Service Connect exposes traffic and broadens attack surface. Good hygiene that pays off over time.",
+          "description": "Accessing managed services over public endpoints instead of PrivateLink/Private Endpoint/Private Service Connect exposes traffic and broadens attack surface.",
           "severity": "low",
           "how_to_find": "Identify managed-service access paths and flag services reachable only via public endpoints where private connectivity is available.",
           "how_to_fix": "Assign an owner for missing private endpoints for managed services, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
@@ -1344,7 +1344,7 @@
         },
         {
           "title": "Unrestricted egress / data exfiltration paths",
-          "description": "Unrestricted outbound traffic enables data exfiltration and C2; egress filtering and VPC service controls limit this. Schedule remediation once higher-severity gaps are closed.",
+          "description": "Unrestricted outbound traffic enables data exfiltration and C2; egress filtering and VPC service controls limit this.",
           "severity": "medium",
           "how_to_find": "Review egress rules and exfiltration controls (e.g., GCP VPC Service Controls, egress firewall). Flag fully open egress from sensitive workloads.",
           "how_to_fix": "Assign an owner for unrestricted egress / data exfiltration paths, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
@@ -1372,7 +1372,7 @@
         },
         {
           "title": "Flat networks with no tiering",
-          "description": "Workloads of differing trust levels in a single flat subnet allow unrestricted lateral movement after initial access. Good hygiene that pays off over time.",
+          "description": "Workloads of differing trust levels in a single flat subnet allow unrestricted lateral movement after initial access.",
           "severity": "low",
           "how_to_find": "Review subnet/tier design and intra-network rules. Flag flat designs lacking separation between public, app, and data tiers.",
           "how_to_fix": "Assign an owner for flat networks with no tiering, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
@@ -1404,9 +1404,9 @@
       "items": [
         {
           "title": "Dangling CNAME to deprovisioned cloud resource",
-          "description": "CNAMEs pointing to released cloud endpoints (S3 website, CloudFront, Azure App Service, Storage, GCP buckets) can be re-registered by attackers to take over the subdomain. Worth prioritising in your next assessment cycle.",
+          "description": "CNAMEs pointing to released cloud endpoints (S3 website, CloudFront, Azure App Service, Storage, GCP buckets) can be re-registered by attackers to take over the subdomain.",
           "severity": "high",
-          "how_to_find": "Networking — DNS & Subdomain Takeover: Confirm the target endpoint name is claimable",
+          "how_to_find": "Networking — DNS & Subdomain Takeover: Networking — DNS & Subdomain Takeover: Networking — DNS & Subdomain Takeover: Networking — DNS & Subdomain Takeover: Confirm the target endpoint name is claimable",
           "how_to_fix": "Assign an owner for dangling cname to deprovisioned cloud resource, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "nuclei",
@@ -1432,9 +1432,9 @@
         },
         {
           "title": "Takeover of storage/website endpoints",
-          "description": "DNS aliases to S3/GCS static website endpoints or Azure Storage that have been deleted let an attacker create a same-named resource and serve content under the victim domain. Worth prioritising in your next assessment cycle.",
+          "description": "DNS aliases to S3/GCS static website endpoints or Azure Storage that have been deleted let an attacker create a same-named resource and serve content under the victim domain.",
           "severity": "high",
-          "how_to_find": "Networking — DNS & Subdomain Takeover: Identify aliases to storage/website endpoints returning not-found, and verify the underlying bucket/account name can be re-created",
+          "how_to_find": "Networking — DNS & Subdomain Takeover: Networking — DNS & Subdomain Takeover: Networking — DNS & Subdomain Takeover: Networking — DNS & Subdomain Takeover: Identify aliases to storage/website endpoints returning not-found, and verify the underlying bucket/account name can be re-created",
           "how_to_fix": "Assign an owner for takeover of storage/website endpoints, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "nuclei",
@@ -1460,9 +1460,9 @@
         },
         {
           "title": "Dangling A record to released elastic/public IP",
-          "description": "A records pointing to released public/elastic IPs can resolve to an attacker who later acquires that IP from the provider pool. Schedule remediation once higher-severity gaps are closed.",
+          "description": "A records pointing to released public/elastic IPs can resolve to an attacker who later acquires that IP from the provider pool.",
           "severity": "medium",
-          "how_to_find": "Networking — DNS & Subdomain Takeover: Check A records against currently allocated IPs in the account",
+          "how_to_find": "Networking — DNS & Subdomain Takeover: Networking — DNS & Subdomain Takeover: Networking — DNS & Subdomain Takeover: Networking — DNS & Subdomain Takeover: Check A records against currently allocated IPs in the account",
           "how_to_fix": "Assign an owner for dangling a record to released elastic/public ip, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "nuclei",
@@ -1488,7 +1488,7 @@
         },
         {
           "title": "Public DNS zone information disclosure",
-          "description": "Overly detailed public DNS records (internal hostnames, service identifiers) aid reconnaissance and target selection. Good hygiene that pays off over time.",
+          "description": "Overly detailed public DNS records (internal hostnames, service identifiers) aid reconnaissance and target selection.",
           "severity": "low",
           "how_to_find": "Review public zone records for internal naming and sensitive service hints. Flag records that leak architecture details.",
           "how_to_fix": "Assign an owner for public dns zone information disclosure, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
@@ -1520,9 +1520,9 @@
       "items": [
         {
           "title": "Over-privileged function execution roles",
-          "description": "Functions running with broad execution roles can be abused for privilege escalation or data access if the function is compromised via injection or a vulnerable dependency. Worth prioritising in your next assessment cycle.",
+          "description": "Functions running with broad execution roles can be abused for privilege escalation or data access if the function is compromised via injection or a vulnerable dependency.",
           "severity": "high",
-          "how_to_find": "Serverless & PaaS — Functions: Privilege, Secrets & Injection: Functions running with broad execution roles can be abused for privilege escalation or data access if the function is compromised via injection or a vulnerable dependency",
+          "how_to_find": "Serverless & PaaS — Functions: Privilege, Secrets & Injection: Serverless & PaaS — Functions: Privilege, Secrets & Injection: Serverless & PaaS — Functions: Privilege, Secrets & Injection: Serverless & PaaS — Functions: Privilege, Secrets & Injection: Functions running with broad execution roles can be abused for privilege escalation or data access if the function is compromised via injection or a vulnerable dependency",
           "how_to_fix": "Assign an owner for over-privileged function execution roles, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Prowler",
@@ -1549,9 +1549,9 @@
         },
         {
           "title": "Secrets in function environment variables",
-          "description": "API keys and credentials stored as function environment variables can be read by anyone with read access to the function configuration. Worth prioritising in your next assessment cycle.",
+          "description": "API keys and credentials stored as function environment variables can be read by anyone with read access to the function configuration.",
           "severity": "high",
-          "how_to_find": "Serverless & PaaS — Functions: Privilege, Secrets & Injection: Inspect function environment variables for plaintext secrets and check who can read function config",
+          "how_to_find": "Serverless & PaaS — Functions: Privilege, Secrets & Injection: Serverless & PaaS — Functions: Privilege, Secrets & Injection: Serverless & PaaS — Functions: Privilege, Secrets & Injection: Serverless & PaaS — Functions: Privilege, Secrets & Injection: Inspect function environment variables for plaintext secrets and check who can read function config",
           "how_to_fix": "Assign an owner for secrets in function environment variables, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "trufflehog",
@@ -1578,9 +1578,9 @@
         },
         {
           "title": "Event-data injection into functions",
-          "description": "Functions triggered by untrusted events (HTTP, queue, object, email) that pass input to commands, queries, or downstream APIs are vulnerable to injection. Worth prioritising in your next assessment cycle.",
+          "description": "Functions triggered by untrusted events (HTTP, queue, object, email) that pass input to commands, queries, or downstream APIs are vulnerable to injection.",
           "severity": "high",
-          "how_to_find": "Serverless & PaaS — Functions: Privilege, Secrets & Injection: Test for injection where authorized",
+          "how_to_find": "Serverless & PaaS — Functions: Privilege, Secrets & Injection: Serverless & PaaS — Functions: Privilege, Secrets & Injection: Serverless & PaaS — Functions: Privilege, Secrets & Injection: Serverless & PaaS — Functions: Privilege, Secrets & Injection: Test for injection where authorized",
           "how_to_fix": "Assign an owner for event-data injection into functions, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "nuclei",
@@ -1606,9 +1606,9 @@
         },
         {
           "title": "Publicly invokable functions / function URLs",
-          "description": "Function URLs, public API Gateway routes, or anonymous HTTP triggers without auth let anyone invoke business logic directly. Schedule remediation once higher-severity gaps are closed.",
+          "description": "Function URLs, public API Gateway routes, or anonymous HTTP triggers without auth let anyone invoke business logic directly.",
           "severity": "medium",
-          "how_to_find": "Serverless & PaaS — Functions: Privilege, Secrets & Injection: Identify function URLs and HTTP triggers and check auth configuration",
+          "how_to_find": "Serverless & PaaS — Functions: Privilege, Secrets & Injection: Serverless & PaaS — Functions: Privilege, Secrets & Injection: Serverless & PaaS — Functions: Privilege, Secrets & Injection: Serverless & PaaS — Functions: Privilege, Secrets & Injection: Identify function URLs and HTTP triggers and check auth configuration",
           "how_to_fix": "Assign an owner for publicly invokable functions / function urls, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Prowler",
@@ -1634,7 +1634,7 @@
         },
         {
           "title": "Over-broad function resource policies",
-          "description": "Resource-based policies allowing wildcard principals or arbitrary services to invoke a function widen the trigger surface and may enable cross-account invocation. Schedule remediation once higher-severity gaps are closed.",
+          "description": "Resource-based policies allowing wildcard principals or arbitrary services to invoke a function widen the trigger surface and may enable cross-account invocation.",
           "severity": "medium",
           "how_to_find": "Review function resource policies for wildcard principals or unexpected service/account grants. Flag over-broad invoke permissions.",
           "how_to_fix": "Assign an owner for over-broad function resource policies, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
@@ -1667,7 +1667,7 @@
       "items": [
         {
           "title": "Secrets in code and configuration instead of a vault",
-          "description": "Hardcoded secrets in repos, IaC, and config bypass vault access controls, rotation, and audit logging. Worth prioritising in your next assessment cycle.",
+          "description": "Hardcoded secrets in repos, IaC, and config bypass vault access controls, rotation, and audit logging.",
           "severity": "high",
           "how_to_find": "Scan source, IaC, and config for secrets and compare against vault usage. Flag secrets that should be in Secrets Manager / Key Vault / Secret Manager.",
           "how_to_fix": "Assign an owner for secrets in code and configuration instead of a vault, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
@@ -1695,7 +1695,7 @@
         },
         {
           "title": "Over-broad access to secret stores",
-          "description": "Wide read access to Secrets Manager, Key Vault, or Secret Manager lets many identities retrieve sensitive material, expanding leak impact. Worth prioritising in your next assessment cycle.",
+          "description": "Wide read access to Secrets Manager, Key Vault, or Secret Manager lets many identities retrieve sensitive material, expanding leak impact.",
           "severity": "high",
           "how_to_find": "Review who can read each secret/vault. Flag broad or wildcard read access and missing per-secret scoping.",
           "how_to_fix": "Assign an owner for over-broad access to secret stores, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
@@ -1724,9 +1724,9 @@
         },
         {
           "title": "Secrets without rotation or expiry",
-          "description": "Long-lived secrets in the vault that are never rotated remain valid indefinitely if leaked. Schedule remediation once higher-severity gaps are closed.",
+          "description": "Long-lived secrets in the vault that are never rotated remain valid indefinitely if leaked.",
           "severity": "medium",
-          "how_to_find": "Serverless & PaaS — Secrets Management: Check rotation configuration and age for stored secrets",
+          "how_to_find": "Serverless & PaaS — Secrets Management: Serverless & PaaS — Secrets Management: Serverless & PaaS — Secrets Management: Serverless & PaaS — Secrets Management: Check rotation configuration and age for stored secrets",
           "how_to_fix": "Assign an owner for secrets without rotation or expiry, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Prowler",
@@ -1752,9 +1752,9 @@
         },
         {
           "title": "No auditing on secret access",
-          "description": "Without logging of secret retrieval, abnormal access (e.g., mass reads after a compromise) goes undetected. Good hygiene that pays off over time.",
+          "description": "Without logging of secret retrieval, abnormal access (e.g., mass reads after a compromise) goes undetected.",
           "severity": "low",
-          "how_to_find": "Serverless & PaaS — Secrets Management: Confirm secret-access events are logged (CloudTrail data events, Key Vault diagnostics, audit logs) and retained",
+          "how_to_find": "Serverless & PaaS — Secrets Management: Serverless & PaaS — Secrets Management: Serverless & PaaS — Secrets Management: Serverless & PaaS — Secrets Management: Confirm secret-access events are logged (CloudTrail data events, Key Vault diagnostics, audit logs) and retained",
           "how_to_fix": "Assign an owner for no auditing on secret access, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Prowler",
@@ -1785,9 +1785,9 @@
       "items": [
         {
           "title": "Audit logging disabled or incomplete",
-          "description": "Missing CloudTrail trails, disabled Azure Activity/diagnostic logs, or absent GCP Data Access logs leave actions unrecorded, crippling detection and forensics. Worth prioritising in your next assessment cycle.",
+          "description": "Missing CloudTrail trails, disabled Azure Activity/diagnostic logs, or absent GCP Data Access logs leave actions unrecorded, crippling detection and forensics.",
           "severity": "high",
-          "how_to_find": "Logging & Monitoring — Audit Logging & Tamper Resistance: Confirm an organization-wide, multi-region trail/log sink is enabled and covers management and key data events",
+          "how_to_find": "Logging & Monitoring — Audit Logging & Tamper Resistance: Logging & Monitoring — Audit Logging & Tamper Resistance: Logging & Monitoring — Audit Logging & Tamper Resistance: Logging & Monitoring — Audit Logging & Tamper Resistance: Confirm an organization-wide, multi-region trail/log sink is enabled and covers management and key data events",
           "how_to_fix": "Assign an owner for audit logging disabled or incomplete, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Prowler",
@@ -1814,9 +1814,9 @@
         },
         {
           "title": "Log tampering / deletion possible",
-          "description": "Trails and log buckets without integrity validation, immutability, or restricted delete permissions can be tampered with to hide attacker activity. Worth prioritising in your next assessment cycle.",
+          "description": "Trails and log buckets without integrity validation, immutability, or restricted delete permissions can be tampered with to hide attacker activity.",
           "severity": "high",
-          "how_to_find": "Logging & Monitoring — Audit Logging & Tamper Resistance: Check log file validation, bucket object lock/immutability, and who can stop/delete trails or logs",
+          "how_to_find": "Logging & Monitoring — Audit Logging & Tamper Resistance: Logging & Monitoring — Audit Logging & Tamper Resistance: Logging & Monitoring — Audit Logging & Tamper Resistance: Logging & Monitoring — Audit Logging & Tamper Resistance: Check log file validation, bucket object lock/immutability, and who can stop/delete trails or logs",
           "how_to_fix": "Assign an owner for log tampering / deletion possible, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Prowler",
@@ -1842,9 +1842,9 @@
         },
         {
           "title": "Data-plane / object access events not logged",
-          "description": "Management-only logging misses S3/object data events, Key Vault secret reads, and storage access, hiding data exfiltration. Schedule remediation once higher-severity gaps are closed.",
+          "description": "Management-only logging misses S3/object data events, Key Vault secret reads, and storage access, hiding data exfiltration.",
           "severity": "medium",
-          "how_to_find": "Logging & Monitoring — Audit Logging & Tamper Resistance: Confirm data events are logged for sensitive resources (S3 data events, Storage diagnostics, GCP Data Access logs)",
+          "how_to_find": "Logging & Monitoring — Audit Logging & Tamper Resistance: Logging & Monitoring — Audit Logging & Tamper Resistance: Logging & Monitoring — Audit Logging & Tamper Resistance: Logging & Monitoring — Audit Logging & Tamper Resistance: Confirm data events are logged for sensitive resources (S3 data events, Storage diagnostics, GCP Data Access logs)",
           "how_to_fix": "Assign an owner for data-plane / object access events not logged, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Prowler",
@@ -1870,7 +1870,7 @@
         },
         {
           "title": "Insufficient log retention",
-          "description": "Short retention windows prevent investigation of incidents discovered late and may breach compliance requirements. Good hygiene that pays off over time.",
+          "description": "Short retention windows prevent investigation of incidents discovered late and may breach compliance requirements.",
           "severity": "low",
           "how_to_find": "Review retention settings for audit logs and log sinks. Flag retention below policy/compliance requirements.",
           "how_to_fix": "Assign an owner for insufficient log retention, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
@@ -1903,9 +1903,9 @@
       "items": [
         {
           "title": "Threat detection service disabled",
-          "description": "GuardDuty, Defender for Cloud, or Security Command Center not enabled across all accounts/regions leaves cloud-native threats undetected. Schedule remediation once higher-severity gaps are closed.",
+          "description": "GuardDuty, Defender for Cloud, or Security Command Center not enabled across all accounts/regions leaves cloud-native threats undetected.",
           "severity": "medium",
-          "how_to_find": "Logging & Monitoring — Threat Detection Coverage: Confirm detection services are enabled organization-wide and across regions",
+          "how_to_find": "Logging & Monitoring — Threat Detection Coverage: Logging & Monitoring — Threat Detection Coverage: Logging & Monitoring — Threat Detection Coverage: Logging & Monitoring — Threat Detection Coverage: Confirm detection services are enabled organization-wide and across regions",
           "how_to_fix": "Assign an owner for threat detection service disabled, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Prowler",
@@ -1932,9 +1932,9 @@
         },
         {
           "title": "No alerting / notification on findings",
-          "description": "Detection without alerting (no SNS/EventBridge, Action Group, or Pub/Sub notification) means findings sit unreviewed. Schedule remediation once higher-severity gaps are closed.",
+          "description": "Detection without alerting (no SNS/EventBridge, Action Group, or Pub/Sub notification) means findings sit unreviewed.",
           "severity": "medium",
-          "how_to_find": "Logging & Monitoring — Threat Detection Coverage: Verify findings route to an alerting pipeline and on-call",
+          "how_to_find": "Logging & Monitoring — Threat Detection Coverage: Logging & Monitoring — Threat Detection Coverage: Logging & Monitoring — Threat Detection Coverage: Logging & Monitoring — Threat Detection Coverage: Verify findings route to an alerting pipeline and on-call",
           "how_to_fix": "Assign an owner for no alerting / notification on findings, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Prowler",
@@ -1960,7 +1960,7 @@
         },
         {
           "title": "Detection feature/coverage gaps",
-          "description": "Detection enabled but with key protections off (e.g., GuardDuty S3/EKS/malware protection, Defender plans per resource type) leaves blind spots. Good hygiene that pays off over time.",
+          "description": "Detection enabled but with key protections off (e.g., GuardDuty S3/EKS/malware protection, Defender plans per resource type) leaves blind spots.",
           "severity": "low",
           "how_to_find": "Review which detection plans/features are enabled per resource type. Flag disabled high-value protections.",
           "how_to_fix": "Assign an owner for detection feature/coverage gaps, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
@@ -1988,9 +1988,9 @@
         },
         {
           "title": "No posture management / config baseline",
-          "description": "Without continuous posture management (Security Hub, Defender CSPM, SCC posture), drift from secure baselines goes unnoticed. Good hygiene that pays off over time.",
+          "description": "Without continuous posture management (Security Hub, Defender CSPM, SCC posture), drift from secure baselines goes unnoticed.",
           "severity": "low",
-          "how_to_find": "Logging & Monitoring — Threat Detection Coverage: Confirm a CSPM/posture service evaluates resources against a benchmark continuously",
+          "how_to_find": "Logging & Monitoring — Threat Detection Coverage: Logging & Monitoring — Threat Detection Coverage: Logging & Monitoring — Threat Detection Coverage: Logging & Monitoring — Threat Detection Coverage: Confirm a CSPM/posture service evaluates resources against a benchmark continuously",
           "how_to_fix": "Assign an owner for no posture management / config baseline, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Prowler",

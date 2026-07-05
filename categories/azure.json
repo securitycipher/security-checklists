@@ -7,9 +7,9 @@
       "items": [
         {
           "title": "MFA enforced for privileged roles",
-          "description": "Require MFA for Global Admin, Security Admin, and privileged roles. Validate this in Azure subscriptions, under Identity and Access (Azure AD / Entra ID). Treat failures here as release blockers.",
+          "description": "Require MFA for Global Admin, Security Admin, and privileged roles.",
           "severity": "critical",
-          "how_to_find": "Identity and Access (Azure AD / Entra ID): Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings",
+          "how_to_find": "Identity and Access (Azure AD / Entra ID): Identity and Access (Azure AD / Entra ID): Identity and Access (Azure AD / Entra ID): Identity and Access (Azure AD / Entra ID): Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings",
           "how_to_fix": "Assign an owner for mfa enforced for privileged roles, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Microsoft Defender for Cloud",
@@ -30,9 +30,9 @@
         },
         {
           "title": "Conditional Access policies",
-          "description": "Block legacy auth, require compliant devices, and restrict risky sign-ins. Validate this in Azure subscriptions, under Identity and Access (Azure AD / Entra ID). Good hygiene that pays off over time.",
+          "description": "Block legacy auth, require compliant devices, and restrict risky sign-ins.",
           "severity": "low",
-          "how_to_find": "Identity and Access (Azure AD / Entra ID): Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings",
+          "how_to_find": "Identity and Access (Azure AD / Entra ID): Identity and Access (Azure AD / Entra ID): Identity and Access (Azure AD / Entra ID): Identity and Access (Azure AD / Entra ID): Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings",
           "how_to_fix": "Assign an owner for conditional access policies, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Microsoft Defender for Cloud",
@@ -53,9 +53,9 @@
         },
         {
           "title": "Guest user access restricted",
-          "description": "Limit external collaboration and review guest permissions regularly. Validate this in Azure subscriptions, under Identity and Access (Azure AD / Entra ID). Good hygiene that pays off over time.",
+          "description": "Limit external collaboration and review guest permissions regularly.",
           "severity": "low",
-          "how_to_find": "Identity and Access (Azure AD / Entra ID): Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings",
+          "how_to_find": "Identity and Access (Azure AD / Entra ID): Identity and Access (Azure AD / Entra ID): Identity and Access (Azure AD / Entra ID): Identity and Access (Azure AD / Entra ID): Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings",
           "how_to_fix": "Assign an owner for guest user access restricted, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Microsoft Defender for Cloud",
@@ -76,9 +76,9 @@
         },
         {
           "title": "Service principal credential rotation",
-          "description": "Rotate client secrets and certificates; prefer managed identities. Validate this in Azure subscriptions, under Identity and Access (Azure AD / Entra ID). Schedule remediation once higher-severity gaps are closed.",
+          "description": "Rotate client secrets and certificates; prefer managed identities.",
           "severity": "medium",
-          "how_to_find": "Identity and Access (Azure AD / Entra ID): Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings",
+          "how_to_find": "Identity and Access (Azure AD / Entra ID): Identity and Access (Azure AD / Entra ID): Identity and Access (Azure AD / Entra ID): Identity and Access (Azure AD / Entra ID): Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings",
           "how_to_fix": "Assign an owner for service principal credential rotation, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Microsoft Defender for Cloud",
@@ -99,9 +99,9 @@
         },
         {
           "title": "PIM for just-in-time admin",
-          "description": "Use Privileged Identity Management for standing admin access. Validate this in Azure subscriptions, under Identity and Access (Azure AD / Entra ID). Good hygiene that pays off over time.",
+          "description": "Use Privileged Identity Management for standing admin access.",
           "severity": "low",
-          "how_to_find": "Identity and Access (Azure AD / Entra ID): Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings",
+          "how_to_find": "Identity and Access (Azure AD / Entra ID): Identity and Access (Azure AD / Entra ID): Identity and Access (Azure AD / Entra ID): Identity and Access (Azure AD / Entra ID): Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings",
           "how_to_fix": "Assign an owner for pim for just-in-time admin, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Microsoft Defender for Cloud",
@@ -127,9 +127,9 @@
       "items": [
         {
           "title": "NSG rules not over-permissive",
-          "description": "No 0.0.0.0/0 on RDP, SSH, SQL, or management ports. Validate this in Azure subscriptions, under Networking. Treat failures here as release blockers.",
+          "description": "No 0.0.0.0/0 on RDP, SSH, SQL, or management ports.",
           "severity": "critical",
-          "how_to_find": "Networking: Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings",
+          "how_to_find": "Networking: Networking: Networking: Networking: Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings",
           "how_to_fix": "Assign an owner for nsg rules not over-permissive, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Microsoft Defender for Cloud",
@@ -150,9 +150,9 @@
         },
         {
           "title": "VNet flow logs enabled",
-          "description": "Enable NSG flow logs and traffic analytics for visibility. Validate this in Azure subscriptions, under Networking. Good hygiene that pays off over time.",
+          "description": "Enable NSG flow logs and traffic analytics for visibility.",
           "severity": "low",
-          "how_to_find": "Networking: Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings",
+          "how_to_find": "Networking: Networking: Networking: Networking: Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings",
           "how_to_fix": "Assign an owner for vnet flow logs enabled, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Microsoft Defender for Cloud",
@@ -173,9 +173,9 @@
         },
         {
           "title": "Private endpoints for PaaS",
-          "description": "Use private link for storage, SQL, and Key Vault where possible. Validate this in Azure subscriptions, under Networking. Good hygiene that pays off over time.",
+          "description": "Use private link for storage, SQL, and Key Vault where possible.",
           "severity": "low",
-          "how_to_find": "Networking: Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings",
+          "how_to_find": "Networking: Networking: Networking: Networking: Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings",
           "how_to_fix": "Assign an owner for private endpoints for paas, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Microsoft Defender for Cloud",
@@ -196,9 +196,9 @@
         },
         {
           "title": "Azure Firewall or WAF in front of apps",
-          "description": "Protect public-facing apps with WAF and centralized egress control. Validate this in Azure subscriptions, under Networking. Worth prioritising in your next assessment cycle.",
+          "description": "Protect public-facing apps with WAF and centralized egress control.",
           "severity": "high",
-          "how_to_find": "Networking: Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings",
+          "how_to_find": "Networking: Networking: Networking: Networking: Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings",
           "how_to_fix": "Assign an owner for azure firewall or waf in front of apps, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Microsoft Defender for Cloud",
@@ -219,9 +219,9 @@
         },
         {
           "title": "DDoS Protection Standard",
-          "description": "Enable on production VNets serving internet-facing workloads. Validate this in Azure subscriptions, under Networking. Good hygiene that pays off over time.",
+          "description": "Enable on production VNets serving internet-facing workloads.",
           "severity": "low",
-          "how_to_find": "Networking: Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings",
+          "how_to_find": "Networking: Networking: Networking: Networking: Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings",
           "how_to_fix": "Assign an owner for ddos protection standard, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Microsoft Defender for Cloud",
@@ -247,9 +247,9 @@
       "items": [
         {
           "title": "Storage account public access disabled",
-          "description": "Disable anonymous blob access and review network rules. Validate this in Azure subscriptions, under Storage and Databases. Worth prioritising in your next assessment cycle.",
+          "description": "Disable anonymous blob access and review network rules.",
           "severity": "high",
-          "how_to_find": "Storage and Databases: Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings",
+          "how_to_find": "Storage and Databases: Storage and Databases: Storage and Databases: Storage and Databases: Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings",
           "how_to_fix": "Assign an owner for storage account public access disabled, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Microsoft Defender for Cloud",
@@ -270,9 +270,9 @@
         },
         {
           "title": "Encryption at rest with CMK",
-          "description": "Use customer-managed keys for storage and databases where required. Validate this in Azure subscriptions, under Storage and Databases. Worth prioritising in your next assessment cycle.",
+          "description": "Use customer-managed keys for storage and databases where required.",
           "severity": "high",
-          "how_to_find": "Storage and Databases: Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings",
+          "how_to_find": "Storage and Databases: Storage and Databases: Storage and Databases: Storage and Databases: Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings",
           "how_to_fix": "Assign an owner for encryption at rest with cmk, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Microsoft Defender for Cloud",
@@ -293,9 +293,9 @@
         },
         {
           "title": "SQL TDE and auditing enabled",
-          "description": "Transparent encryption plus audit logs to Log Analytics. Validate this in Azure subscriptions, under Storage and Databases. Worth prioritising in your next assessment cycle.",
+          "description": "Transparent encryption plus audit logs to Log Analytics.",
           "severity": "high",
-          "how_to_find": "Storage and Databases: Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings",
+          "how_to_find": "Storage and Databases: Storage and Databases: Storage and Databases: Storage and Databases: Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings",
           "how_to_fix": "Assign an owner for sql tde and auditing enabled, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Microsoft Defender for Cloud",
@@ -316,9 +316,9 @@
         },
         {
           "title": "SQL firewall not open to internet",
-          "description": "Restrict database access to known IPs or private endpoints. Validate this in Azure subscriptions, under Storage and Databases. Good hygiene that pays off over time.",
+          "description": "Restrict database access to known IPs or private endpoints.",
           "severity": "low",
-          "how_to_find": "Storage and Databases: Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings",
+          "how_to_find": "Storage and Databases: Storage and Databases: Storage and Databases: Storage and Databases: Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings",
           "how_to_fix": "Assign an owner for sql firewall not open to internet, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Microsoft Defender for Cloud",
@@ -339,9 +339,9 @@
         },
         {
           "title": "Soft delete and versioning on storage",
-          "description": "Protect against ransomware and accidental deletion. Validate this in Azure subscriptions, under Storage and Databases. Schedule remediation once higher-severity gaps are closed.",
+          "description": "Protect against ransomware and accidental deletion.",
           "severity": "medium",
-          "how_to_find": "Storage and Databases: Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings",
+          "how_to_find": "Storage and Databases: Storage and Databases: Storage and Databases: Storage and Databases: Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings",
           "how_to_fix": "Assign an owner for soft delete and versioning on storage, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Microsoft Defender for Cloud",
@@ -367,9 +367,9 @@
       "items": [
         {
           "title": "VM disk encryption enabled",
-          "description": "Azure Disk Encryption or server-side encryption for all VMs. Validate this in Azure subscriptions, under Compute and Kubernetes. Worth prioritising in your next assessment cycle.",
+          "description": "Azure Disk Encryption or server-side encryption for all VMs.",
           "severity": "high",
-          "how_to_find": "Compute and Kubernetes: Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings",
+          "how_to_find": "Compute and Kubernetes: Compute and Kubernetes: Compute and Kubernetes: Compute and Kubernetes: Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings",
           "how_to_fix": "Assign an owner for vm disk encryption enabled, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Microsoft Defender for Cloud",
@@ -390,9 +390,9 @@
         },
         {
           "title": "AKS RBAC and private cluster",
-          "description": "Enable Azure RBAC, private API server, and network policies. Validate this in Azure subscriptions, under Compute and Kubernetes. Good hygiene that pays off over time.",
+          "description": "Enable Azure RBAC, private API server, and network policies.",
           "severity": "low",
-          "how_to_find": "Compute and Kubernetes: Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings",
+          "how_to_find": "Compute and Kubernetes: Compute and Kubernetes: Compute and Kubernetes: Compute and Kubernetes: Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings",
           "how_to_fix": "Assign an owner for aks rbac and private cluster, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Microsoft Defender for Cloud",
@@ -413,9 +413,9 @@
         },
         {
           "title": "Managed identity over secrets",
-          "description": "Apps and functions use managed identities instead of stored creds. Validate this in Azure subscriptions, under Compute and Kubernetes. Good hygiene that pays off over time.",
+          "description": "Apps and functions use managed identities instead of stored creds.",
           "severity": "low",
-          "how_to_find": "Compute and Kubernetes: Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings",
+          "how_to_find": "Compute and Kubernetes: Compute and Kubernetes: Compute and Kubernetes: Compute and Kubernetes: Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings",
           "how_to_fix": "Assign an owner for managed identity over secrets, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Microsoft Defender for Cloud",
@@ -436,9 +436,9 @@
         },
         {
           "title": "Defender for Cloud enabled",
-          "description": "Turn on Defender plans for servers, containers, and databases. Validate this in Azure subscriptions, under Compute and Kubernetes. Good hygiene that pays off over time.",
+          "description": "Turn on Defender plans for servers, containers, and databases.",
           "severity": "low",
-          "how_to_find": "Compute and Kubernetes: Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings",
+          "how_to_find": "Compute and Kubernetes: Compute and Kubernetes: Compute and Kubernetes: Compute and Kubernetes: Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings",
           "how_to_fix": "Assign an owner for defender for cloud enabled, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Microsoft Defender for Cloud",
@@ -459,9 +459,9 @@
         },
         {
           "title": "Patch management baseline",
-          "description": "Use Update Management or Automanage for timely patching. Validate this in Azure subscriptions, under Compute and Kubernetes. Schedule remediation once higher-severity gaps are closed.",
+          "description": "Use Update Management or Automanage for timely patching.",
           "severity": "medium",
-          "how_to_find": "Compute and Kubernetes: Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings",
+          "how_to_find": "Compute and Kubernetes: Compute and Kubernetes: Compute and Kubernetes: Compute and Kubernetes: Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings",
           "how_to_fix": "Assign an owner for patch management baseline, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Microsoft Defender for Cloud",
@@ -487,9 +487,9 @@
       "items": [
         {
           "title": "Activity Log to Log Analytics",
-          "description": "Centralize subscription activity and resource logs. Validate this in Azure subscriptions, under Logging and Key Management. Treat failures here as release blockers.",
+          "description": "Centralize subscription activity and resource logs.",
           "severity": "critical",
-          "how_to_find": "Logging and Key Management: Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings",
+          "how_to_find": "Logging and Key Management: Logging and Key Management: Logging and Key Management: Logging and Key Management: Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings",
           "how_to_fix": "Assign an owner for activity log to log analytics, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Microsoft Defender for Cloud",
@@ -510,9 +510,9 @@
         },
         {
           "title": "Diagnostic settings on all resources",
-          "description": "Export metrics and logs for critical resources. Validate this in Azure subscriptions, under Logging and Key Management. Treat failures here as release blockers.",
+          "description": "Export metrics and logs for critical resources.",
           "severity": "critical",
-          "how_to_find": "Logging and Key Management: Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings",
+          "how_to_find": "Logging and Key Management: Logging and Key Management: Logging and Key Management: Logging and Key Management: Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings",
           "how_to_fix": "Assign an owner for diagnostic settings on all resources, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Microsoft Defender for Cloud",
@@ -533,9 +533,9 @@
         },
         {
           "title": "Key Vault purge protection",
-          "description": "Enable soft delete and purge protection on production vaults. Validate this in Azure subscriptions, under Logging and Key Management. Good hygiene that pays off over time.",
+          "description": "Enable soft delete and purge protection on production vaults.",
           "severity": "low",
-          "how_to_find": "Logging and Key Management: Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings",
+          "how_to_find": "Logging and Key Management: Logging and Key Management: Logging and Key Management: Logging and Key Management: Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings",
           "how_to_fix": "Assign an owner for key vault purge protection, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Microsoft Defender for Cloud",
@@ -556,9 +556,9 @@
         },
         {
           "title": "Key rotation policy",
-          "description": "Automate rotation for keys and secrets in Key Vault. Validate this in Azure subscriptions, under Logging and Key Management. Schedule remediation once higher-severity gaps are closed.",
+          "description": "Automate rotation for keys and secrets in Key Vault.",
           "severity": "medium",
-          "how_to_find": "Logging and Key Management: Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings",
+          "how_to_find": "Logging and Key Management: Logging and Key Management: Logging and Key Management: Logging and Key Management: Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings",
           "how_to_fix": "Assign an owner for key rotation policy, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Microsoft Defender for Cloud",
@@ -579,9 +579,9 @@
         },
         {
           "title": "Alert rules for security events",
-          "description": "Alert on failed logins, key deletions, and NSG changes. Validate this in Azure subscriptions, under Logging and Key Management. Good hygiene that pays off over time.",
+          "description": "Alert on failed logins, key deletions, and NSG changes.",
           "severity": "low",
-          "how_to_find": "Logging and Key Management: Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings",
+          "how_to_find": "Logging and Key Management: Logging and Key Management: Logging and Key Management: Logging and Key Management: Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings",
           "how_to_fix": "Assign an owner for alert rules for security events, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Microsoft Defender for Cloud",

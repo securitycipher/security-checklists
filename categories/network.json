@@ -7,9 +7,9 @@
       "items": [
         {
           "title": "Perform ICMP ping sweep across in-scope ranges",
-          "description": "Send ICMP echo, timestamp, and address-mask requests across the target CIDR ranges to map responsive hosts before port scanning. Useful for maturity tracking and audit evidence.",
+          "description": "Send ICMP echo, timestamp, and address-mask requests across the target CIDR ranges to map responsive hosts before port scanning.",
           "severity": "info",
-          "how_to_find": "Host Discovery & Scanning — Host Discovery: Confirm which hosts respond to ICMP and which require alternate discovery; document filtered ranges where ICMP is dropped",
+          "how_to_find": "Host Discovery & Scanning — Host Discovery: Host Discovery & Scanning — Host Discovery: Host Discovery & Scanning — Host Discovery: Host Discovery & Scanning — Host Discovery: Confirm which hosts respond to ICMP and which require alternate discovery; document filtered ranges where ICMP is dropped",
           "how_to_fix": "Assign an owner for perform icmp ping sweep across in-scope ranges, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "nmap",
@@ -35,9 +35,9 @@
         },
         {
           "title": "Enumerate local hosts via ARP scanning",
-          "description": "On a local segment, ARP requests reliably enumerate live hosts even when ICMP is filtered, since ARP cannot be firewalled at layer 2. Good hygiene that pays off over time.",
+          "description": "On a local segment, ARP requests reliably enumerate live hosts even when ICMP is filtered, since ARP cannot be firewalled at layer 2.",
           "severity": "low",
-          "how_to_find": "Host Discovery & Scanning — Host Discovery: Verify the full list of MAC/IP pairs on the local broadcast domain and cross-reference against expected asset inventory",
+          "how_to_find": "Host Discovery & Scanning — Host Discovery: Host Discovery & Scanning — Host Discovery: Host Discovery & Scanning — Host Discovery: Host Discovery & Scanning — Host Discovery: Verify the full list of MAC/IP pairs on the local broadcast domain and cross-reference against expected asset inventory",
           "how_to_fix": "Assign an owner for enumerate local hosts via arp scanning, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "arp-scan",
@@ -59,9 +59,9 @@
         },
         {
           "title": "Discover hosts behind ICMP filtering via TCP/UDP probes",
-          "description": "Use TCP SYN/ACK and UDP probes to common ports to identify hosts that drop ICMP but still respond to transport-layer probes. Good hygiene that pays off over time.",
+          "description": "Use TCP SYN/ACK and UDP probes to common ports to identify hosts that drop ICMP but still respond to transport-layer probes.",
           "severity": "low",
-          "how_to_find": "Host Discovery & Scanning — Host Discovery: Confirm hosts found via TCP/UDP that were missed by ICMP; ensure no in-scope subnet is silently skipped",
+          "how_to_find": "Host Discovery & Scanning — Host Discovery: Host Discovery & Scanning — Host Discovery: Host Discovery & Scanning — Host Discovery: Host Discovery & Scanning — Host Discovery: Confirm hosts found via TCP/UDP that were missed by ICMP; ensure no in-scope subnet is silently skipped",
           "how_to_fix": "Assign an owner for discover hosts behind icmp filtering via tcp/udp probes, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "nmap",
@@ -83,9 +83,9 @@
         },
         {
           "title": "Validate discovered hosts against the agreed scope",
-          "description": "Cross-check every discovered live host against the engagement scope to avoid testing out-of-scope or third-party systems. Useful for maturity tracking and audit evidence.",
+          "description": "Cross-check every discovered live host against the engagement scope to avoid testing out-of-scope or third-party systems.",
           "severity": "info",
-          "how_to_find": "Host Discovery & Scanning — Host Discovery: Cross-check every discovered live host against the engagement scope to avoid testing out-of-scope or third-party systems",
+          "how_to_find": "Host Discovery & Scanning — Host Discovery: Host Discovery & Scanning — Host Discovery: Host Discovery & Scanning — Host Discovery: Host Discovery & Scanning — Host Discovery: Cross-check every discovered live host against the engagement scope to avoid testing out-of-scope or third-party systems",
           "how_to_fix": "Assign an owner for validate discovered hosts against the agreed scope, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "nmap",
@@ -111,9 +111,9 @@
       "items": [
         {
           "title": "Run a full TCP port scan (all 65535 ports)",
-          "description": "A full-range TCP scan ensures services running on non-standard high ports are not missed by a default top-1000 scan. Schedule remediation once higher-severity gaps are closed.",
+          "description": "A full-range TCP scan ensures services running on non-standard high ports are not missed by a default top-1000 scan.",
           "severity": "medium",
-          "how_to_find": "Host Discovery & Scanning — Port Scanning: Confirm all 65535 TCP ports were scanned per host and that any open high ports are followed up with service detection",
+          "how_to_find": "Host Discovery & Scanning — Port Scanning: Host Discovery & Scanning — Port Scanning: Host Discovery & Scanning — Port Scanning: Host Discovery & Scanning — Port Scanning: Confirm all 65535 TCP ports were scanned per host and that any open high ports are followed up with service detection",
           "how_to_fix": "Assign an owner for run a full tcp port scan (all 65535 ports), apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "nmap",
@@ -139,9 +139,9 @@
         },
         {
           "title": "Scan key UDP services",
-          "description": "UDP services (DNS, SNMP, NetBIOS, TFTP, IKE, NTP) are frequently overlooked yet expose high-value attack surface and amplification vectors. Schedule remediation once higher-severity gaps are closed.",
+          "description": "UDP services (DNS, SNMP, NetBIOS, TFTP, IKE, NTP) are frequently overlooked yet expose high-value attack surface and amplification vectors.",
           "severity": "medium",
-          "how_to_find": "Host Discovery & Scanning — Port Scanning: Verify that common UDP ports are scanned and that open|filtered results are validated with service-specific probes",
+          "how_to_find": "Host Discovery & Scanning — Port Scanning: Host Discovery & Scanning — Port Scanning: Host Discovery & Scanning — Port Scanning: Host Discovery & Scanning — Port Scanning: Verify that common UDP ports are scanned and that open|filtered results are validated with service-specific probes",
           "how_to_fix": "Assign an owner for scan key udp services, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "nmap",
@@ -162,9 +162,9 @@
         },
         {
           "title": "Tune scan timing and apply IDS/firewall evasion",
-          "description": "Aggressive scanning can trip IDS/IPS and corrupt results; tune timing templates, fragmentation, and decoys to balance stealth and accuracy. Good hygiene that pays off over time.",
+          "description": "Aggressive scanning can trip IDS/IPS and corrupt results; tune timing templates, fragmentation, and decoys to balance stealth and accuracy.",
           "severity": "low",
-          "how_to_find": "Host Discovery & Scanning — Port Scanning: Confirm scan timing matches rules of engagement; verify whether evasion (fragmentation, decoys, source-port spoofing) changes results, indicating filtering",
+          "how_to_find": "Host Discovery & Scanning — Port Scanning: Host Discovery & Scanning — Port Scanning: Host Discovery & Scanning — Port Scanning: Host Discovery & Scanning — Port Scanning: Confirm scan timing matches rules of engagement; verify whether evasion (fragmentation, decoys, source-port spoofing) changes results, indicating filtering",
           "how_to_fix": "Assign an owner for tune scan timing and apply ids/firewall evasion, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "nmap",
@@ -189,9 +189,9 @@
         },
         {
           "title": "Use a fast mass scanner for large ranges then confirm with nmap",
-          "description": "For large external ranges, a fast async scanner identifies open ports quickly; results should be re-confirmed with nmap service detection to reduce false positives. Useful for maturity tracking and audit evidence.",
+          "description": "For large external ranges, a fast async scanner identifies open ports quickly; results should be re-confirmed with nmap service detection to reduce false positives.",
           "severity": "info",
-          "how_to_find": "Host Discovery & Scanning — Port Scanning: Verify mass-scan open ports are re-validated with a slower accurate scan and that rate limits did not drop responses",
+          "how_to_find": "Host Discovery & Scanning — Port Scanning: Host Discovery & Scanning — Port Scanning: Host Discovery & Scanning — Port Scanning: Host Discovery & Scanning — Port Scanning: Verify mass-scan open ports are re-validated with a slower accurate scan and that rate limits did not drop responses",
           "how_to_fix": "Assign an owner for use a fast mass scanner for large ranges then confirm with nmap, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "masscan",
@@ -218,9 +218,9 @@
       "items": [
         {
           "title": "Perform OS fingerprinting on live hosts",
-          "description": "TCP/IP stack fingerprinting identifies the operating system and version, which narrows down applicable exploits and EOL risk. Good hygiene that pays off over time.",
+          "description": "TCP/IP stack fingerprinting identifies the operating system and version, which narrows down applicable exploits and EOL risk.",
           "severity": "low",
-          "how_to_find": "Host Discovery & Scanning — OS & Service Fingerprinting: Confirm OS guesses with multiple data points; flag end-of-life operating systems (e.g",
+          "how_to_find": "Host Discovery & Scanning — OS & Service Fingerprinting: Host Discovery & Scanning — OS & Service Fingerprinting: Host Discovery & Scanning — OS & Service Fingerprinting: Host Discovery & Scanning — OS & Service Fingerprinting: Confirm OS guesses with multiple data points; flag end-of-life operating systems (e.g",
           "how_to_fix": "Assign an owner for perform os fingerprinting on live hosts, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "nmap",
@@ -241,9 +241,9 @@
         },
         {
           "title": "Detect service and version banners on open ports",
-          "description": "Service/version detection maps each open port to a product and version, the foundation for CVE matching and default-credential checks. Schedule remediation once higher-severity gaps are closed.",
+          "description": "Service/version detection maps each open port to a product and version, the foundation for CVE matching and default-credential checks.",
           "severity": "medium",
-          "how_to_find": "Host Discovery & Scanning — OS & Service Fingerprinting: Verify every open port has an identified service/version and capture banners for offline CVE lookup",
+          "how_to_find": "Host Discovery & Scanning — OS & Service Fingerprinting: Host Discovery & Scanning — OS & Service Fingerprinting: Host Discovery & Scanning — OS & Service Fingerprinting: Host Discovery & Scanning — OS & Service Fingerprinting: Verify every open port has an identified service/version and capture banners for offline CVE lookup",
           "how_to_fix": "Assign an owner for detect service and version banners on open ports, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "nmap",
@@ -269,9 +269,9 @@
         },
         {
           "title": "Run safe NSE discovery scripts for deeper fingerprinting",
-          "description": "Nmap Scripting Engine default/discovery scripts extract richer service metadata (TLS info, SMB OS, HTTP titles) without intrusive exploitation. Useful for maturity tracking and audit evidence.",
+          "description": "Nmap Scripting Engine default/discovery scripts extract richer service metadata (TLS info, SMB OS, HTTP titles) without intrusive exploitation.",
           "severity": "info",
-          "how_to_find": "Host Discovery & Scanning — OS & Service Fingerprinting: Confirm default/discovery NSE categories were run and review output for misconfigurations and exposed metadata",
+          "how_to_find": "Host Discovery & Scanning — OS & Service Fingerprinting: Host Discovery & Scanning — OS & Service Fingerprinting: Host Discovery & Scanning — OS & Service Fingerprinting: Host Discovery & Scanning — OS & Service Fingerprinting: Confirm default/discovery NSE categories were run and review output for misconfigurations and exposed metadata",
           "how_to_fix": "Assign an owner for run safe nse discovery scripts for deeper fingerprinting, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "nmap"
@@ -291,9 +291,9 @@
         },
         {
           "title": "Flag end-of-life operating systems and services",
-          "description": "EOL software no longer receives security patches and represents persistent critical risk regardless of current known CVEs. Worth prioritising in your next assessment cycle.",
+          "description": "EOL software no longer receives security patches and represents persistent critical risk regardless of current known CVEs.",
           "severity": "high",
-          "how_to_find": "Host Discovery & Scanning — OS & Service Fingerprinting: Verify identified OS/service versions against vendor EOL dates and document unsupported systems as findings",
+          "how_to_find": "Host Discovery & Scanning — OS & Service Fingerprinting: Host Discovery & Scanning — OS & Service Fingerprinting: Host Discovery & Scanning — OS & Service Fingerprinting: Host Discovery & Scanning — OS & Service Fingerprinting: Verify identified OS/service versions against vendor EOL dates and document unsupported systems as findings",
           "how_to_fix": "Assign an owner for flag end-of-life operating systems and services, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "nmap"
@@ -318,9 +318,9 @@
       "items": [
         {
           "title": "Test for SMB/RPC null and guest sessions",
-          "description": "Null or guest sessions can leak users, groups, shares, and password policy without credentials, fueling further attacks. Worth prioritising in your next assessment cycle.",
+          "description": "Null or guest sessions can leak users, groups, shares, and password policy without credentials, fueling further attacks.",
           "severity": "high",
-          "how_to_find": "Service Enumeration — SMB / NetBIOS: Verify whether anonymous/guest binds succeed and what information (users, shares, policies) is exposed without authentication",
+          "how_to_find": "Service Enumeration — SMB / NetBIOS: Service Enumeration — SMB / NetBIOS: Service Enumeration — SMB / NetBIOS: Service Enumeration — SMB / NetBIOS: Verify whether anonymous/guest binds succeed and what information (users, shares, policies) is exposed without authentication",
           "how_to_fix": "Assign an owner for test for smb/rpc null and guest sessions, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "enum4linux-ng",
@@ -343,9 +343,9 @@
         },
         {
           "title": "Enumerate SMB shares and access permissions",
-          "description": "Readable/writable shares often expose sensitive files, scripts, credentials, and backups accessible to low-privileged or anonymous users. Worth prioritising in your next assessment cycle.",
+          "description": "Readable/writable shares often expose sensitive files, scripts, credentials, and backups accessible to low-privileged or anonymous users.",
           "severity": "high",
-          "how_to_find": "Service Enumeration — SMB / NetBIOS: Verify which shares are listable and read/write accessible, and spider readable shares for secrets and credentials",
+          "how_to_find": "Service Enumeration — SMB / NetBIOS: Service Enumeration — SMB / NetBIOS: Service Enumeration — SMB / NetBIOS: Service Enumeration — SMB / NetBIOS: Verify which shares are listable and read/write accessible, and spider readable shares for secrets and credentials",
           "how_to_fix": "Assign an owner for enumerate smb shares and access permissions, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "crackmapexec/netexec",
@@ -368,9 +368,9 @@
         },
         {
           "title": "Check SMB signing requirement",
-          "description": "Hosts with SMB signing not required are vulnerable to NTLM relay attacks, enabling authentication coercion to be relayed for code execution. Worth prioritising in your next assessment cycle.",
+          "description": "Hosts with SMB signing not required are vulnerable to NTLM relay attacks, enabling authentication coercion to be relayed for code execution.",
           "severity": "high",
-          "how_to_find": "Service Enumeration — SMB / NetBIOS: Verify signing:False hosts and confirm they are viable relay targets in combination with poisoning/coercion",
+          "how_to_find": "Service Enumeration — SMB / NetBIOS: Service Enumeration — SMB / NetBIOS: Service Enumeration — SMB / NetBIOS: Service Enumeration — SMB / NetBIOS: Verify signing:False hosts and confirm they are viable relay targets in combination with poisoning/coercion",
           "how_to_fix": "Assign an owner for check smb signing requirement, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "crackmapexec/netexec",
@@ -392,9 +392,9 @@
         },
         {
           "title": "Test for MS17-010 (EternalBlue) and legacy SMBv1",
-          "description": "MS17-010 enables unauthenticated remote code execution over SMBv1 and remains common on unpatched/EOL Windows hosts. Treat failures here as release blockers.",
+          "description": "MS17-010 enables unauthenticated remote code execution over SMBv1 and remains common on unpatched/EOL Windows hosts.",
           "severity": "critical",
-          "how_to_find": "Service Enumeration — SMB / NetBIOS: Verify SMBv1 is enabled and whether the MS17-010 check reports the host as vulnerable; confirm safely before any exploitation",
+          "how_to_find": "Service Enumeration — SMB / NetBIOS: Service Enumeration — SMB / NetBIOS: Service Enumeration — SMB / NetBIOS: Service Enumeration — SMB / NetBIOS: Verify SMBv1 is enabled and whether the MS17-010 check reports the host as vulnerable; confirm safely before any exploitation",
           "how_to_fix": "Assign an owner for test for ms17-010 (eternalblue) and legacy smbv1, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "nmap",
@@ -425,9 +425,9 @@
       "items": [
         {
           "title": "Test for default/weak SNMP community strings",
-          "description": "Default community strings such as public/private grant read (or read-write) access to extensive device configuration data. Worth prioritising in your next assessment cycle.",
+          "description": "Default community strings such as public/private grant read (or read-write) access to extensive device configuration data.",
           "severity": "high",
-          "how_to_find": "Service Enumeration — SNMP: Verify whether common community strings are valid and whether read-write access is possible (enabling config changes)",
+          "how_to_find": "Service Enumeration — SNMP: Service Enumeration — SNMP: Service Enumeration — SNMP: Service Enumeration — SNMP: Verify whether common community strings are valid and whether read-write access is possible (enabling config changes)",
           "how_to_fix": "Assign an owner for test for default/weak snmp community strings, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "onesixtyone",
@@ -450,9 +450,9 @@
         },
         {
           "title": "Perform SNMP walk to extract system information",
-          "description": "SNMP walks can leak running processes, installed software, network interfaces, ARP tables, routes, and even local user accounts. Schedule remediation once higher-severity gaps are closed.",
+          "description": "SNMP walks can leak running processes, installed software, network interfaces, ARP tables, routes, and even local user accounts.",
           "severity": "medium",
-          "how_to_find": "Service Enumeration — SNMP: Verify what sensitive data is reachable via SNMP walk (e.g",
+          "how_to_find": "Service Enumeration — SNMP: Service Enumeration — SNMP: Service Enumeration — SNMP: Service Enumeration — SNMP: Verify what sensitive data is reachable via SNMP walk (e.g",
           "how_to_fix": "Assign an owner for perform snmp walk to extract system information, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "snmpwalk",
@@ -474,9 +474,9 @@
         },
         {
           "title": "Identify SNMPv1/v2c cleartext exposure",
-          "description": "SNMPv1 and v2c send community strings and data in cleartext, allowing interception; only SNMPv3 provides authentication and encryption. Schedule remediation once higher-severity gaps are closed.",
+          "description": "SNMPv1 and v2c send community strings and data in cleartext, allowing interception; only SNMPv3 provides authentication and encryption.",
           "severity": "medium",
-          "how_to_find": "Service Enumeration — SNMP: Verify the SNMP version in use and whether v3 with authPriv is enforced; flag cleartext v1/v2c on sensitive devices",
+          "how_to_find": "Service Enumeration — SNMP: Service Enumeration — SNMP: Service Enumeration — SNMP: Service Enumeration — SNMP: Verify the SNMP version in use and whether v3 with authPriv is enforced; flag cleartext v1/v2c on sensitive devices",
           "how_to_fix": "Assign an owner for identify snmpv1/v2c cleartext exposure, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "nmap",
@@ -497,9 +497,9 @@
         },
         {
           "title": "Assess SNMP read-write access impact",
-          "description": "A read-write community string can allow reconfiguring network devices, exfiltrating configs (e.g. Worth prioritising in your next assessment cycle.",
+          "description": "A read-write community string can allow reconfiguring network devices, exfiltrating configs (e.g.",
           "severity": "high",
-          "how_to_find": "Service Enumeration — SNMP: Verify read-write capability and document the highest-impact action possible (config export, interface changes) without disrupting production",
+          "how_to_find": "Service Enumeration — SNMP: Service Enumeration — SNMP: Service Enumeration — SNMP: Service Enumeration — SNMP: Verify read-write capability and document the highest-impact action possible (config export, interface changes) without disrupting production",
           "how_to_fix": "Assign an owner for assess snmp read-write access impact, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "snmpset",
@@ -525,9 +525,9 @@
       "items": [
         {
           "title": "Test for anonymous FTP access",
-          "description": "Anonymous FTP can expose downloadable files and, when writable, allow upload of webshells or tampering with served content. Schedule remediation once higher-severity gaps are closed.",
+          "description": "Anonymous FTP can expose downloadable files and, when writable, allow upload of webshells or tampering with served content.",
           "severity": "medium",
-          "how_to_find": "Service Enumeration — FTP & Telnet: Verify anonymous login works, whether the root is readable/writable, and what data is exposed",
+          "how_to_find": "Service Enumeration — FTP & Telnet: Service Enumeration — FTP & Telnet: Service Enumeration — FTP & Telnet: Service Enumeration — FTP & Telnet: Verify anonymous login works, whether the root is readable/writable, and what data is exposed",
           "how_to_fix": "Assign an owner for test for anonymous ftp access, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "nmap",
@@ -549,9 +549,9 @@
         },
         {
           "title": "Identify cleartext FTP/Telnet authentication",
-          "description": "FTP and Telnet transmit credentials in cleartext, allowing interception on shared media or via MITM positioning. Worth prioritising in your next assessment cycle.",
+          "description": "FTP and Telnet transmit credentials in cleartext, allowing interception on shared media or via MITM positioning.",
           "severity": "high",
-          "how_to_find": "Service Enumeration — FTP & Telnet: Verify whether FTPS/SFTP/SSH replacements are enforced; capture a sample exchange to confirm cleartext credentials in transit",
+          "how_to_find": "Service Enumeration — FTP & Telnet: Service Enumeration — FTP & Telnet: Service Enumeration — FTP & Telnet: Service Enumeration — FTP & Telnet: Verify whether FTPS/SFTP/SSH replacements are enforced; capture a sample exchange to confirm cleartext credentials in transit",
           "how_to_fix": "Assign an owner for identify cleartext ftp/telnet authentication, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "wireshark",
@@ -573,9 +573,9 @@
         },
         {
           "title": "Test FTP/Telnet for weak credentials",
-          "description": "Legacy services often retain weak or default service accounts that allow authenticated access and data access or pivoting. Worth prioritising in your next assessment cycle.",
+          "description": "Legacy services often retain weak or default service accounts that allow authenticated access and data access or pivoting.",
           "severity": "high",
-          "how_to_find": "Service Enumeration — FTP & Telnet: Verify credential strength via controlled, rate-limited password guessing aligned with lockout policy and rules of engagement",
+          "how_to_find": "Service Enumeration — FTP & Telnet: Service Enumeration — FTP & Telnet: Service Enumeration — FTP & Telnet: Service Enumeration — FTP & Telnet: Verify credential strength via controlled, rate-limited password guessing aligned with lockout policy and rules of engagement",
           "how_to_fix": "Assign an owner for test ftp/telnet for weak credentials, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "hydra",
@@ -597,9 +597,9 @@
         },
         {
           "title": "Check FTP/Telnet daemons for known CVEs",
-          "description": "Specific FTP daemons (vsftpd 2.3.4 backdoor, ProFTPD mod_copy) and old telnetd builds have known RCE vulnerabilities. Worth prioritising in your next assessment cycle.",
+          "description": "Specific FTP daemons (vsftpd 2.3.4 backdoor, ProFTPD mod_copy) and old telnetd builds have known RCE vulnerabilities.",
           "severity": "high",
-          "how_to_find": "Service Enumeration — FTP & Telnet: Verify daemon version against known vulnerable builds and confirm exploitability safely before any active testing",
+          "how_to_find": "Service Enumeration — FTP & Telnet: Service Enumeration — FTP & Telnet: Service Enumeration — FTP & Telnet: Service Enumeration — FTP & Telnet: Verify daemon version against known vulnerable builds and confirm exploitability safely before any active testing",
           "how_to_fix": "Assign an owner for check ftp/telnet daemons for known cves, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "nmap",
@@ -626,9 +626,9 @@
       "items": [
         {
           "title": "Attempt DNS zone transfer (AXFR)",
-          "description": "A misconfigured DNS server allowing AXFR discloses the full zone, mapping internal hostnames, IPs, and infrastructure. Schedule remediation once higher-severity gaps are closed.",
+          "description": "A misconfigured DNS server allowing AXFR discloses the full zone, mapping internal hostnames, IPs, and infrastructure.",
           "severity": "medium",
-          "how_to_find": "Service Enumeration — DNS: Verify whether AXFR succeeds from an unauthorized host and document the leaked records",
+          "how_to_find": "Service Enumeration — DNS: Service Enumeration — DNS: Service Enumeration — DNS: Service Enumeration — DNS: Verify whether AXFR succeeds from an unauthorized host and document the leaked records",
           "how_to_fix": "Assign an owner for attempt dns zone transfer (axfr), apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "dig",
@@ -650,9 +650,9 @@
         },
         {
           "title": "Enumerate DNS records and subdomains",
-          "description": "Brute-forcing records and subdomains expands the known attack surface and reveals dev/staging and internal-only hosts. Useful for maturity tracking and audit evidence.",
+          "description": "Brute-forcing records and subdomains expands the known attack surface and reveals dev/staging and internal-only hosts.",
           "severity": "info",
-          "how_to_find": "Service Enumeration — DNS: Verify the set of resolvable hosts/subdomains and identify any non-production or forgotten systems in scope",
+          "how_to_find": "Service Enumeration — DNS: Service Enumeration — DNS: Service Enumeration — DNS: Service Enumeration — DNS: Verify the set of resolvable hosts/subdomains and identify any non-production or forgotten systems in scope",
           "how_to_fix": "Assign an owner for enumerate dns records and subdomains, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "dnsrecon",
@@ -674,9 +674,9 @@
         },
         {
           "title": "Check for open recursive resolver",
-          "description": "Open resolvers can be abused for DNS amplification DDoS and cache poisoning, harming the organization and third parties. Schedule remediation once higher-severity gaps are closed.",
+          "description": "Open resolvers can be abused for DNS amplification DDoS and cache poisoning, harming the organization and third parties.",
           "severity": "medium",
-          "how_to_find": "Service Enumeration — DNS: Verify whether the server recurses for arbitrary clients and estimate amplification factor for ANY/large responses",
+          "how_to_find": "Service Enumeration — DNS: Service Enumeration — DNS: Service Enumeration — DNS: Service Enumeration — DNS: Verify whether the server recurses for arbitrary clients and estimate amplification factor for ANY/large responses",
           "how_to_fix": "Assign an owner for check for open recursive resolver, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "dig",
@@ -697,9 +697,9 @@
         },
         {
           "title": "Query DNS server version and software",
-          "description": "version.bind queries can disclose the resolver software/version, aiding CVE matching against known BIND/Windows DNS issues. Good hygiene that pays off over time.",
+          "description": "version.bind queries can disclose the resolver software/version, aiding CVE matching against known BIND/Windows DNS issues.",
           "severity": "low",
-          "how_to_find": "Service Enumeration — DNS: Verify whether version.bind is exposed and map disclosed versions to known vulnerabilities",
+          "how_to_find": "Service Enumeration — DNS: Service Enumeration — DNS: Service Enumeration — DNS: Service Enumeration — DNS: Verify whether version.bind is exposed and map disclosed versions to known vulnerabilities",
           "how_to_fix": "Assign an owner for query dns server version and software, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "dig",
@@ -725,9 +725,9 @@
       "items": [
         {
           "title": "Identify RDP/SSH exposed to untrusted networks",
-          "description": "Internet-facing RDP/SSH is a primary initial-access vector; exposure should be flagged even before credential testing. Worth prioritising in your next assessment cycle.",
+          "description": "Internet-facing RDP/SSH is a primary initial-access vector; exposure should be flagged even before credential testing.",
           "severity": "high",
-          "how_to_find": "Service Enumeration — RDP & SSH: Verify which remote-access services are reachable from untrusted networks and whether MFA/jump-host controls are absent",
+          "how_to_find": "Service Enumeration — RDP & SSH: Service Enumeration — RDP & SSH: Service Enumeration — RDP & SSH: Service Enumeration — RDP & SSH: Verify which remote-access services are reachable from untrusted networks and whether MFA/jump-host controls are absent",
           "how_to_fix": "Assign an owner for identify rdp/ssh exposed to untrusted networks, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "nmap",
@@ -748,9 +748,9 @@
         },
         {
           "title": "Test RDP/SSH for weak or reused credentials",
-          "description": "Weak, default, or reused credentials on RDP/SSH frequently provide direct interactive access to hosts. Worth prioritising in your next assessment cycle.",
+          "description": "Weak, default, or reused credentials on RDP/SSH frequently provide direct interactive access to hosts.",
           "severity": "high",
-          "how_to_find": "Service Enumeration — RDP & SSH: Verify credential strength via controlled guessing within lockout policy; confirm whether key-based auth and MFA are enforced for SSH",
+          "how_to_find": "Service Enumeration — RDP & SSH: Service Enumeration — RDP & SSH: Service Enumeration — RDP & SSH: Service Enumeration — RDP & SSH: Verify credential strength via controlled guessing within lockout policy; confirm whether key-based auth and MFA are enforced for SSH",
           "how_to_fix": "Assign an owner for test rdp/ssh for weak or reused credentials, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "hydra",
@@ -772,9 +772,9 @@
         },
         {
           "title": "Review SSH configuration weaknesses",
-          "description": "Permissive SSH config (root login, password auth, weak KEX/ciphers, agent forwarding) increases attack surface and lateral-movement risk. Schedule remediation once higher-severity gaps are closed.",
+          "description": "Permissive SSH config (root login, password auth, weak KEX/ciphers, agent forwarding) increases attack surface and lateral-movement risk.",
           "severity": "medium",
-          "how_to_find": "Service Enumeration — RDP & SSH: Verify whether root login and password auth are allowed and whether weak key-exchange/ciphers are negotiable",
+          "how_to_find": "Service Enumeration — RDP & SSH: Service Enumeration — RDP & SSH: Service Enumeration — RDP & SSH: Service Enumeration — RDP & SSH: Verify whether root login and password auth are allowed and whether weak key-exchange/ciphers are negotiable",
           "how_to_fix": "Assign an owner for review ssh configuration weaknesses, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "nmap",
@@ -795,9 +795,9 @@
         },
         {
           "title": "Check RDP for BlueKeep (CVE-2019-0708) and missing NLA",
-          "description": "BlueKeep is a wormable pre-auth RDP RCE; missing Network Level Authentication also weakens RDP against credential and DoS attacks. Treat failures here as release blockers.",
+          "description": "BlueKeep is a wormable pre-auth RDP RCE; missing Network Level Authentication also weakens RDP against credential and DoS attacks.",
           "severity": "critical",
-          "how_to_find": "Service Enumeration — RDP & SSH: Verify whether NLA is enforced and whether the host is reported vulnerable to BlueKeep; confirm safely before exploitation",
+          "how_to_find": "Service Enumeration — RDP & SSH: Service Enumeration — RDP & SSH: Service Enumeration — RDP & SSH: Service Enumeration — RDP & SSH: Verify whether NLA is enforced and whether the host is reported vulnerable to BlueKeep; confirm safely before exploitation",
           "how_to_fix": "Assign an owner for check rdp for bluekeep (cve-2019-0708) and missing nla, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "nmap",
@@ -824,9 +824,9 @@
       "items": [
         {
           "title": "Test for unauthenticated MongoDB/Redis access",
-          "description": "MongoDB and Redis frequently ship bound to all interfaces without authentication, exposing full data read/write to anyone on the network. Treat failures here as release blockers.",
+          "description": "MongoDB and Redis frequently ship bound to all interfaces without authentication, exposing full data read/write to anyone on the network.",
           "severity": "critical",
-          "how_to_find": "Service Enumeration — Exposed Databases: Verify whether the service allows unauthenticated connection and what data/commands are accessible (including RCE primitives in Redis)",
+          "how_to_find": "Service Enumeration — Exposed Databases: Service Enumeration — Exposed Databases: Service Enumeration — Exposed Databases: Service Enumeration — Exposed Databases: Verify whether the service allows unauthenticated connection and what data/commands are accessible (including RCE primitives in Redis)",
           "how_to_fix": "Assign an owner for test for unauthenticated mongodb/redis access, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "nmap",
@@ -852,9 +852,9 @@
         },
         {
           "title": "Test MSSQL for weak sa credentials and xp_cmdshell",
-          "description": "A weak sa password on MSSQL can lead to command execution via xp_cmdshell and lateral movement via linked servers. Treat failures here as release blockers.",
+          "description": "A weak sa password on MSSQL can lead to command execution via xp_cmdshell and lateral movement via linked servers.",
           "severity": "critical",
-          "how_to_find": "Service Enumeration — Exposed Databases: Verify sa/login strength and whether xp_cmdshell or linked-server abuse is possible from the obtained access",
+          "how_to_find": "Service Enumeration — Exposed Databases: Service Enumeration — Exposed Databases: Service Enumeration — Exposed Databases: Service Enumeration — Exposed Databases: Verify sa/login strength and whether xp_cmdshell or linked-server abuse is possible from the obtained access",
           "how_to_fix": "Assign an owner for test mssql for weak sa credentials and xp_cmdshell, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "crackmapexec/netexec",
@@ -876,9 +876,9 @@
         },
         {
           "title": "Test MySQL for weak credentials and over-privilege",
-          "description": "Weak MySQL credentials plus FILE privilege or remote root can expose data and, in some cases, lead to file read/write or code execution. Worth prioritising in your next assessment cycle.",
+          "description": "Weak MySQL credentials plus FILE privilege or remote root can expose data and, in some cases, lead to file read/write or code execution.",
           "severity": "high",
-          "how_to_find": "Service Enumeration — Exposed Databases: Verify credential strength, whether root is reachable remotely, and whether dangerous privileges (FILE) are granted",
+          "how_to_find": "Service Enumeration — Exposed Databases: Service Enumeration — Exposed Databases: Service Enumeration — Exposed Databases: Service Enumeration — Exposed Databases: Verify credential strength, whether root is reachable remotely, and whether dangerous privileges (FILE) are granted",
           "how_to_fix": "Assign an owner for test mysql for weak credentials and over-privilege, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "hydra",
@@ -900,9 +900,9 @@
         },
         {
           "title": "Identify databases exposed beyond their app tier",
-          "description": "Databases should only be reachable from their application tier; broader network exposure increases breach and ransomware impact. Worth prioritising in your next assessment cycle.",
+          "description": "Databases should only be reachable from their application tier; broader network exposure increases breach and ransomware impact.",
           "severity": "high",
-          "how_to_find": "Service Enumeration — Exposed Databases: Verify network reachability of each database port from untrusted segments and document segmentation gaps",
+          "how_to_find": "Service Enumeration — Exposed Databases: Service Enumeration — Exposed Databases: Service Enumeration — Exposed Databases: Service Enumeration — Exposed Databases: Verify network reachability of each database port from untrusted segments and document segmentation gaps",
           "how_to_fix": "Assign an owner for identify databases exposed beyond their app tier, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "nmap",
@@ -928,9 +928,9 @@
       "items": [
         {
           "title": "Run unauthenticated vulnerability scans",
-          "description": "Unauthenticated scanning models an external attacker view, surfacing exposed and exploitable network services. Schedule remediation once higher-severity gaps are closed.",
+          "description": "Unauthenticated scanning models an external attacker view, surfacing exposed and exploitable network services.",
           "severity": "medium",
-          "how_to_find": "Vulnerability Identification — Vulnerability Scanning: Verify scan coverage of all live hosts/ports and that scan policies match the engagement (safe checks vs",
+          "how_to_find": "Vulnerability Identification — Vulnerability Scanning: Vulnerability Identification — Vulnerability Scanning: Vulnerability Identification — Vulnerability Scanning: Vulnerability Identification — Vulnerability Scanning: Verify scan coverage of all live hosts/ports and that scan policies match the engagement (safe checks vs",
           "how_to_fix": "Assign an owner for run unauthenticated vulnerability scans, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "nessus",
@@ -953,9 +953,9 @@
         },
         {
           "title": "Run authenticated/credentialed scans",
-          "description": "Credentialed scans inspect installed patches and configuration from the inside, finding issues invisible to network-only scans. Schedule remediation once higher-severity gaps are closed.",
+          "description": "Credentialed scans inspect installed patches and configuration from the inside, finding issues invisible to network-only scans.",
           "severity": "medium",
-          "how_to_find": "Vulnerability Identification — Vulnerability Scanning: Verify credentials authenticate successfully on each host and that the scan reports patch levels and local misconfigurations",
+          "how_to_find": "Vulnerability Identification — Vulnerability Scanning: Vulnerability Identification — Vulnerability Scanning: Vulnerability Identification — Vulnerability Scanning: Vulnerability Identification — Vulnerability Scanning: Verify credentials authenticate successfully on each host and that the scan reports patch levels and local misconfigurations",
           "how_to_fix": "Assign an owner for run authenticated/credentialed scans, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "nessus",
@@ -976,9 +976,9 @@
         },
         {
           "title": "Triage and validate scanner findings",
-          "description": "Automated scanners produce false positives and inflated severities; manual validation is required before reporting. Useful for maturity tracking and audit evidence.",
+          "description": "Automated scanners produce false positives and inflated severities; manual validation is required before reporting.",
           "severity": "info",
-          "how_to_find": "Vulnerability Identification — Vulnerability Scanning: Verify each high/critical finding manually and confirm exploitability or downgrade/remove false positives",
+          "how_to_find": "Vulnerability Identification — Vulnerability Scanning: Vulnerability Identification — Vulnerability Scanning: Vulnerability Identification — Vulnerability Scanning: Vulnerability Identification — Vulnerability Scanning: Verify each high/critical finding manually and confirm exploitability or downgrade/remove false positives",
           "how_to_fix": "Assign an owner for triage and validate scanner findings, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "nmap",
@@ -1000,9 +1000,9 @@
         },
         {
           "title": "Run targeted template-based checks for known issues",
-          "description": "Template-driven scanners quickly confirm specific known-vulnerable conditions (exposed panels, misconfigs, CVEs) with high precision. Good hygiene that pays off over time.",
+          "description": "Template-driven scanners quickly confirm specific known-vulnerable conditions (exposed panels, misconfigs, CVEs) with high precision.",
           "severity": "low",
-          "how_to_find": "Vulnerability Identification — Vulnerability Scanning: Verify template matches against actual service responses and confirm there is no false match before logging a finding",
+          "how_to_find": "Vulnerability Identification — Vulnerability Scanning: Vulnerability Identification — Vulnerability Scanning: Vulnerability Identification — Vulnerability Scanning: Vulnerability Identification — Vulnerability Scanning: Verify template matches against actual service responses and confirm there is no false match before logging a finding",
           "how_to_fix": "Assign an owner for run targeted template-based checks for known issues, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "nuclei",
@@ -1028,9 +1028,9 @@
       "items": [
         {
           "title": "Map service versions to known CVEs",
-          "description": "Version-to-CVE mapping highlights exploitable services; prioritize those in active-exploitation catalogs. Worth prioritising in your next assessment cycle.",
+          "description": "Version-to-CVE mapping highlights exploitable services; prioritize those in active-exploitation catalogs.",
           "severity": "high",
-          "how_to_find": "Vulnerability Identification — Missing Patches & EOL Software: Verify each version-matched CVE applies to the actual configuration and check whether it is in the CISA KEV catalog",
+          "how_to_find": "Vulnerability Identification — Missing Patches & EOL Software: Vulnerability Identification — Missing Patches & EOL Software: Vulnerability Identification — Missing Patches & EOL Software: Vulnerability Identification — Missing Patches & EOL Software: Verify each version-matched CVE applies to the actual configuration and check whether it is in the CISA KEV catalog",
           "how_to_fix": "Assign an owner for map service versions to known cves, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "searchsploit",
@@ -1056,9 +1056,9 @@
         },
         {
           "title": "Identify unsupported/EOL services and OSes",
-          "description": "EOL components receive no patches and constitute standing risk; they should be reported regardless of current CVE count. Worth prioritising in your next assessment cycle.",
+          "description": "EOL components receive no patches and constitute standing risk; they should be reported regardless of current CVE count.",
           "severity": "high",
-          "how_to_find": "Vulnerability Identification — Missing Patches & EOL Software: Verify identified versions against vendor EOL schedules and quantify exposure of unsupported systems",
+          "how_to_find": "Vulnerability Identification — Missing Patches & EOL Software: Vulnerability Identification — Missing Patches & EOL Software: Vulnerability Identification — Missing Patches & EOL Software: Vulnerability Identification — Missing Patches & EOL Software: Verify identified versions against vendor EOL schedules and quantify exposure of unsupported systems",
           "how_to_fix": "Assign an owner for identify unsupported/eol services and oses, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "nmap",
@@ -1079,9 +1079,9 @@
         },
         {
           "title": "Prioritize unauthenticated RCE-class vulnerabilities",
-          "description": "Pre-auth remote code execution on exposed services represents the most severe and time-sensitive findings. Treat failures here as release blockers.",
+          "description": "Pre-auth remote code execution on exposed services represents the most severe and time-sensitive findings.",
           "severity": "critical",
-          "how_to_find": "Vulnerability Identification — Missing Patches & EOL Software: Verify presence of known pre-auth RCE conditions and confirm safely; escalate critical findings immediately per rules of engagement",
+          "how_to_find": "Vulnerability Identification — Missing Patches & EOL Software: Vulnerability Identification — Missing Patches & EOL Software: Vulnerability Identification — Missing Patches & EOL Software: Vulnerability Identification — Missing Patches & EOL Software: Verify presence of known pre-auth RCE conditions and confirm safely; escalate critical findings immediately per rules of engagement",
           "how_to_fix": "Assign an owner for prioritize unauthenticated rce-class vulnerabilities, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "nmap",
@@ -1103,9 +1103,9 @@
         },
         {
           "title": "Detect missing hardening and patch baseline drift",
-          "description": "Hosts drifting from a hardening baseline accumulate missing patches and weakened settings over time. Schedule remediation once higher-severity gaps are closed.",
+          "description": "Hosts drifting from a hardening baseline accumulate missing patches and weakened settings over time.",
           "severity": "medium",
-          "how_to_find": "Vulnerability Identification — Missing Patches & EOL Software: Verify patch levels and security settings against an agreed baseline and document deviations",
+          "how_to_find": "Vulnerability Identification — Missing Patches & EOL Software: Vulnerability Identification — Missing Patches & EOL Software: Vulnerability Identification — Missing Patches & EOL Software: Vulnerability Identification — Missing Patches & EOL Software: Verify patch levels and security settings against an agreed baseline and document deviations",
           "how_to_fix": "Assign an owner for detect missing hardening and patch baseline drift, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "nessus",
@@ -1131,9 +1131,9 @@
       "items": [
         {
           "title": "Test network devices for vendor default credentials",
-          "description": "Routers, switches, printers, IPMI/iDRAC, and appliances frequently retain documented default credentials. Worth prioritising in your next assessment cycle.",
+          "description": "Routers, switches, printers, IPMI/iDRAC, and appliances frequently retain documented default credentials.",
           "severity": "high",
-          "how_to_find": "Vulnerability Identification — Default & Weak Credentials: Verify whether documented vendor defaults grant access to management interfaces and what control that access provides",
+          "how_to_find": "Vulnerability Identification — Default & Weak Credentials: Vulnerability Identification — Default & Weak Credentials: Vulnerability Identification — Default & Weak Credentials: Vulnerability Identification — Default & Weak Credentials: Verify whether documented vendor defaults grant access to management interfaces and what control that access provides",
           "how_to_fix": "Assign an owner for test network devices for vendor default credentials, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "hydra",
@@ -1155,9 +1155,9 @@
         },
         {
           "title": "Test services for weak/blank passwords",
-          "description": "Weak or blank passwords on exposed services (SMB, SSH, RDP, DB, web panels) provide easy authenticated footholds. Worth prioritising in your next assessment cycle.",
+          "description": "Weak or blank passwords on exposed services (SMB, SSH, RDP, DB, web panels) provide easy authenticated footholds.",
           "severity": "high",
-          "how_to_find": "Vulnerability Identification — Default & Weak Credentials: Verify password strength via controlled guessing within lockout policy and document any successful weak-credential access",
+          "how_to_find": "Vulnerability Identification — Default & Weak Credentials: Vulnerability Identification — Default & Weak Credentials: Vulnerability Identification — Default & Weak Credentials: Vulnerability Identification — Default & Weak Credentials: Verify password strength via controlled guessing within lockout policy and document any successful weak-credential access",
           "how_to_fix": "Assign an owner for test services for weak/blank passwords, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "hydra",
@@ -1179,9 +1179,9 @@
         },
         {
           "title": "Test exposed management panels for default logins",
-          "description": "Tomcat Manager, Jenkins, web admin consoles, and similar panels often ship with default or guessable credentials enabling RCE. Treat failures here as release blockers.",
+          "description": "Tomcat Manager, Jenkins, web admin consoles, and similar panels often ship with default or guessable credentials enabling RCE.",
           "severity": "critical",
-          "how_to_find": "Vulnerability Identification — Default & Weak Credentials: Verify default credentials against discovered panels and assess the post-auth impact (deploy/exec) if access succeeds",
+          "how_to_find": "Vulnerability Identification — Default & Weak Credentials: Vulnerability Identification — Default & Weak Credentials: Vulnerability Identification — Default & Weak Credentials: Vulnerability Identification — Default & Weak Credentials: Verify default credentials against discovered panels and assess the post-auth impact (deploy/exec) if access succeeds",
           "how_to_fix": "Assign an owner for test exposed management panels for default logins, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "hydra",
@@ -1203,9 +1203,9 @@
         },
         {
           "title": "Confirm lockout and rate-limiting before spraying",
-          "description": "Password attacks risk account lockout and outages; verifying lockout policy first prevents disruption and aligns with rules of engagement. Useful for maturity tracking and audit evidence.",
+          "description": "Password attacks risk account lockout and outages; verifying lockout policy first prevents disruption and aligns with rules of engagement.",
           "severity": "info",
-          "how_to_find": "Vulnerability Identification — Default & Weak Credentials: Verify lockout thresholds/observation windows and tune spraying volume/timing to stay within safe limits",
+          "how_to_find": "Vulnerability Identification — Default & Weak Credentials: Vulnerability Identification — Default & Weak Credentials: Vulnerability Identification — Default & Weak Credentials: Vulnerability Identification — Default & Weak Credentials: Verify lockout thresholds/observation windows and tune spraying volume/timing to stay within safe limits",
           "how_to_fix": "Assign an owner for confirm lockout and rate-limiting before spraying, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "crackmapexec/netexec",
@@ -1231,9 +1231,9 @@
       "items": [
         {
           "title": "Validate exploits in a safe manner before use",
-          "description": "Confirm an exploit applies and is non-destructive (or coordinate a maintenance window) before running it against production services. Schedule remediation once higher-severity gaps are closed.",
+          "description": "Confirm an exploit applies and is non-destructive (or coordinate a maintenance window) before running it against production services.",
           "severity": "medium",
-          "how_to_find": "Exploitation & Pivoting — Remote Service Exploitation: Verify exploit/target version match, assess crash risk, and obtain authorization for any potentially disruptive action",
+          "how_to_find": "Exploitation & Pivoting — Remote Service Exploitation: Exploitation & Pivoting — Remote Service Exploitation: Exploitation & Pivoting — Remote Service Exploitation: Exploitation & Pivoting — Remote Service Exploitation: Verify exploit/target version match, assess crash risk, and obtain authorization for any potentially disruptive action",
           "how_to_fix": "Assign an owner for validate exploits in a safe manner before use, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "metasploit",
@@ -1254,9 +1254,9 @@
         },
         {
           "title": "Demonstrate remote code execution on vulnerable services",
-          "description": "Proving RCE (e.g. Validate this during security reviews, under Exploitation & Pivoting — Remote Service Exploitation. Treat failures here as release blockers.",
+          "description": "Proving RCE (e.g. Treat failures here as release blockers.",
           "severity": "critical",
-          "how_to_find": "Exploitation & Pivoting — Remote Service Exploitation: Verify a controlled command-execution proof (e.g",
+          "how_to_find": "Exploitation & Pivoting — Remote Service Exploitation: Exploitation & Pivoting — Remote Service Exploitation: Exploitation & Pivoting — Remote Service Exploitation: Exploitation & Pivoting — Remote Service Exploitation: Verify a controlled command-execution proof (e.g",
           "how_to_fix": "Assign an owner for demonstrate remote code execution on vulnerable services, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "metasploit",
@@ -1278,9 +1278,9 @@
         },
         {
           "title": "Attempt local privilege escalation post-foothold",
-          "description": "Initial access is often low-privileged; escalating to root/SYSTEM enables credential harvesting and broader impact. Worth prioritising in your next assessment cycle.",
+          "description": "Initial access is often low-privileged; escalating to root/SYSTEM enables credential harvesting and broader impact.",
           "severity": "high",
-          "how_to_find": "Exploitation & Pivoting — Remote Service Exploitation: Verify achievable privilege level after foothold and document the escalation path (kernel, service, misconfig)",
+          "how_to_find": "Exploitation & Pivoting — Remote Service Exploitation: Exploitation & Pivoting — Remote Service Exploitation: Exploitation & Pivoting — Remote Service Exploitation: Exploitation & Pivoting — Remote Service Exploitation: Verify achievable privilege level after foothold and document the escalation path (kernel, service, misconfig)",
           "how_to_fix": "Assign an owner for attempt local privilege escalation post-foothold, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "metasploit",
@@ -1302,9 +1302,9 @@
         },
         {
           "title": "Track artifacts and clean up after exploitation",
-          "description": "Payloads, accounts, and uploaded files must be logged and removed to avoid leaving the environment less secure. Useful for maturity tracking and audit evidence.",
+          "description": "Payloads, accounts, and uploaded files must be logged and removed to avoid leaving the environment less secure.",
           "severity": "info",
-          "how_to_find": "Exploitation & Pivoting — Remote Service Exploitation: Verify a record of every artifact created and confirm removal at engagement end; report anything that cannot be safely removed",
+          "how_to_find": "Exploitation & Pivoting — Remote Service Exploitation: Exploitation & Pivoting — Remote Service Exploitation: Exploitation & Pivoting — Remote Service Exploitation: Exploitation & Pivoting — Remote Service Exploitation: Verify a record of every artifact created and confirm removal at engagement end; report anything that cannot be safely removed",
           "how_to_fix": "Assign an owner for track artifacts and clean up after exploitation, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "metasploit"
@@ -1329,9 +1329,9 @@
       "items": [
         {
           "title": "Establish port forwarding through a compromised host",
-          "description": "Local/remote/dynamic port forwarding exposes internal services to the tester through a foothold host. Worth prioritising in your next assessment cycle.",
+          "description": "Local/remote/dynamic port forwarding exposes internal services to the tester through a foothold host.",
           "severity": "high",
-          "how_to_find": "Exploitation & Pivoting — Pivoting & Tunneling: Verify forwarded access to internal-only services and document the reachable internal attack surface",
+          "how_to_find": "Exploitation & Pivoting — Pivoting & Tunneling: Exploitation & Pivoting — Pivoting & Tunneling: Exploitation & Pivoting — Pivoting & Tunneling: Exploitation & Pivoting — Pivoting & Tunneling: Verify forwarded access to internal-only services and document the reachable internal attack surface",
           "how_to_fix": "Assign an owner for establish port forwarding through a compromised host, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "chisel",
@@ -1353,9 +1353,9 @@
         },
         {
           "title": "Pivot through a SOCKS proxy with proxychains",
-          "description": "A SOCKS tunnel plus proxychains lets standard tools reach internal segments through the foothold host. Worth prioritising in your next assessment cycle.",
+          "description": "A SOCKS tunnel plus proxychains lets standard tools reach internal segments through the foothold host.",
           "severity": "high",
-          "how_to_find": "Exploitation & Pivoting — Pivoting & Tunneling: Verify tooling routes correctly through the proxy and confirm reachability of internal hosts that were previously unreachable",
+          "how_to_find": "Exploitation & Pivoting — Pivoting & Tunneling: Exploitation & Pivoting — Pivoting & Tunneling: Exploitation & Pivoting — Pivoting & Tunneling: Exploitation & Pivoting — Pivoting & Tunneling: Verify tooling routes correctly through the proxy and confirm reachability of internal hosts that were previously unreachable",
           "how_to_fix": "Assign an owner for pivot through a socks proxy with proxychains, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "chisel",
@@ -1377,9 +1377,9 @@
         },
         {
           "title": "Map and test network segmentation boundaries",
-          "description": "Pivoting reveals whether segmentation actually isolates sensitive zones (PCI, OT, management) from general user networks. Worth prioritising in your next assessment cycle.",
+          "description": "Pivoting reveals whether segmentation actually isolates sensitive zones (PCI, OT, management) from general user networks.",
           "severity": "high",
-          "how_to_find": "Exploitation & Pivoting — Pivoting & Tunneling: Verify which protected segments are reachable from a foothold and document segmentation control failures",
+          "how_to_find": "Exploitation & Pivoting — Pivoting & Tunneling: Exploitation & Pivoting — Pivoting & Tunneling: Exploitation & Pivoting — Pivoting & Tunneling: Exploitation & Pivoting — Pivoting & Tunneling: Verify which protected segments are reachable from a foothold and document segmentation control failures",
           "how_to_fix": "Assign an owner for map and test network segmentation boundaries, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "nmap",
@@ -1401,9 +1401,9 @@
         },
         {
           "title": "Chain multiple pivots to reach deep segments",
-          "description": "Multi-hop pivoting reaches segments isolated from the initial foothold, demonstrating defense-in-depth gaps. Schedule remediation once higher-severity gaps are closed.",
+          "description": "Multi-hop pivoting reaches segments isolated from the initial foothold, demonstrating defense-in-depth gaps.",
           "severity": "medium",
-          "how_to_find": "Exploitation & Pivoting — Pivoting & Tunneling: Verify a stable multi-hop tunnel and confirm reachability of deep/restricted segments through the chain",
+          "how_to_find": "Exploitation & Pivoting — Pivoting & Tunneling: Exploitation & Pivoting — Pivoting & Tunneling: Exploitation & Pivoting — Pivoting & Tunneling: Exploitation & Pivoting — Pivoting & Tunneling: Verify a stable multi-hop tunnel and confirm reachability of deep/restricted segments through the chain",
           "how_to_fix": "Assign an owner for chain multiple pivots to reach deep segments, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "chisel",
@@ -1430,9 +1430,9 @@
       "items": [
         {
           "title": "Test cleartext credential reuse across hosts",
-          "description": "Reused local-admin or service credentials allow rapid spread across many hosts once one is compromised. Treat failures here as release blockers.",
+          "description": "Reused local-admin or service credentials allow rapid spread across many hosts once one is compromised.",
           "severity": "critical",
-          "how_to_find": "Exploitation & Pivoting — Lateral Movement & Credential Reuse: Verify how many hosts accept the same credentials and which grant administrative access",
+          "how_to_find": "Exploitation & Pivoting — Lateral Movement & Credential Reuse: Exploitation & Pivoting — Lateral Movement & Credential Reuse: Exploitation & Pivoting — Lateral Movement & Credential Reuse: Exploitation & Pivoting — Lateral Movement & Credential Reuse: Verify how many hosts accept the same credentials and which grant administrative access",
           "how_to_fix": "Assign an owner for test cleartext credential reuse across hosts, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "crackmapexec/netexec",
@@ -1454,9 +1454,9 @@
         },
         {
           "title": "Test pass-the-hash with harvested NTLM hashes",
-          "description": "NTLM hashes can authenticate without cracking, enabling lateral movement to hosts sharing the same local admin hash. Treat failures here as release blockers.",
+          "description": "NTLM hashes can authenticate without cracking, enabling lateral movement to hosts sharing the same local admin hash.",
           "severity": "critical",
-          "how_to_find": "Exploitation & Pivoting — Lateral Movement & Credential Reuse: Verify which hosts accept the harvested hash and whether reuse of a single local-admin hash enables wide movement",
+          "how_to_find": "Exploitation & Pivoting — Lateral Movement & Credential Reuse: Exploitation & Pivoting — Lateral Movement & Credential Reuse: Exploitation & Pivoting — Lateral Movement & Credential Reuse: Exploitation & Pivoting — Lateral Movement & Credential Reuse: Verify which hosts accept the harvested hash and whether reuse of a single local-admin hash enables wide movement",
           "how_to_fix": "Assign an owner for test pass-the-hash with harvested ntlm hashes, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "crackmapexec/netexec",
@@ -1477,9 +1477,9 @@
         },
         {
           "title": "Demonstrate remote execution via SMB/WMI/WinRM",
-          "description": "Valid credentials enable remote command execution through native protocols, the backbone of practical lateral movement. Worth prioritising in your next assessment cycle.",
+          "description": "Valid credentials enable remote command execution through native protocols, the backbone of practical lateral movement.",
           "severity": "high",
-          "how_to_find": "Exploitation & Pivoting — Lateral Movement & Credential Reuse: Verify which remote-exec methods succeed with obtained credentials and capture controlled proof of execution",
+          "how_to_find": "Exploitation & Pivoting — Lateral Movement & Credential Reuse: Exploitation & Pivoting — Lateral Movement & Credential Reuse: Exploitation & Pivoting — Lateral Movement & Credential Reuse: Exploitation & Pivoting — Lateral Movement & Credential Reuse: Verify which remote-exec methods succeed with obtained credentials and capture controlled proof of execution",
           "how_to_fix": "Assign an owner for demonstrate remote execution via smb/wmi/winrm, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "impacket",
@@ -1501,9 +1501,9 @@
         },
         {
           "title": "Harvest additional credentials from compromised hosts",
-          "description": "Memory, registry, files, and config often hold further credentials that unlock new hosts and accounts. Worth prioritising in your next assessment cycle.",
+          "description": "Memory, registry, files, and config often hold further credentials that unlock new hosts and accounts.",
           "severity": "high",
-          "how_to_find": "Exploitation & Pivoting — Lateral Movement & Credential Reuse: Verify what credentials/secrets are recoverable from compromised hosts and which new access they enable",
+          "how_to_find": "Exploitation & Pivoting — Lateral Movement & Credential Reuse: Exploitation & Pivoting — Lateral Movement & Credential Reuse: Exploitation & Pivoting — Lateral Movement & Credential Reuse: Exploitation & Pivoting — Lateral Movement & Credential Reuse: Verify what credentials/secrets are recoverable from compromised hosts and which new access they enable",
           "how_to_fix": "Assign an owner for harvest additional credentials from compromised hosts, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "impacket",
@@ -1530,9 +1530,9 @@
       "items": [
         {
           "title": "Identify deprecated SSL/TLS protocol versions",
-          "description": "SSLv2/SSLv3 and TLS 1.0/1.1 are deprecated and vulnerable (POODLE, BEAST); only TLS 1.2+ should be enabled. Schedule remediation once higher-severity gaps are closed.",
+          "description": "SSLv2/SSLv3 and TLS 1.0/1.1 are deprecated and vulnerable (POODLE, BEAST); only TLS 1.2+ should be enabled.",
           "severity": "medium",
-          "how_to_find": "Transport & Sniffing — TLS Configuration: Verify which protocol versions are accepted and flag any service still negotiating SSLv3/TLS 1.0/1.1",
+          "how_to_find": "Transport & Sniffing — TLS Configuration: Transport & Sniffing — TLS Configuration: Transport & Sniffing — TLS Configuration: Transport & Sniffing — TLS Configuration: Verify which protocol versions are accepted and flag any service still negotiating SSLv3/TLS 1.0/1.1",
           "how_to_fix": "Assign an owner for identify deprecated ssl/tls protocol versions, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "testssl.sh",
@@ -1554,9 +1554,9 @@
         },
         {
           "title": "Detect weak cipher suites and key exchange",
-          "description": "NULL, EXPORT, RC4, DES/3DES, and anonymous suites, or weak DH parameters, undermine confidentiality and integrity. Schedule remediation once higher-severity gaps are closed.",
+          "description": "NULL, EXPORT, RC4, DES/3DES, and anonymous suites, or weak DH parameters, undermine confidentiality and integrity.",
           "severity": "medium",
-          "how_to_find": "Transport & Sniffing — TLS Configuration: Verify the negotiated cipher suites and flag weak/anonymous ciphers and small DH/RSA key sizes",
+          "how_to_find": "Transport & Sniffing — TLS Configuration: Transport & Sniffing — TLS Configuration: Transport & Sniffing — TLS Configuration: Transport & Sniffing — TLS Configuration: Verify the negotiated cipher suites and flag weak/anonymous ciphers and small DH/RSA key sizes",
           "how_to_fix": "Assign an owner for detect weak cipher suites and key exchange, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "testssl.sh",
@@ -1578,9 +1578,9 @@
         },
         {
           "title": "Validate certificate trust, validity, and naming",
-          "description": "Expired, self-signed, wrong-CN/SAN, or weak-signature certificates enable MITM and erode trust in the service. Schedule remediation once higher-severity gaps are closed.",
+          "description": "Expired, self-signed, wrong-CN/SAN, or weak-signature certificates enable MITM and erode trust in the service.",
           "severity": "medium",
-          "how_to_find": "Transport & Sniffing — TLS Configuration: Verify certificate chain, expiry, hostname match, and signature algorithm; flag self-signed or expired certs on production",
+          "how_to_find": "Transport & Sniffing — TLS Configuration: Transport & Sniffing — TLS Configuration: Transport & Sniffing — TLS Configuration: Transport & Sniffing — TLS Configuration: Verify certificate chain, expiry, hostname match, and signature algorithm; flag self-signed or expired certs on production",
           "how_to_fix": "Assign an owner for validate certificate trust, validity, and naming, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "testssl.sh",
@@ -1602,9 +1602,9 @@
         },
         {
           "title": "Test for known TLS vulnerabilities (Heartbleed, ROBOT)",
-          "description": "Library-level flaws like Heartbleed (CVE-2014-0160) and ROBOT can leak memory or enable decryption regardless of config. Worth prioritising in your next assessment cycle.",
+          "description": "Library-level flaws like Heartbleed (CVE-2014-0160) and ROBOT can leak memory or enable decryption regardless of config.",
           "severity": "high",
-          "how_to_find": "Transport & Sniffing — TLS Configuration: Verify the service is not vulnerable to Heartbleed/ROBOT/CCS-injection and similar protocol/library issues",
+          "how_to_find": "Transport & Sniffing — TLS Configuration: Transport & Sniffing — TLS Configuration: Transport & Sniffing — TLS Configuration: Transport & Sniffing — TLS Configuration: Verify the service is not vulnerable to Heartbleed/ROBOT/CCS-injection and similar protocol/library issues",
           "how_to_fix": "Assign an owner for test for known tls vulnerabilities (heartbleed, robot), apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "testssl.sh",
@@ -1631,9 +1631,9 @@
       "items": [
         {
           "title": "Test ARP spoofing on local segments",
-          "description": "ARP spoofing places the tester on-path, enabling interception/modification of traffic between hosts on the same segment. Worth prioritising in your next assessment cycle.",
+          "description": "ARP spoofing places the tester on-path, enabling interception/modification of traffic between hosts on the same segment.",
           "severity": "high",
-          "how_to_find": "Transport & Sniffing — MITM & Poisoning: Verify whether dynamic ARP inspection / port security is absent and what traffic becomes interceptable on-path",
+          "how_to_find": "Transport & Sniffing — MITM & Poisoning: Transport & Sniffing — MITM & Poisoning: Transport & Sniffing — MITM & Poisoning: Transport & Sniffing — MITM & Poisoning: Verify whether dynamic ARP inspection / port security is absent and what traffic becomes interceptable on-path",
           "how_to_fix": "Assign an owner for test arp spoofing on local segments, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "ettercap",
@@ -1655,9 +1655,9 @@
         },
         {
           "title": "Test LLMNR/NBT-NS/mDNS poisoning",
-          "description": "When LLMNR/NBT-NS are enabled, spoofed responses coerce hosts to send NetNTLM hashes that can be cracked or relayed. Worth prioritising in your next assessment cycle.",
+          "description": "When LLMNR/NBT-NS are enabled, spoofed responses coerce hosts to send NetNTLM hashes that can be cracked or relayed.",
           "severity": "high",
-          "how_to_find": "Transport & Sniffing — MITM & Poisoning: Verify whether name-resolution poisoning yields NetNTLM hashes and which accounts respond",
+          "how_to_find": "Transport & Sniffing — MITM & Poisoning: Transport & Sniffing — MITM & Poisoning: Transport & Sniffing — MITM & Poisoning: Transport & Sniffing — MITM & Poisoning: Verify whether name-resolution poisoning yields NetNTLM hashes and which accounts respond",
           "how_to_fix": "Assign an owner for test llmnr/nbt-ns/mdns poisoning, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "responder",
@@ -1678,9 +1678,9 @@
         },
         {
           "title": "Test NTLM relay to unsigned hosts",
-          "description": "Coerced NetNTLM authentication can be relayed to SMB/LDAP/HTTP targets lacking signing, yielding code execution or privilege escalation. Treat failures here as release blockers.",
+          "description": "Coerced NetNTLM authentication can be relayed to SMB/LDAP/HTTP targets lacking signing, yielding code execution or privilege escalation.",
           "severity": "critical",
-          "how_to_find": "Transport & Sniffing — MITM & Poisoning: Verify viable relay targets (signing not required) and demonstrate the access gained via relay safely",
+          "how_to_find": "Transport & Sniffing — MITM & Poisoning: Transport & Sniffing — MITM & Poisoning: Transport & Sniffing — MITM & Poisoning: Transport & Sniffing — MITM & Poisoning: Verify viable relay targets (signing not required) and demonstrate the access gained via relay safely",
           "how_to_fix": "Assign an owner for test ntlm relay to unsigned hosts, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "responder",
@@ -1702,9 +1702,9 @@
         },
         {
           "title": "Test for rogue DHCP and gateway redirection",
-          "description": "A rogue DHCP server can set the tester as default gateway/DNS, redirecting traffic for interception. Worth prioritising in your next assessment cycle.",
+          "description": "A rogue DHCP server can set the tester as default gateway/DNS, redirecting traffic for interception.",
           "severity": "high",
-          "how_to_find": "Transport & Sniffing — MITM & Poisoning: Verify whether DHCP snooping is absent and whether clients accept rogue gateway/DNS configuration",
+          "how_to_find": "Transport & Sniffing — MITM & Poisoning: Transport & Sniffing — MITM & Poisoning: Transport & Sniffing — MITM & Poisoning: Transport & Sniffing — MITM & Poisoning: Verify whether DHCP snooping is absent and whether clients accept rogue gateway/DNS configuration",
           "how_to_fix": "Assign an owner for test for rogue dhcp and gateway redirection, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "ettercap",
@@ -1731,9 +1731,9 @@
       "items": [
         {
           "title": "Sniff for cleartext credentials on the wire",
-          "description": "Protocols like HTTP, FTP, Telnet, POP3, IMAP, and SNMP v1/v2c carry credentials in cleartext that can be captured on-path. Worth prioritising in your next assessment cycle.",
+          "description": "Protocols like HTTP, FTP, Telnet, POP3, IMAP, and SNMP v1/v2c carry credentials in cleartext that can be captured on-path.",
           "severity": "high",
-          "how_to_find": "Transport & Sniffing — Cleartext Protocols & Sniffing: Verify captured credentials/sessions from a controlled position and document which protocols exposed them",
+          "how_to_find": "Transport & Sniffing — Cleartext Protocols & Sniffing: Transport & Sniffing — Cleartext Protocols & Sniffing: Transport & Sniffing — Cleartext Protocols & Sniffing: Transport & Sniffing — Cleartext Protocols & Sniffing: Verify captured credentials/sessions from a controlled position and document which protocols exposed them",
           "how_to_fix": "Assign an owner for sniff for cleartext credentials on the wire, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "wireshark",
@@ -1755,9 +1755,9 @@
         },
         {
           "title": "Inventory cleartext protocols in use",
-          "description": "Identifying all unencrypted protocols across the estate quantifies sniffing exposure and guides remediation toward encrypted equivalents. Schedule remediation once higher-severity gaps are closed.",
+          "description": "Identifying all unencrypted protocols across the estate quantifies sniffing exposure and guides remediation toward encrypted equivalents.",
           "severity": "medium",
-          "how_to_find": "Transport & Sniffing — Cleartext Protocols & Sniffing: Verify which cleartext services are still in use and whether encrypted alternatives are enforced",
+          "how_to_find": "Transport & Sniffing — Cleartext Protocols & Sniffing: Transport & Sniffing — Cleartext Protocols & Sniffing: Transport & Sniffing — Cleartext Protocols & Sniffing: Transport & Sniffing — Cleartext Protocols & Sniffing: Verify which cleartext services are still in use and whether encrypted alternatives are enforced",
           "how_to_fix": "Assign an owner for inventory cleartext protocols in use, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "nmap",
@@ -1778,9 +1778,9 @@
         },
         {
           "title": "Detect sensitive data transmitted in cleartext",
-          "description": "Beyond credentials, cleartext traffic may expose PII, tokens, internal hostnames, and business data subject to interception. Worth prioritising in your next assessment cycle.",
+          "description": "Beyond credentials, cleartext traffic may expose PII, tokens, internal hostnames, and business data subject to interception.",
           "severity": "high",
-          "how_to_find": "Transport & Sniffing — Cleartext Protocols & Sniffing: Verify what sensitive data types appear in captured traffic and assess regulatory/business impact",
+          "how_to_find": "Transport & Sniffing — Cleartext Protocols & Sniffing: Transport & Sniffing — Cleartext Protocols & Sniffing: Transport & Sniffing — Cleartext Protocols & Sniffing: Transport & Sniffing — Cleartext Protocols & Sniffing: Verify what sensitive data types appear in captured traffic and assess regulatory/business impact",
           "how_to_fix": "Assign an owner for detect sensitive data transmitted in cleartext, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "wireshark",
@@ -1801,9 +1801,9 @@
         },
         {
           "title": "Assess broadcast/multicast and VLAN exposure",
-          "description": "Broadcast/multicast traffic and weak VLAN segmentation can expose data and name-resolution requests to attackers on the segment. Schedule remediation once higher-severity gaps are closed.",
+          "description": "Broadcast/multicast traffic and weak VLAN segmentation can expose data and name-resolution requests to attackers on the segment.",
           "severity": "medium",
-          "how_to_find": "Transport & Sniffing — Cleartext Protocols & Sniffing: Verify what broadcast/multicast traffic is observable and whether VLAN hopping or weak segmentation increases sniffing scope",
+          "how_to_find": "Transport & Sniffing — Cleartext Protocols & Sniffing: Transport & Sniffing — Cleartext Protocols & Sniffing: Transport & Sniffing — Cleartext Protocols & Sniffing: Transport & Sniffing — Cleartext Protocols & Sniffing: Verify what broadcast/multicast traffic is observable and whether VLAN hopping or weak segmentation increases sniffing scope",
           "how_to_fix": "Assign an owner for assess broadcast/multicast and vlan exposure, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "wireshark",

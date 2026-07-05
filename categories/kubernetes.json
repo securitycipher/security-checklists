@@ -7,9 +7,9 @@
       "items": [
         {
           "title": "API server not public",
-          "description": "Restrict kube-apiserver to private networks or authorized IPs. Validate this on Kubernetes clusters, under Cluster Configuration. Worth prioritising in your next assessment cycle.",
+          "description": "Restrict kube-apiserver to private networks or authorized IPs.",
           "severity": "high",
-          "how_to_find": "Cluster Configuration: Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images",
+          "how_to_find": "Cluster Configuration: Cluster Configuration: Cluster Configuration: Cluster Configuration: Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images",
           "how_to_fix": "Assign an owner for api server not public, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "kubectl",
@@ -27,9 +27,9 @@
         },
         {
           "title": "RBAC least privilege",
-          "description": "No cluster-admin for apps; namespace-scoped roles only. Validate this on Kubernetes clusters, under Cluster Configuration. Good hygiene that pays off over time.",
+          "description": "No cluster-admin for apps; namespace-scoped roles only.",
           "severity": "low",
-          "how_to_find": "Cluster Configuration: Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images",
+          "how_to_find": "Cluster Configuration: Cluster Configuration: Cluster Configuration: Cluster Configuration: Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images",
           "how_to_fix": "Assign an owner for rbac least privilege, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "kubectl",
@@ -47,9 +47,9 @@
         },
         {
           "title": "Pod Security Standards enforced",
-          "description": "Restricted or baseline policy on all namespaces. Validate this on Kubernetes clusters, under Cluster Configuration. Treat failures here as release blockers.",
+          "description": "Restricted or baseline policy on all namespaces.",
           "severity": "critical",
-          "how_to_find": "Cluster Configuration: Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images",
+          "how_to_find": "Cluster Configuration: Cluster Configuration: Cluster Configuration: Cluster Configuration: Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images",
           "how_to_fix": "Assign an owner for pod security standards enforced, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "kubectl",
@@ -67,9 +67,9 @@
         },
         {
           "title": "Secrets not in env vars",
-          "description": "Use CSI drivers or mounted volumes; encrypt etcd at rest. Validate this on Kubernetes clusters, under Cluster Configuration. Good hygiene that pays off over time.",
+          "description": "Use CSI drivers or mounted volumes; encrypt etcd at rest.",
           "severity": "low",
-          "how_to_find": "Cluster Configuration: Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images",
+          "how_to_find": "Cluster Configuration: Cluster Configuration: Cluster Configuration: Cluster Configuration: Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images",
           "how_to_fix": "Assign an owner for secrets not in env vars, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "kubectl",
@@ -87,9 +87,9 @@
         },
         {
           "title": "Network policies default deny",
-          "description": "Explicit allow rules between pods and egress. Validate this on Kubernetes clusters, under Cluster Configuration. Good hygiene that pays off over time.",
+          "description": "Explicit allow rules between pods and egress.",
           "severity": "low",
-          "how_to_find": "Cluster Configuration: Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images",
+          "how_to_find": "Cluster Configuration: Cluster Configuration: Cluster Configuration: Cluster Configuration: Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images",
           "how_to_fix": "Assign an owner for network policies default deny, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "kubectl",
@@ -112,9 +112,9 @@
       "items": [
         {
           "title": "Images scanned for CVEs",
-          "description": "Trivy or similar in CI; block critical vulns on deploy. Validate this on Kubernetes clusters, under Containers and Supply Chain. Good hygiene that pays off over time.",
+          "description": "Trivy or similar in CI; block critical vulns on deploy.",
           "severity": "low",
-          "how_to_find": "Containers and Supply Chain: Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images",
+          "how_to_find": "Containers and Supply Chain: Containers and Supply Chain: Containers and Supply Chain: Containers and Supply Chain: Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images",
           "how_to_fix": "Assign an owner for images scanned for cves, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "kubectl",
@@ -132,9 +132,9 @@
         },
         {
           "title": "No privileged containers",
-          "description": "A privileged container effectively has root on the host node, disabling most isolation and providing a direct path to node compromise. Treat failures here as release blockers.",
+          "description": "A privileged container effectively has root on the host node, disabling most isolation and providing a direct path to node compromise.",
           "severity": "critical",
-          "how_to_find": "Containers and Supply Chain: Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images",
+          "how_to_find": "Containers and Supply Chain: Containers and Supply Chain: Containers and Supply Chain: Containers and Supply Chain: Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images",
           "how_to_fix": "Assign an owner for no privileged containers, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "kubectl",
@@ -168,9 +168,9 @@
         },
         {
           "title": "Docker socket not mounted",
-          "description": "Never mount /var/run/docker.sock into application containers. Validate this on Kubernetes clusters, under Containers and Supply Chain. Good hygiene that pays off over time.",
+          "description": "Never mount /var/run/docker.sock into application containers.",
           "severity": "low",
-          "how_to_find": "Containers and Supply Chain: Cluster audit (Containers and Supply Chain): Never mount /var/run/docker.sock into application containers",
+          "how_to_find": "Containers and Supply Chain: Containers and Supply Chain: Containers and Supply Chain: Containers and Supply Chain: Cluster audit (Containers and Supply Chain): Never mount /var/run/docker.sock into application containers",
           "how_to_fix": "Assign an owner for docker socket not mounted, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "kubectl",
@@ -188,9 +188,9 @@
         },
         {
           "title": "Image signing and admission control",
-          "description": "Only signed images from trusted registries. Validate this on Kubernetes clusters, under Containers and Supply Chain. Good hygiene that pays off over time.",
+          "description": "Only signed images from trusted registries.",
           "severity": "low",
-          "how_to_find": "Containers and Supply Chain: Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images",
+          "how_to_find": "Containers and Supply Chain: Containers and Supply Chain: Containers and Supply Chain: Containers and Supply Chain: Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images",
           "how_to_fix": "Assign an owner for image signing and admission control, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "kubectl",
@@ -208,9 +208,9 @@
         },
         {
           "title": "Resource limits set",
-          "description": "CPU and memory limits prevent DoS via resource exhaustion. Validate this on Kubernetes clusters, under Containers and Supply Chain. Treat failures here as release blockers.",
+          "description": "CPU and memory limits prevent DoS via resource exhaustion.",
           "severity": "critical",
-          "how_to_find": "Containers and Supply Chain: Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images",
+          "how_to_find": "Containers and Supply Chain: Containers and Supply Chain: Containers and Supply Chain: Containers and Supply Chain: Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images",
           "how_to_fix": "Assign an owner for resource limits set, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "kubectl",
@@ -233,9 +233,9 @@
       "items": [
         {
           "title": "Use minimal, trusted base images",
-          "description": "Bloated base images (full OS distros) drastically expand the attack surface with shells, package managers, and unneeded binaries that aid post-exploitation. Treat failures here as release blockers.",
+          "description": "Bloated base images (full OS distros) drastically expand the attack surface with shells, package managers, and unneeded binaries that aid post-exploitation.",
           "severity": "critical",
-          "how_to_find": "Image & Registry Security — Image Hygiene: Confirm no compilers, package managers, or interactive shells remain in the production image",
+          "how_to_find": "Image & Registry Security — Image Hygiene: Image & Registry Security — Image Hygiene: Image & Registry Security — Image Hygiene: Image & Registry Security — Image Hygiene: Confirm no compilers, package managers, or interactive shells remain in the production image",
           "how_to_fix": "Assign an owner for use minimal, trusted base images, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "kubectl",
@@ -259,9 +259,9 @@
         },
         {
           "title": "No secrets baked into image layers",
-          "description": "Secrets copied or referenced during a build persist in intermediate layers even if deleted in a later layer, and can be extracted from the image history. Good hygiene that pays off over time.",
+          "description": "Secrets copied or referenced during a build persist in intermediate layers even if deleted in a later layer, and can be extracted from the image history.",
           "severity": "low",
-          "how_to_find": "Image & Registry Security — Image Hygiene: Check ARG/ENV usage and COPY of credential files",
+          "how_to_find": "Image & Registry Security — Image Hygiene: Image & Registry Security — Image Hygiene: Image & Registry Security — Image Hygiene: Image & Registry Security — Image Hygiene: Check ARG/ENV usage and COPY of credential files",
           "how_to_fix": "Assign an owner for no secrets baked into image layers, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "kubectl",
@@ -285,9 +285,9 @@
         },
         {
           "title": "Pin images to immutable digests, not mutable tags",
-          "description": "Using mutable tags like :latest means the running image can silently change, breaking reproducibility and enabling tag-overwrite supply-chain attacks. Schedule remediation once higher-severity gaps are closed.",
+          "description": "Using mutable tags like :latest means the running image can silently change, breaking reproducibility and enabling tag-overwrite supply-chain attacks.",
           "severity": "medium",
-          "how_to_find": "Image & Registry Security — Image Hygiene: Cluster audit (Image & Registry Security — Image Hygiene): Using mutable tags like :latest means the running image can silently change, breaking reproducibility and enabling tag-overwrite supply-chain attacks",
+          "how_to_find": "Image & Registry Security — Image Hygiene: Image & Registry Security — Image Hygiene: Image & Registry Security — Image Hygiene: Image & Registry Security — Image Hygiene: Cluster audit (Image & Registry Security — Image Hygiene): Using mutable tags like :latest means the running image can silently change, breaking reproducibility and enabling tag-overwrite supply-chain attacks",
           "how_to_fix": "Assign an owner for pin images to immutable digests, not mutable tags, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "kubectl",
@@ -311,9 +311,9 @@
         },
         {
           "title": "Strip build tooling and dev dependencies from runtime image",
-          "description": "Leaving compilers, package managers, and debugging utilities in the final image gives an attacker ready-made tools to escalate and pivot after a foothold. Good hygiene that pays off over time.",
+          "description": "Leaving compilers, package managers, and debugging utilities in the final image gives an attacker ready-made tools to escalate and pivot after a foothold.",
           "severity": "low",
-          "how_to_find": "Image & Registry Security — Image Hygiene: Inspect the final image for apt/apk/yum, gcc, curl/wget, and shells that are not required at runtime",
+          "how_to_find": "Image & Registry Security — Image Hygiene: Image & Registry Security — Image Hygiene: Image & Registry Security — Image Hygiene: Image & Registry Security — Image Hygiene: Inspect the final image for apt/apk/yum, gcc, curl/wget, and shells that are not required at runtime",
           "how_to_fix": "Assign an owner for strip build tooling and dev dependencies from runtime image, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "kubectl",
@@ -342,9 +342,9 @@
       "items": [
         {
           "title": "Scan images for known vulnerabilities (CVEs)",
-          "description": "Images frequently ship with OS packages and language dependencies carrying known, exploitable CVEs that are never patched without scanning. Schedule remediation once higher-severity gaps are closed.",
+          "description": "Images frequently ship with OS packages and language dependencies carrying known, exploitable CVEs that are never patched without scanning.",
           "severity": "medium",
-          "how_to_find": "Image & Registry Security — Vulnerability Scanning & SBOM: Verify there is a defined policy for severity thresholds and remediation SLAs for critical/high findings",
+          "how_to_find": "Image & Registry Security — Vulnerability Scanning & SBOM: Image & Registry Security — Vulnerability Scanning & SBOM: Image & Registry Security — Vulnerability Scanning & SBOM: Image & Registry Security — Vulnerability Scanning & SBOM: Verify there is a defined policy for severity thresholds and remediation SLAs for critical/high findings",
           "how_to_fix": "Assign an owner for scan images for known vulnerabilities (cves), apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "kubectl",
@@ -368,9 +368,9 @@
         },
         {
           "title": "Generate and retain an SBOM per image",
-          "description": "A software bill of materials enables rapid impact assessment when a new CVE drops (e.g. Validate this on Kubernetes clusters, under Image & Registry Security — Vulnerability Scanning & SBOM. Good hygiene that pays off over time.",
+          "description": "A software bill of materials enables rapid impact assessment when a new CVE drops (e.g.",
           "severity": "low",
-          "how_to_find": "Image & Registry Security — Vulnerability Scanning & SBOM: Verify they capture both OS and application dependencies",
+          "how_to_find": "Image & Registry Security — Vulnerability Scanning & SBOM: Image & Registry Security — Vulnerability Scanning & SBOM: Image & Registry Security — Vulnerability Scanning & SBOM: Image & Registry Security — Vulnerability Scanning & SBOM: Verify they capture both OS and application dependencies",
           "how_to_fix": "Assign an owner for generate and retain an sbom per image, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "kubectl",
@@ -394,9 +394,9 @@
         },
         {
           "title": "Scan images already running in the cluster",
-          "description": "Images that passed scanning at build time accumulate new CVEs over time, and unscanned images may have been deployed out-of-band. Good hygiene that pays off over time.",
+          "description": "Images that passed scanning at build time accumulate new CVEs over time, and unscanned images may have been deployed out-of-band.",
           "severity": "low",
-          "how_to_find": "Image & Registry Security — Vulnerability Scanning & SBOM: Confirm an admission or runtime mechanism flags drift between scanned and deployed images",
+          "how_to_find": "Image & Registry Security — Vulnerability Scanning & SBOM: Image & Registry Security — Vulnerability Scanning & SBOM: Image & Registry Security — Vulnerability Scanning & SBOM: Image & Registry Security — Vulnerability Scanning & SBOM: Confirm an admission or runtime mechanism flags drift between scanned and deployed images",
           "how_to_fix": "Assign an owner for scan images already running in the cluster, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "kubectl",
@@ -420,9 +420,9 @@
         },
         {
           "title": "Verify dependency provenance and integrity",
-          "description": "Dependencies pulled from public registries can be typosquatted, hijacked, or tampered with, injecting malicious code into images. Treat failures here as release blockers.",
+          "description": "Dependencies pulled from public registries can be typosquatted, hijacked, or tampered with, injecting malicious code into images.",
           "severity": "critical",
-          "how_to_find": "Image & Registry Security — Vulnerability Scanning & SBOM: Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images",
+          "how_to_find": "Image & Registry Security — Vulnerability Scanning & SBOM: Image & Registry Security — Vulnerability Scanning & SBOM: Image & Registry Security — Vulnerability Scanning & SBOM: Image & Registry Security — Vulnerability Scanning & SBOM: Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images",
           "how_to_fix": "Assign an owner for verify dependency provenance and integrity, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "kubectl",
@@ -451,9 +451,9 @@
       "items": [
         {
           "title": "Require authentication and access control on registries",
-          "description": "Anonymous or weakly protected registries let attackers pull proprietary images or push malicious ones that get deployed. Good hygiene that pays off over time.",
+          "description": "Anonymous or weakly protected registries let attackers pull proprietary images or push malicious ones that get deployed.",
           "severity": "low",
-          "how_to_find": "Image & Registry Security — Registry Security: Test for anonymous pull/push",
+          "how_to_find": "Image & Registry Security — Registry Security: Image & Registry Security — Registry Security: Image & Registry Security — Registry Security: Image & Registry Security — Registry Security: Test for anonymous pull/push",
           "how_to_fix": "Assign an owner for require authentication and access control on registries, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "kubectl",
@@ -477,9 +477,9 @@
         },
         {
           "title": "Sign images and verify signatures",
-          "description": "Unsigned images cannot be cryptographically attributed to a trusted builder, enabling substitution and supply-chain attacks. Treat failures here as release blockers.",
+          "description": "Unsigned images cannot be cryptographically attributed to a trusted builder, enabling substitution and supply-chain attacks.",
           "severity": "critical",
-          "how_to_find": "Image & Registry Security — Registry Security: Verify keys are managed securely and a verification policy exists",
+          "how_to_find": "Image & Registry Security — Registry Security: Image & Registry Security — Registry Security: Image & Registry Security — Registry Security: Image & Registry Security — Registry Security: Verify keys are managed securely and a verification policy exists",
           "how_to_fix": "Assign an owner for sign images and verify signatures, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "kubectl",
@@ -503,9 +503,9 @@
         },
         {
           "title": "Enforce trusted-registry admission policy",
-          "description": "Without admission control, workloads can pull images from arbitrary external registries, bypassing scanning and signing controls. Treat failures here as release blockers.",
+          "description": "Without admission control, workloads can pull images from arbitrary external registries, bypassing scanning and signing controls.",
           "severity": "critical",
-          "how_to_find": "Image & Registry Security — Registry Security: Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images",
+          "how_to_find": "Image & Registry Security — Registry Security: Image & Registry Security — Registry Security: Image & Registry Security — Registry Security: Image & Registry Security — Registry Security: Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images",
           "how_to_fix": "Assign an owner for enforce trusted-registry admission policy, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "kubectl",
@@ -529,9 +529,9 @@
         },
         {
           "title": "Check for exposed or world-readable registries",
-          "description": "Internal registries exposed to the internet or misconfigured cloud storage backing them can leak entire image catalogs and embedded secrets. Treat failures here as release blockers.",
+          "description": "Internal registries exposed to the internet or misconfigured cloud storage backing them can leak entire image catalogs and embedded secrets.",
           "severity": "critical",
-          "how_to_find": "Image & Registry Security — Registry Security: Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images",
+          "how_to_find": "Image & Registry Security — Registry Security: Image & Registry Security — Registry Security: Image & Registry Security — Registry Security: Image & Registry Security — Registry Security: Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images",
           "how_to_fix": "Assign an owner for check for exposed or world-readable registries, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "kubectl",
@@ -560,9 +560,9 @@
       "items": [
         {
           "title": "No hostPID / hostIPC / hostNetwork sharing",
-          "description": "Sharing host PID, IPC, or network namespaces lets a container observe and interfere with host processes, IPC, and traffic, undermining isolation. Good hygiene that pays off over time.",
+          "description": "Sharing host PID, IPC, or network namespaces lets a container observe and interfere with host processes, IPC, and traffic, undermining isolation.",
           "severity": "low",
-          "how_to_find": "Container Runtime Security — Privileged & Host Exposure: Cluster audit (Container Runtime Security — Privileged & Host Exposure): Sharing host PID, IPC, or network namespaces lets a container observe and interfere with host processes, IPC, and traffic, undermining isolation",
+          "how_to_find": "Container Runtime Security — Privileged & Host Exposure: Container Runtime Security — Privileged & Host Exposure: Container Runtime Security — Privileged & Host Exposure: Container Runtime Security — Privileged & Host Exposure: Cluster audit (Container Runtime Security — Privileged & Host Exposure): Sharing host PID, IPC, or network namespaces lets a container observe and interfere with host processes, IPC, and traffic, undermining isolation",
           "how_to_fix": "Assign an owner for no hostpid / hostipc / hostnetwork sharing, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "kubectl",
@@ -586,9 +586,9 @@
         },
         {
           "title": "No sensitive hostPath volume mounts",
-          "description": "Mounting host paths such as /, /var/run, /etc, or /var/lib/kubelet into a container exposes node files and can be abused to escape or read node secrets. Good hygiene that pays off over time.",
+          "description": "Mounting host paths such as /, /var/run, /etc, or /var/lib/kubelet into a container exposes node files and can be abused to escape or read node secrets.",
           "severity": "low",
-          "how_to_find": "Container Runtime Security — Privileged & Host Exposure: Cluster audit (Container Runtime Security — Privileged & Host Exposure): Mounting host paths such as /, /var/run, /etc, or /var/lib/kubelet into a container exposes node files and can be abused to escape or read node secrets",
+          "how_to_find": "Container Runtime Security — Privileged & Host Exposure: Container Runtime Security — Privileged & Host Exposure: Container Runtime Security — Privileged & Host Exposure: Container Runtime Security — Privileged & Host Exposure: Cluster audit (Container Runtime Security — Privileged & Host Exposure): Mounting host paths such as /, /var/run, /etc, or /var/lib/kubelet into a container exposes node files and can be abused to escape or read node secrets",
           "how_to_fix": "Assign an owner for no sensitive hostpath volume mounts, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "kubectl",
@@ -612,9 +612,9 @@
         },
         {
           "title": "Disable allowPrivilegeEscalation",
-          "description": "Allowing privilege escalation lets a process gain more privileges than its parent (e.g. Validate this on Kubernetes clusters, under Container Runtime Security — Privileged & Host Exposure. Treat failures here as release blockers.",
+          "description": "Allowing privilege escalation lets a process gain more privileges than its parent (e.g.",
           "severity": "critical",
-          "how_to_find": "Container Runtime Security — Privileged & Host Exposure: Cluster audit (Container Runtime Security — Privileged & Host Exposure): Allowing privilege escalation lets a process gain more privileges than its parent (e.g",
+          "how_to_find": "Container Runtime Security — Privileged & Host Exposure: Container Runtime Security — Privileged & Host Exposure: Container Runtime Security — Privileged & Host Exposure: Container Runtime Security — Privileged & Host Exposure: Cluster audit (Container Runtime Security — Privileged & Host Exposure): Allowing privilege escalation lets a process gain more privileges than its parent (e.g",
           "how_to_fix": "Assign an owner for disable allowprivilegeescalation, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "kubectl",
@@ -643,9 +643,9 @@
       "items": [
         {
           "title": "Drop excess Linux capabilities",
-          "description": "Capabilities like CAP_SYS_ADMIN, CAP_NET_RAW, and CAP_SYS_PTRACE grant powerful kernel-level operations that enable escape and lateral movement. Good hygiene that pays off over time.",
+          "description": "Capabilities like CAP_SYS_ADMIN, CAP_NET_RAW, and CAP_SYS_PTRACE grant powerful kernel-level operations that enable escape and lateral movement.",
           "severity": "low",
-          "how_to_find": "Container Runtime Security — Linux Capabilities & SecurityContext: Cluster audit (Container Runtime Security — Linux Capabilities & SecurityContext): Capabilities like CAP_SYS_ADMIN, CAP_NET_RAW, and CAP_SYS_PTRACE grant powerful kernel-level operations that enable escape and lateral movement",
+          "how_to_find": "Container Runtime Security — Linux Capabilities & SecurityContext: Container Runtime Security — Linux Capabilities & SecurityContext: Container Runtime Security — Linux Capabilities & SecurityContext: Container Runtime Security — Linux Capabilities & SecurityContext: Cluster audit (Container Runtime Security — Linux Capabilities & SecurityContext): Capabilities like CAP_SYS_ADMIN, CAP_NET_RAW, and CAP_SYS_PTRACE grant powerful kernel-level operations that enable escape and lateral movement",
           "how_to_fix": "Assign an owner for drop excess linux capabilities, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "kubectl",
@@ -669,9 +669,9 @@
         },
         {
           "title": "Define a securityContext for every workload",
-          "description": "Workloads with no securityContext inherit permissive defaults — writable root filesystem, default capabilities, and no seccomp — maximizing post-exploitation options. Good hygiene that pays off over time.",
+          "description": "Workloads with no securityContext inherit permissive defaults — writable root filesystem, default capabilities, and no seccomp — maximizing post-exploitation options.",
           "severity": "low",
-          "how_to_find": "Container Runtime Security — Linux Capabilities & SecurityContext: Cluster audit (Container Runtime Security — Linux Capabilities & SecurityContext): Workloads with no securityContext inherit permissive defaults — writable root filesystem, default capabilities, and no seccomp — maximizing post-exploitation options",
+          "how_to_find": "Container Runtime Security — Linux Capabilities & SecurityContext: Container Runtime Security — Linux Capabilities & SecurityContext: Container Runtime Security — Linux Capabilities & SecurityContext: Container Runtime Security — Linux Capabilities & SecurityContext: Cluster audit (Container Runtime Security — Linux Capabilities & SecurityContext): Workloads with no securityContext inherit permissive defaults — writable root filesystem, default capabilities, and no seccomp — maximizing post-exploitation options",
           "how_to_fix": "Assign an owner for define a securitycontext for every workload, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "kubectl",
@@ -695,9 +695,9 @@
         },
         {
           "title": "Apply a seccomp profile",
-          "description": "Without seccomp, containers can issue any syscall, broadening the kernel attack surface available for container escape exploits. Treat failures here as release blockers.",
+          "description": "Without seccomp, containers can issue any syscall, broadening the kernel attack surface available for container escape exploits.",
           "severity": "critical",
-          "how_to_find": "Container Runtime Security — Linux Capabilities & SecurityContext: Cluster audit (Container Runtime Security — Linux Capabilities & SecurityContext): Without seccomp, containers can issue any syscall, broadening the kernel attack surface available for container escape exploits",
+          "how_to_find": "Container Runtime Security — Linux Capabilities & SecurityContext: Container Runtime Security — Linux Capabilities & SecurityContext: Container Runtime Security — Linux Capabilities & SecurityContext: Container Runtime Security — Linux Capabilities & SecurityContext: Cluster audit (Container Runtime Security — Linux Capabilities & SecurityContext): Without seccomp, containers can issue any syscall, broadening the kernel attack surface available for container escape exploits",
           "how_to_fix": "Assign an owner for apply a seccomp profile, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "kubectl",
@@ -721,9 +721,9 @@
         },
         {
           "title": "Enforce read-only root filesystem",
-          "description": "A writable root filesystem lets an attacker drop tools, modify binaries, and persist inside a compromised container. Treat failures here as release blockers.",
+          "description": "A writable root filesystem lets an attacker drop tools, modify binaries, and persist inside a compromised container.",
           "severity": "critical",
-          "how_to_find": "Container Runtime Security — Linux Capabilities & SecurityContext: Cluster audit (Container Runtime Security — Linux Capabilities & SecurityContext): A writable root filesystem lets an attacker drop tools, modify binaries, and persist inside a compromised container",
+          "how_to_find": "Container Runtime Security — Linux Capabilities & SecurityContext: Container Runtime Security — Linux Capabilities & SecurityContext: Container Runtime Security — Linux Capabilities & SecurityContext: Container Runtime Security — Linux Capabilities & SecurityContext: Cluster audit (Container Runtime Security — Linux Capabilities & SecurityContext): A writable root filesystem lets an attacker drop tools, modify binaries, and persist inside a compromised container",
           "how_to_fix": "Assign an owner for enforce read-only root filesystem, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "kubectl",
@@ -752,9 +752,9 @@
       "items": [
         {
           "title": "Patch runtime CVEs enabling escape (e.g. runc CVE-2024-21626)",
-          "description": "Container runtime vulnerabilities such as the runc file-descriptor leak (CVE-2024-21626) and CVE-2019-5736 allow breakout to the host from a crafted image or workload. Schedule remediation once higher-severity gaps are closed.",
+          "description": "Container runtime vulnerabilities such as the runc file-descriptor leak (CVE-2024-21626) and CVE-2019-5736 allow breakout to the host from a crafted image or workload.",
           "severity": "medium",
-          "how_to_find": "Container Runtime Security — Container Escape Vectors: Cluster audit (Container Runtime Security — Container Escape Vectors): Container runtime vulnerabilities such as the runc file-descriptor leak (CVE-2024-21626) and CVE-2019-5736 allow breakout to the host from a crafted image or workload",
+          "how_to_find": "Container Runtime Security — Container Escape Vectors: Container Runtime Security — Container Escape Vectors: Container Runtime Security — Container Escape Vectors: Container Runtime Security — Container Escape Vectors: Cluster audit (Container Runtime Security — Container Escape Vectors): Container runtime vulnerabilities such as the runc file-descriptor leak (CVE-2024-21626) and CVE-2019-5736 allow breakout to the host from a crafted image or workload",
           "how_to_fix": "Assign an owner for patch runtime cves enabling escape (e.g. runc cve-2024-21626), apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "kubectl",
@@ -778,9 +778,9 @@
         },
         {
           "title": "No container engine socket mounted into pods",
-          "description": "Mounting /var/run/docker.sock or the containerd socket gives a container full control of the engine, trivially launching privileged containers on the host. Good hygiene that pays off over time.",
+          "description": "Mounting /var/run/docker.sock or the containerd socket gives a container full control of the engine, trivially launching privileged containers on the host.",
           "severity": "low",
-          "how_to_find": "Container Runtime Security — Container Escape Vectors: Cluster audit (Container Runtime Security — Container Escape Vectors): Mounting /var/run/docker.sock or the containerd socket gives a container full control of the engine, trivially launching privileged containers on the host",
+          "how_to_find": "Container Runtime Security — Container Escape Vectors: Container Runtime Security — Container Escape Vectors: Container Runtime Security — Container Escape Vectors: Container Runtime Security — Container Escape Vectors: Cluster audit (Container Runtime Security — Container Escape Vectors): Mounting /var/run/docker.sock or the containerd socket gives a container full control of the engine, trivially launching privileged containers on the host",
           "how_to_fix": "Assign an owner for no container engine socket mounted into pods, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "kubectl",
@@ -804,9 +804,9 @@
         },
         {
           "title": "Test escape-to-node and node credential theft",
-          "description": "A foothold on a node can yield kubelet credentials, mounted service-account tokens, and cloud instance metadata, enabling cluster-wide compromise. Good hygiene that pays off over time.",
+          "description": "A foothold on a node can yield kubelet credentials, mounted service-account tokens, and cloud instance metadata, enabling cluster-wide compromise.",
           "severity": "low",
-          "how_to_find": "Container Runtime Security — Container Escape Vectors: Cluster audit (Container Runtime Security — Container Escape Vectors): A foothold on a node can yield kubelet credentials, mounted service-account tokens, and cloud instance metadata, enabling cluster-wide compromise",
+          "how_to_find": "Container Runtime Security — Container Escape Vectors: Container Runtime Security — Container Escape Vectors: Container Runtime Security — Container Escape Vectors: Container Runtime Security — Container Escape Vectors: Cluster audit (Container Runtime Security — Container Escape Vectors): A foothold on a node can yield kubelet credentials, mounted service-account tokens, and cloud instance metadata, enabling cluster-wide compromise",
           "how_to_fix": "Assign an owner for test escape-to-node and node credential theft, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "kubectl",
@@ -830,9 +830,9 @@
         },
         {
           "title": "Block kernel module loading and dangerous mounts from containers",
-          "description": "Capabilities or device access that permit loading kernel modules or mounting filesystems give a direct route to host kernel compromise. Good hygiene that pays off over time.",
+          "description": "Capabilities or device access that permit loading kernel modules or mounting filesystems give a direct route to host kernel compromise.",
           "severity": "low",
-          "how_to_find": "Container Runtime Security — Container Escape Vectors: Cluster audit (Container Runtime Security — Container Escape Vectors): Capabilities or device access that permit loading kernel modules or mounting filesystems give a direct route to host kernel compromise",
+          "how_to_find": "Container Runtime Security — Container Escape Vectors: Container Runtime Security — Container Escape Vectors: Container Runtime Security — Container Escape Vectors: Container Runtime Security — Container Escape Vectors: Cluster audit (Container Runtime Security — Container Escape Vectors): Capabilities or device access that permit loading kernel modules or mounting filesystems give a direct route to host kernel compromise",
           "how_to_fix": "Assign an owner for block kernel module loading and dangerous mounts from containers, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "kubectl",
@@ -861,9 +861,9 @@
       "items": [
         {
           "title": "Require runAsNonRoot",
-          "description": "Containers that run as root inside the namespace make capability abuse and escapes far more damaging, often equating to root on the node. Treat failures here as release blockers.",
+          "description": "Containers that run as root inside the namespace make capability abuse and escapes far more damaging, often equating to root on the node.",
           "severity": "critical",
-          "how_to_find": "Container Runtime Security — Running as Root: Cluster audit (Container Runtime Security — Running as Root): Containers that run as root inside the namespace make capability abuse and escapes far more damaging, often equating to root on the node",
+          "how_to_find": "Container Runtime Security — Running as Root: Container Runtime Security — Running as Root: Container Runtime Security — Running as Root: Container Runtime Security — Running as Root: Cluster audit (Container Runtime Security — Running as Root): Containers that run as root inside the namespace make capability abuse and escapes far more damaging, often equating to root on the node",
           "how_to_fix": "Assign an owner for require runasnonroot, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "kubectl",
@@ -887,9 +887,9 @@
         },
         {
           "title": "Build images with a non-root USER",
-          "description": "Even with runtime controls, images defaulting to USER root run as root unless explicitly overridden, and may be deployed without the override. Good hygiene that pays off over time.",
+          "description": "Even with runtime controls, images defaulting to USER root run as root unless explicitly overridden, and may be deployed without the override.",
           "severity": "low",
-          "how_to_find": "Container Runtime Security — Running as Root: Cluster audit (Container Runtime Security — Running as Root): Even with runtime controls, images defaulting to USER root run as root unless explicitly overridden, and may be deployed without the override",
+          "how_to_find": "Container Runtime Security — Running as Root: Container Runtime Security — Running as Root: Container Runtime Security — Running as Root: Container Runtime Security — Running as Root: Cluster audit (Container Runtime Security — Running as Root): Even with runtime controls, images defaulting to USER root run as root unless explicitly overridden, and may be deployed without the override",
           "how_to_fix": "Assign an owner for build images with a non-root user, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "kubectl",
@@ -913,9 +913,9 @@
         },
         {
           "title": "Scope fsGroup and supplemental groups",
-          "description": "Overly broad fsGroup or supplemental group settings can grant unintended access to shared volumes and host-backed storage. Good hygiene that pays off over time.",
+          "description": "Overly broad fsGroup or supplemental group settings can grant unintended access to shared volumes and host-backed storage.",
           "severity": "low",
-          "how_to_find": "Container Runtime Security — Running as Root: Cluster audit (Container Runtime Security — Running as Root): Overly broad fsGroup or supplemental group settings can grant unintended access to shared volumes and host-backed storage",
+          "how_to_find": "Container Runtime Security — Running as Root: Container Runtime Security — Running as Root: Container Runtime Security — Running as Root: Container Runtime Security — Running as Root: Cluster audit (Container Runtime Security — Running as Root): Overly broad fsGroup or supplemental group settings can grant unintended access to shared volumes and host-backed storage",
           "how_to_fix": "Assign an owner for scope fsgroup and supplemental groups, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "kubectl",
@@ -939,9 +939,9 @@
         },
         {
           "title": "Confirm no-new-privileges is effective for root containers",
-          "description": "Where root is unavoidable, the no-new-privileges flag still limits setuid-based escalation paths and should be verified as active. Good hygiene that pays off over time.",
+          "description": "Where root is unavoidable, the no-new-privileges flag still limits setuid-based escalation paths and should be verified as active.",
           "severity": "low",
-          "how_to_find": "Container Runtime Security — Running as Root: Cluster audit (Container Runtime Security — Running as Root): Where root is unavoidable, the no-new-privileges flag still limits setuid-based escalation paths and should be verified as active",
+          "how_to_find": "Container Runtime Security — Running as Root: Container Runtime Security — Running as Root: Container Runtime Security — Running as Root: Container Runtime Security — Running as Root: Cluster audit (Container Runtime Security — Running as Root): Where root is unavoidable, the no-new-privileges flag still limits setuid-based escalation paths and should be verified as active",
           "how_to_fix": "Assign an owner for confirm no-new-privileges is effective for root containers, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "kubectl",
@@ -970,9 +970,9 @@
       "items": [
         {
           "title": "Audit cluster-admin and wildcard role bindings",
-          "description": "Subjects bound to cluster-admin or roles using wildcard verbs/resources effectively own the cluster, so any compromise of those subjects is catastrophic. Treat failures here as release blockers.",
+          "description": "Subjects bound to cluster-admin or roles using wildcard verbs/resources effectively own the cluster, so any compromise of those subjects is catastrophic.",
           "severity": "critical",
-          "how_to_find": "Kubernetes RBAC & API — RBAC Misconfiguration: Confirm bindings map to a minimal, justified set of subjects",
+          "how_to_find": "Kubernetes RBAC & API — RBAC Misconfiguration: Kubernetes RBAC & API — RBAC Misconfiguration: Kubernetes RBAC & API — RBAC Misconfiguration: Kubernetes RBAC & API — RBAC Misconfiguration: Confirm bindings map to a minimal, justified set of subjects",
           "how_to_fix": "Assign an owner for audit cluster-admin and wildcard role bindings, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "kubectl",
@@ -996,9 +996,9 @@
         },
         {
           "title": "Restrict privilege-escalation verbs (escalate, bind, impersonate)",
-          "description": "Verbs like escalate, bind, impersonate, and create on pods/secrets let a low-privileged subject grant itself or assume higher privileges. Schedule remediation once higher-severity gaps are closed.",
+          "description": "Verbs like escalate, bind, impersonate, and create on pods/secrets let a low-privileged subject grant itself or assume higher privileges.",
           "severity": "medium",
-          "how_to_find": "Kubernetes RBAC & API — RBAC Misconfiguration: Confirm these are tightly scoped and not held by application service accounts",
+          "how_to_find": "Kubernetes RBAC & API — RBAC Misconfiguration: Kubernetes RBAC & API — RBAC Misconfiguration: Kubernetes RBAC & API — RBAC Misconfiguration: Kubernetes RBAC & API — RBAC Misconfiguration: Confirm these are tightly scoped and not held by application service accounts",
           "how_to_fix": "Assign an owner for restrict privilege-escalation verbs (escalate, bind, impersonate), apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "kubectl",
@@ -1022,9 +1022,9 @@
         },
         {
           "title": "Limit get/list access to Secrets",
-          "description": "Broad get/list on Secrets across namespaces lets an attacker harvest credentials and service-account tokens for lateral movement. Good hygiene that pays off over time.",
+          "description": "Broad get/list on Secrets across namespaces lets an attacker harvest credentials and service-account tokens for lateral movement.",
           "severity": "low",
-          "how_to_find": "Kubernetes RBAC & API — RBAC Misconfiguration: Verify no application SA can read cluster-wide secrets",
+          "how_to_find": "Kubernetes RBAC & API — RBAC Misconfiguration: Kubernetes RBAC & API — RBAC Misconfiguration: Kubernetes RBAC & API — RBAC Misconfiguration: Kubernetes RBAC & API — RBAC Misconfiguration: Verify no application SA can read cluster-wide secrets",
           "how_to_fix": "Assign an owner for limit get/list access to secrets, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "kubectl",
@@ -1048,9 +1048,9 @@
         },
         {
           "title": "Prefer namespaced Roles over ClusterRoles",
-          "description": "Using ClusterRoles where a namespaced Role would suffice grants cluster-wide reach and breaks blast-radius containment. Good hygiene that pays off over time.",
+          "description": "Using ClusterRoles where a namespaced Role would suffice grants cluster-wide reach and breaks blast-radius containment.",
           "severity": "low",
-          "how_to_find": "Kubernetes RBAC & API — RBAC Misconfiguration: Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images",
+          "how_to_find": "Kubernetes RBAC & API — RBAC Misconfiguration: Kubernetes RBAC & API — RBAC Misconfiguration: Kubernetes RBAC & API — RBAC Misconfiguration: Kubernetes RBAC & API — RBAC Misconfiguration: Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images",
           "how_to_fix": "Assign an owner for prefer namespaced roles over clusterroles, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "kubectl",
@@ -1079,9 +1079,9 @@
       "items": [
         {
           "title": "Disable anonymous API server authentication",
-          "description": "Anonymous authentication on the API server can expose cluster information or actions to unauthenticated callers depending on RBAC bindings. Treat failures here as release blockers.",
+          "description": "Anonymous authentication on the API server can expose cluster information or actions to unauthenticated callers depending on RBAC bindings.",
           "severity": "critical",
-          "how_to_find": "Kubernetes RBAC & API — API Server & Kubelet Exposure: Test unauthenticated requests",
+          "how_to_find": "Kubernetes RBAC & API — API Server & Kubelet Exposure: Kubernetes RBAC & API — API Server & Kubelet Exposure: Kubernetes RBAC & API — API Server & Kubelet Exposure: Kubernetes RBAC & API — API Server & Kubelet Exposure: Test unauthenticated requests",
           "how_to_fix": "Assign an owner for disable anonymous api server authentication, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "kubectl",
@@ -1105,9 +1105,9 @@
         },
         {
           "title": "Require authentication and authorization on the kubelet API",
-          "description": "A kubelet with anonymous auth enabled and authorization mode AlwaysAllow lets anyone reaching port 10250 run commands in pods and read logs. Treat failures here as release blockers.",
+          "description": "A kubelet with anonymous auth enabled and authorization mode AlwaysAllow lets anyone reaching port 10250 run commands in pods and read logs.",
           "severity": "critical",
-          "how_to_find": "Kubernetes RBAC & API — API Server & Kubelet Exposure: Cluster audit (Kubernetes RBAC & API — API Server & Kubelet Exposure): A kubelet with anonymous auth enabled and authorization mode AlwaysAllow lets anyone reaching port 10250 run commands in pods and read logs",
+          "how_to_find": "Kubernetes RBAC & API — API Server & Kubelet Exposure: Kubernetes RBAC & API — API Server & Kubelet Exposure: Kubernetes RBAC & API — API Server & Kubelet Exposure: Kubernetes RBAC & API — API Server & Kubelet Exposure: Cluster audit (Kubernetes RBAC & API — API Server & Kubelet Exposure): A kubelet with anonymous auth enabled and authorization mode AlwaysAllow lets anyone reaching port 10250 run commands in pods and read logs",
           "how_to_fix": "Assign an owner for require authentication and authorization on the kubelet api, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "kubectl",
@@ -1131,9 +1131,9 @@
         },
         {
           "title": "Restrict network exposure of the API server",
-          "description": "An internet-reachable API server multiplies the risk of credential brute force, known CVEs, and misconfiguration exploitation. Treat failures here as release blockers.",
+          "description": "An internet-reachable API server multiplies the risk of credential brute force, known CVEs, and misconfiguration exploitation.",
           "severity": "critical",
-          "how_to_find": "Kubernetes RBAC & API — API Server & Kubelet Exposure: Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images",
+          "how_to_find": "Kubernetes RBAC & API — API Server & Kubelet Exposure: Kubernetes RBAC & API — API Server & Kubelet Exposure: Kubernetes RBAC & API — API Server & Kubelet Exposure: Kubernetes RBAC & API — API Server & Kubelet Exposure: Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images",
           "how_to_fix": "Assign an owner for restrict network exposure of the api server, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "kubectl",
@@ -1157,9 +1157,9 @@
         },
         {
           "title": "Verify API server audit logging is enabled",
-          "description": "Without audit logging, attacker API activity such as secret reads, exec, and RBAC changes goes undetected and uninvestigable. Treat failures here as release blockers.",
+          "description": "Without audit logging, attacker API activity such as secret reads, exec, and RBAC changes goes undetected and uninvestigable.",
           "severity": "critical",
-          "how_to_find": "Kubernetes RBAC & API — API Server & Kubelet Exposure: Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images",
+          "how_to_find": "Kubernetes RBAC & API — API Server & Kubelet Exposure: Kubernetes RBAC & API — API Server & Kubelet Exposure: Kubernetes RBAC & API — API Server & Kubelet Exposure: Kubernetes RBAC & API — API Server & Kubelet Exposure: Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images",
           "how_to_fix": "Assign an owner for verify api server audit logging is enabled, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "kubectl",
@@ -1188,9 +1188,9 @@
       "items": [
         {
           "title": "Disable automatic service-account token mounting where unused",
-          "description": "By default a service-account token is mounted into every pod; if the workload does not call the API, this token is needless attack surface for a compromised container. Good hygiene that pays off over time.",
+          "description": "By default a service-account token is mounted into every pod; if the workload does not call the API, this token is needless attack surface for a compromised container.",
           "severity": "low",
-          "how_to_find": "Kubernetes RBAC & API — Service Accounts & Tokens: Verify token files are absent in those pods at runtime",
+          "how_to_find": "Kubernetes RBAC & API — Service Accounts & Tokens: Kubernetes RBAC & API — Service Accounts & Tokens: Kubernetes RBAC & API — Service Accounts & Tokens: Kubernetes RBAC & API — Service Accounts & Tokens: Verify token files are absent in those pods at runtime",
           "how_to_fix": "Assign an owner for disable automatic service-account token mounting where unused, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "kubectl",
@@ -1214,9 +1214,9 @@
         },
         {
           "title": "Ensure the default service account has no granted permissions",
-          "description": "Workloads that do not specify a service account use the namespace default; any RBAC granted to it is inherited broadly and often unintentionally. Good hygiene that pays off over time.",
+          "description": "Workloads that do not specify a service account use the namespace default; any RBAC granted to it is inherited broadly and often unintentionally.",
           "severity": "low",
-          "how_to_find": "Kubernetes RBAC & API — Service Accounts & Tokens: Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images",
+          "how_to_find": "Kubernetes RBAC & API — Service Accounts & Tokens: Kubernetes RBAC & API — Service Accounts & Tokens: Kubernetes RBAC & API — Service Accounts & Tokens: Kubernetes RBAC & API — Service Accounts & Tokens: Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images",
           "how_to_fix": "Assign an owner for ensure the default service account has no granted permissions, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "kubectl",
@@ -1240,9 +1240,9 @@
         },
         {
           "title": "Test for service-account token abuse from a compromised pod",
-          "description": "A mounted token plus permissive RBAC lets an attacker enumerate and act on the API, often reaching secrets, exec, or privilege escalation. Good hygiene that pays off over time.",
+          "description": "A mounted token plus permissive RBAC lets an attacker enumerate and act on the API, often reaching secrets, exec, or privilege escalation.",
           "severity": "low",
-          "how_to_find": "Kubernetes RBAC & API — Service Accounts & Tokens: Confirm reachable verbs are minimal and cannot reach secrets, exec, or RBAC objects",
+          "how_to_find": "Kubernetes RBAC & API — Service Accounts & Tokens: Kubernetes RBAC & API — Service Accounts & Tokens: Kubernetes RBAC & API — Service Accounts & Tokens: Kubernetes RBAC & API — Service Accounts & Tokens: Confirm reachable verbs are minimal and cannot reach secrets, exec, or RBAC objects",
           "how_to_fix": "Assign an owner for test for service-account token abuse from a compromised pod, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "kubectl",
@@ -1266,9 +1266,9 @@
         },
         {
           "title": "Use bound, short-lived projected tokens",
-          "description": "Legacy long-lived secret-based tokens never expire and are highly valuable if leaked; bound projected tokens are audience-scoped and time-limited. Schedule remediation once higher-severity gaps are closed.",
+          "description": "Legacy long-lived secret-based tokens never expire and are highly valuable if leaked; bound projected tokens are audience-scoped and time-limited.",
           "severity": "medium",
-          "how_to_find": "Kubernetes RBAC & API — Service Accounts & Tokens: Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images",
+          "how_to_find": "Kubernetes RBAC & API — Service Accounts & Tokens: Kubernetes RBAC & API — Service Accounts & Tokens: Kubernetes RBAC & API — Service Accounts & Tokens: Kubernetes RBAC & API — Service Accounts & Tokens: Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images",
           "how_to_fix": "Assign an owner for use bound, short-lived projected tokens, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "kubectl",
@@ -1297,9 +1297,9 @@
       "items": [
         {
           "title": "Apply default-deny network policies",
-          "description": "By default all pods can talk to all other pods; without a default-deny baseline, a single compromised pod can reach every service in the cluster. Treat failures here as release blockers.",
+          "description": "By default all pods can talk to all other pods; without a default-deny baseline, a single compromised pod can reach every service in the cluster.",
           "severity": "critical",
-          "how_to_find": "Network & Secrets — Network Policies: Test pod-to-pod connectivity that should be blocked",
+          "how_to_find": "Network & Secrets — Network Policies: Network & Secrets — Network Policies: Network & Secrets — Network Policies: Network & Secrets — Network Policies: Test pod-to-pod connectivity that should be blocked",
           "how_to_fix": "Assign an owner for apply default-deny network policies, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "kubectl",
@@ -1323,9 +1323,9 @@
         },
         {
           "title": "Restrict egress to limit exfiltration and C2",
-          "description": "Unrestricted egress lets a compromised pod reach the internet for command-and-control, data exfiltration, and pulling additional tooling. Good hygiene that pays off over time.",
+          "description": "Unrestricted egress lets a compromised pod reach the internet for command-and-control, data exfiltration, and pulling additional tooling.",
           "severity": "low",
-          "how_to_find": "Network & Secrets — Network Policies: Test outbound to arbitrary hosts",
+          "how_to_find": "Network & Secrets — Network Policies: Network & Secrets — Network Policies: Network & Secrets — Network Policies: Network & Secrets — Network Policies: Test outbound to arbitrary hosts",
           "how_to_fix": "Assign an owner for restrict egress to limit exfiltration and c2, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "kubectl",
@@ -1349,9 +1349,9 @@
         },
         {
           "title": "Block pod access to the cloud metadata endpoint",
-          "description": "Reachable cloud metadata (169.254.169.254) from pods enables theft of node IAM credentials and SSRF-to-cloud escalation. Treat failures here as release blockers.",
+          "description": "Reachable cloud metadata (169.254.169.254) from pods enables theft of node IAM credentials and SSRF-to-cloud escalation.",
           "severity": "critical",
-          "how_to_find": "Network & Secrets — Network Policies: Test reachability from a pod",
+          "how_to_find": "Network & Secrets — Network Policies: Network & Secrets — Network Policies: Network & Secrets — Network Policies: Network & Secrets — Network Policies: Test reachability from a pod",
           "how_to_fix": "Assign an owner for block pod access to the cloud metadata endpoint, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "kubectl",
@@ -1375,9 +1375,9 @@
         },
         {
           "title": "Confirm the CNI actually enforces NetworkPolicy",
-          "description": "Some CNI plugins ignore NetworkPolicy objects, so policies appear configured but provide no real isolation — a dangerous false sense of security. Treat failures here as release blockers.",
+          "description": "Some CNI plugins ignore NetworkPolicy objects, so policies appear configured but provide no real isolation — a dangerous false sense of security.",
           "severity": "critical",
-          "how_to_find": "Network & Secrets — Network Policies: Empirically test that a denied connection is actually dropped, not just declared",
+          "how_to_find": "Network & Secrets — Network Policies: Network & Secrets — Network Policies: Network & Secrets — Network Policies: Network & Secrets — Network Policies: Empirically test that a denied connection is actually dropped, not just declared",
           "how_to_fix": "Assign an owner for confirm the cni actually enforces networkpolicy, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "kubectl",
@@ -1406,9 +1406,9 @@
       "items": [
         {
           "title": "Enable encryption at rest for Secrets in etcd",
-          "description": "By default Kubernetes Secrets are only base64-encoded in etcd; without encryption-at-rest, anyone reading etcd or its backups recovers all secrets in plaintext. Worth prioritising in your next assessment cycle.",
+          "description": "By default Kubernetes Secrets are only base64-encoded in etcd; without encryption-at-rest, anyone reading etcd or its backups recovers all secrets in plaintext.",
           "severity": "high",
-          "how_to_find": "Network & Secrets — Secrets Management: Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images",
+          "how_to_find": "Network & Secrets — Secrets Management: Network & Secrets — Secrets Management: Network & Secrets — Secrets Management: Network & Secrets — Secrets Management: Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images",
           "how_to_fix": "Assign an owner for enable encryption at rest for secrets in etcd, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "kubectl",
@@ -1432,9 +1432,9 @@
         },
         {
           "title": "Avoid injecting secrets as environment variables",
-          "description": "Secrets in environment variables leak via crash dumps, child-process inheritance, /proc, logs, and debug endpoints more readily than mounted files. Good hygiene that pays off over time.",
+          "description": "Secrets in environment variables leak via crash dumps, child-process inheritance, /proc, logs, and debug endpoints more readily than mounted files.",
           "severity": "low",
-          "how_to_find": "Network & Secrets — Secrets Management: Prefer mounted secret volumes with restricted permissions, and confirm env-based exposure is justified",
+          "how_to_find": "Network & Secrets — Secrets Management: Network & Secrets — Secrets Management: Network & Secrets — Secrets Management: Network & Secrets — Secrets Management: Prefer mounted secret volumes with restricted permissions, and confirm env-based exposure is justified",
           "how_to_fix": "Assign an owner for avoid injecting secrets as environment variables, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "kubectl",
@@ -1458,9 +1458,9 @@
         },
         {
           "title": "Restrict permissions on mounted secret files",
-          "description": "Secret volumes mounted with overly permissive file modes can be read by unexpected processes or sidecars within the pod. Worth prioritising in your next assessment cycle.",
+          "description": "Secret volumes mounted with overly permissive file modes can be read by unexpected processes or sidecars within the pod.",
           "severity": "high",
-          "how_to_find": "Network & Secrets — Secrets Management: Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images",
+          "how_to_find": "Network & Secrets — Secrets Management: Network & Secrets — Secrets Management: Network & Secrets — Secrets Management: Network & Secrets — Secrets Management: Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images",
           "how_to_fix": "Assign an owner for restrict permissions on mounted secret files, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "kubectl",
@@ -1484,9 +1484,9 @@
         },
         {
           "title": "Prefer an external secrets manager with rotation",
-          "description": "Native Secrets lack first-class rotation and fine-grained audit; integrating an external manager reduces standing exposure and improves traceability. Treat failures here as release blockers.",
+          "description": "Native Secrets lack first-class rotation and fine-grained audit; integrating an external manager reduces standing exposure and improves traceability.",
           "severity": "critical",
-          "how_to_find": "Network & Secrets — Secrets Management: Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images",
+          "how_to_find": "Network & Secrets — Secrets Management: Network & Secrets — Secrets Management: Network & Secrets — Secrets Management: Network & Secrets — Secrets Management: Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images",
           "how_to_fix": "Assign an owner for prefer an external secrets manager with rotation, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "kubectl",
@@ -1515,9 +1515,9 @@
       "items": [
         {
           "title": "Enforce TLS on ingress and internal traffic",
-          "description": "Ingress without TLS exposes credentials and tokens to interception, and plaintext east-west traffic enables sniffing after a foothold. Treat failures here as release blockers.",
+          "description": "Ingress without TLS exposes credentials and tokens to interception, and plaintext east-west traffic enables sniffing after a foothold.",
           "severity": "critical",
-          "how_to_find": "Network & Secrets — Ingress & Service Exposure: Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images",
+          "how_to_find": "Network & Secrets — Ingress & Service Exposure: Network & Secrets — Ingress & Service Exposure: Network & Secrets — Ingress & Service Exposure: Network & Secrets — Ingress & Service Exposure: Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images",
           "how_to_fix": "Assign an owner for enforce tls on ingress and internal traffic, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "kubectl",
@@ -1541,9 +1541,9 @@
         },
         {
           "title": "Identify unintentionally exposed Services (LoadBalancer/NodePort)",
-          "description": "LoadBalancer and NodePort services can expose internal applications, dashboards, and databases directly to the internet. Good hygiene that pays off over time.",
+          "description": "LoadBalancer and NodePort services can expose internal applications, dashboards, and databases directly to the internet.",
           "severity": "low",
-          "how_to_find": "Network & Secrets — Ingress & Service Exposure: Confirm each exposure is intentional, authenticated, and firewalled; scan node ports externally",
+          "how_to_find": "Network & Secrets — Ingress & Service Exposure: Network & Secrets — Ingress & Service Exposure: Network & Secrets — Ingress & Service Exposure: Network & Secrets — Ingress & Service Exposure: Confirm each exposure is intentional, authenticated, and firewalled; scan node ports externally",
           "how_to_fix": "Assign an owner for identify unintentionally exposed services (loadbalancer/nodeport), apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "kubectl",
@@ -1567,9 +1567,9 @@
         },
         {
           "title": "Check for exposed Kubernetes Dashboard and admin UIs",
-          "description": "An exposed or weakly protected Kubernetes Dashboard (or app admin panel) has historically led directly to full cluster compromise (e.g. Treat failures here as release blockers.",
+          "description": "An exposed or weakly protected Kubernetes Dashboard (or app admin panel) has historically led directly to full cluster compromise (e.g.",
           "severity": "critical",
-          "how_to_find": "Network & Secrets — Ingress & Service Exposure: Probe for default/unauthenticated access",
+          "how_to_find": "Network & Secrets — Ingress & Service Exposure: Network & Secrets — Ingress & Service Exposure: Network & Secrets — Ingress & Service Exposure: Network & Secrets — Ingress & Service Exposure: Probe for default/unauthenticated access",
           "how_to_fix": "Assign an owner for check for exposed kubernetes dashboard and admin uis, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "kubectl",
@@ -1593,9 +1593,9 @@
         },
         {
           "title": "Review ingress controller annotations for injection risks",
-          "description": "Ingress controllers like ingress-nginx have had vulnerabilities (e.g. Validate this on Kubernetes clusters, under Network & Secrets — Ingress & Service Exposure. Treat failures here as release blockers.",
+          "description": "Ingress controllers like ingress-nginx have had vulnerabilities (e.g.",
           "severity": "critical",
-          "how_to_find": "Network & Secrets — Ingress & Service Exposure: Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images",
+          "how_to_find": "Network & Secrets — Ingress & Service Exposure: Network & Secrets — Ingress & Service Exposure: Network & Secrets — Ingress & Service Exposure: Network & Secrets — Ingress & Service Exposure: Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images",
           "how_to_fix": "Assign an owner for review ingress controller annotations for injection risks, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "kubectl",
@@ -1624,9 +1624,9 @@
       "items": [
         {
           "title": "Enforce Pod Security Admission (restricted) on namespaces",
-          "description": "PodSecurityPolicy is removed; without Pod Security Admission or an equivalent, nothing prevents privileged, host-sharing, or root workloads from being created. Treat failures here as release blockers.",
+          "description": "PodSecurityPolicy is removed; without Pod Security Admission or an equivalent, nothing prevents privileged, host-sharing, or root workloads from being created.",
           "severity": "critical",
-          "how_to_find": "Cluster Hardening & Supply Chain — Admission Control & Policy: Test that a privileged pod is rejected",
+          "how_to_find": "Cluster Hardening & Supply Chain — Admission Control & Policy: Cluster Hardening & Supply Chain — Admission Control & Policy: Cluster Hardening & Supply Chain — Admission Control & Policy: Cluster Hardening & Supply Chain — Admission Control & Policy: Test that a privileged pod is rejected",
           "how_to_fix": "Assign an owner for enforce pod security admission (restricted) on namespaces, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "kubectl",
@@ -1650,9 +1650,9 @@
         },
         {
           "title": "Deploy a policy engine (OPA/Gatekeeper or Kyverno)",
-          "description": "A policy engine enforces organization-specific guardrails — trusted registries, no latest tags, required labels, blocked capabilities — beyond what PSA covers. Treat failures here as release blockers.",
+          "description": "A policy engine enforces organization-specific guardrails — trusted registries, no latest tags, required labels, blocked capabilities — beyond what PSA covers.",
           "severity": "critical",
-          "how_to_find": "Cluster Hardening & Supply Chain — Admission Control & Policy: Cluster audit (Cluster Hardening & Supply Chain — Admission Control & Policy): A policy engine enforces organization-specific guardrails — trusted registries, no latest tags, required labels, blocked capabilities — beyond what PSA covers",
+          "how_to_find": "Cluster Hardening & Supply Chain — Admission Control & Policy: Cluster Hardening & Supply Chain — Admission Control & Policy: Cluster Hardening & Supply Chain — Admission Control & Policy: Cluster Hardening & Supply Chain — Admission Control & Policy: Cluster audit (Cluster Hardening & Supply Chain — Admission Control & Policy): A policy engine enforces organization-specific guardrails — trusted registries, no latest tags, required labels, blocked capabilities — beyond what PSA covers",
           "how_to_fix": "Assign an owner for deploy a policy engine (opa/gatekeeper or kyverno), apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "kubectl",
@@ -1676,9 +1676,9 @@
         },
         {
           "title": "Harden admission webhook configuration",
-          "description": "Misconfigured admission webhooks (failurePolicy: Ignore, overly broad rules, or a compromised webhook) can be bypassed or abused to weaken or block cluster controls. Good hygiene that pays off over time.",
+          "description": "Misconfigured admission webhooks (failurePolicy: Ignore, overly broad rules, or a compromised webhook) can be bypassed or abused to weaken or block cluster controls.",
           "severity": "low",
-          "how_to_find": "Cluster Hardening & Supply Chain — Admission Control & Policy: Confirm critical webhooks fail closed and the webhook service is protected",
+          "how_to_find": "Cluster Hardening & Supply Chain — Admission Control & Policy: Cluster Hardening & Supply Chain — Admission Control & Policy: Cluster Hardening & Supply Chain — Admission Control & Policy: Cluster Hardening & Supply Chain — Admission Control & Policy: Confirm critical webhooks fail closed and the webhook service is protected",
           "how_to_fix": "Assign an owner for harden admission webhook configuration, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "kubectl",
@@ -1702,9 +1702,9 @@
         },
         {
           "title": "Enforce supply-chain policy at admission (signing/provenance)",
-          "description": "Admission-time verification of image signatures and provenance attestations stops untrusted or tampered images from ever running. Treat failures here as release blockers.",
+          "description": "Admission-time verification of image signatures and provenance attestations stops untrusted or tampered images from ever running.",
           "severity": "critical",
-          "how_to_find": "Cluster Hardening & Supply Chain — Admission Control & Policy: Cluster audit (Cluster Hardening & Supply Chain — Admission Control & Policy): Admission-time verification of image signatures and provenance attestations stops untrusted or tampered images from ever running",
+          "how_to_find": "Cluster Hardening & Supply Chain — Admission Control & Policy: Cluster Hardening & Supply Chain — Admission Control & Policy: Cluster Hardening & Supply Chain — Admission Control & Policy: Cluster Hardening & Supply Chain — Admission Control & Policy: Cluster audit (Cluster Hardening & Supply Chain — Admission Control & Policy): Admission-time verification of image signatures and provenance attestations stops untrusted or tampered images from ever running",
           "how_to_fix": "Assign an owner for enforce supply-chain policy at admission (signing/provenance), apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "kubectl",
@@ -1733,9 +1733,9 @@
       "items": [
         {
           "title": "Restrict network exposure of etcd",
-          "description": "etcd reachable beyond the control plane allows direct reads/writes of all cluster state and secrets, bypassing the API server and RBAC entirely. Good hygiene that pays off over time.",
+          "description": "etcd reachable beyond the control plane allows direct reads/writes of all cluster state and secrets, bypassing the API server and RBAC entirely.",
           "severity": "low",
-          "how_to_find": "Cluster Hardening & Supply Chain — etcd Security: Test reachability",
+          "how_to_find": "Cluster Hardening & Supply Chain — etcd Security: Cluster Hardening & Supply Chain — etcd Security: Cluster Hardening & Supply Chain — etcd Security: Cluster Hardening & Supply Chain — etcd Security: Test reachability",
           "how_to_fix": "Assign an owner for restrict network exposure of etcd, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "kubectl",
@@ -1759,9 +1759,9 @@
         },
         {
           "title": "Require mutual TLS for etcd client and peer traffic",
-          "description": "Without client-cert authentication and peer TLS, anyone with network access to etcd can read or modify cluster data without credentials. Treat failures here as release blockers.",
+          "description": "Without client-cert authentication and peer TLS, anyone with network access to etcd can read or modify cluster data without credentials.",
           "severity": "critical",
-          "how_to_find": "Cluster Hardening & Supply Chain — etcd Security: Verify unauthenticated/clear-text connections to etcd are refused",
+          "how_to_find": "Cluster Hardening & Supply Chain — etcd Security: Cluster Hardening & Supply Chain — etcd Security: Cluster Hardening & Supply Chain — etcd Security: Cluster Hardening & Supply Chain — etcd Security: Verify unauthenticated/clear-text connections to etcd are refused",
           "how_to_fix": "Assign an owner for require mutual tls for etcd client and peer traffic, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "kubectl",
@@ -1785,9 +1785,9 @@
         },
         {
           "title": "Protect and encrypt etcd backups",
-          "description": "etcd snapshots contain every secret and config in the cluster; unencrypted or world-readable backups are a complete cluster breach if obtained. Worth prioritising in your next assessment cycle.",
+          "description": "etcd snapshots contain every secret and config in the cluster; unencrypted or world-readable backups are a complete cluster breach if obtained.",
           "severity": "high",
-          "how_to_find": "Cluster Hardening & Supply Chain — etcd Security: Verify restore procedures are tested",
+          "how_to_find": "Cluster Hardening & Supply Chain — etcd Security: Cluster Hardening & Supply Chain — etcd Security: Cluster Hardening & Supply Chain — etcd Security: Cluster Hardening & Supply Chain — etcd Security: Verify restore procedures are tested",
           "how_to_fix": "Assign an owner for protect and encrypt etcd backups, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "kubectl",
@@ -1811,9 +1811,9 @@
         },
         {
           "title": "Confirm data-at-rest encryption covers etcd contents",
-          "description": "Even with network controls, plaintext secrets in the etcd datastore are exposed to disk theft, snapshot leaks, and host compromise. Worth prioritising in your next assessment cycle.",
+          "description": "Even with network controls, plaintext secrets in the etcd datastore are exposed to disk theft, snapshot leaks, and host compromise.",
           "severity": "high",
-          "how_to_find": "Cluster Hardening & Supply Chain — etcd Security: Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images",
+          "how_to_find": "Cluster Hardening & Supply Chain — etcd Security: Cluster Hardening & Supply Chain — etcd Security: Cluster Hardening & Supply Chain — etcd Security: Cluster Hardening & Supply Chain — etcd Security: Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images",
           "how_to_fix": "Assign an owner for confirm data-at-rest encryption covers etcd contents, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "kubectl",
@@ -1842,9 +1842,9 @@
       "items": [
         {
           "title": "Run kube-bench against control plane and nodes",
-          "description": "The CIS Kubernetes Benchmark codifies hundreds of hardening checks; running kube-bench surfaces insecure flags and file permissions that manual review misses. Schedule remediation once higher-severity gaps are closed.",
+          "description": "The CIS Kubernetes Benchmark codifies hundreds of hardening checks; running kube-bench surfaces insecure flags and file permissions that manual review misses.",
           "severity": "medium",
-          "how_to_find": "Cluster Hardening & Supply Chain — CIS Benchmark & Control-Plane Hardening: Cluster audit (Cluster Hardening & Supply Chain — CIS Benchmark & Control-Plane Hardening): The CIS Kubernetes Benchmark codifies hundreds of hardening checks; running kube-bench surfaces insecure flags and file permissions that manual review misses",
+          "how_to_find": "Cluster Hardening & Supply Chain — CIS Benchmark & Control-Plane Hardening: Cluster Hardening & Supply Chain — CIS Benchmark & Control-Plane Hardening: Cluster Hardening & Supply Chain — CIS Benchmark & Control-Plane Hardening: Cluster Hardening & Supply Chain — CIS Benchmark & Control-Plane Hardening: Cluster audit (Cluster Hardening & Supply Chain — CIS Benchmark & Control-Plane Hardening): The CIS Kubernetes Benchmark codifies hundreds of hardening checks; running kube-bench surfaces insecure flags and file permissions that manual review misses",
           "how_to_fix": "Assign an owner for run kube-bench against control plane and nodes, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "kubectl",
@@ -1868,9 +1868,9 @@
         },
         {
           "title": "Harden API server flags",
-          "description": "Insecure API server flags (e.g. Validate this on Kubernetes clusters, under Cluster Hardening & Supply Chain — CIS Benchmark & Control-Plane Hardening. Good hygiene that pays off over time.",
+          "description": "Insecure API server flags (e.g. Good hygiene that pays off over time.",
           "severity": "low",
-          "how_to_find": "Cluster Hardening & Supply Chain — CIS Benchmark & Control-Plane Hardening: Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images",
+          "how_to_find": "Cluster Hardening & Supply Chain — CIS Benchmark & Control-Plane Hardening: Cluster Hardening & Supply Chain — CIS Benchmark & Control-Plane Hardening: Cluster Hardening & Supply Chain — CIS Benchmark & Control-Plane Hardening: Cluster Hardening & Supply Chain — CIS Benchmark & Control-Plane Hardening: Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images",
           "how_to_fix": "Assign an owner for harden api server flags, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "kubectl",
@@ -1894,9 +1894,9 @@
         },
         {
           "title": "Harden kubelet configuration",
-          "description": "Kubelet defaults can permit anonymous access, read-only port exposure, and unrotated certs, providing node and pod control to attackers. Good hygiene that pays off over time.",
+          "description": "Kubelet defaults can permit anonymous access, read-only port exposure, and unrotated certs, providing node and pod control to attackers.",
           "severity": "low",
-          "how_to_find": "Cluster Hardening & Supply Chain — CIS Benchmark & Control-Plane Hardening: Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images",
+          "how_to_find": "Cluster Hardening & Supply Chain — CIS Benchmark & Control-Plane Hardening: Cluster Hardening & Supply Chain — CIS Benchmark & Control-Plane Hardening: Cluster Hardening & Supply Chain — CIS Benchmark & Control-Plane Hardening: Cluster Hardening & Supply Chain — CIS Benchmark & Control-Plane Hardening: Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images",
           "how_to_fix": "Assign an owner for harden kubelet configuration, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "kubectl",
@@ -1920,9 +1920,9 @@
         },
         {
           "title": "Harden the node OS and component file permissions",
-          "description": "Insecure permissions on kubeconfig, manifests, and PKI files, plus an unhardened host OS, let a node-local attacker read credentials and tamper with components. Schedule remediation once higher-severity gaps are closed.",
+          "description": "Insecure permissions on kubeconfig, manifests, and PKI files, plus an unhardened host OS, let a node-local attacker read credentials and tamper with components.",
           "severity": "medium",
-          "how_to_find": "Cluster Hardening & Supply Chain — CIS Benchmark & Control-Plane Hardening: Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images",
+          "how_to_find": "Cluster Hardening & Supply Chain — CIS Benchmark & Control-Plane Hardening: Cluster Hardening & Supply Chain — CIS Benchmark & Control-Plane Hardening: Cluster Hardening & Supply Chain — CIS Benchmark & Control-Plane Hardening: Cluster Hardening & Supply Chain — CIS Benchmark & Control-Plane Hardening: Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images",
           "how_to_fix": "Assign an owner for harden the node os and component file permissions, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "kubectl",

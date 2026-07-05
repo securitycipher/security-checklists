@@ -7,7 +7,7 @@
       "items": [
         {
           "title": "Decompile and review APK",
-          "description": "Use jadx or apktool to inspect source, manifest, and hardcoded secrets. Validate this in mobile assessments, under Android - Static Analysis. Treat failures here as release blockers.",
+          "description": "Use jadx or apktool to inspect source, manifest, and hardcoded secrets.",
           "severity": "critical",
           "how_to_find": "Validate decompile and review apk in Android - Static Analysis. Save commands, screenshots, and affected resource identifiers.",
           "how_to_fix": "Assign an owner for decompile and review apk, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
@@ -28,7 +28,7 @@
         },
         {
           "title": "AndroidManifest exported components",
-          "description": "Flag exported activities, services, receivers, and providers without proper permissions. Validate this in mobile assessments, under Android - Static Analysis. Good hygiene that pays off over time.",
+          "description": "Flag exported activities, services, receivers, and providers without proper permissions.",
           "severity": "low",
           "how_to_find": "Validate androidmanifest exported components in Android - Static Analysis. Save commands, screenshots, and affected resource identifiers.",
           "how_to_fix": "Assign an owner for androidmanifest exported components, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
@@ -49,7 +49,7 @@
         },
         {
           "title": "Hardcoded API keys and secrets",
-          "description": "Search decompiled code and resources for keys, tokens, and credentials. Validate this in mobile assessments, under Android - Static Analysis. Treat failures here as release blockers.",
+          "description": "Search decompiled code and resources for keys, tokens, and credentials.",
           "severity": "critical",
           "how_to_find": "Validate hardcoded api keys and secrets in Android - Static Analysis. Save commands, screenshots, and affected resource identifiers.",
           "how_to_fix": "Assign an owner for hardcoded api keys and secrets, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
@@ -70,9 +70,9 @@
         },
         {
           "title": "Insecure local storage",
-          "description": "Check SharedPreferences, SQLite, and external storage for sensitive data. Validate this in mobile assessments, under Android - Static Analysis. Worth prioritising in your next assessment cycle.",
+          "description": "Check SharedPreferences, SQLite, and external storage for sensitive data.",
           "severity": "high",
-          "how_to_find": "Android - Static Analysis: Check SharedPreferences, SQLite, and external storage for sensitive data",
+          "how_to_find": "Android - Static Analysis: Android - Static Analysis: Android - Static Analysis: Android - Static Analysis: Check SharedPreferences, SQLite, and external storage for sensitive data",
           "how_to_fix": "Assign an owner for insecure local storage, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "jadx",
@@ -91,9 +91,9 @@
         },
         {
           "title": "Backup allowed",
-          "description": "Verify android:allowBackup is false for apps handling sensitive data. Validate this in mobile assessments, under Android - Static Analysis. Schedule remediation once higher-severity gaps are closed.",
+          "description": "Verify android:allowBackup is false for apps handling sensitive data.",
           "severity": "medium",
-          "how_to_find": "Android - Static Analysis: Verify android:allowBackup is false for apps handling sensitive data",
+          "how_to_find": "Android - Static Analysis: Android - Static Analysis: Android - Static Analysis: Android - Static Analysis: Verify android:allowBackup is false for apps handling sensitive data",
           "how_to_fix": "Assign an owner for backup allowed, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "jadx",
@@ -112,7 +112,7 @@
         },
         {
           "title": "Debuggable flag",
-          "description": "Ensure release builds are not debuggable. Validate this in mobile assessments, under Android - Static Analysis. Good hygiene that pays off over time.",
+          "description": "Ensure release builds are not debuggable.",
           "severity": "low",
           "how_to_find": "Validate debuggable flag in Android - Static Analysis. Save commands, screenshots, and affected resource identifiers.",
           "how_to_fix": "Assign an owner for debuggable flag, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
@@ -138,9 +138,9 @@
       "items": [
         {
           "title": "Certificate pinning bypass",
-          "description": "Test with Frida/objection if traffic can be intercepted via Burp. Validate this in mobile assessments, under Android - Dynamic Analysis. Treat failures here as release blockers.",
+          "description": "Test with Frida/objection if traffic can be intercepted via Burp.",
           "severity": "critical",
-          "how_to_find": "Android - Dynamic Analysis: Test with Frida/objection if traffic can be intercepted via Burp",
+          "how_to_find": "Android - Dynamic Analysis: Android - Dynamic Analysis: Android - Dynamic Analysis: Android - Dynamic Analysis: Test with Frida/objection if traffic can be intercepted via Burp",
           "how_to_fix": "Assign an owner for certificate pinning bypass, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "jadx",
@@ -159,9 +159,9 @@
         },
         {
           "title": "Root detection bypass",
-          "description": "Attempt to run app on rooted device or emulator with hooks. Validate this in mobile assessments, under Android - Dynamic Analysis. Good hygiene that pays off over time.",
+          "description": "Attempt to run app on rooted device or emulator with hooks.",
           "severity": "low",
-          "how_to_find": "Android - Dynamic Analysis: Attempt to run app on rooted device or emulator with hooks",
+          "how_to_find": "Android - Dynamic Analysis: Android - Dynamic Analysis: Android - Dynamic Analysis: Android - Dynamic Analysis: Attempt to run app on rooted device or emulator with hooks",
           "how_to_fix": "Assign an owner for root detection bypass, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "jadx",
@@ -180,9 +180,9 @@
         },
         {
           "title": "Deep link hijacking",
-          "description": "Test custom URL schemes and App Links for takeover by malicious apps. Validate this in mobile assessments, under Android - Dynamic Analysis. Good hygiene that pays off over time.",
+          "description": "Test custom URL schemes and App Links for takeover by malicious apps.",
           "severity": "low",
-          "how_to_find": "Android - Dynamic Analysis: Test custom URL schemes and App Links for takeover by malicious apps",
+          "how_to_find": "Android - Dynamic Analysis: Android - Dynamic Analysis: Android - Dynamic Analysis: Android - Dynamic Analysis: Test custom URL schemes and App Links for takeover by malicious apps",
           "how_to_fix": "Assign an owner for deep link hijacking, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "jadx",
@@ -201,9 +201,9 @@
         },
         {
           "title": "IPC abuse",
-          "description": "Use drozer to test content providers and inter-process communication. Validate this in mobile assessments, under Android - Dynamic Analysis. Good hygiene that pays off over time.",
+          "description": "Use drozer to test content providers and inter-process communication.",
           "severity": "low",
-          "how_to_find": "Android - Dynamic Analysis: Use drozer to test content providers and inter-process communication",
+          "how_to_find": "Android - Dynamic Analysis: Android - Dynamic Analysis: Android - Dynamic Analysis: Android - Dynamic Analysis: Use drozer to test content providers and inter-process communication",
           "how_to_fix": "Assign an owner for ipc abuse, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "jadx",
@@ -222,9 +222,9 @@
         },
         {
           "title": "Runtime instrumentation",
-          "description": "Hook crypto, auth, and SSL routines with Frida. Validate this in mobile assessments, under Android - Dynamic Analysis. Good hygiene that pays off over time.",
+          "description": "Hook crypto, auth, and SSL routines with Frida.",
           "severity": "low",
-          "how_to_find": "Android - Dynamic Analysis: Control: Runtime instrumentation",
+          "how_to_find": "Android - Dynamic Analysis: Android - Dynamic Analysis: Android - Dynamic Analysis: Android - Dynamic Analysis: Control: Runtime instrumentation",
           "how_to_fix": "Assign an owner for runtime instrumentation, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "jadx",
@@ -243,9 +243,9 @@
         },
         {
           "title": "Backend API replay",
-          "description": "Capture and replay mobile API calls in Burp; test IDOR and auth. Validate this in mobile assessments, under Android - Dynamic Analysis. Worth prioritising in your next assessment cycle.",
+          "description": "Capture and replay mobile API calls in Burp; test IDOR and auth.",
           "severity": "high",
-          "how_to_find": "Android - Dynamic Analysis: Capture and replay mobile API calls in Burp; test IDOR and auth",
+          "how_to_find": "Android - Dynamic Analysis: Android - Dynamic Analysis: Android - Dynamic Analysis: Android - Dynamic Analysis: Capture and replay mobile API calls in Burp; test IDOR and auth",
           "how_to_fix": "Assign an owner for backend api replay, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "jadx",
@@ -269,7 +269,7 @@
       "items": [
         {
           "title": "Binary analysis",
-          "description": "Inspect IPA with class-dump, Hopper, or Ghidra for secrets and logic. Validate this in mobile assessments, under iOS - Static Analysis. Good hygiene that pays off over time.",
+          "description": "Inspect IPA with class-dump, Hopper, or Ghidra for secrets and logic.",
           "severity": "low",
           "how_to_find": "Validate binary analysis in iOS - Static Analysis. Save commands, screenshots, and affected resource identifiers.",
           "how_to_fix": "Assign an owner for binary analysis, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
@@ -291,9 +291,9 @@
         },
         {
           "title": "Info.plist review",
-          "description": "Check ATS settings, URL schemes, and sensitive plist keys. Validate this in mobile assessments, under iOS - Static Analysis. Good hygiene that pays off over time.",
+          "description": "Check ATS settings, URL schemes, and sensitive plist keys.",
           "severity": "low",
-          "how_to_find": "iOS - Static Analysis: Check ATS settings, URL schemes, and sensitive plist keys",
+          "how_to_find": "iOS - Static Analysis: iOS - Static Analysis: iOS - Static Analysis: iOS - Static Analysis: Check ATS settings, URL schemes, and sensitive plist keys",
           "how_to_fix": "Assign an owner for info.plist review, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "objection",
@@ -313,7 +313,7 @@
         },
         {
           "title": "Hardcoded secrets in bundle",
-          "description": "Search strings and plists for API keys and credentials. Validate this in mobile assessments, under iOS - Static Analysis. Good hygiene that pays off over time.",
+          "description": "Search strings and plists for API keys and credentials.",
           "severity": "low",
           "how_to_find": "Validate hardcoded secrets in bundle in iOS - Static Analysis. Save commands, screenshots, and affected resource identifiers.",
           "how_to_fix": "Assign an owner for hardcoded secrets in bundle, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
@@ -335,9 +335,9 @@
         },
         {
           "title": "Jailbreak detection",
-          "description": "Identify and test bypass of jailbreak/root checks. Validate this in mobile assessments, under iOS - Static Analysis. Good hygiene that pays off over time.",
+          "description": "Identify and test bypass of jailbreak/root checks.",
           "severity": "low",
-          "how_to_find": "iOS - Static Analysis: Identify and test bypass of jailbreak/root checks",
+          "how_to_find": "iOS - Static Analysis: iOS - Static Analysis: iOS - Static Analysis: iOS - Static Analysis: Identify and test bypass of jailbreak/root checks",
           "how_to_fix": "Assign an owner for jailbreak detection, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "objection",
@@ -362,9 +362,9 @@
       "items": [
         {
           "title": "Keychain accessibility",
-          "description": "Dump keychain with objection; verify kSecAttrAccessible classes. Validate this in mobile assessments, under iOS - Dynamic Analysis. Good hygiene that pays off over time.",
+          "description": "Dump keychain with objection; verify kSecAttrAccessible classes.",
           "severity": "low",
-          "how_to_find": "iOS - Dynamic Analysis: Dump keychain with objection; verify kSecAttrAccessible classes",
+          "how_to_find": "iOS - Dynamic Analysis: iOS - Dynamic Analysis: iOS - Dynamic Analysis: iOS - Dynamic Analysis: Dump keychain with objection; verify kSecAttrAccessible classes",
           "how_to_fix": "Assign an owner for keychain accessibility, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "objection",
@@ -384,7 +384,7 @@
         },
         {
           "title": "SSL pinning bypass",
-          "description": "Use Frida/objection ios sslpinning disable and proxy traffic. Validate this in mobile assessments, under iOS - Dynamic Analysis. Good hygiene that pays off over time.",
+          "description": "Use Frida/objection ios sslpinning disable and proxy traffic.",
           "severity": "low",
           "how_to_find": "Validate ssl pinning bypass in iOS - Dynamic Analysis. Save commands, screenshots, and affected resource identifiers.",
           "how_to_fix": "Assign an owner for ssl pinning bypass, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
@@ -406,9 +406,9 @@
         },
         {
           "title": "Universal link hijacking",
-          "description": "Test associated domains and URL scheme handlers. Validate this in mobile assessments, under iOS - Dynamic Analysis. Good hygiene that pays off over time.",
+          "description": "Test associated domains and URL scheme handlers.",
           "severity": "low",
-          "how_to_find": "iOS - Dynamic Analysis: Test associated domains and URL scheme handlers",
+          "how_to_find": "iOS - Dynamic Analysis: iOS - Dynamic Analysis: iOS - Dynamic Analysis: iOS - Dynamic Analysis: Test associated domains and URL scheme handlers",
           "how_to_fix": "Assign an owner for universal link hijacking, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "objection",
@@ -428,7 +428,7 @@
         },
         {
           "title": "Sensitive data in logs",
-          "description": "Monitor device logs during auth and payment flows. Validate this in mobile assessments, under iOS - Dynamic Analysis. Good hygiene that pays off over time.",
+          "description": "Monitor device logs during auth and payment flows.",
           "severity": "low",
           "how_to_find": "Validate sensitive data in logs in iOS - Dynamic Analysis. Save commands, screenshots, and affected resource identifiers.",
           "how_to_fix": "Assign an owner for sensitive data in logs, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
@@ -450,9 +450,9 @@
         },
         {
           "title": "Backend API security",
-          "description": "Apply web/API testing to endpoints the app calls. Validate this in mobile assessments, under iOS - Dynamic Analysis. Good hygiene that pays off over time.",
+          "description": "Apply web/API testing to endpoints the app calls.",
           "severity": "low",
-          "how_to_find": "iOS - Dynamic Analysis: Apply web/API testing to endpoints the app calls",
+          "how_to_find": "iOS - Dynamic Analysis: iOS - Dynamic Analysis: iOS - Dynamic Analysis: iOS - Dynamic Analysis: Apply web/API testing to endpoints the app calls",
           "how_to_fix": "Assign an owner for backend api security, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "objection",
@@ -472,9 +472,9 @@
         },
         {
           "title": "Clipboard and screenshot leaks",
-          "description": "Verify sensitive fields are not copied or captured. Validate this in mobile assessments, under iOS - Dynamic Analysis. Good hygiene that pays off over time.",
+          "description": "Verify sensitive fields are not copied or captured.",
           "severity": "low",
-          "how_to_find": "iOS - Dynamic Analysis: Verify sensitive fields are not copied or captured",
+          "how_to_find": "iOS - Dynamic Analysis: iOS - Dynamic Analysis: iOS - Dynamic Analysis: iOS - Dynamic Analysis: Verify sensitive fields are not copied or captured",
           "how_to_fix": "Assign an owner for clipboard and screenshot leaks, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "objection",
@@ -499,9 +499,9 @@
       "items": [
         {
           "title": "Sensitive data in SharedPreferences / NSUserDefaults",
-          "description": "Tokens, passwords or PII written to SharedPreferences (Android) or NSUserDefaults (iOS) are stored as cleartext XML/plist and are trivially readable on a rooted/jailbroken device or via backup. Schedule remediation once higher-severity gaps are closed.",
+          "description": "Tokens, passwords or PII written to SharedPreferences (Android) or NSUserDefaults (iOS) are stored as cleartext XML/plist and are trivially readable on a rooted/jailbroken device or via backup.",
           "severity": "medium",
-          "how_to_find": "Data Storage & Privacy — Insecure Data Storage: Confirm no secrets are stored here unencrypted",
+          "how_to_find": "Data Storage & Privacy — Insecure Data Storage: Data Storage & Privacy — Insecure Data Storage: Data Storage & Privacy — Insecure Data Storage: Data Storage & Privacy — Insecure Data Storage: Confirm no secrets are stored here unencrypted",
           "how_to_fix": "Assign an owner for sensitive data in sharedpreferences / nsuserdefaults, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "objection",
@@ -528,7 +528,7 @@
         },
         {
           "title": "Unencrypted SQLite / Realm databases",
-          "description": "App databases holding credentials, session data or PII are stored without encryption (no SQLCipher / Realm encryption), exposing all rows on a compromised device. Worth prioritising in your next assessment cycle.",
+          "description": "App databases holding credentials, session data or PII are stored without encryption (no SQLCipher / Realm encryption), exposing all rows on a compromised device.",
           "severity": "high",
           "how_to_find": "Validate unencrypted sqlite / realm databases in Data Storage & Privacy — Insecure Data Storage. Save commands, screenshots, and affected resource identifiers.",
           "how_to_fix": "Assign an owner for unencrypted sqlite / realm databases, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
@@ -557,7 +557,7 @@
         },
         {
           "title": "Sensitive data on external/shared storage",
-          "description": "Writing sensitive files to external storage (Android getExternalFilesDir/SD card or world-readable paths) exposes them to other apps and removes OS sandbox protection. Good hygiene that pays off over time.",
+          "description": "Writing sensitive files to external storage (Android getExternalFilesDir/SD card or world-readable paths) exposes them to other apps and removes OS sandbox protection.",
           "severity": "low",
           "how_to_find": "Validate sensitive data on external/shared storage in Data Storage & Privacy — Insecure Data Storage. Save commands, screenshots, and affected resource identifiers.",
           "how_to_fix": "Assign an owner for sensitive data on external/shared storage, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
@@ -585,7 +585,7 @@
         },
         {
           "title": "Sensitive data captured in device backups",
-          "description": "Android auto-backup (allowBackup) and iOS iCloud/iTunes backups can copy app data off-device. Schedule remediation once higher-severity gaps are closed.",
+          "description": "Android auto-backup (allowBackup) and iOS iCloud/iTunes backups can copy app data off-device.",
           "severity": "medium",
           "how_to_find": "Validate sensitive data captured in device backups in Data Storage & Privacy — Insecure Data Storage. Save commands, screenshots, and affected resource identifiers.",
           "how_to_fix": "Assign an owner for sensitive data captured in device backups, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
@@ -614,7 +614,7 @@
         },
         {
           "title": "Sensitive data leaked to logs",
-          "description": "Logcat / NSLog / os_log statements that print tokens, passwords or PII leak sensitive data to system logs, crash reports and any app holding the READ_LOGS capability on older devices. Good hygiene that pays off over time.",
+          "description": "Logcat / NSLog / os_log statements that print tokens, passwords or PII leak sensitive data to system logs, crash reports and any app holding the READ_LOGS capability on older devices.",
           "severity": "low",
           "how_to_find": "Validate sensitive data leaked to logs in Data Storage & Privacy — Insecure Data Storage. Save commands, screenshots, and affected resource identifiers.",
           "how_to_fix": "Assign an owner for sensitive data leaked to logs, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
@@ -643,7 +643,7 @@
         },
         {
           "title": "Sensitive data exposed via clipboard",
-          "description": "Allowing copy of passwords/OTPs/tokens to the clipboard exposes them to any app reading the pasteboard; iOS universal clipboard can sync them across devices. Good hygiene that pays off over time.",
+          "description": "Allowing copy of passwords/OTPs/tokens to the clipboard exposes them to any app reading the pasteboard; iOS universal clipboard can sync them across devices.",
           "severity": "low",
           "how_to_find": "Validate sensitive data exposed via clipboard in Data Storage & Privacy — Insecure Data Storage. Save commands, screenshots, and affected resource identifiers.",
           "how_to_fix": "Assign an owner for sensitive data exposed via clipboard, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
@@ -672,7 +672,7 @@
         },
         {
           "title": "Sensitive data in screenshot / UI cache",
-          "description": "The OS snapshots the app on backgrounding for the task switcher. Validate this in mobile assessments, under Data Storage & Privacy — Insecure Data Storage. Good hygiene that pays off over time.",
+          "description": "The OS snapshots the app on backgrounding for the task switcher.",
           "severity": "low",
           "how_to_find": "Validate sensitive data in screenshot / ui cache in Data Storage & Privacy — Insecure Data Storage. Save commands, screenshots, and affected resource identifiers.",
           "how_to_fix": "Assign an owner for sensitive data in screenshot / ui cache, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
@@ -706,7 +706,7 @@
       "items": [
         {
           "title": "Secrets not stored in Keychain / Keystore",
-          "description": "Cryptographic keys and credentials kept in plain files or preferences instead of the OS secure store lose hardware isolation and OS access controls. Good hygiene that pays off over time.",
+          "description": "Cryptographic keys and credentials kept in plain files or preferences instead of the OS secure store lose hardware isolation and OS access controls.",
           "severity": "low",
           "how_to_find": "Validate secrets not stored in keychain / keystore in Data Storage & Privacy — Keychain / Keystore Usage. Save commands, screenshots, and affected resource identifiers.",
           "how_to_fix": "Assign an owner for secrets not stored in keychain / keystore, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
@@ -735,7 +735,7 @@
         },
         {
           "title": "Weak Keychain protection class",
-          "description": "Keychain items using kSecAttrAccessibleAlways or AfterFirstUnlock (with ThisDeviceOnly omitted) remain readable when the device is locked or migrate via backup, weakening protection. Schedule remediation once higher-severity gaps are closed.",
+          "description": "Keychain items using kSecAttrAccessibleAlways or AfterFirstUnlock (with ThisDeviceOnly omitted) remain readable when the device is locked or migrate via backup, weakening protection.",
           "severity": "medium",
           "how_to_find": "Validate weak keychain protection class in Data Storage & Privacy — Keychain / Keystore Usage. Save commands, screenshots, and affected resource identifiers.",
           "how_to_fix": "Assign an owner for weak keychain protection class, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
@@ -763,7 +763,7 @@
         },
         {
           "title": "Hardware-backed keystore / StrongBox not used",
-          "description": "Keys generated in software rather than the TEE/Secure Enclave/StrongBox can be extracted on a rooted device, defeating at-rest key protection. Good hygiene that pays off over time.",
+          "description": "Keys generated in software rather than the TEE/Secure Enclave/StrongBox can be extracted on a rooted device, defeating at-rest key protection.",
           "severity": "low",
           "how_to_find": "Validate hardware-backed keystore / strongbox not used in Data Storage & Privacy — Keychain / Keystore Usage. Save commands, screenshots, and affected resource identifiers.",
           "how_to_fix": "Assign an owner for hardware-backed keystore / strongbox not used, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
@@ -792,9 +792,9 @@
         },
         {
           "title": "Key material extractable at runtime",
-          "description": "Keys imported into memory or exported from the keystore (rather than used via opaque handles) can be hooked and dumped at runtime with Frida. Good hygiene that pays off over time.",
+          "description": "Keys imported into memory or exported from the keystore (rather than used via opaque handles) can be hooked and dumped at runtime with Frida.",
           "severity": "low",
-          "how_to_find": "Data Storage & Privacy — Keychain / Keystore Usage: Keys imported into memory or exported from the keystore (rather than used via opaque handles) can be hooked and dumped at runtime with Frida",
+          "how_to_find": "Data Storage & Privacy — Keychain / Keystore Usage: Data Storage & Privacy — Keychain / Keystore Usage: Data Storage & Privacy — Keychain / Keystore Usage: Data Storage & Privacy — Keychain / Keystore Usage: Keys imported into memory or exported from the keystore (rather than used via opaque handles) can be hooked and dumped at runtime with Frida",
           "how_to_fix": "Assign an owner for key material extractable at runtime, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "objection",
@@ -821,7 +821,7 @@
         },
         {
           "title": "Keys not bound to user authentication",
-          "description": "High-value keys that do not require user authentication (biometric/PIN) for use can be exercised by malware or an attacker with device access. Good hygiene that pays off over time.",
+          "description": "High-value keys that do not require user authentication (biometric/PIN) for use can be exercised by malware or an attacker with device access.",
           "severity": "low",
           "how_to_find": "Validate keys not bound to user authentication in Data Storage & Privacy — Keychain / Keystore Usage. Save commands, screenshots, and affected resource identifiers.",
           "how_to_fix": "Assign an owner for keys not bound to user authentication, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
@@ -855,7 +855,7 @@
       "items": [
         {
           "title": "Cleartext (HTTP) traffic permitted",
-          "description": "Any plaintext HTTP traffic exposes data to interception and tampering. Validate this in mobile assessments, under Network & Transport — Transport Security. Treat failures here as release blockers.",
+          "description": "Any plaintext HTTP traffic exposes data to interception and tampering.",
           "severity": "critical",
           "how_to_find": "Validate cleartext (http) traffic permitted in Network & Transport — Transport Security. Save commands, screenshots, and affected resource identifiers.",
           "how_to_fix": "Assign an owner for cleartext (http) traffic permitted, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
@@ -884,7 +884,7 @@
         },
         {
           "title": "Disabled or broken TLS certificate validation",
-          "description": "Trust-all TrustManagers, hostname verifiers that always return true, or ignored TLS errors let an attacker MITM the connection with any certificate. Good hygiene that pays off over time.",
+          "description": "Trust-all TrustManagers, hostname verifiers that always return true, or ignored TLS errors let an attacker MITM the connection with any certificate.",
           "severity": "low",
           "how_to_find": "Validate disabled or broken tls certificate validation in Network & Transport — Transport Security. Save commands, screenshots, and affected resource identifiers.",
           "how_to_fix": "Assign an owner for disabled or broken tls certificate validation, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
@@ -913,7 +913,7 @@
         },
         {
           "title": "Certificate / public-key pinning present",
-          "description": "Pinning the server certificate or public key raises the bar against MITM by rejecting CAs not in the pin set. Worth prioritising in your next assessment cycle.",
+          "description": "Pinning the server certificate or public key raises the bar against MITM by rejecting CAs not in the pin set.",
           "severity": "high",
           "how_to_find": "Validate certificate / public-key pinning present in Network & Transport — Transport Security. Save commands, screenshots, and affected resource identifiers.",
           "how_to_fix": "Assign an owner for certificate / public-key pinning present, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
@@ -942,7 +942,7 @@
         },
         {
           "title": "Weak TLS versions or cipher suites accepted",
-          "description": "Allowing TLS 1.0/1.1 or weak ciphers exposes traffic to downgrade and cryptographic attacks. Schedule remediation once higher-severity gaps are closed.",
+          "description": "Allowing TLS 1.0/1.1 or weak ciphers exposes traffic to downgrade and cryptographic attacks.",
           "severity": "medium",
           "how_to_find": "Validate weak tls versions or cipher suites accepted in Network & Transport — Transport Security. Save commands, screenshots, and affected resource identifiers.",
           "how_to_fix": "Assign an owner for weak tls versions or cipher suites accepted, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
@@ -971,7 +971,7 @@
         },
         {
           "title": "iOS App Transport Security misconfiguration",
-          "description": "NSAllowsArbitraryLoads or broad NSExceptionDomains in Info.plist disable ATS protections and allow insecure connections. Good hygiene that pays off over time.",
+          "description": "NSAllowsArbitraryLoads or broad NSExceptionDomains in Info.plist disable ATS protections and allow insecure connections.",
           "severity": "low",
           "how_to_find": "Validate ios app transport security misconfiguration in Network & Transport — Transport Security. Save commands, screenshots, and affected resource identifiers.",
           "how_to_fix": "Assign an owner for ios app transport security misconfiguration, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
@@ -1004,7 +1004,7 @@
       "items": [
         {
           "title": "Pinning bypassable via Frida / Objection",
-          "description": "Pinning implemented purely in app code can be neutralised with universal Frida/Objection scripts, allowing full traffic interception on a rooted/jailbroken device. Treat failures here as release blockers.",
+          "description": "Pinning implemented purely in app code can be neutralised with universal Frida/Objection scripts, allowing full traffic interception on a rooted/jailbroken device.",
           "severity": "critical",
           "how_to_find": "Validate pinning bypassable via frida / objection in Network & Transport — Cert Pinning & Interception Resistance. Save commands, screenshots, and affected resource identifiers.",
           "how_to_fix": "Assign an owner for pinning bypassable via frida / objection, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
@@ -1033,7 +1033,7 @@
         },
         {
           "title": "Weak Android network_security_config",
-          "description": "A network security config that trusts user certificates, permits cleartext for some domains, or omits pin-sets weakens transport protection. Good hygiene that pays off over time.",
+          "description": "A network security config that trusts user certificates, permits cleartext for some domains, or omits pin-sets weakens transport protection.",
           "severity": "low",
           "how_to_find": "Validate weak android network_security_config in Network & Transport — Cert Pinning & Interception Resistance. Save commands, screenshots, and affected resource identifiers.",
           "how_to_fix": "Assign an owner for weak android network_security_config, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
@@ -1061,7 +1061,7 @@
         },
         {
           "title": "App trusts user-installed CA certificates",
-          "description": "Trusting the user CA store (Android default below API 24, or explicitly via config) lets a proxy CA intercept traffic without rooting. Treat failures here as release blockers.",
+          "description": "Trusting the user CA store (Android default below API 24, or explicitly via config) lets a proxy CA intercept traffic without rooting.",
           "severity": "critical",
           "how_to_find": "Validate app trusts user-installed ca certificates in Network & Transport — Cert Pinning & Interception Resistance. Save commands, screenshots, and affected resource identifiers.",
           "how_to_fix": "Assign an owner for app trusts user-installed ca certificates, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
@@ -1089,7 +1089,7 @@
         },
         {
           "title": "Pinning removable via repackaging / binary patching",
-          "description": "When pinning lives only in the app, an attacker can patch the smali/binary and resign the app to strip it, then analyse traffic at scale. Schedule remediation once higher-severity gaps are closed.",
+          "description": "When pinning lives only in the app, an attacker can patch the smali/binary and resign the app to strip it, then analyse traffic at scale.",
           "severity": "medium",
           "how_to_find": "Validate pinning removable via repackaging / binary patching in Network & Transport — Cert Pinning & Interception Resistance. Save commands, screenshots, and affected resource identifiers.",
           "how_to_fix": "Assign an owner for pinning removable via repackaging / binary patching, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
@@ -1123,9 +1123,9 @@
       "items": [
         {
           "title": "Client-side local authentication bypass",
-          "description": "When the login/PIN decision is made only on the device, hooking the check or patching the binary lets an attacker bypass authentication entirely. Treat failures here as release blockers.",
+          "description": "When the login/PIN decision is made only on the device, hooking the check or patching the binary lets an attacker bypass authentication entirely.",
           "severity": "critical",
-          "how_to_find": "Authentication & Cryptography — Authentication & Session: When the login/PIN decision is made only on the device, hooking the check or patching the binary lets an attacker bypass authentication entirely",
+          "how_to_find": "Authentication & Cryptography — Authentication & Session: Authentication & Cryptography — Authentication & Session: Authentication & Cryptography — Authentication & Session: Authentication & Cryptography — Authentication & Session: When the login/PIN decision is made only on the device, hooking the check or patching the binary lets an attacker bypass authentication entirely",
           "how_to_fix": "Assign an owner for client-side local authentication bypass, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "objection",
@@ -1152,7 +1152,7 @@
         },
         {
           "title": "Biometric authentication bypass",
-          "description": "Event-only biometric callbacks (a boolean success) rather than crypto-bound BiometricPrompt/LAContext can be hooked to return success without a real biometric match. Good hygiene that pays off over time.",
+          "description": "Event-only biometric callbacks (a boolean success) rather than crypto-bound BiometricPrompt/LAContext can be hooked to return success without a real biometric match.",
           "severity": "low",
           "how_to_find": "Validate biometric authentication bypass in Authentication & Cryptography — Authentication & Session. Save commands, screenshots, and affected resource identifiers.",
           "how_to_fix": "Assign an owner for biometric authentication bypass, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
@@ -1181,7 +1181,7 @@
         },
         {
           "title": "Insecure session token storage",
-          "description": "Session/refresh tokens stored in cleartext preferences or files (instead of Keychain/Keystore) can be stolen from a compromised device or backup. Schedule remediation once higher-severity gaps are closed.",
+          "description": "Session/refresh tokens stored in cleartext preferences or files (instead of Keychain/Keystore) can be stolen from a compromised device or backup.",
           "severity": "medium",
           "how_to_find": "Validate insecure session token storage in Authentication & Cryptography — Authentication & Session. Save commands, screenshots, and affected resource identifiers.",
           "how_to_fix": "Assign an owner for insecure session token storage, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
@@ -1210,7 +1210,7 @@
         },
         {
           "title": "Session handling inside WebViews",
-          "description": "Session cookies/tokens exposed to embedded WebViews can leak via the JS bridge, cookie store, or be hijacked if the WebView loads untrusted content. Good hygiene that pays off over time.",
+          "description": "Session cookies/tokens exposed to embedded WebViews can leak via the JS bridge, cookie store, or be hijacked if the WebView loads untrusted content.",
           "severity": "low",
           "how_to_find": "Validate session handling inside webviews in Authentication & Cryptography — Authentication & Session. Save commands, screenshots, and affected resource identifiers.",
           "how_to_fix": "Assign an owner for session handling inside webviews, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
@@ -1239,7 +1239,7 @@
         },
         {
           "title": "Trusting offline / cached authentication state",
-          "description": "Apps that grant access based on cached credentials or entitlements without periodic server revalidation can be abused after a credential or entitlement is revoked. Good hygiene that pays off over time.",
+          "description": "Apps that grant access based on cached credentials or entitlements without periodic server revalidation can be abused after a credential or entitlement is revoked.",
           "severity": "low",
           "how_to_find": "Validate trusting offline / cached authentication state in Authentication & Cryptography — Authentication & Session. Save commands, screenshots, and affected resource identifiers.",
           "how_to_fix": "Assign an owner for trusting offline / cached authentication state, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
@@ -1268,7 +1268,7 @@
         },
         {
           "title": "Session not invalidated server-side on logout",
-          "description": "If logout only clears local state while the server-side token stays valid, a stolen token remains usable, defeating the logout control. Good hygiene that pays off over time.",
+          "description": "If logout only clears local state while the server-side token stays valid, a stolen token remains usable, defeating the logout control.",
           "severity": "low",
           "how_to_find": "Validate session not invalidated server-side on logout in Authentication & Cryptography — Authentication & Session. Save commands, screenshots, and affected resource identifiers.",
           "how_to_fix": "Assign an owner for session not invalidated server-side on logout, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
@@ -1301,7 +1301,7 @@
       "items": [
         {
           "title": "Hardcoded encryption keys",
-          "description": "Symmetric keys, IVs or passphrases embedded in the binary/resources can be recovered by any analyst, rendering the encryption useless. Treat failures here as release blockers.",
+          "description": "Symmetric keys, IVs or passphrases embedded in the binary/resources can be recovered by any analyst, rendering the encryption useless.",
           "severity": "critical",
           "how_to_find": "Validate hardcoded encryption keys in Authentication & Cryptography — Cryptography. Save commands, screenshots, and affected resource identifiers.",
           "how_to_fix": "Assign an owner for hardcoded encryption keys, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
@@ -1330,7 +1330,7 @@
         },
         {
           "title": "Weak or broken cryptographic algorithms",
-          "description": "Use of DES/3DES, RC4, ECB mode, or MD5/SHA-1 for security purposes provides little real protection and is exploitable. Good hygiene that pays off over time.",
+          "description": "Use of DES/3DES, RC4, ECB mode, or MD5/SHA-1 for security purposes provides little real protection and is exploitable.",
           "severity": "low",
           "how_to_find": "Validate weak or broken cryptographic algorithms in Authentication & Cryptography — Cryptography. Save commands, screenshots, and affected resource identifiers.",
           "how_to_fix": "Assign an owner for weak or broken cryptographic algorithms, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
@@ -1359,7 +1359,7 @@
         },
         {
           "title": "Insecure random number generation",
-          "description": "Using java.util.Random / non-CSPRNG sources for keys, IVs, tokens or salts produces predictable values that undermine cryptographic security. Treat failures here as release blockers.",
+          "description": "Using java.util.Random / non-CSPRNG sources for keys, IVs, tokens or salts produces predictable values that undermine cryptographic security.",
           "severity": "critical",
           "how_to_find": "Validate insecure random number generation in Authentication & Cryptography — Cryptography. Save commands, screenshots, and affected resource identifiers.",
           "how_to_fix": "Assign an owner for insecure random number generation, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
@@ -1388,7 +1388,7 @@
         },
         {
           "title": "Custom / home-grown cryptography",
-          "description": "Roll-your-own encryption, XOR obfuscation or proprietary schemes almost always contain flaws and should be replaced with vetted primitives. Worth prioritising in your next assessment cycle.",
+          "description": "Roll-your-own encryption, XOR obfuscation or proprietary schemes almost always contain flaws and should be replaced with vetted primitives.",
           "severity": "high",
           "how_to_find": "Validate custom / home-grown cryptography in Authentication & Cryptography — Cryptography. Save commands, screenshots, and affected resource identifiers.",
           "how_to_fix": "Assign an owner for custom / home-grown cryptography, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
@@ -1417,7 +1417,7 @@
         },
         {
           "title": "Static IV / nonce reuse",
-          "description": "Reusing a fixed IV/nonce with the same key (especially with CTR/GCM) breaks confidentiality and, for GCM, can leak the authentication key. Worth prioritising in your next assessment cycle.",
+          "description": "Reusing a fixed IV/nonce with the same key (especially with CTR/GCM) breaks confidentiality and, for GCM, can leak the authentication key.",
           "severity": "high",
           "how_to_find": "Validate static iv / nonce reuse in Authentication & Cryptography — Cryptography. Save commands, screenshots, and affected resource identifiers.",
           "how_to_fix": "Assign an owner for static iv / nonce reuse, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
@@ -1451,9 +1451,9 @@
       "items": [
         {
           "title": "Unprotected exported components",
-          "description": "Exported activities, services, broadcast receivers and content providers without permission checks let other apps invoke privileged functionality. Worth prioritising in your next assessment cycle.",
+          "description": "Exported activities, services, broadcast receivers and content providers without permission checks let other apps invoke privileged functionality.",
           "severity": "high",
-          "how_to_find": "Platform Interaction — IPC & Exported Components: Exported activities, services, broadcast receivers and content providers without permission checks let other apps invoke privileged functionality",
+          "how_to_find": "Platform Interaction — IPC & Exported Components: Platform Interaction — IPC & Exported Components: Platform Interaction — IPC & Exported Components: Platform Interaction — IPC & Exported Components: Exported activities, services, broadcast receivers and content providers without permission checks let other apps invoke privileged functionality",
           "how_to_fix": "Assign an owner for unprotected exported components, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "objection",
@@ -1479,7 +1479,7 @@
         },
         {
           "title": "Insecure / exported content providers",
-          "description": "Exported content providers or those vulnerable to path traversal / SQL injection in their query interface can leak app data to other apps. Worth prioritising in your next assessment cycle.",
+          "description": "Exported content providers or those vulnerable to path traversal / SQL injection in their query interface can leak app data to other apps.",
           "severity": "high",
           "how_to_find": "Validate insecure / exported content providers in Platform Interaction — IPC & Exported Components. Save commands, screenshots, and affected resource identifiers.",
           "how_to_fix": "Assign an owner for insecure / exported content providers, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
@@ -1507,7 +1507,7 @@
         },
         {
           "title": "Deep link / URL scheme hijacking",
-          "description": "Custom URL schemes can be claimed by multiple apps; unverified app links/universal links can be hijacked, enabling redirection, data theft or auth-code interception. Treat failures here as release blockers.",
+          "description": "Custom URL schemes can be claimed by multiple apps; unverified app links/universal links can be hijacked, enabling redirection, data theft or auth-code interception.",
           "severity": "critical",
           "how_to_find": "Validate deep link / url scheme hijacking in Platform Interaction — IPC & Exported Components. Save commands, screenshots, and affected resource identifiers.",
           "how_to_fix": "Assign an owner for deep link / url scheme hijacking, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
@@ -1536,7 +1536,7 @@
         },
         {
           "title": "Unvalidated deep link parameters",
-          "description": "Deep links that pass parameters straight into navigation, WebView loads or sensitive actions enable open redirect, parameter tampering or unauthorized actions. Good hygiene that pays off over time.",
+          "description": "Deep links that pass parameters straight into navigation, WebView loads or sensitive actions enable open redirect, parameter tampering or unauthorized actions.",
           "severity": "low",
           "how_to_find": "Validate unvalidated deep link parameters in Platform Interaction — IPC & Exported Components. Save commands, screenshots, and affected resource identifiers.",
           "how_to_fix": "Assign an owner for unvalidated deep link parameters, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
@@ -1565,7 +1565,7 @@
         },
         {
           "title": "Intent redirection / confused deputy",
-          "description": "A component that forwards an attacker-supplied nested Intent (startActivity on an extra) can be abused to launch internal components or leak data. Schedule remediation once higher-severity gaps are closed.",
+          "description": "A component that forwards an attacker-supplied nested Intent (startActivity on an extra) can be abused to launch internal components or leak data.",
           "severity": "medium",
           "how_to_find": "Validate intent redirection / confused deputy in Platform Interaction — IPC & Exported Components. Save commands, screenshots, and affected resource identifiers.",
           "how_to_fix": "Assign an owner for intent redirection / confused deputy, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
@@ -1593,7 +1593,7 @@
         },
         {
           "title": "Sensitive data shared via pasteboard / IPC extras",
-          "description": "Passing secrets through the global pasteboard or broadcast intents exposes them to other apps that monitor those channels. Good hygiene that pays off over time.",
+          "description": "Passing secrets through the global pasteboard or broadcast intents exposes them to other apps that monitor those channels.",
           "severity": "low",
           "how_to_find": "Validate sensitive data shared via pasteboard / ipc extras in Platform Interaction — IPC & Exported Components. Save commands, screenshots, and affected resource identifiers.",
           "how_to_fix": "Assign an owner for sensitive data shared via pasteboard / ipc extras, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
@@ -1622,9 +1622,9 @@
         },
         {
           "title": "Tapjacking and overlay attacks",
-          "description": "Sensitive Android screens that do not filter touches obscured by overlays can be tapjacked: a malicious app draws over the UI and tricks the user into approving actions or leaking input. Good hygiene that pays off over time.",
+          "description": "Sensitive Android screens that do not filter touches obscured by overlays can be tapjacked: a malicious app draws over the UI and tricks the user into approving actions or leaking input.",
           "severity": "low",
-          "how_to_find": "Platform Interaction — IPC & Exported Components: On iOS, verify sensitive flows are not capturable via screen recording/overlay where applicable",
+          "how_to_find": "Platform Interaction — IPC & Exported Components: Platform Interaction — IPC & Exported Components: Platform Interaction — IPC & Exported Components: Platform Interaction — IPC & Exported Components: On iOS, verify sensitive flows are not capturable via screen recording/overlay where applicable",
           "how_to_fix": "Assign an owner for tapjacking and overlay attacks, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "objection",
@@ -1656,7 +1656,7 @@
       "items": [
         {
           "title": "Insecure JavaScript bridge (addJavascriptInterface)",
-          "description": "Exposing native objects to web content via addJavascriptInterface / WKScriptMessageHandler can give untrusted JS access to native capabilities and, historically, RCE. Treat failures here as release blockers.",
+          "description": "Exposing native objects to web content via addJavascriptInterface / WKScriptMessageHandler can give untrusted JS access to native capabilities and, historically, RCE.",
           "severity": "critical",
           "how_to_find": "Validate insecure javascript bridge (addjavascriptinterface) in Platform Interaction — WebView Security. Save commands, screenshots, and affected resource identifiers.",
           "how_to_fix": "Assign an owner for insecure javascript bridge (addjavascriptinterface), apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
@@ -1685,7 +1685,7 @@
         },
         {
           "title": "WebView file:// and content access enabled",
-          "description": "Enabling setAllowFileAccess / AllowFileAccessFromFileURLs / AllowUniversalAccessFromFileURLs lets web content read local files, enabling cross-zone data theft. Good hygiene that pays off over time.",
+          "description": "Enabling setAllowFileAccess / AllowFileAccessFromFileURLs / AllowUniversalAccessFromFileURLs lets web content read local files, enabling cross-zone data theft.",
           "severity": "low",
           "how_to_find": "Validate webview file:// and content access enabled in Platform Interaction — WebView Security. Save commands, screenshots, and affected resource identifiers.",
           "how_to_fix": "Assign an owner for webview file:// and content access enabled, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
@@ -1713,7 +1713,7 @@
         },
         {
           "title": "WebView loads untrusted / attacker-controlled URLs",
-          "description": "Calling loadUrl/loadData with input derived from intents, deep links or server responses can load malicious content into a privileged WebView. Treat failures here as release blockers.",
+          "description": "Calling loadUrl/loadData with input derived from intents, deep links or server responses can load malicious content into a privileged WebView.",
           "severity": "critical",
           "how_to_find": "Validate webview loads untrusted / attacker-controlled urls in Platform Interaction — WebView Security. Save commands, screenshots, and affected resource identifiers.",
           "how_to_fix": "Assign an owner for webview loads untrusted / attacker-controlled urls, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
@@ -1742,7 +1742,7 @@
         },
         {
           "title": "WebView mixed content allowed",
-          "description": "Setting MIXED_CONTENT_ALWAYS_ALLOW lets an HTTPS page load HTTP subresources, enabling MITM injection into the WebView. Treat failures here as release blockers.",
+          "description": "Setting MIXED_CONTENT_ALWAYS_ALLOW lets an HTTPS page load HTTP subresources, enabling MITM injection into the WebView.",
           "severity": "critical",
           "how_to_find": "Validate webview mixed content allowed in Platform Interaction — WebView Security. Save commands, screenshots, and affected resource identifiers.",
           "how_to_fix": "Assign an owner for webview mixed content allowed, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
@@ -1770,7 +1770,7 @@
         },
         {
           "title": "WKWebView / UIWebView misconfiguration",
-          "description": "Use of deprecated UIWebView, enabling JavaScript where unneeded, or message handlers exposed to untrusted origins weakens the iOS WebView surface. Good hygiene that pays off over time.",
+          "description": "Use of deprecated UIWebView, enabling JavaScript where unneeded, or message handlers exposed to untrusted origins weakens the iOS WebView surface.",
           "severity": "low",
           "how_to_find": "Validate wkwebview / uiwebview misconfiguration in Platform Interaction — WebView Security. Save commands, screenshots, and affected resource identifiers.",
           "how_to_fix": "Assign an owner for wkwebview / uiwebview misconfiguration, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
@@ -1803,7 +1803,7 @@
       "items": [
         {
           "title": "No code obfuscation",
-          "description": "Unobfuscated code with original class/method names makes reverse engineering, logic recovery and bypass development trivial for high-value apps. Good hygiene that pays off over time.",
+          "description": "Unobfuscated code with original class/method names makes reverse engineering, logic recovery and bypass development trivial for high-value apps.",
           "severity": "low",
           "how_to_find": "Validate no code obfuscation in Code Quality & Resilience — Reverse Engineering & Resilience. Save commands, screenshots, and affected resource identifiers.",
           "how_to_fix": "Assign an owner for no code obfuscation, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
@@ -1832,9 +1832,9 @@
         },
         {
           "title": "App shipped as debuggable",
-          "description": "A release build with android:debuggable=true (or get-task-allow on iOS) lets anyone attach a debugger, dump memory and inspect runtime state. Good hygiene that pays off over time.",
+          "description": "A release build with android:debuggable=true (or get-task-allow on iOS) lets anyone attach a debugger, dump memory and inspect runtime state.",
           "severity": "low",
-          "how_to_find": "Code Quality & Resilience — Reverse Engineering & Resilience: A release build with android:debuggable=true (or get-task-allow on iOS) lets anyone attach a debugger, dump memory and inspect runtime state",
+          "how_to_find": "Code Quality & Resilience — Reverse Engineering & Resilience: Code Quality & Resilience — Reverse Engineering & Resilience: Code Quality & Resilience — Reverse Engineering & Resilience: Code Quality & Resilience — Reverse Engineering & Resilience: A release build with android:debuggable=true (or get-task-allow on iOS) lets anyone attach a debugger, dump memory and inspect runtime state",
           "how_to_fix": "Assign an owner for app shipped as debuggable, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "objection",
@@ -1861,9 +1861,9 @@
         },
         {
           "title": "Missing root / jailbreak detection",
-          "description": "Absent root/jailbreak detection means the app runs on fully compromised devices where storage, memory and pinning protections are void, with no resistance signal. Good hygiene that pays off over time.",
+          "description": "Absent root/jailbreak detection means the app runs on fully compromised devices where storage, memory and pinning protections are void, with no resistance signal.",
           "severity": "low",
-          "how_to_find": "Code Quality & Resilience — Reverse Engineering & Resilience: Absent root/jailbreak detection means the app runs on fully compromised devices where storage, memory and pinning protections are void, with no resistance signal",
+          "how_to_find": "Code Quality & Resilience — Reverse Engineering & Resilience: Code Quality & Resilience — Reverse Engineering & Resilience: Code Quality & Resilience — Reverse Engineering & Resilience: Code Quality & Resilience — Reverse Engineering & Resilience: Absent root/jailbreak detection means the app runs on fully compromised devices where storage, memory and pinning protections are void, with no resistance signal",
           "how_to_fix": "Assign an owner for missing root / jailbreak detection, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "objection",
@@ -1890,9 +1890,9 @@
         },
         {
           "title": "Missing integrity / anti-tamper checks",
-          "description": "Without signature/integrity verification, an attacker can repackage and resign the app (strip pinning, inject code) and distribute a modified build. Good hygiene that pays off over time.",
+          "description": "Without signature/integrity verification, an attacker can repackage and resign the app (strip pinning, inject code) and distribute a modified build.",
           "severity": "low",
-          "how_to_find": "Code Quality & Resilience — Reverse Engineering & Resilience: Control: Missing integrity / anti-tamper checks",
+          "how_to_find": "Code Quality & Resilience — Reverse Engineering & Resilience: Code Quality & Resilience — Reverse Engineering & Resilience: Code Quality & Resilience — Reverse Engineering & Resilience: Code Quality & Resilience — Reverse Engineering & Resilience: Control: Missing integrity / anti-tamper checks",
           "how_to_fix": "Assign an owner for missing integrity / anti-tamper checks, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "objection",
@@ -1919,9 +1919,9 @@
         },
         {
           "title": "Missing Frida / emulator / hooking detection",
-          "description": "No detection of dynamic instrumentation (Frida/Xposed) or emulators allows full runtime manipulation of the app, defeating client-side controls. Good hygiene that pays off over time.",
+          "description": "No detection of dynamic instrumentation (Frida/Xposed) or emulators allows full runtime manipulation of the app, defeating client-side controls.",
           "severity": "low",
-          "how_to_find": "Code Quality & Resilience — Reverse Engineering & Resilience: No detection of dynamic instrumentation (Frida/Xposed) or emulators allows full runtime manipulation of the app, defeating client-side controls",
+          "how_to_find": "Code Quality & Resilience — Reverse Engineering & Resilience: Code Quality & Resilience — Reverse Engineering & Resilience: Code Quality & Resilience — Reverse Engineering & Resilience: Code Quality & Resilience — Reverse Engineering & Resilience: No detection of dynamic instrumentation (Frida/Xposed) or emulators allows full runtime manipulation of the app, defeating client-side controls",
           "how_to_fix": "Assign an owner for missing frida / emulator / hooking detection, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "objection",
@@ -1953,7 +1953,7 @@
       "items": [
         {
           "title": "Hardcoded API keys / secrets",
-          "description": "API keys, tokens and signing secrets baked into the binary, strings.xml or resources are recoverable from the package and can be abused against backend services. Treat failures here as release blockers.",
+          "description": "API keys, tokens and signing secrets baked into the binary, strings.xml or resources are recoverable from the package and can be abused against backend services.",
           "severity": "critical",
           "how_to_find": "Validate hardcoded api keys / secrets in Code Quality & Resilience — Hardcoded Secrets. Save commands, screenshots, and affected resource identifiers.",
           "how_to_fix": "Assign an owner for hardcoded api keys / secrets, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
@@ -1982,7 +1982,7 @@
         },
         {
           "title": "Embedded credentials / accounts",
-          "description": "Hardcoded usernames, passwords or service-account credentials grant anyone who extracts them direct access to backend or third-party systems. Treat failures here as release blockers.",
+          "description": "Hardcoded usernames, passwords or service-account credentials grant anyone who extracts them direct access to backend or third-party systems.",
           "severity": "critical",
           "how_to_find": "Validate embedded credentials / accounts in Code Quality & Resilience — Hardcoded Secrets. Save commands, screenshots, and affected resource identifiers.",
           "how_to_fix": "Assign an owner for embedded credentials / accounts, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
@@ -2011,9 +2011,9 @@
         },
         {
           "title": "Exposed Firebase / cloud configuration",
-          "description": "Firebase config, cloud bucket URLs and tokens in the app can reveal open databases/buckets or misconfigured rules, leading to data exposure. Treat failures here as release blockers.",
+          "description": "Firebase config, cloud bucket URLs and tokens in the app can reveal open databases/buckets or misconfigured rules, leading to data exposure.",
           "severity": "critical",
-          "how_to_find": "Code Quality & Resilience — Hardcoded Secrets: /.json on RTDB, public buckets); confirm backend rules enforce auth",
+          "how_to_find": "Code Quality & Resilience — Hardcoded Secrets: Code Quality & Resilience — Hardcoded Secrets: Code Quality & Resilience — Hardcoded Secrets: Code Quality & Resilience — Hardcoded Secrets: /.json on RTDB, public buckets); confirm backend rules enforce auth",
           "how_to_fix": "Assign an owner for exposed firebase / cloud configuration, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "objection",
@@ -2040,7 +2040,7 @@
         },
         {
           "title": "Secrets in strings / resources / assets",
-          "description": "Endpoints, encryption keys and tokens placed in res/values, assets, or BuildConfig fields are easily dumped without even decompiling code. Treat failures here as release blockers.",
+          "description": "Endpoints, encryption keys and tokens placed in res/values, assets, or BuildConfig fields are easily dumped without even decompiling code.",
           "severity": "critical",
           "how_to_find": "Validate secrets in strings / resources / assets in Code Quality & Resilience — Hardcoded Secrets. Save commands, screenshots, and affected resource identifiers.",
           "how_to_fix": "Assign an owner for secrets in strings / resources / assets, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
@@ -2069,7 +2069,7 @@
         },
         {
           "title": "Secrets hidden in native libraries",
-          "description": "Moving keys/secrets into .so / native code only raises the bar slightly; static analysis of the binary recovers them, so it is not a real protection. Good hygiene that pays off over time.",
+          "description": "Moving keys/secrets into .so / native code only raises the bar slightly; static analysis of the binary recovers them, so it is not a real protection.",
           "severity": "low",
           "how_to_find": "Validate secrets hidden in native libraries in Code Quality & Resilience — Hardcoded Secrets. Save commands, screenshots, and affected resource identifiers.",
           "how_to_fix": "Assign an owner for secrets hidden in native libraries, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",

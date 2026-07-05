@@ -7,7 +7,7 @@
       "items": [
         {
           "title": "Business case and risk acceptance documented",
-          "description": "Legal, regulatory, and privacy review before production LLM use. Validate this in LLM-powered products, under Governance and Risk. Good hygiene that pays off over time.",
+          "description": "Legal, regulatory, and privacy review before production LLM use.",
           "severity": "low",
           "how_to_find": "Exercise business case and risk acceptance documented in Governance and Risk. Capture full prompt/response traces including tool arguments.",
           "how_to_fix": "Map the control to OWASP LLM Top 10, assign an owner, and verify fixes with the same adversarial prompts that found the gap.",
@@ -30,7 +30,7 @@
         },
         {
           "title": "Model cards and risk cards published",
-          "description": "Document capabilities, limitations, and known failure modes. Validate this in LLM-powered products, under Governance and Risk. Good hygiene that pays off over time.",
+          "description": "Document capabilities, limitations, and known failure modes.",
           "severity": "low",
           "how_to_find": "Exercise model cards and risk cards published in Governance and Risk. Capture full prompt/response traces including tool arguments.",
           "how_to_fix": "Map the control to OWASP LLM Top 10, assign an owner, and verify fixes with the same adversarial prompts that found the gap.",
@@ -53,9 +53,9 @@
         },
         {
           "title": "Data classification for training and RAG",
-          "description": "No PII or secrets in fine-tuning or retrieval corpora without controls. Validate this in LLM-powered products, under Governance and Risk. Good hygiene that pays off over time.",
+          "description": "No PII or secrets in fine-tuning or retrieval corpora without controls.",
           "severity": "low",
-          "how_to_find": "Seed controlled documents in the retrieval index with embedded instructions. Confirm retrieved text cannot override system policy or trigger tools.",
+          "how_to_find": "For Governance and Risk: For Governance and Risk: For Governance and Risk: Confirm retrieved text cannot override system policy or trigger tools. Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
           "how_to_fix": "Sanitize indexed content, sign trusted corpora, and isolate tenants at the vector DB layer. Monitor for anomalous retrieval spikes.",
           "tools": [
             "Garak",
@@ -76,7 +76,7 @@
         },
         {
           "title": "Third-party model vendor due diligence",
-          "description": "Review API terms, data retention, and subprocessors. Validate this in LLM-powered products, under Governance and Risk. Good hygiene that pays off over time.",
+          "description": "Review API terms, data retention, and subprocessors.",
           "severity": "low",
           "how_to_find": "Exercise third-party model vendor due diligence in Governance and Risk. Capture full prompt/response traces including tool arguments.",
           "how_to_fix": "Map the control to OWASP LLM Top 10, assign an owner, and verify fixes with the same adversarial prompts that found the gap.",
@@ -104,9 +104,9 @@
       "items": [
         {
           "title": "TEVV before deployment",
-          "description": "Testing, evaluation, verification, and validation on representative prompts. Validate this in LLM-powered products, under Testing and Red Teaming. Good hygiene that pays off over time.",
+          "description": "Testing, evaluation, verification, and validation on representative prompts.",
           "severity": "low",
-          "how_to_find": "For Testing and Red Teaming: Review LLM pipeline in \"Testing and Red Teaming\". Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
+          "how_to_find": "For Testing and Red Teaming: For Testing and Red Teaming: For Testing and Red Teaming: For Testing and Red Teaming: Review LLM pipeline in \"Testing and Red Teaming\". Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
           "how_to_fix": "Map the control to OWASP LLM Top 10, assign an owner, and verify fixes with the same adversarial prompts that found the gap.",
           "tools": [
             "Garak",
@@ -127,9 +127,9 @@
         },
         {
           "title": "Prompt injection and jailbreak tests",
-          "description": "Direct and indirect injection via user content and tool outputs. Validate this in LLM-powered products, under Testing and Red Teaming. Good hygiene that pays off over time.",
+          "description": "Direct and indirect injection via user content and tool outputs.",
           "severity": "low",
-          "how_to_find": "For Testing and Red Teaming: Review LLM pipeline in \"Testing and Red Teaming\". Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
+          "how_to_find": "For Testing and Red Teaming: For Testing and Red Teaming: For Testing and Red Teaming: For Testing and Red Teaming: Review LLM pipeline in \"Testing and Red Teaming\". Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
           "how_to_fix": "Harden system prompts, treat retrieved and tool-returned text as untrusted data, and add output filters plus tool allowlists. Re-run adversarial tests after each model or prompt change.",
           "tools": [
             "Garak",
@@ -150,9 +150,9 @@
         },
         {
           "title": "AI red team exercises",
-          "description": "Adversarial testing for data exfil, tool abuse, and policy bypass. Validate this in LLM-powered products, under Testing and Red Teaming. Good hygiene that pays off over time.",
+          "description": "Adversarial testing for data exfil, tool abuse, and policy bypass.",
           "severity": "low",
-          "how_to_find": "For Testing and Red Teaming: Review LLM pipeline in \"Testing and Red Teaming\". Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
+          "how_to_find": "For Testing and Red Teaming: For Testing and Red Teaming: For Testing and Red Teaming: For Testing and Red Teaming: Review LLM pipeline in \"Testing and Red Teaming\". Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
           "how_to_fix": "Map the control to OWASP LLM Top 10, assign an owner, and verify fixes with the same adversarial prompts that found the gap.",
           "tools": [
             "Garak",
@@ -173,9 +173,9 @@
         },
         {
           "title": "RAG poisoning assessment",
-          "description": "Test if malicious documents in retrieval change model behavior. Validate this in LLM-powered products, under Testing and Red Teaming. Worth prioritising in your next assessment cycle.",
+          "description": "Test if malicious documents in retrieval change model behavior.",
           "severity": "high",
-          "how_to_find": "For Testing and Red Teaming: Review LLM pipeline in \"Testing and Red Teaming\". Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
+          "how_to_find": "For Testing and Red Teaming: For Testing and Red Teaming: For Testing and Red Teaming: For Testing and Red Teaming: Review LLM pipeline in \"Testing and Red Teaming\". Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
           "how_to_fix": "Sanitize indexed content, sign trusted corpora, and isolate tenants at the vector DB layer. Monitor for anomalous retrieval spikes.",
           "tools": [
             "Garak",
@@ -201,7 +201,7 @@
       "items": [
         {
           "title": "Output filtering and guardrails",
-          "description": "Block PII leakage, harmful content, and off-topic tool calls. Validate this in LLM-powered products, under Deployment Controls. Good hygiene that pays off over time.",
+          "description": "Block PII leakage, harmful content, and off-topic tool calls.",
           "severity": "low",
           "how_to_find": "Exercise output filtering and guardrails in Deployment Controls. Capture full prompt/response traces including tool arguments.",
           "how_to_fix": "Deploy input and output guardrails with block/allow policies tested against your red-team corpus. Alert when guardrails fire repeatedly from one session.",
@@ -224,7 +224,7 @@
         },
         {
           "title": "Rate limits and abuse detection",
-          "description": "Prevent automated scraping and resource exhaustion. Validate this in LLM-powered products, under Deployment Controls. Treat failures here as release blockers.",
+          "description": "Prevent automated scraping and resource exhaustion.",
           "severity": "critical",
           "how_to_find": "Exercise rate limits and abuse detection in Deployment Controls. Capture full prompt/response traces including tool arguments.",
           "how_to_fix": "Map the control to OWASP LLM Top 10, assign an owner, and verify fixes with the same adversarial prompts that found the gap.",
@@ -247,7 +247,7 @@
         },
         {
           "title": "Audit logs for prompts and tool calls",
-          "description": "Retain logs for incident response without storing secrets in plain text. Validate this in LLM-powered products, under Deployment Controls. Good hygiene that pays off over time.",
+          "description": "Retain logs for incident response without storing secrets in plain text.",
           "severity": "low",
           "how_to_find": "Exercise audit logs for prompts and tool calls in Deployment Controls. Capture full prompt/response traces including tool arguments.",
           "how_to_fix": "Log prompts and tool calls with redaction for secrets/PII. Retain enough context for incident response without storing full sensitive payloads.",
@@ -270,9 +270,9 @@
         },
         {
           "title": "OWASP LLM Top 10 coverage",
-          "description": "Map controls to LLM01-LLM10 risks for the application. Validate this in LLM-powered products, under Deployment Controls. Good hygiene that pays off over time.",
+          "description": "Map controls to LLM01-LLM10 risks for the application.",
           "severity": "low",
-          "how_to_find": "Seed controlled documents in the retrieval index with embedded instructions. Confirm retrieved text cannot override system policy or trigger tools.",
+          "how_to_find": "For Deployment Controls: For Deployment Controls: For Deployment Controls: Confirm retrieved text cannot override system policy or trigger tools. Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
           "how_to_fix": "Sanitize indexed content, sign trusted corpora, and isolate tenants at the vector DB layer. Monitor for anomalous retrieval spikes.",
           "tools": [
             "Garak",
@@ -298,9 +298,9 @@
       "items": [
         {
           "title": "Test \"ignore previous instructions\" override attacks",
-          "description": "Attempt to make the model disregard its system prompt and developer instructions by directly instructing it to ignore prior context. Good hygiene that pays off over time.",
+          "description": "Attempt to make the model disregard its system prompt and developer instructions by directly instructing it to ignore prior context.",
           "severity": "low",
-          "how_to_find": "For Prompt Injection — Direct Prompt Injection: Attempt to make the model disregard its system prompt and developer instructions by directly instructing it to ignore prior context. Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
+          "how_to_find": "For Prompt Injection — Direct Prompt Injection: For Prompt Injection — Direct Prompt Injection: For Prompt Injection — Direct Prompt Injection: For Prompt Injection — Direct Prompt Injection: Attempt to make the model disregard its system prompt and developer instructions by directly instructing it to ignore prior context. Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
           "how_to_fix": "Harden system prompts, treat retrieved and tool-returned text as untrusted data, and add output filters plus tool allowlists. Re-run adversarial tests after each model or prompt change.",
           "tools": [
             "Garak",
@@ -328,9 +328,9 @@
         },
         {
           "title": "Test known jailbreak personas (DAN, dev-mode, do-anything)",
-          "description": "Adversarial personas attempt to unlock disallowed behaviour by convincing the model it is an unrestricted variant of itself. Worth prioritising in your next assessment cycle.",
+          "description": "Adversarial personas attempt to unlock disallowed behaviour by convincing the model it is an unrestricted variant of itself.",
           "severity": "high",
-          "how_to_find": "For Prompt Injection — Direct Prompt Injection: Adversarial personas attempt to unlock disallowed behaviour by convincing the model it is an unrestricted variant of itself. Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
+          "how_to_find": "For Prompt Injection — Direct Prompt Injection: For Prompt Injection — Direct Prompt Injection: For Prompt Injection — Direct Prompt Injection: For Prompt Injection — Direct Prompt Injection: Adversarial personas attempt to unlock disallowed behaviour by convincing the model it is an unrestricted variant of itself. Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
           "how_to_fix": "Harden system prompts, treat retrieved and tool-returned text as untrusted data, and add output filters plus tool allowlists. Re-run adversarial tests after each model or prompt change.",
           "tools": [
             "Garak",
@@ -358,9 +358,9 @@
         },
         {
           "title": "Test role-play and hypothetical framing coercion",
-          "description": "Wrapping a disallowed request in fiction, \"for educational purposes\", or a hypothetical scenario to bypass safety alignment. Good hygiene that pays off over time.",
+          "description": "Wrapping a disallowed request in fiction, \"for educational purposes\", or a hypothetical scenario to bypass safety alignment.",
           "severity": "low",
-          "how_to_find": "For Prompt Injection — Direct Prompt Injection: Confirm guardrails still trigger and the harmful payload is not produced. Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
+          "how_to_find": "For Prompt Injection — Direct Prompt Injection: For Prompt Injection — Direct Prompt Injection: For Prompt Injection — Direct Prompt Injection: For Prompt Injection — Direct Prompt Injection: Confirm guardrails still trigger and the harmful payload is not produced. Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
           "how_to_fix": "Harden system prompts, treat retrieved and tool-returned text as untrusted data, and add output filters plus tool allowlists. Re-run adversarial tests after each model or prompt change.",
           "tools": [
             "Garak",
@@ -388,9 +388,9 @@
         },
         {
           "title": "Test privilege/context boundary between system and user roles",
-          "description": "Whether user-role content can impersonate or outrank system/developer-role instructions in the chat template. Good hygiene that pays off over time.",
+          "description": "Whether user-role content can impersonate or outrank system/developer-role instructions in the chat template.",
           "severity": "low",
-          "how_to_find": "For Prompt Injection — Direct Prompt Injection: chat-template special tokens, \"<|system|>\") in the user turn and confirm they are sanitised and cannot elevate instruction priority. Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
+          "how_to_find": "For Prompt Injection — Direct Prompt Injection: For Prompt Injection — Direct Prompt Injection: For Prompt Injection — Direct Prompt Injection: For Prompt Injection — Direct Prompt Injection: chat-template special tokens, \"<|system|>\") in the user turn and confirm they are sanitised and cannot elevate instruction priority. Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
           "how_to_fix": "Harden system prompts, treat retrieved and tool-returned text as untrusted data, and add output filters plus tool allowlists. Re-run adversarial tests after each model or prompt change.",
           "tools": [
             "Garak",
@@ -423,9 +423,9 @@
       "items": [
         {
           "title": "Test injection via retrieved RAG/document content",
-          "description": "Instructions hidden inside documents, knowledge-base entries, or search results that the model fetches and treats as trusted context. Good hygiene that pays off over time.",
+          "description": "Instructions hidden inside documents, knowledge-base entries, or search results that the model fetches and treats as trusted context.",
           "severity": "low",
-          "how_to_find": "Run a small corpus of adversarial prompts against test injection via retrieved rag/document content. Vary single-turn vs multi-turn escalation and measure refusal consistency.",
+          "how_to_find": "For Prompt Injection — Indirect Prompt Injection: For Prompt Injection — Indirect Prompt Injection: For Prompt Injection — Indirect Prompt Injection: Run a small corpus of adversarial prompts against test injection via retrieved rag/document content. Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
           "how_to_fix": "Harden system prompts, treat retrieved and tool-returned text as untrusted data, and add output filters plus tool allowlists. Re-run adversarial tests after each model or prompt change.",
           "tools": [
             "Garak",
@@ -453,9 +453,9 @@
         },
         {
           "title": "Test injection via live web/browser tool content",
-          "description": "Models with browsing or fetch tools can ingest attacker-controlled pages whose content contains hidden directives. Good hygiene that pays off over time.",
+          "description": "Models with browsing or fetch tools can ingest attacker-controlled pages whose content contains hidden directives.",
           "severity": "low",
-          "how_to_find": "Run a small corpus of adversarial prompts against test injection via live web/browser tool content. Vary single-turn vs multi-turn escalation and measure refusal consistency.",
+          "how_to_find": "For Prompt Injection — Indirect Prompt Injection: For Prompt Injection — Indirect Prompt Injection: For Prompt Injection — Indirect Prompt Injection: Run a small corpus of adversarial prompts against test injection via live web/browser tool content. Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
           "how_to_fix": "Harden system prompts, treat retrieved and tool-returned text as untrusted data, and add output filters plus tool allowlists. Re-run adversarial tests after each model or prompt change.",
           "tools": [
             "Garak",
@@ -483,9 +483,9 @@
         },
         {
           "title": "Test data exfiltration via injected markdown images/links",
-          "description": "Indirect injection that coerces the model to render markdown images or links whose URL embeds exfiltrated conversation data. Treat failures here as release blockers.",
+          "description": "Indirect injection that coerces the model to render markdown images or links whose URL embeds exfiltrated conversation data.",
           "severity": "critical",
-          "how_to_find": "Run a small corpus of adversarial prompts against test data exfiltration via injected markdown images/links. Vary single-turn vs multi-turn escalation and measure refusal consistency.",
+          "how_to_find": "For Prompt Injection — Indirect Prompt Injection: For Prompt Injection — Indirect Prompt Injection: For Prompt Injection — Indirect Prompt Injection: Run a small corpus of adversarial prompts against test data exfiltration via injected markdown images/links. Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
           "how_to_fix": "Harden system prompts, treat retrieved and tool-returned text as untrusted data, and add output filters plus tool allowlists. Re-run adversarial tests after each model or prompt change.",
           "tools": [
             "Garak",
@@ -513,9 +513,9 @@
         },
         {
           "title": "Test injection via uploaded files and document metadata",
-          "description": "Payloads hidden in PDF text layers, document metadata, EXIF, or comments that the model parses during file analysis. Good hygiene that pays off over time.",
+          "description": "Payloads hidden in PDF text layers, document metadata, EXIF, or comments that the model parses during file analysis.",
           "severity": "low",
-          "how_to_find": "Run a small corpus of adversarial prompts against test injection via uploaded files and document metadata. Vary single-turn vs multi-turn escalation and measure refusal consistency.",
+          "how_to_find": "For Prompt Injection — Indirect Prompt Injection: For Prompt Injection — Indirect Prompt Injection: For Prompt Injection — Indirect Prompt Injection: Run a small corpus of adversarial prompts against test injection via uploaded files and document metadata. Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
           "how_to_fix": "Harden system prompts, treat retrieved and tool-returned text as untrusted data, and add output filters plus tool allowlists. Re-run adversarial tests after each model or prompt change.",
           "tools": [
             "Garak",
@@ -548,9 +548,9 @@
       "items": [
         {
           "title": "Test instructions embedded in image text/pixels",
-          "description": "Visible or low-contrast text rendered into an image that a vision model reads and executes as instructions. Good hygiene that pays off over time.",
+          "description": "Visible or low-contrast text rendered into an image that a vision model reads and executes as instructions.",
           "severity": "low",
-          "how_to_find": "Run a small corpus of adversarial prompts against test instructions embedded in image text/pixels. Vary single-turn vs multi-turn escalation and measure refusal consistency.",
+          "how_to_find": "For Prompt Injection — Multimodal Injection: For Prompt Injection — Multimodal Injection: For Prompt Injection — Multimodal Injection: Run a small corpus of adversarial prompts against test instructions embedded in image text/pixels. Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
           "how_to_fix": "Harden system prompts, treat retrieved and tool-returned text as untrusted data, and add output filters plus tool allowlists. Re-run adversarial tests after each model or prompt change.",
           "tools": [
             "Garak",
@@ -578,9 +578,9 @@
         },
         {
           "title": "Test instructions embedded in audio input",
-          "description": "Spoken or inaudible (ultrasonic/adversarial) commands in audio that speech-enabled models transcribe and obey. Good hygiene that pays off over time.",
+          "description": "Spoken or inaudible (ultrasonic/adversarial) commands in audio that speech-enabled models transcribe and obey.",
           "severity": "low",
-          "how_to_find": "Run a small corpus of adversarial prompts against test instructions embedded in audio input. Vary single-turn vs multi-turn escalation and measure refusal consistency.",
+          "how_to_find": "For Prompt Injection — Multimodal Injection: For Prompt Injection — Multimodal Injection: For Prompt Injection — Multimodal Injection: Run a small corpus of adversarial prompts against test instructions embedded in audio input. Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
           "how_to_fix": "Harden system prompts, treat retrieved and tool-returned text as untrusted data, and add output filters plus tool allowlists. Re-run adversarial tests after each model or prompt change.",
           "tools": [
             "Garak",
@@ -608,9 +608,9 @@
         },
         {
           "title": "Test cross-modal instruction bleed between channels",
-          "description": "Whether an instruction in one modality (image) can override a benign instruction in another (text), or vice versa. Good hygiene that pays off over time.",
+          "description": "Whether an instruction in one modality (image) can override a benign instruction in another (text), or vice versa.",
           "severity": "low",
-          "how_to_find": "For Prompt Injection — Multimodal Injection: image instructions and confirm media content cannot escalate to override system policy or trusted text directives. Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
+          "how_to_find": "For Prompt Injection — Multimodal Injection: For Prompt Injection — Multimodal Injection: For Prompt Injection — Multimodal Injection: For Prompt Injection — Multimodal Injection: image instructions and confirm media content cannot escalate to override system policy or trusted text directives. Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
           "how_to_fix": "Harden system prompts, treat retrieved and tool-returned text as untrusted data, and add output filters plus tool allowlists. Re-run adversarial tests after each model or prompt change.",
           "tools": [
             "Garak",
@@ -638,9 +638,9 @@
         },
         {
           "title": "Test adversarial perturbations on image/audio classifiers",
-          "description": "Imperceptible perturbations crafted to flip model interpretation, classification, or safety behaviour on media inputs. Treat failures here as release blockers.",
+          "description": "Imperceptible perturbations crafted to flip model interpretation, classification, or safety behaviour on media inputs.",
           "severity": "critical",
-          "how_to_find": "Run a small corpus of adversarial prompts against test adversarial perturbations on image/audio classifiers. Vary single-turn vs multi-turn escalation and measure refusal consistency.",
+          "how_to_find": "For Prompt Injection — Multimodal Injection: For Prompt Injection — Multimodal Injection: For Prompt Injection — Multimodal Injection: Run a small corpus of adversarial prompts against test adversarial perturbations on image/audio classifiers. Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
           "how_to_fix": "Harden system prompts, treat retrieved and tool-returned text as untrusted data, and add output filters plus tool allowlists. Re-run adversarial tests after each model or prompt change.",
           "tools": [
             "Garak",
@@ -673,9 +673,9 @@
       "items": [
         {
           "title": "Test encoded payloads (base64, ROT13, hex, leetspeak)",
-          "description": "Disallowed instructions encoded so they pass keyword filters but the model decodes and acts on them. Good hygiene that pays off over time.",
+          "description": "Disallowed instructions encoded so they pass keyword filters but the model decodes and acts on them.",
           "severity": "low",
-          "how_to_find": "Run a small corpus of adversarial prompts against test encoded payloads (base64, rot13, hex, leetspeak). Vary single-turn vs multi-turn escalation and measure refusal consistency.",
+          "how_to_find": "For Prompt Injection — Obfuscation & Encoding Bypass: For Prompt Injection — Obfuscation & Encoding Bypass: For Prompt Injection — Obfuscation & Encoding Bypass: Run a small corpus of adversarial prompts against test encoded payloads (base64, rot13, hex, leetspeak). Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
           "how_to_fix": "Harden system prompts, treat retrieved and tool-returned text as untrusted data, and add output filters plus tool allowlists. Re-run adversarial tests after each model or prompt change.",
           "tools": [
             "Garak",
@@ -703,9 +703,9 @@
         },
         {
           "title": "Test Unicode tag/ASCII smuggling and invisible characters",
-          "description": "Unicode Tags block and zero-width/invisible characters that carry hidden instructions the model reads but humans and filters miss. Good hygiene that pays off over time.",
+          "description": "Unicode Tags block and zero-width/invisible characters that carry hidden instructions the model reads but humans and filters miss.",
           "severity": "low",
-          "how_to_find": "Run a small corpus of adversarial prompts against test unicode tag/ascii smuggling and invisible characters. Vary single-turn vs multi-turn escalation and measure refusal consistency.",
+          "how_to_find": "For Prompt Injection — Obfuscation & Encoding Bypass: For Prompt Injection — Obfuscation & Encoding Bypass: For Prompt Injection — Obfuscation & Encoding Bypass: Run a small corpus of adversarial prompts against test unicode tag/ascii smuggling and invisible characters. Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
           "how_to_fix": "Harden system prompts, treat retrieved and tool-returned text as untrusted data, and add output filters plus tool allowlists. Re-run adversarial tests after each model or prompt change.",
           "tools": [
             "Garak",
@@ -733,9 +733,9 @@
         },
         {
           "title": "Test token splitting and language-switching evasion",
-          "description": "Splitting sensitive words across tokens, interleaving characters, or switching to a low-resource language to dodge moderation. Treat failures here as release blockers.",
+          "description": "Splitting sensitive words across tokens, interleaving characters, or switching to a low-resource language to dodge moderation.",
           "severity": "critical",
-          "how_to_find": "Run a small corpus of adversarial prompts against test token splitting and language-switching evasion. Vary single-turn vs multi-turn escalation and measure refusal consistency.",
+          "how_to_find": "For Prompt Injection — Obfuscation & Encoding Bypass: For Prompt Injection — Obfuscation & Encoding Bypass: For Prompt Injection — Obfuscation & Encoding Bypass: Run a small corpus of adversarial prompts against test token splitting and language-switching evasion. Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
           "how_to_fix": "Harden system prompts, treat retrieved and tool-returned text as untrusted data, and add output filters plus tool allowlists. Re-run adversarial tests after each model or prompt change.",
           "tools": [
             "Garak",
@@ -763,9 +763,9 @@
         },
         {
           "title": "Test multi-turn payload assembly and virtualization",
-          "description": "Splitting a malicious payload across multiple turns or variables so each fragment is benign but the assembled result is not. Treat failures here as release blockers.",
+          "description": "Splitting a malicious payload across multiple turns or variables so each fragment is benign but the assembled result is not.",
           "severity": "critical",
-          "how_to_find": "Run a small corpus of adversarial prompts against test multi-turn payload assembly and virtualization. Vary single-turn vs multi-turn escalation and measure refusal consistency.",
+          "how_to_find": "For Prompt Injection — Obfuscation & Encoding Bypass: For Prompt Injection — Obfuscation & Encoding Bypass: For Prompt Injection — Obfuscation & Encoding Bypass: Run a small corpus of adversarial prompts against test multi-turn payload assembly and virtualization. Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
           "how_to_fix": "Harden system prompts, treat retrieved and tool-returned text as untrusted data, and add output filters plus tool allowlists. Re-run adversarial tests after each model or prompt change.",
           "tools": [
             "Garak",
@@ -798,9 +798,9 @@
       "items": [
         {
           "title": "Test LLM output rendered as HTML/markdown (XSS)",
-          "description": "Model-generated HTML, markdown, or script reflected into the DOM without sanitisation, enabling stored or reflected XSS. Treat failures here as release blockers.",
+          "description": "Model-generated HTML, markdown, or script reflected into the DOM without sanitisation, enabling stored or reflected XSS.",
           "severity": "critical",
-          "how_to_find": "Exercise test llm output rendered as html/markdown (xss) in Output & Data Risks — Insecure Output Handling. Capture full prompt/response traces including tool arguments.",
+          "how_to_find": "For Output & Data Risks — Insecure Output Handling: For Output & Data Risks — Insecure Output Handling: For Output & Data Risks — Insecure Output Handling: Exercise test llm output rendered as html/markdown (xss) in Output & Data Risks — Insecure Output Handling. Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
           "how_to_fix": "Map the control to OWASP LLM Top 10, assign an owner, and verify fixes with the same adversarial prompts that found the gap.",
           "tools": [
             "Garak",
@@ -828,9 +828,9 @@
         },
         {
           "title": "Test LLM output passed to eval/shell/code execution",
-          "description": "Model output piped into eval(), a shell, or a code interpreter without validation, allowing arbitrary command/code execution. Treat failures here as release blockers.",
+          "description": "Model output piped into eval(), a shell, or a code interpreter without validation, allowing arbitrary command/code execution.",
           "severity": "critical",
-          "how_to_find": "Exercise test llm output passed to eval/shell/code execution in Output & Data Risks — Insecure Output Handling. Capture full prompt/response traces including tool arguments.",
+          "how_to_find": "For Output & Data Risks — Insecure Output Handling: For Output & Data Risks — Insecure Output Handling: For Output & Data Risks — Insecure Output Handling: Exercise test llm output passed to eval/shell/code execution in Output & Data Risks — Insecure Output Handling. Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
           "how_to_fix": "Map the control to OWASP LLM Top 10, assign an owner, and verify fixes with the same adversarial prompts that found the gap.",
           "tools": [
             "Garak",
@@ -858,9 +858,9 @@
         },
         {
           "title": "Test LLM-driven URLs causing SSRF in backend fetchers",
-          "description": "Model output containing URLs that a backend dereferences, enabling SSRF against internal services or cloud metadata. Treat failures here as release blockers.",
+          "description": "Model output containing URLs that a backend dereferences, enabling SSRF against internal services or cloud metadata.",
           "severity": "critical",
-          "how_to_find": "Exercise test llm-driven urls causing ssrf in backend fetchers in Output & Data Risks — Insecure Output Handling. Capture full prompt/response traces including tool arguments.",
+          "how_to_find": "For Output & Data Risks — Insecure Output Handling: For Output & Data Risks — Insecure Output Handling: For Output & Data Risks — Insecure Output Handling: Exercise test llm-driven urls causing ssrf in backend fetchers in Output & Data Risks — Insecure Output Handling. Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
           "how_to_fix": "Map the control to OWASP LLM Top 10, assign an owner, and verify fixes with the same adversarial prompts that found the gap.",
           "tools": [
             "Garak",
@@ -888,9 +888,9 @@
         },
         {
           "title": "Test LLM-generated SQL/NoSQL queries for injection",
-          "description": "Natural-language-to-SQL features where model output is concatenated into queries without parameterisation. Worth prioritising in your next assessment cycle.",
+          "description": "Natural-language-to-SQL features where model output is concatenated into queries without parameterisation.",
           "severity": "high",
-          "how_to_find": "Exercise test llm-generated sql/nosql queries for injection in Output & Data Risks — Insecure Output Handling. Capture full prompt/response traces including tool arguments.",
+          "how_to_find": "For Output & Data Risks — Insecure Output Handling: For Output & Data Risks — Insecure Output Handling: For Output & Data Risks — Insecure Output Handling: Exercise test llm-generated sql/nosql queries for injection in Output & Data Risks — Insecure Output Handling. Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
           "how_to_fix": "Harden system prompts, treat retrieved and tool-returned text as untrusted data, and add output filters plus tool allowlists. Re-run adversarial tests after each model or prompt change.",
           "tools": [
             "Garak",
@@ -918,9 +918,9 @@
         },
         {
           "title": "Verify output trust boundary and downstream encoding",
-          "description": "Whether every consumer of model output applies context-appropriate encoding and treats the model as an untrusted source. Treat failures here as release blockers.",
+          "description": "Whether every consumer of model output applies context-appropriate encoding and treats the model as an untrusted source.",
           "severity": "critical",
-          "how_to_find": "Exercise verify output trust boundary and downstream encoding in Output & Data Risks — Insecure Output Handling. Capture full prompt/response traces including tool arguments.",
+          "how_to_find": "For Output & Data Risks — Insecure Output Handling: For Output & Data Risks — Insecure Output Handling: For Output & Data Risks — Insecure Output Handling: Exercise verify output trust boundary and downstream encoding in Output & Data Risks — Insecure Output Handling. Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
           "how_to_fix": "Map the control to OWASP LLM Top 10, assign an owner, and verify fixes with the same adversarial prompts that found the gap.",
           "tools": [
             "Garak",
@@ -953,9 +953,9 @@
       "items": [
         {
           "title": "Test training-data memorisation and extraction",
-          "description": "Models can regurgitate memorised training data including PII, copyrighted text, or secrets when prompted with the right prefixes. Good hygiene that pays off over time.",
+          "description": "Models can regurgitate memorised training data including PII, copyrighted text, or secrets when prompted with the right prefixes.",
           "severity": "low",
-          "how_to_find": "Exercise test training-data memorisation and extraction in Output & Data Risks — Sensitive Information Disclosure. Capture full prompt/response traces including tool arguments.",
+          "how_to_find": "For Output & Data Risks — Sensitive Information Disclosure: For Output & Data Risks — Sensitive Information Disclosure: For Output & Data Risks — Sensitive Information Disclosure: Exercise test training-data memorisation and extraction in Output & Data Risks — Sensitive Information Disclosure. Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
           "how_to_fix": "Map the control to OWASP LLM Top 10, assign an owner, and verify fixes with the same adversarial prompts that found the gap.",
           "tools": [
             "Garak",
@@ -983,9 +983,9 @@
         },
         {
           "title": "Test leakage of PII, credentials, and API keys in responses",
-          "description": "Sensitive values injected into context (RAG docs, env, history) being echoed back to users who should not see them. Good hygiene that pays off over time.",
+          "description": "Sensitive values injected into context (RAG docs, env, history) being echoed back to users who should not see them.",
           "severity": "low",
-          "how_to_find": "Exercise test leakage of pii, credentials, and api keys in responses in Output & Data Risks — Sensitive Information Disclosure. Capture full prompt/response traces including tool arguments.",
+          "how_to_find": "For Output & Data Risks — Sensitive Information Disclosure: For Output & Data Risks — Sensitive Information Disclosure: For Output & Data Risks — Sensitive Information Disclosure: Exercise test leakage of pii, credentials, and api keys in responses in Output & Data Risks — Sensitive Information Disclosure. Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
           "how_to_fix": "Map the control to OWASP LLM Top 10, assign an owner, and verify fixes with the same adversarial prompts that found the gap.",
           "tools": [
             "Garak",
@@ -1013,9 +1013,9 @@
         },
         {
           "title": "Test cross-session and cross-tenant data bleed",
-          "description": "Shared caches, conversation memory, or embedding stores that leak one user’s data into another’s session. Good hygiene that pays off over time.",
+          "description": "Shared caches, conversation memory, or embedding stores that leak one user’s data into another’s session.",
           "severity": "low",
-          "how_to_find": "Exercise test cross-session and cross-tenant data bleed in Output & Data Risks — Sensitive Information Disclosure. Capture full prompt/response traces including tool arguments.",
+          "how_to_find": "For Output & Data Risks — Sensitive Information Disclosure: For Output & Data Risks — Sensitive Information Disclosure: For Output & Data Risks — Sensitive Information Disclosure: Exercise test cross-session and cross-tenant data bleed in Output & Data Risks — Sensitive Information Disclosure. Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
           "how_to_fix": "Map the control to OWASP LLM Top 10, assign an owner, and verify fixes with the same adversarial prompts that found the gap.",
           "tools": [
             "Garak",
@@ -1043,9 +1043,9 @@
         },
         {
           "title": "Test membership inference and model inversion",
-          "description": "Inferring whether a record was in training data, or reconstructing sensitive attributes from model behaviour. Schedule remediation once higher-severity gaps are closed.",
+          "description": "Inferring whether a record was in training data, or reconstructing sensitive attributes from model behaviour.",
           "severity": "medium",
-          "how_to_find": "Exercise test membership inference and model inversion in Output & Data Risks — Sensitive Information Disclosure. Capture full prompt/response traces including tool arguments.",
+          "how_to_find": "For Output & Data Risks — Sensitive Information Disclosure: For Output & Data Risks — Sensitive Information Disclosure: For Output & Data Risks — Sensitive Information Disclosure: Exercise test membership inference and model inversion in Output & Data Risks — Sensitive Information Disclosure. Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
           "how_to_fix": "Map the control to OWASP LLM Top 10, assign an owner, and verify fixes with the same adversarial prompts that found the gap.",
           "tools": [
             "Garak",
@@ -1078,9 +1078,9 @@
       "items": [
         {
           "title": "Test direct system-prompt extraction requests",
-          "description": "Prompts that ask the model to reveal, repeat, or summarise its system instructions verbatim. Good hygiene that pays off over time.",
+          "description": "Prompts that ask the model to reveal, repeat, or summarise its system instructions verbatim.",
           "severity": "low",
-          "how_to_find": "Exercise test direct system-prompt extraction requests in Output & Data Risks — System Prompt Leakage. Capture full prompt/response traces including tool arguments.",
+          "how_to_find": "For Output & Data Risks — System Prompt Leakage: For Output & Data Risks — System Prompt Leakage: For Output & Data Risks — System Prompt Leakage: Exercise test direct system-prompt extraction requests in Output & Data Risks — System Prompt Leakage. Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
           "how_to_fix": "Map the control to OWASP LLM Top 10, assign an owner, and verify fixes with the same adversarial prompts that found the gap.",
           "tools": [
             "Garak",
@@ -1108,9 +1108,9 @@
         },
         {
           "title": "Test indirect system-prompt inference and reconstruction",
-          "description": "Inferring system-prompt contents through behaviour, partial completions, translation, or formatting tricks. Good hygiene that pays off over time.",
+          "description": "Inferring system-prompt contents through behaviour, partial completions, translation, or formatting tricks.",
           "severity": "low",
-          "how_to_find": "Exercise test indirect system-prompt inference and reconstruction in Output & Data Risks — System Prompt Leakage. Capture full prompt/response traces including tool arguments.",
+          "how_to_find": "For Output & Data Risks — System Prompt Leakage: For Output & Data Risks — System Prompt Leakage: For Output & Data Risks — System Prompt Leakage: Exercise test indirect system-prompt inference and reconstruction in Output & Data Risks — System Prompt Leakage. Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
           "how_to_fix": "Map the control to OWASP LLM Top 10, assign an owner, and verify fixes with the same adversarial prompts that found the gap.",
           "tools": [
             "Garak",
@@ -1138,9 +1138,9 @@
         },
         {
           "title": "Verify no secrets/credentials embedded in system prompt",
-          "description": "System prompts that contain API keys, connection strings, or business logic that becomes critical once leaked. Good hygiene that pays off over time.",
+          "description": "System prompts that contain API keys, connection strings, or business logic that becomes critical once leaked.",
           "severity": "low",
-          "how_to_find": "Exercise verify no secrets/credentials embedded in system prompt in Output & Data Risks — System Prompt Leakage. Capture full prompt/response traces including tool arguments.",
+          "how_to_find": "For Output & Data Risks — System Prompt Leakage: For Output & Data Risks — System Prompt Leakage: For Output & Data Risks — System Prompt Leakage: Exercise verify no secrets/credentials embedded in system prompt in Output & Data Risks — System Prompt Leakage. Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
           "how_to_fix": "Map the control to OWASP LLM Top 10, assign an owner, and verify fixes with the same adversarial prompts that found the gap.",
           "tools": [
             "Garak",
@@ -1168,9 +1168,9 @@
         },
         {
           "title": "Test guardrail enumeration via prompt leakage",
-          "description": "Once the system prompt or its rules leak, attackers map exact guardrails to craft precise bypasses. Good hygiene that pays off over time.",
+          "description": "Once the system prompt or its rules leak, attackers map exact guardrails to craft precise bypasses.",
           "severity": "low",
-          "how_to_find": "Exercise test guardrail enumeration via prompt leakage in Output & Data Risks — System Prompt Leakage. Capture full prompt/response traces including tool arguments.",
+          "how_to_find": "For Output & Data Risks — System Prompt Leakage: For Output & Data Risks — System Prompt Leakage: For Output & Data Risks — System Prompt Leakage: Exercise test guardrail enumeration via prompt leakage in Output & Data Risks — System Prompt Leakage. Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
           "how_to_fix": "Deploy input and output guardrails with block/allow policies tested against your red-team corpus. Alert when guardrails fire repeatedly from one session.",
           "tools": [
             "Garak",
@@ -1203,9 +1203,9 @@
       "items": [
         {
           "title": "Test over-broad tool/function permissions",
-          "description": "Agents holding more capabilities or scopes than the use case requires, expanding blast radius on compromise. Good hygiene that pays off over time.",
+          "description": "Agents holding more capabilities or scopes than the use case requires, expanding blast radius on compromise.",
           "severity": "low",
-          "how_to_find": "Exercise test over-broad tool/function permissions in Excessive Agency & Tooling — Excessive Agency. Capture full prompt/response traces including tool arguments.",
+          "how_to_find": "For Excessive Agency & Tooling — Excessive Agency: For Excessive Agency & Tooling — Excessive Agency: For Excessive Agency & Tooling — Excessive Agency: Exercise test over-broad tool/function permissions in Excessive Agency & Tooling — Excessive Agency. Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
           "how_to_fix": "Map the control to OWASP LLM Top 10, assign an owner, and verify fixes with the same adversarial prompts that found the gap.",
           "tools": [
             "Garak",
@@ -1233,9 +1233,9 @@
         },
         {
           "title": "Test human-in-the-loop on high-impact actions",
-          "description": "Autonomous agents executing irreversible or sensitive actions (payments, deletes, emails) without confirmation. Good hygiene that pays off over time.",
+          "description": "Autonomous agents executing irreversible or sensitive actions (payments, deletes, emails) without confirmation.",
           "severity": "low",
-          "how_to_find": "For Excessive Agency & Tooling — Excessive Agency: Autonomous agents executing irreversible or sensitive actions (payments, deletes, emails) without confirmation. Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
+          "how_to_find": "For Excessive Agency & Tooling — Excessive Agency: For Excessive Agency & Tooling — Excessive Agency: For Excessive Agency & Tooling — Excessive Agency: For Excessive Agency & Tooling — Excessive Agency: Autonomous agents executing irreversible or sensitive actions (payments, deletes, emails) without confirmation. Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
           "how_to_fix": "Map the control to OWASP LLM Top 10, assign an owner, and verify fixes with the same adversarial prompts that found the gap.",
           "tools": [
             "Garak",
@@ -1263,9 +1263,9 @@
         },
         {
           "title": "Test agent acting with excessive/shared identity",
-          "description": "Agents using a shared high-privilege service identity rather than the requesting user’s scoped identity. Good hygiene that pays off over time.",
+          "description": "Agents using a shared high-privilege service identity rather than the requesting user’s scoped identity.",
           "severity": "low",
-          "how_to_find": "Exercise test agent acting with excessive/shared identity in Excessive Agency & Tooling — Excessive Agency. Capture full prompt/response traces including tool arguments.",
+          "how_to_find": "For Excessive Agency & Tooling — Excessive Agency: For Excessive Agency & Tooling — Excessive Agency: For Excessive Agency & Tooling — Excessive Agency: Exercise test agent acting with excessive/shared identity in Excessive Agency & Tooling — Excessive Agency. Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
           "how_to_fix": "Map the control to OWASP LLM Top 10, assign an owner, and verify fixes with the same adversarial prompts that found the gap.",
           "tools": [
             "Garak",
@@ -1293,9 +1293,9 @@
         },
         {
           "title": "Test injection-to-action chains (prompt injection -> tool call)",
-          "description": "Indirect injection that escalates into unauthorised tool calls performing real-world side effects. Good hygiene that pays off over time.",
+          "description": "Indirect injection that escalates into unauthorised tool calls performing real-world side effects.",
           "severity": "low",
-          "how_to_find": "Exercise test injection-to-action chains (prompt injection -> tool call) in Excessive Agency & Tooling — Excessive Agency. Capture full prompt/response traces including tool arguments.",
+          "how_to_find": "For Excessive Agency & Tooling — Excessive Agency: For Excessive Agency & Tooling — Excessive Agency: For Excessive Agency & Tooling — Excessive Agency: Exercise test injection-to-action chains (prompt injection -> tool call) in Excessive Agency & Tooling — Excessive Agency. Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
           "how_to_fix": "Harden system prompts, treat retrieved and tool-returned text as untrusted data, and add output filters plus tool allowlists. Re-run adversarial tests after each model or prompt change.",
           "tools": [
             "Garak",
@@ -1328,9 +1328,9 @@
       "items": [
         {
           "title": "Test unsafe / injected tool-call arguments",
-          "description": "Model-supplied arguments treated as trusted, enabling injection into the underlying tool (path traversal, query injection). Good hygiene that pays off over time.",
+          "description": "Model-supplied arguments treated as trusted, enabling injection into the underlying tool (path traversal, query injection).",
           "severity": "low",
-          "how_to_find": "Exercise test unsafe / injected tool-call arguments in Excessive Agency & Tooling — Function-Calling & Tool Abuse. Capture full prompt/response traces including tool arguments.",
+          "how_to_find": "For Excessive Agency & Tooling — Function-Calling & Tool Abuse: For Excessive Agency & Tooling — Function-Calling & Tool Abuse: For Excessive Agency & Tooling — Function-Calling & Tool Abuse: Exercise test unsafe / injected tool-call arguments in Excessive Agency & Tooling — Function-Calling & Tool Abuse. Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
           "how_to_fix": "Map the control to OWASP LLM Top 10, assign an owner, and verify fixes with the same adversarial prompts that found the gap.",
           "tools": [
             "Garak",
@@ -1358,9 +1358,9 @@
         },
         {
           "title": "Test parameter tampering and out-of-scope tool use",
-          "description": "Coercing the model to call a tool with parameters outside intended bounds (e.g. Validate this in LLM-powered products, under Excessive Agency & Tooling — Function-Calling & Tool Abuse. Treat failures here as release blockers.",
+          "description": "Coercing the model to call a tool with parameters outside intended bounds (e.g.",
           "severity": "critical",
-          "how_to_find": "Exercise test parameter tampering and out-of-scope tool use in Excessive Agency & Tooling — Function-Calling & Tool Abuse. Capture full prompt/response traces including tool arguments.",
+          "how_to_find": "For Excessive Agency & Tooling — Function-Calling & Tool Abuse: For Excessive Agency & Tooling — Function-Calling & Tool Abuse: For Excessive Agency & Tooling — Function-Calling & Tool Abuse: Exercise test parameter tampering and out-of-scope tool use in Excessive Agency & Tooling — Function-Calling & Tool Abuse. Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
           "how_to_fix": "Map the control to OWASP LLM Top 10, assign an owner, and verify fixes with the same adversarial prompts that found the gap.",
           "tools": [
             "Garak",
@@ -1388,9 +1388,9 @@
         },
         {
           "title": "Test unsafe multi-tool chaining and side effects",
-          "description": "Chained tool calls producing unintended side effects or escalating access beyond any single tool’s scope. Good hygiene that pays off over time.",
+          "description": "Chained tool calls producing unintended side effects or escalating access beyond any single tool’s scope.",
           "severity": "low",
-          "how_to_find": "Exercise test unsafe multi-tool chaining and side effects in Excessive Agency & Tooling — Function-Calling & Tool Abuse. Capture full prompt/response traces including tool arguments.",
+          "how_to_find": "For Excessive Agency & Tooling — Function-Calling & Tool Abuse: For Excessive Agency & Tooling — Function-Calling & Tool Abuse: For Excessive Agency & Tooling — Function-Calling & Tool Abuse: Exercise test unsafe multi-tool chaining and side effects in Excessive Agency & Tooling — Function-Calling & Tool Abuse. Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
           "how_to_fix": "Map the control to OWASP LLM Top 10, assign an owner, and verify fixes with the same adversarial prompts that found the gap.",
           "tools": [
             "Garak",
@@ -1418,9 +1418,9 @@
         },
         {
           "title": "Test tool-call rate and cost controls",
-          "description": "Tools invoked in unbounded loops or floods, causing cost blow-up or downstream DoS. Validate this in LLM-powered products, under Excessive Agency & Tooling — Function-Calling & Tool Abuse. Good hygiene that pays off over time.",
+          "description": "Tools invoked in unbounded loops or floods, causing cost blow-up or downstream DoS.",
           "severity": "low",
-          "how_to_find": "Exercise test tool-call rate and cost controls in Excessive Agency & Tooling — Function-Calling & Tool Abuse. Capture full prompt/response traces including tool arguments.",
+          "how_to_find": "For Excessive Agency & Tooling — Function-Calling & Tool Abuse: For Excessive Agency & Tooling — Function-Calling & Tool Abuse: For Excessive Agency & Tooling — Function-Calling & Tool Abuse: Exercise test tool-call rate and cost controls in Excessive Agency & Tooling — Function-Calling & Tool Abuse. Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
           "how_to_fix": "Map the control to OWASP LLM Top 10, assign an owner, and verify fixes with the same adversarial prompts that found the gap.",
           "tools": [
             "Garak",
@@ -1453,9 +1453,9 @@
       "items": [
         {
           "title": "Test code-interpreter sandbox escape",
-          "description": "Code-execution tools that allow breaking out of the sandbox to the host, network, or other tenants. Treat failures here as release blockers.",
+          "description": "Code-execution tools that allow breaking out of the sandbox to the host, network, or other tenants.",
           "severity": "critical",
-          "how_to_find": "Exercise test code-interpreter sandbox escape in Excessive Agency & Tooling — RCE via Code Interpreter / Tools. Capture full prompt/response traces including tool arguments.",
+          "how_to_find": "For Excessive Agency & Tooling — RCE via Code Interpreter / Tools: For Excessive Agency & Tooling — RCE via Code Interpreter / Tools: For Excessive Agency & Tooling — RCE via Code Interpreter / Tools: Exercise test code-interpreter sandbox escape in Excessive Agency & Tooling — RCE via Code Interpreter / Tools. Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
           "how_to_fix": "Map the control to OWASP LLM Top 10, assign an owner, and verify fixes with the same adversarial prompts that found the gap.",
           "tools": [
             "Garak",
@@ -1483,9 +1483,9 @@
         },
         {
           "title": "Test code-execution network egress / SSRF",
-          "description": "Code-interpreter environments with outbound network access reaching internal services or cloud metadata. Treat failures here as release blockers.",
+          "description": "Code-interpreter environments with outbound network access reaching internal services or cloud metadata.",
           "severity": "critical",
-          "how_to_find": "Exercise test code-execution network egress / ssrf in Excessive Agency & Tooling — RCE via Code Interpreter / Tools. Capture full prompt/response traces including tool arguments.",
+          "how_to_find": "For Excessive Agency & Tooling — RCE via Code Interpreter / Tools: For Excessive Agency & Tooling — RCE via Code Interpreter / Tools: For Excessive Agency & Tooling — RCE via Code Interpreter / Tools: Exercise test code-execution network egress / ssrf in Excessive Agency & Tooling — RCE via Code Interpreter / Tools. Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
           "how_to_fix": "Map the control to OWASP LLM Top 10, assign an owner, and verify fixes with the same adversarial prompts that found the gap.",
           "tools": [
             "Garak",
@@ -1513,9 +1513,9 @@
         },
         {
           "title": "Test interpreter dependency install and resource abuse",
-          "description": "Interpreters that allow installing arbitrary packages or consuming unbounded CPU/memory/disk. Treat failures here as release blockers.",
+          "description": "Interpreters that allow installing arbitrary packages or consuming unbounded CPU/memory/disk.",
           "severity": "critical",
-          "how_to_find": "Exercise test interpreter dependency install and resource abuse in Excessive Agency & Tooling — RCE via Code Interpreter / Tools. Capture full prompt/response traces including tool arguments.",
+          "how_to_find": "For Excessive Agency & Tooling — RCE via Code Interpreter / Tools: For Excessive Agency & Tooling — RCE via Code Interpreter / Tools: For Excessive Agency & Tooling — RCE via Code Interpreter / Tools: Exercise test interpreter dependency install and resource abuse in Excessive Agency & Tooling — RCE via Code Interpreter / Tools. Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
           "how_to_fix": "Map the control to OWASP LLM Top 10, assign an owner, and verify fixes with the same adversarial prompts that found the gap.",
           "tools": [
             "Garak",
@@ -1543,9 +1543,9 @@
         },
         {
           "title": "Test secret/credential exposure within execution env",
-          "description": "Interpreter or plugin environments leaking env vars, cloud roles, or mounted secrets to executed code. Treat failures here as release blockers.",
+          "description": "Interpreter or plugin environments leaking env vars, cloud roles, or mounted secrets to executed code.",
           "severity": "critical",
-          "how_to_find": "Exercise test secret/credential exposure within execution env in Excessive Agency & Tooling — RCE via Code Interpreter / Tools. Capture full prompt/response traces including tool arguments.",
+          "how_to_find": "For Excessive Agency & Tooling — RCE via Code Interpreter / Tools: For Excessive Agency & Tooling — RCE via Code Interpreter / Tools: For Excessive Agency & Tooling — RCE via Code Interpreter / Tools: Exercise test secret/credential exposure within execution env in Excessive Agency & Tooling — RCE via Code Interpreter / Tools. Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
           "how_to_fix": "Map the control to OWASP LLM Top 10, assign an owner, and verify fixes with the same adversarial prompts that found the gap.",
           "tools": [
             "Garak",
@@ -1578,9 +1578,9 @@
       "items": [
         {
           "title": "Test training/fine-tuning data integrity controls",
-          "description": "Untrusted or unvetted data entering training/fine-tuning, enabling poisoning or bias injection. Treat failures here as release blockers.",
+          "description": "Untrusted or unvetted data entering training/fine-tuning, enabling poisoning or bias injection.",
           "severity": "critical",
-          "how_to_find": "Exercise test training/fine-tuning data integrity controls in Data & Model Integrity — Data & Model Poisoning. Capture full prompt/response traces including tool arguments.",
+          "how_to_find": "For Data & Model Integrity — Data & Model Poisoning: For Data & Model Integrity — Data & Model Poisoning: For Data & Model Integrity — Data & Model Poisoning: Exercise test training/fine-tuning data integrity controls in Data & Model Integrity — Data & Model Poisoning. Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
           "how_to_fix": "Map the control to OWASP LLM Top 10, assign an owner, and verify fixes with the same adversarial prompts that found the gap.",
           "tools": [
             "Garak",
@@ -1608,9 +1608,9 @@
         },
         {
           "title": "Test for backdoor/trigger-phrase behaviour",
-          "description": "Backdoors that cause malicious behaviour only when a secret trigger phrase appears in the input. Good hygiene that pays off over time.",
+          "description": "Backdoors that cause malicious behaviour only when a secret trigger phrase appears in the input.",
           "severity": "low",
-          "how_to_find": "Exercise test for backdoor/trigger-phrase behaviour in Data & Model Integrity — Data & Model Poisoning. Capture full prompt/response traces including tool arguments.",
+          "how_to_find": "For Data & Model Integrity — Data & Model Poisoning: For Data & Model Integrity — Data & Model Poisoning: For Data & Model Integrity — Data & Model Poisoning: Exercise test for backdoor/trigger-phrase behaviour in Data & Model Integrity — Data & Model Poisoning. Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
           "how_to_fix": "Map the control to OWASP LLM Top 10, assign an owner, and verify fixes with the same adversarial prompts that found the gap.",
           "tools": [
             "Garak",
@@ -1638,9 +1638,9 @@
         },
         {
           "title": "Test RLHF / user-feedback poisoning resistance",
-          "description": "Continuous-learning systems where adversarial user feedback or ratings skew model behaviour over time. Worth prioritising in your next assessment cycle.",
+          "description": "Continuous-learning systems where adversarial user feedback or ratings skew model behaviour over time.",
           "severity": "high",
-          "how_to_find": "Exercise test rlhf / user-feedback poisoning resistance in Data & Model Integrity — Data & Model Poisoning. Capture full prompt/response traces including tool arguments.",
+          "how_to_find": "For Data & Model Integrity — Data & Model Poisoning: For Data & Model Integrity — Data & Model Poisoning: For Data & Model Integrity — Data & Model Poisoning: Exercise test rlhf / user-feedback poisoning resistance in Data & Model Integrity — Data & Model Poisoning. Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
           "how_to_fix": "Map the control to OWASP LLM Top 10, assign an owner, and verify fixes with the same adversarial prompts that found the gap.",
           "tools": [
             "Garak",
@@ -1668,9 +1668,9 @@
         },
         {
           "title": "Verify model-weight integrity and provenance",
-          "description": "Tampered or swapped model weights between training and deployment compromising integrity. Validate this in LLM-powered products, under Data & Model Integrity — Data & Model Poisoning. Good hygiene that pays off over time.",
+          "description": "Tampered or swapped model weights between training and deployment compromising integrity.",
           "severity": "low",
-          "how_to_find": "Exercise verify model-weight integrity and provenance in Data & Model Integrity — Data & Model Poisoning. Capture full prompt/response traces including tool arguments.",
+          "how_to_find": "For Data & Model Integrity — Data & Model Poisoning: For Data & Model Integrity — Data & Model Poisoning: For Data & Model Integrity — Data & Model Poisoning: Exercise verify model-weight integrity and provenance in Data & Model Integrity — Data & Model Poisoning. Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
           "how_to_fix": "Map the control to OWASP LLM Top 10, assign an owner, and verify fixes with the same adversarial prompts that found the gap.",
           "tools": [
             "Garak",
@@ -1703,9 +1703,9 @@
       "items": [
         {
           "title": "Test vector store / knowledge-base poisoning",
-          "description": "Attackers inserting malicious documents into the knowledge base so they are retrieved and trusted as context. Treat failures here as release blockers.",
+          "description": "Attackers inserting malicious documents into the knowledge base so they are retrieved and trusted as context.",
           "severity": "critical",
-          "how_to_find": "Exercise test vector store / knowledge-base poisoning in Data & Model Integrity — RAG & Vector/Embedding Weaknesses. Capture full prompt/response traces including tool arguments.",
+          "how_to_find": "For Data & Model Integrity — RAG & Vector/Embedding Weaknesses: For Data & Model Integrity — RAG & Vector/Embedding Weaknesses: For Data & Model Integrity — RAG & Vector/Embedding Weaknesses: Exercise test vector store / knowledge-base poisoning in Data & Model Integrity — RAG & Vector/Embedding Weaknesses. Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
           "how_to_fix": "Map the control to OWASP LLM Top 10, assign an owner, and verify fixes with the same adversarial prompts that found the gap.",
           "tools": [
             "Garak",
@@ -1733,9 +1733,9 @@
         },
         {
           "title": "Test retrieval access control and tenant scoping",
-          "description": "Retrieval that ignores per-user/per-tenant access control, returning documents a user is not authorised to see. Good hygiene that pays off over time.",
+          "description": "Retrieval that ignores per-user/per-tenant access control, returning documents a user is not authorised to see.",
           "severity": "low",
-          "how_to_find": "Seed controlled documents in the retrieval index with embedded instructions. Confirm retrieved text cannot override system policy or trigger tools.",
+          "how_to_find": "For Data & Model Integrity — RAG & Vector/Embedding Weaknesses: For Data & Model Integrity — RAG & Vector/Embedding Weaknesses: For Data & Model Integrity — RAG & Vector/Embedding Weaknesses: Confirm retrieved text cannot override system policy or trigger tools. Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
           "how_to_fix": "Sanitize indexed content, sign trusted corpora, and isolate tenants at the vector DB layer. Monitor for anomalous retrieval spikes.",
           "tools": [
             "Garak",
@@ -1763,9 +1763,9 @@
         },
         {
           "title": "Test retrieval-time indirect prompt injection",
-          "description": "Retrieved chunks carrying embedded instructions that hijack the generation step. Validate this in LLM-powered products, under Data & Model Integrity — RAG & Vector/Embedding Weaknesses. Good hygiene that pays off over time.",
+          "description": "Retrieved chunks carrying embedded instructions that hijack the generation step.",
           "severity": "low",
-          "how_to_find": "Seed controlled documents in the retrieval index with embedded instructions. Confirm retrieved text cannot override system policy or trigger tools.",
+          "how_to_find": "For Data & Model Integrity — RAG & Vector/Embedding Weaknesses: For Data & Model Integrity — RAG & Vector/Embedding Weaknesses: For Data & Model Integrity — RAG & Vector/Embedding Weaknesses: Confirm retrieved text cannot override system policy or trigger tools. Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
           "how_to_fix": "Harden system prompts, treat retrieved and tool-returned text as untrusted data, and add output filters plus tool allowlists. Re-run adversarial tests after each model or prompt change.",
           "tools": [
             "Garak",
@@ -1793,9 +1793,9 @@
         },
         {
           "title": "Test embedding inversion and leakage",
-          "description": "Recovering sensitive source text from stored embeddings, or embedding stores exposed without access control. Treat failures here as release blockers.",
+          "description": "Recovering sensitive source text from stored embeddings, or embedding stores exposed without access control.",
           "severity": "critical",
-          "how_to_find": "Exercise test embedding inversion and leakage in Data & Model Integrity — RAG & Vector/Embedding Weaknesses. Capture full prompt/response traces including tool arguments.",
+          "how_to_find": "For Data & Model Integrity — RAG & Vector/Embedding Weaknesses: For Data & Model Integrity — RAG & Vector/Embedding Weaknesses: For Data & Model Integrity — RAG & Vector/Embedding Weaknesses: Exercise test embedding inversion and leakage in Data & Model Integrity — RAG & Vector/Embedding Weaknesses. Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
           "how_to_fix": "Map the control to OWASP LLM Top 10, assign an owner, and verify fixes with the same adversarial prompts that found the gap.",
           "tools": [
             "Garak",
@@ -1828,9 +1828,9 @@
       "items": [
         {
           "title": "Test provenance of base/third-party models",
-          "description": "Pulling models from public hubs without provenance, signing, or vulnerability review. Validate this in LLM-powered products, under Data & Model Integrity — Supply Chain. Treat failures here as release blockers.",
+          "description": "Pulling models from public hubs without provenance, signing, or vulnerability review.",
           "severity": "critical",
-          "how_to_find": "Exercise test provenance of base/third-party models in Data & Model Integrity — Supply Chain. Capture full prompt/response traces including tool arguments.",
+          "how_to_find": "For Data & Model Integrity — Supply Chain: For Data & Model Integrity — Supply Chain: For Data & Model Integrity — Supply Chain: Exercise test provenance of base/third-party models in Data & Model Integrity — Supply Chain. Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
           "how_to_fix": "Map the control to OWASP LLM Top 10, assign an owner, and verify fixes with the same adversarial prompts that found the gap.",
           "tools": [
             "Garak",
@@ -1858,9 +1858,9 @@
         },
         {
           "title": "Test third-party plugin/extension vetting",
-          "description": "Untrusted plugins or extensions that gain access to data and tools through the LLM application. Good hygiene that pays off over time.",
+          "description": "Untrusted plugins or extensions that gain access to data and tools through the LLM application.",
           "severity": "low",
-          "how_to_find": "Exercise test third-party plugin/extension vetting in Data & Model Integrity — Supply Chain. Capture full prompt/response traces including tool arguments.",
+          "how_to_find": "For Data & Model Integrity — Supply Chain: For Data & Model Integrity — Supply Chain: For Data & Model Integrity — Supply Chain: Exercise test third-party plugin/extension vetting in Data & Model Integrity — Supply Chain. Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
           "how_to_fix": "Map the control to OWASP LLM Top 10, assign an owner, and verify fixes with the same adversarial prompts that found the gap.",
           "tools": [
             "Garak",
@@ -1888,9 +1888,9 @@
         },
         {
           "title": "Test dataset provenance and licensing integrity",
-          "description": "Third-party datasets with unknown provenance, poisoned samples, or license/compliance issues. Good hygiene that pays off over time.",
+          "description": "Third-party datasets with unknown provenance, poisoned samples, or license/compliance issues.",
           "severity": "low",
-          "how_to_find": "Exercise test dataset provenance and licensing integrity in Data & Model Integrity — Supply Chain. Capture full prompt/response traces including tool arguments.",
+          "how_to_find": "For Data & Model Integrity — Supply Chain: For Data & Model Integrity — Supply Chain: For Data & Model Integrity — Supply Chain: Exercise test dataset provenance and licensing integrity in Data & Model Integrity — Supply Chain. Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
           "how_to_fix": "Map the control to OWASP LLM Top 10, assign an owner, and verify fixes with the same adversarial prompts that found the gap.",
           "tools": [
             "Garak",
@@ -1918,9 +1918,9 @@
         },
         {
           "title": "Test ML framework and dependency vulnerabilities",
-          "description": "Vulnerable ML libraries, runtimes, and adapters (e.g. Validate this in LLM-powered products, under Data & Model Integrity — Supply Chain. Good hygiene that pays off over time.",
+          "description": "Vulnerable ML libraries, runtimes, and adapters (e.g.",
           "severity": "low",
-          "how_to_find": "For Data & Model Integrity — Supply Chain: Vulnerable ML libraries, runtimes, and adapters (e.g. Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
+          "how_to_find": "For Data & Model Integrity — Supply Chain: For Data & Model Integrity — Supply Chain: For Data & Model Integrity — Supply Chain: For Data & Model Integrity — Supply Chain: Vulnerable ML libraries, runtimes, and adapters (e.g. Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
           "how_to_fix": "Map the control to OWASP LLM Top 10, assign an owner, and verify fixes with the same adversarial prompts that found the gap.",
           "tools": [
             "Garak",
@@ -1948,9 +1948,9 @@
         },
         {
           "title": "Test for unsafe model-file deserialization",
-          "description": "Loading models in pickle-backed formats (PyTorch .bin/.pt, joblib, legacy .h5) executes embedded code on load, so a poisoned weight file from a hub or untrusted source is a direct RCE primitive on the inference host. Treat failures here as release blockers.",
+          "description": "Loading models in pickle-backed formats (PyTorch .bin/.pt, joblib, legacy .h5) executes embedded code on load, so a poisoned weight file from a hub or untrusted source is a direct RCE primitive on the inference host.",
           "severity": "critical",
-          "how_to_find": "For Data & Model Integrity — Supply Chain: Test loading a crafted pickle model in an isolated environment. Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
+          "how_to_find": "For Data & Model Integrity — Supply Chain: For Data & Model Integrity — Supply Chain: For Data & Model Integrity — Supply Chain: For Data & Model Integrity — Supply Chain: Test loading a crafted pickle model in an isolated environment. Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
           "how_to_fix": "Map the control to OWASP LLM Top 10, assign an owner, and verify fixes with the same adversarial prompts that found the gap.",
           "tools": [
             "Garak",
@@ -1984,9 +1984,9 @@
       "items": [
         {
           "title": "Test token/cost denial-of-wallet controls",
-          "description": "Inputs engineered to maximise output length or expensive generation, driving runaway compute cost. Good hygiene that pays off over time.",
+          "description": "Inputs engineered to maximise output length or expensive generation, driving runaway compute cost.",
           "severity": "low",
-          "how_to_find": "For Availability & Abuse — Unbounded Consumption: Inputs engineered to maximise output length or expensive generation, driving runaway compute cost. Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
+          "how_to_find": "For Availability & Abuse — Unbounded Consumption: For Availability & Abuse — Unbounded Consumption: For Availability & Abuse — Unbounded Consumption: For Availability & Abuse — Unbounded Consumption: Inputs engineered to maximise output length or expensive generation, driving runaway compute cost. Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
           "how_to_fix": "Map the control to OWASP LLM Top 10, assign an owner, and verify fixes with the same adversarial prompts that found the gap.",
           "tools": [
             "Garak",
@@ -2014,9 +2014,9 @@
         },
         {
           "title": "Test rate limiting and concurrency controls",
-          "description": "Missing per-user/per-IP rate limits allowing flooding and resource exhaustion. Validate this in LLM-powered products, under Availability & Abuse — Unbounded Consumption. Treat failures here as release blockers.",
+          "description": "Missing per-user/per-IP rate limits allowing flooding and resource exhaustion.",
           "severity": "critical",
-          "how_to_find": "Exercise test rate limiting and concurrency controls in Availability & Abuse — Unbounded Consumption. Capture full prompt/response traces including tool arguments.",
+          "how_to_find": "For Availability & Abuse — Unbounded Consumption: For Availability & Abuse — Unbounded Consumption: For Availability & Abuse — Unbounded Consumption: Exercise test rate limiting and concurrency controls in Availability & Abuse — Unbounded Consumption. Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
           "how_to_fix": "Map the control to OWASP LLM Top 10, assign an owner, and verify fixes with the same adversarial prompts that found the gap.",
           "tools": [
             "Garak",
@@ -2044,9 +2044,9 @@
         },
         {
           "title": "Test model extraction / theft via API querying",
-          "description": "Systematic querying to clone model behaviour or distill a functional copy (model theft). Validate this in LLM-powered products, under Availability & Abuse — Unbounded Consumption. Good hygiene that pays off over time.",
+          "description": "Systematic querying to clone model behaviour or distill a functional copy (model theft).",
           "severity": "low",
-          "how_to_find": "Exercise test model extraction / theft via api querying in Availability & Abuse — Unbounded Consumption. Capture full prompt/response traces including tool arguments.",
+          "how_to_find": "For Availability & Abuse — Unbounded Consumption: For Availability & Abuse — Unbounded Consumption: For Availability & Abuse — Unbounded Consumption: Exercise test model extraction / theft via api querying in Availability & Abuse — Unbounded Consumption. Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
           "how_to_fix": "Map the control to OWASP LLM Top 10, assign an owner, and verify fixes with the same adversarial prompts that found the gap.",
           "tools": [
             "Garak",
@@ -2074,9 +2074,9 @@
         },
         {
           "title": "Test input-amplification resource exhaustion",
-          "description": "Crafted inputs (huge context, recursive tool loops, expensive RAG) that amplify backend resource use. Treat failures here as release blockers.",
+          "description": "Crafted inputs (huge context, recursive tool loops, expensive RAG) that amplify backend resource use.",
           "severity": "critical",
-          "how_to_find": "Exercise test input-amplification resource exhaustion in Availability & Abuse — Unbounded Consumption. Capture full prompt/response traces including tool arguments.",
+          "how_to_find": "For Availability & Abuse — Unbounded Consumption: For Availability & Abuse — Unbounded Consumption: For Availability & Abuse — Unbounded Consumption: Exercise test input-amplification resource exhaustion in Availability & Abuse — Unbounded Consumption. Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
           "how_to_fix": "Map the control to OWASP LLM Top 10, assign an owner, and verify fixes with the same adversarial prompts that found the gap.",
           "tools": [
             "Garak",
@@ -2109,9 +2109,9 @@
       "items": [
         {
           "title": "Test hallucination rate on factual/grounded tasks",
-          "description": "Models fabricating facts, citations, or APIs presented with high confidence. Validate this in LLM-powered products, under Availability & Abuse — Misinformation & Overreliance. Good hygiene that pays off over time.",
+          "description": "Models fabricating facts, citations, or APIs presented with high confidence.",
           "severity": "low",
-          "how_to_find": "Exercise test hallucination rate on factual/grounded tasks in Availability & Abuse — Misinformation & Overreliance. Capture full prompt/response traces including tool arguments.",
+          "how_to_find": "For Availability & Abuse — Misinformation & Overreliance: For Availability & Abuse — Misinformation & Overreliance: For Availability & Abuse — Misinformation & Overreliance: Exercise test hallucination rate on factual/grounded tasks in Availability & Abuse — Misinformation & Overreliance. Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
           "how_to_fix": "Map the control to OWASP LLM Top 10, assign an owner, and verify fixes with the same adversarial prompts that found the gap.",
           "tools": [
             "Garak",
@@ -2139,9 +2139,9 @@
         },
         {
           "title": "Test package/dependency hallucination (slopsquatting)",
-          "description": "Coding assistants suggesting non-existent packages that attackers can register to deliver malware. Good hygiene that pays off over time.",
+          "description": "Coding assistants suggesting non-existent packages that attackers can register to deliver malware.",
           "severity": "low",
-          "how_to_find": "Exercise test package/dependency hallucination (slopsquatting) in Availability & Abuse — Misinformation & Overreliance. Capture full prompt/response traces including tool arguments.",
+          "how_to_find": "For Availability & Abuse — Misinformation & Overreliance: For Availability & Abuse — Misinformation & Overreliance: For Availability & Abuse — Misinformation & Overreliance: Exercise test package/dependency hallucination (slopsquatting) in Availability & Abuse — Misinformation & Overreliance. Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
           "how_to_fix": "Map the control to OWASP LLM Top 10, assign an owner, and verify fixes with the same adversarial prompts that found the gap.",
           "tools": [
             "Garak",
@@ -2169,9 +2169,9 @@
         },
         {
           "title": "Test overreliance safeguards in high-stakes flows",
-          "description": "Workflows where unverified model output drives medical, legal, financial, or security decisions. Good hygiene that pays off over time.",
+          "description": "Workflows where unverified model output drives medical, legal, financial, or security decisions.",
           "severity": "low",
-          "how_to_find": "Exercise test overreliance safeguards in high-stakes flows in Availability & Abuse — Misinformation & Overreliance. Capture full prompt/response traces including tool arguments.",
+          "how_to_find": "For Availability & Abuse — Misinformation & Overreliance: For Availability & Abuse — Misinformation & Overreliance: For Availability & Abuse — Misinformation & Overreliance: Exercise test overreliance safeguards in high-stakes flows in Availability & Abuse — Misinformation & Overreliance. Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
           "how_to_fix": "Map the control to OWASP LLM Top 10, assign an owner, and verify fixes with the same adversarial prompts that found the gap.",
           "tools": [
             "Garak",
@@ -2199,9 +2199,9 @@
         },
         {
           "title": "Test bias, fairness, and toxic-output behaviour",
-          "description": "Discriminatory, biased, or toxic outputs that create harm and compliance risk. Validate this in LLM-powered products, under Availability & Abuse — Misinformation & Overreliance. Good hygiene that pays off over time.",
+          "description": "Discriminatory, biased, or toxic outputs that create harm and compliance risk.",
           "severity": "low",
-          "how_to_find": "Exercise test bias, fairness, and toxic-output behaviour in Availability & Abuse — Misinformation & Overreliance. Capture full prompt/response traces including tool arguments.",
+          "how_to_find": "For Availability & Abuse — Misinformation & Overreliance: For Availability & Abuse — Misinformation & Overreliance: For Availability & Abuse — Misinformation & Overreliance: Exercise test bias, fairness, and toxic-output behaviour in Availability & Abuse — Misinformation & Overreliance. Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
           "how_to_fix": "Map the control to OWASP LLM Top 10, assign an owner, and verify fixes with the same adversarial prompts that found the gap.",
           "tools": [
             "Garak",
@@ -2234,9 +2234,9 @@
       "items": [
         {
           "title": "Test content-filter / moderation evasion",
-          "description": "Techniques that produce disallowed content while evading input or output moderation classifiers. Good hygiene that pays off over time.",
+          "description": "Techniques that produce disallowed content while evading input or output moderation classifiers.",
           "severity": "low",
-          "how_to_find": "Exercise test content-filter / moderation evasion in Availability & Abuse — Guardrail & Content-Filter Bypass. Capture full prompt/response traces including tool arguments.",
+          "how_to_find": "For Availability & Abuse — Guardrail & Content-Filter Bypass: For Availability & Abuse — Guardrail & Content-Filter Bypass: For Availability & Abuse — Guardrail & Content-Filter Bypass: Exercise test content-filter / moderation evasion in Availability & Abuse — Guardrail & Content-Filter Bypass. Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
           "how_to_fix": "Deploy input and output guardrails with block/allow policies tested against your red-team corpus. Alert when guardrails fire repeatedly from one session.",
           "tools": [
             "Garak",
@@ -2264,9 +2264,9 @@
         },
         {
           "title": "Verify layered guardrails (defense in depth)",
-          "description": "Whether the system relies on a single guardrail layer that, once bypassed, removes all protection. Treat failures here as release blockers.",
+          "description": "Whether the system relies on a single guardrail layer that, once bypassed, removes all protection.",
           "severity": "critical",
-          "how_to_find": "Exercise verify layered guardrails (defense in depth) in Availability & Abuse — Guardrail & Content-Filter Bypass. Capture full prompt/response traces including tool arguments.",
+          "how_to_find": "For Availability & Abuse — Guardrail & Content-Filter Bypass: For Availability & Abuse — Guardrail & Content-Filter Bypass: For Availability & Abuse — Guardrail & Content-Filter Bypass: Exercise verify layered guardrails (defense in depth) in Availability & Abuse — Guardrail & Content-Filter Bypass. Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
           "how_to_fix": "Deploy input and output guardrails with block/allow policies tested against your red-team corpus. Alert when guardrails fire repeatedly from one session.",
           "tools": [
             "Garak",
@@ -2294,9 +2294,9 @@
         },
         {
           "title": "Test adversarial-suffix and gradient-based bypasses",
-          "description": "Optimised adversarial suffixes/strings (e.g. Validate this in LLM-powered products, under Availability & Abuse — Guardrail & Content-Filter Bypass. Good hygiene that pays off over time.",
+          "description": "Optimised adversarial suffixes/strings (e.g.",
           "severity": "low",
-          "how_to_find": "Exercise test adversarial-suffix and gradient-based bypasses in Availability & Abuse — Guardrail & Content-Filter Bypass. Capture full prompt/response traces including tool arguments.",
+          "how_to_find": "For Availability & Abuse — Guardrail & Content-Filter Bypass: For Availability & Abuse — Guardrail & Content-Filter Bypass: For Availability & Abuse — Guardrail & Content-Filter Bypass: Exercise test adversarial-suffix and gradient-based bypasses in Availability & Abuse — Guardrail & Content-Filter Bypass. Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
           "how_to_fix": "Map the control to OWASP LLM Top 10, assign an owner, and verify fixes with the same adversarial prompts that found the gap.",
           "tools": [
             "Garak",
@@ -2324,9 +2324,9 @@
         },
         {
           "title": "Verify guardrail logging, monitoring, and alerting",
-          "description": "Whether bypass attempts and policy violations are logged and trigger detection/response. Validate this in LLM-powered products, under Availability & Abuse — Guardrail & Content-Filter Bypass. Good hygiene that pays off over time.",
+          "description": "Whether bypass attempts and policy violations are logged and trigger detection/response.",
           "severity": "low",
-          "how_to_find": "For Availability & Abuse — Guardrail & Content-Filter Bypass: Whether bypass attempts and policy violations are logged and trigger detection/response. Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
+          "how_to_find": "For Availability & Abuse — Guardrail & Content-Filter Bypass: For Availability & Abuse — Guardrail & Content-Filter Bypass: For Availability & Abuse — Guardrail & Content-Filter Bypass: For Availability & Abuse — Guardrail & Content-Filter Bypass: Whether bypass attempts and policy violations are logged and trigger detection/response. Log prompts, retrieved chunks, and tool calls so you can replay the attack path.",
           "how_to_fix": "Log prompts and tool calls with redaction for secrets/PII. Retain enough context for incident response without storing full sensitive payloads.",
           "tools": [
             "Garak",

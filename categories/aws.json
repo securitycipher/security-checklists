@@ -7,7 +7,7 @@
       "items": [
         {
           "title": "MFA is not enabled for Root Account",
-          "description": "Ensure Multi-Factor Authentication (MFA) is enabled for the AWS root account. Validate this in AWS accounts, under IAM (Identity and Access Management). Treat failures here as release blockers.",
+          "description": "Ensure Multi-Factor Authentication (MFA) is enabled for the AWS root account.",
           "severity": "critical",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"MFA is not enabled for Root Account\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for mfa is not enabled for root account. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -33,7 +33,7 @@
         },
         {
           "title": "MFA is not enabled for IAM Users",
-          "description": "Ensure Multi-Factor Authentication (MFA) is enabled for all AWS IAM users with AWS Console access. Worth prioritising in your next assessment cycle.",
+          "description": "Ensure Multi-Factor Authentication (MFA) is enabled for all AWS IAM users with AWS Console access.",
           "severity": "high",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"MFA is not enabled for IAM Users\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for mfa is not enabled for iam users. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -59,7 +59,7 @@
         },
         {
           "title": "Multiple Access Keys exists for IAM Users",
-          "description": "Detects when a canary token access key has been used. Validate this in AWS accounts, under IAM (Identity and Access Management). Good hygiene that pays off over time.",
+          "description": "Detects when a canary token access key has been used.",
           "severity": "low",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"Multiple Access Keys exists for IAM Users\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for multiple access keys exists for iam users. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -85,7 +85,7 @@
         },
         {
           "title": "Cross-Account Access Lacks External ID and MFA",
-          "description": "Ensure cross-account IAM roles use either MFA or external IDs to secure the access to AWS resources. Treat failures here as release blockers.",
+          "description": "Ensure cross-account IAM roles use either MFA or external IDs to secure the access to AWS resources.",
           "severity": "critical",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"Cross-Account Access Lacks External ID and MFA\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for cross-account access lacks external id and mfa. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -111,7 +111,7 @@
         },
         {
           "title": "Lack of Access Key Rotation",
-          "description": "Ensure AWS IAM access keys are rotated on a periodic basis as a security best practice (90 Days). Schedule remediation once higher-severity gaps are closed.",
+          "description": "Ensure AWS IAM access keys are rotated on a periodic basis as a security best practice (90 Days).",
           "severity": "medium",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"Lack of Access Key Rotation\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for lack of access key rotation. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -137,7 +137,7 @@
         },
         {
           "title": "Password Expiration is Disabled",
-          "description": "Ensure AWS Identity and Access Management (IAM) user passwords are reset before expiration (90 Days). Schedule remediation once higher-severity gaps are closed.",
+          "description": "Ensure AWS Identity and Access Management (IAM) user passwords are reset before expiration (90 Days).",
           "severity": "medium",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"Password Expiration is Disabled\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for password expiration is disabled. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -163,7 +163,7 @@
         },
         {
           "title": "Weak Password Policy ( AWS Default password policy) is set for the AWS account",
-          "description": "Ensure AWS account has an IAM strong password policy in use. Validate this in AWS accounts, under IAM (Identity and Access Management). Good hygiene that pays off over time.",
+          "description": "Ensure AWS account has an IAM strong password policy in use.",
           "severity": "low",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"Weak Password Policy ( AWS Default password policy) is set for the AWS account\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for weak password policy ( aws default password policy) is set for the aws account. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -189,7 +189,7 @@
         },
         {
           "title": "Weak IAM Server Certificate in use",
-          "description": "Ensure that all your SSL/TLS certificates are using either 2048 or 4096 bit RSA keys instead of 1024-bit keys. Good hygiene that pays off over time.",
+          "description": "Ensure that all your SSL/TLS certificates are using either 2048 or 4096 bit RSA keys instead of 1024-bit keys.",
           "severity": "low",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"Weak IAM Server Certificate in use\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for weak iam server certificate in use. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -215,7 +215,7 @@
         },
         {
           "title": "IAM Role Policy are Too Permissive",
-          "description": "Ensure AWS IAM policies attached to IAM roles are not too permissive. Validate this in AWS accounts, under IAM (Identity and Access Management). Good hygiene that pays off over time.",
+          "description": "Ensure AWS IAM policies attached to IAM roles are not too permissive.",
           "severity": "low",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"IAM Role Policy are Too Permissive\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for iam role policy are too permissive. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -241,7 +241,7 @@
         },
         {
           "title": "IAM Access Analyzer is not Enabled",
-          "description": "Ensure that IAM Access Analyzer feature is enabled to maintain access security to your AWS resources. Treat failures here as release blockers.",
+          "description": "Ensure that IAM Access Analyzer feature is enabled to maintain access security to your AWS resources.",
           "severity": "critical",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"IAM Access Analyzer is not Enabled\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for iam access analyzer is not enabled. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -267,7 +267,7 @@
         },
         {
           "title": "Pre-Heartbleed Server Certificates",
-          "description": "Ensure that your server certificates are not vulnerable to Heartbleed security bug. Validate this in AWS accounts, under IAM (Identity and Access Management). Good hygiene that pays off over time.",
+          "description": "Ensure that your server certificates are not vulnerable to Heartbleed security bug.",
           "severity": "low",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"Pre-Heartbleed Server Certificates\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for pre-heartbleed server certificates. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -293,7 +293,7 @@
         },
         {
           "title": "Root Account Access Keys Present",
-          "description": "Ensure that your AWS account (root) is not using access keys as a security best practice. Validate this in AWS accounts, under IAM (Identity and Access Management). Treat failures here as release blockers.",
+          "description": "Ensure that your AWS account (root) is not using access keys as a security best practice.",
           "severity": "critical",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"Root Account Access Keys Present\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for root account access keys present. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -319,7 +319,7 @@
         },
         {
           "title": "Lack of SSH Public Keys Rotation",
-          "description": "Ensure IAM SSH public keys are rotated on a periodic basis to adhere to AWS security best practices. Worth prioritising in your next assessment cycle.",
+          "description": "Ensure IAM SSH public keys are rotated on a periodic basis to adhere to AWS security best practices.",
           "severity": "high",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"Lack of SSH Public Keys Rotation\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for lack of ssh public keys rotation. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -345,7 +345,7 @@
         },
         {
           "title": "SSL/TLS Certificate is about to Expire",
-          "description": "Ensure SSL/TLS certificates are renewed before their expiration. Validate this in AWS accounts, under IAM (Identity and Access Management). Schedule remediation once higher-severity gaps are closed.",
+          "description": "Ensure SSL/TLS certificates are renewed before their expiration.",
           "severity": "medium",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"SSL/TLS Certificate is about to Expire\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for ssl/tls certificate is about to expire. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -371,7 +371,7 @@
         },
         {
           "title": "Security Challenge Question not Enabled",
-          "description": "Ensure security challenge questions are enabled and configured to improve the security of your AWS account. Good hygiene that pays off over time.",
+          "description": "Ensure security challenge questions are enabled and configured to improve the security of your AWS account.",
           "severity": "low",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"Security Challenge Question not Enabled\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for security challenge question not enabled. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -397,7 +397,7 @@
         },
         {
           "title": "Security Contact Information is not Registered",
-          "description": "Ensure alternate contacts are set to improve the security of your AWS account. Validate this in AWS accounts, under IAM (Identity and Access Management). Good hygiene that pays off over time.",
+          "description": "Ensure alternate contacts are set to improve the security of your AWS account.",
           "severity": "low",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"Security Contact Information is not Registered\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for security contact information is not registered. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -423,7 +423,7 @@
         },
         {
           "title": "AWS Multi-Account are managed centrally via Identity Federation or AWS Organization",
-          "description": "Set up, organize and manage your AWS accounts for optimal security and manageability. Validate this in AWS accounts, under IAM (Identity and Access Management). Good hygiene that pays off over time.",
+          "description": "Set up, organize and manage your AWS accounts for optimal security and manageability.",
           "severity": "low",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"AWS Multi-Account are managed centrally via Identity Federation or AWS Organization\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for aws multi-account are managed centrally via identity federation or aws organization. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -449,7 +449,7 @@
         },
         {
           "title": "Root Account Recently used",
-          "description": "Ensure root account credentials have not been used recently to access your AWS account. Validate this in AWS accounts, under IAM (Identity and Access Management). Treat failures here as release blockers.",
+          "description": "Ensure root account credentials have not been used recently to access your AWS account.",
           "severity": "critical",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"Root Account Recently used\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for root account recently used. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -480,7 +480,7 @@
       "items": [
         {
           "title": "Overbroad Ingress Rules for Security Groups",
-          "description": "Ensure no EC2 security group allows unrestricted inbound access to any uncommon ports. Validate this in AWS accounts, under Elastic Compute Cloud (EC2) , Elastic Blob Storage (EBS), Elastic Load Balancer V2 (ELBv2). Good hygiene that pays off over time.",
+          "description": "Ensure no EC2 security group allows unrestricted inbound access to any uncommon ports.",
           "severity": "low",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"Overbroad Ingress Rules for Security Groups\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for overbroad ingress rules for security groups. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -506,7 +506,7 @@
         },
         {
           "title": "EC2 Instance Termination Protection is not Enabled",
-          "description": "Ensure Termination Protection feature is enabled for EC2 instances that are not part of ASGs. Good hygiene that pays off over time.",
+          "description": "Ensure Termination Protection feature is enabled for EC2 instances that are not part of ASGs.",
           "severity": "low",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"EC2 Instance Termination Protection is not Enabled\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for ec2 instance termination protection is not enabled. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -532,7 +532,7 @@
         },
         {
           "title": "AMIs are Publicaly Shared",
-          "description": "Ensure your Amazon Machine Images (AMIs) are not accessible to all AWS accounts. Validate this in AWS accounts, under Elastic Compute Cloud (EC2) , Elastic Blob Storage (EBS), Elastic Load Balancer V2 (ELBv2). Worth prioritising in your next assessment cycle.",
+          "description": "Ensure your Amazon Machine Images (AMIs) are not accessible to all AWS accounts.",
           "severity": "high",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"AMIs are Publicaly Shared\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for amis are publicaly shared. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -558,7 +558,7 @@
         },
         {
           "title": "Golden/Approved AMIs not in Use",
-          "description": "Ensure all AWS EC2 instances are launched from approved AMIs. Validate this in AWS accounts, under Elastic Compute Cloud (EC2) , Elastic Blob Storage (EBS), Elastic Load Balancer V2 (ELBv2). Good hygiene that pays off over time.",
+          "description": "Ensure all AWS EC2 instances are launched from approved AMIs.",
           "severity": "low",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"Golden/Approved AMIs not in Use\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for golden/approved amis not in use. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -584,7 +584,7 @@
         },
         {
           "title": "Amazon EBS Snapshots are Publicly Accessible",
-          "description": "Ensure that your Amazon EBS volume snapshots are not accessible to all AWS accounts. Validate this in AWS accounts, under Elastic Compute Cloud (EC2) , Elastic Blob Storage (EBS), Elastic Load Balancer V2 (ELBv2). Treat failures here as release blockers.",
+          "description": "Ensure that your Amazon EBS volume snapshots are not accessible to all AWS accounts.",
           "severity": "critical",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"Amazon EBS Snapshots are Publicly Accessible\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for amazon ebs snapshots are publicly accessible. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -610,7 +610,7 @@
         },
         {
           "title": "Amazon EBS Volumes Encryption is not enabled",
-          "description": "Ensure that existing Elastic Block Store (EBS) attached volumes are encrypted to meet security and compliance requirements. Worth prioritising in your next assessment cycle.",
+          "description": "Ensure that existing Elastic Block Store (EBS) attached volumes are encrypted to meet security and compliance requirements.",
           "severity": "high",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"Amazon EBS Volumes Encryption is not enabled\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for amazon ebs volumes encryption is not enabled. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -636,7 +636,7 @@
         },
         {
           "title": "Amazon EBS Snapshots Encryption is not enabled",
-          "description": "Ensure Amazon EBS snapshots are encrypted to meet security and compliance requirements. Validate this in AWS accounts, under Elastic Compute Cloud (EC2) , Elastic Blob Storage (EBS), Elastic Load Balancer V2 (ELBv2). Worth prioritising in your next assessment cycle.",
+          "description": "Ensure Amazon EBS snapshots are encrypted to meet security and compliance requirements.",
           "severity": "high",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"Amazon EBS Snapshots Encryption is not enabled\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for amazon ebs snapshots encryption is not enabled. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -662,7 +662,7 @@
         },
         {
           "title": "KMS Customer Master Keys is not used for EBS Volume Encryption",
-          "description": "Ensure EBS volumes are encrypted with KMS CMKs in order to have full control over data encryption and decryption. Worth prioritising in your next assessment cycle.",
+          "description": "Ensure EBS volumes are encrypted with KMS CMKs in order to have full control over data encryption and decryption.",
           "severity": "high",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"KMS Customer Master Keys is not used for EBS Volume Encryption\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for kms customer master keys is not used for ebs volume encryption. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -688,7 +688,7 @@
         },
         {
           "title": "Weak Cryptographic Controls for ELB",
-          "description": "Ensure AWS Application Load Balancers (ALBs) are using the latest predefined security policy. Good hygiene that pays off over time.",
+          "description": "Ensure AWS Application Load Balancers (ALBs) are using the latest predefined security policy.",
           "severity": "low",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"Weak Cryptographic Controls for ELB\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for weak cryptographic controls for elb. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -714,7 +714,7 @@
         },
         {
           "title": "Load Balancer is not Integrated with AWS WAF",
-          "description": "Ensure that WAF ACL is integrated with Elastic Load Balancer. Validate this in AWS accounts, under Elastic Compute Cloud (EC2) , Elastic Blob Storage (EBS), Elastic Load Balancer V2 (ELBv2). Good hygiene that pays off over time.",
+          "description": "Ensure that WAF ACL is integrated with Elastic Load Balancer.",
           "severity": "low",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"Load Balancer is not Integrated with AWS WAF\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for load balancer is not integrated with aws waf. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -740,7 +740,7 @@
         },
         {
           "title": "ELB uses In-secure protocols",
-          "description": "Ensure that your Application Load Balancer (ALB) listeners are using a secure protocol such as HTTPS. Good hygiene that pays off over time.",
+          "description": "Ensure that your Application Load Balancer (ALB) listeners are using a secure protocol such as HTTPS.",
           "severity": "low",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"ELB uses In-secure protocols\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for elb uses in-secure protocols. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -766,7 +766,7 @@
         },
         {
           "title": "ELB Deletion Protection Disabled",
-          "description": "Ensure Deletion Protection feature is enabled for your AWS load balancers to follow security best practices. Good hygiene that pays off over time.",
+          "description": "Ensure Deletion Protection feature is enabled for your AWS load balancers to follow security best practices.",
           "severity": "low",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"ELB Deletion Protection Disabled\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for elb deletion protection disabled. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -792,7 +792,7 @@
         },
         {
           "title": "Access logging disabled for ELB",
-          "description": "Ensure access logging is enabled for your AWS ALBs to follow security best practices. Validate this in AWS accounts, under Elastic Compute Cloud (EC2) , Elastic Blob Storage (EBS), Elastic Load Balancer V2 (ELBv2). Worth prioritising in your next assessment cycle.",
+          "description": "Ensure access logging is enabled for your AWS ALBs to follow security best practices.",
           "severity": "high",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"Access logging disabled for ELB\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for access logging disabled for elb. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -823,7 +823,7 @@
       "items": [
         {
           "title": "VPC Flow Logs Disabled",
-          "description": "Ensure Virtual Private Cloud (VPC) Flow Logs feature is enabled in all applicable AWS regions. Good hygiene that pays off over time.",
+          "description": "Ensure Virtual Private Cloud (VPC) Flow Logs feature is enabled in all applicable AWS regions.",
           "severity": "low",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"VPC Flow Logs Disabled\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for vpc flow logs disabled. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -853,7 +853,7 @@
       "items": [
         {
           "title": "Overbroad S3 Access Control",
-          "description": "Ensure that your AWS S3 buckets are not publicly exposed to the Internet. Validate this in AWS accounts, under Simple Storage Service (S3). Worth prioritising in your next assessment cycle.",
+          "description": "Ensure that your AWS S3 buckets are not publicly exposed to the Internet.",
           "severity": "high",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"Overbroad S3 Access Control\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for overbroad s3 access control. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -878,7 +878,7 @@
         },
         {
           "title": "Cross-Account Access for S3 Buckets",
-          "description": "Ensure Amazon S3 buckets do not allow unknown cross account access via bucket policies. Validate this in AWS accounts, under Simple Storage Service (S3). Good hygiene that pays off over time.",
+          "description": "Ensure Amazon S3 buckets do not allow unknown cross account access via bucket policies.",
           "severity": "low",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"Cross-Account Access for S3 Buckets\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for cross-account access for s3 buckets. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -903,7 +903,7 @@
         },
         {
           "title": "Server-Side Encryption is not Enabled for S3",
-          "description": "Ensure AWS S3 buckets enforce Server-Side Encryption (SSE). Validate this in AWS accounts, under Simple Storage Service (S3). Treat failures here as release blockers.",
+          "description": "Ensure AWS S3 buckets enforce Server-Side Encryption (SSE).",
           "severity": "critical",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"Server-Side Encryption is not Enabled for S3\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for server-side encryption is not enabled for s3. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -928,7 +928,7 @@
         },
         {
           "title": "KMS Customer Master Keys is not used for S3 Buckets Encryption",
-          "description": "Ensure that Amazon S3 buckets are encrypted with customer-provided AWS KMS CMKs. Validate this in AWS accounts, under Simple Storage Service (S3). Worth prioritising in your next assessment cycle.",
+          "description": "Ensure that Amazon S3 buckets are encrypted with customer-provided AWS KMS CMKs.",
           "severity": "high",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"KMS Customer Master Keys is not used for S3 Buckets Encryption\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for kms customer master keys is not used for s3 buckets encryption. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -953,7 +953,7 @@
         },
         {
           "title": "Versioning and Multi-Factor Delete is not Enabled on S3 buckets",
-          "description": "Ensure AWS S3 buckets have the MFA Delete feature enabled. Validate this in AWS accounts, under Simple Storage Service (S3). Worth prioritising in your next assessment cycle.",
+          "description": "Ensure AWS S3 buckets have the MFA Delete feature enabled.",
           "severity": "high",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"Versioning and Multi-Factor Delete is not Enabled on S3 buckets\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for versioning and multi-factor delete is not enabled on s3 buckets. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -978,7 +978,7 @@
         },
         {
           "title": "Access Logging Disabled for S3",
-          "description": "Ensure AWS S3 buckets have server access logging enabled to track access requests. Validate this in AWS accounts, under Simple Storage Service (S3). Worth prioritising in your next assessment cycle.",
+          "description": "Ensure AWS S3 buckets have server access logging enabled to track access requests.",
           "severity": "high",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"Access Logging Disabled for S3\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for access logging disabled for s3. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -1003,7 +1003,7 @@
         },
         {
           "title": "Secure Transport is Not Enabled on S3",
-          "description": "Ensure AWS S3 buckets enforce SSL to secure data in transit. Validate this in AWS accounts, under Simple Storage Service (S3). Treat failures here as release blockers.",
+          "description": "Ensure AWS S3 buckets enforce SSL to secure data in transit.",
           "severity": "critical",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"Secure Transport is Not Enabled on S3\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for secure transport is not enabled on s3. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -1033,7 +1033,7 @@
       "items": [
         {
           "title": "CloudTrail Log Encryption Disabled",
-          "description": "Ensure your AWS CloudTrail logs are encrypted using AWS KMS–Managed Keys (SSE-KMS). Validate this in AWS accounts, under Cloud Trail. Worth prioritising in your next assessment cycle.",
+          "description": "Ensure your AWS CloudTrail logs are encrypted using AWS KMS–Managed Keys (SSE-KMS).",
           "severity": "high",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"CloudTrail Log Encryption Disabled\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for cloudtrail log encryption disabled. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -1057,7 +1057,7 @@
         },
         {
           "title": "KMS Customer Master Keys is not used for CloudTrail Encryption",
-          "description": "Ensure that KMS master keys are used for CloudTrail Encryption. Validate this in AWS accounts, under Cloud Trail. Worth prioritising in your next assessment cycle.",
+          "description": "Ensure that KMS master keys are used for CloudTrail Encryption.",
           "severity": "high",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"KMS Customer Master Keys is not used for CloudTrail Encryption\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for kms customer master keys is not used for cloudtrail encryption. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -1081,7 +1081,7 @@
         },
         {
           "title": "CloudTrail Log File Validation is Disabled",
-          "description": "Ensure your AWS CloudTrail trails have log file integrity validation enabled. Validate this in AWS accounts, under Cloud Trail. Good hygiene that pays off over time.",
+          "description": "Ensure your AWS CloudTrail trails have log file integrity validation enabled.",
           "severity": "low",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"CloudTrail Log File Validation is Disabled\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for cloudtrail log file validation is disabled. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -1105,7 +1105,7 @@
         },
         {
           "title": "CloudTrail is not integrated with CloudWatch",
-          "description": "Ensure CloudTrail event monitoring with CloudWatch is enabled. Validate this in AWS accounts, under Cloud Trail. Good hygiene that pays off over time.",
+          "description": "Ensure CloudTrail event monitoring with CloudWatch is enabled.",
           "severity": "low",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"CloudTrail is not integrated with CloudWatch\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for cloudtrail is not integrated with cloudwatch. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -1134,7 +1134,7 @@
       "items": [
         {
           "title": "No Security Incident Alarm exist for AWS Services",
-          "description": "Ensure that Security Incident Alarms are created in CloudWatch. Validate this in AWS accounts, under CloudWatch. Good hygiene that pays off over time.",
+          "description": "Ensure that Security Incident Alarms are created in CloudWatch.",
           "severity": "low",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"No Security Incident Alarm exist for AWS Services\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for no security incident alarm exist for aws services. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -1163,7 +1163,7 @@
       "items": [
         {
           "title": "RDS Database instance are Publicly accessible",
-          "description": "Ensure RDS database instances are not publicly accessible and prone to security risks. Validate this in AWS accounts, under Relational Database Service (RDS). Treat failures here as release blockers.",
+          "description": "Ensure RDS database instances are not publicly accessible and prone to security risks.",
           "severity": "critical",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"RDS Database instance are Publicly accessible\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for rds database instance are publicly accessible. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -1187,7 +1187,7 @@
         },
         {
           "title": "Deletion protection is not Enabled for RDS Instance",
-          "description": "Ensure Deletion Protection feature is enabled for your AWS RDS database instances. Validate this in AWS accounts, under Relational Database Service (RDS). Good hygiene that pays off over time.",
+          "description": "Ensure Deletion Protection feature is enabled for your AWS RDS database instances.",
           "severity": "low",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"Deletion protection is not Enabled for RDS Instance\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for deletion protection is not enabled for rds instance. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -1211,7 +1211,7 @@
         },
         {
           "title": "RDS Automated Backup is not enabled",
-          "description": "Ensure that Automated Backups are created for the RDS Instances. Validate this in AWS accounts, under Relational Database Service (RDS). Schedule remediation once higher-severity gaps are closed.",
+          "description": "Ensure that Automated Backups are created for the RDS Instances.",
           "severity": "medium",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"RDS Automated Backup is not enabled\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for rds automated backup is not enabled. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -1235,7 +1235,7 @@
         },
         {
           "title": "RDS Instance Encryption is not Enabled",
-          "description": "Ensure AWS RDS instances are encrypted to meet security and compliance requirements. Validate this in AWS accounts, under Relational Database Service (RDS). Worth prioritising in your next assessment cycle.",
+          "description": "Ensure AWS RDS instances are encrypted to meet security and compliance requirements.",
           "severity": "high",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"RDS Instance Encryption is not Enabled\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for rds instance encryption is not enabled. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -1259,7 +1259,7 @@
         },
         {
           "title": "KMS Customer Master Keys is not used for RDS Instance Encryption",
-          "description": "Ensure RDS instances are encrypted with KMS CMKs in order to have full control over data encryption and decryption. Worth prioritising in your next assessment cycle.",
+          "description": "Ensure RDS instances are encrypted with KMS CMKs in order to have full control over data encryption and decryption.",
           "severity": "high",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"KMS Customer Master Keys is not used for RDS Instance Encryption\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for kms customer master keys is not used for rds instance encryption. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -1283,7 +1283,7 @@
         },
         {
           "title": "RDS Snapshots Encryption is not Enabled",
-          "description": "Ensure that AWS RDS snapshots are encrypted to meet security and compliance requirements. Validate this in AWS accounts, under Relational Database Service (RDS). Worth prioritising in your next assessment cycle.",
+          "description": "Ensure that AWS RDS snapshots are encrypted to meet security and compliance requirements.",
           "severity": "high",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"RDS Snapshots Encryption is not Enabled\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for rds snapshots encryption is not enabled. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -1307,7 +1307,7 @@
         },
         {
           "title": "RDS Snapshots Publicly accessible",
-          "description": "Ensure that your Amazon RDS database snapshots are not accessible to all AWS accounts. Validate this in AWS accounts, under Relational Database Service (RDS). Treat failures here as release blockers.",
+          "description": "Ensure that your Amazon RDS database snapshots are not accessible to all AWS accounts.",
           "severity": "critical",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"RDS Snapshots Publicly accessible\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for rds snapshots publicly accessible. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -1331,7 +1331,7 @@
         },
         {
           "title": "RDS Log Exports is not Enabled (RDS MySQL, Aurora and MariaDB)",
-          "description": "Ensure Log Exports feature is enabled for your AWS RDS MySQL, Aurora and MariaDB database instances. Good hygiene that pays off over time.",
+          "description": "Ensure Log Exports feature is enabled for your AWS RDS MySQL, Aurora and MariaDB database instances.",
           "severity": "low",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"RDS Log Exports is not Enabled (RDS MySQL, Aurora and MariaDB)\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for rds log exports is not enabled (rds mysql, aurora and mariadb). Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -1355,7 +1355,7 @@
         },
         {
           "title": "IAM Database Authentication is not Enabled for RDS Instances",
-          "description": "Ensure IAM Database Authentication feature is enabled for your AWS RDS MySQL and PostgreSQL database instances. Good hygiene that pays off over time.",
+          "description": "Ensure IAM Database Authentication feature is enabled for your AWS RDS MySQL and PostgreSQL database instances.",
           "severity": "low",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"IAM Database Authentication is not Enabled for RDS Instances\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for iam database authentication is not enabled for rds instances. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -1379,7 +1379,7 @@
         },
         {
           "title": "RDS Auto Minor Version Upgrade Not Enabled",
-          "description": "Ensure AWS RDS instances have the Auto Minor Version Upgrade feature enabled. Validate this in AWS accounts, under Relational Database Service (RDS). Schedule remediation once higher-severity gaps are closed.",
+          "description": "Ensure AWS RDS instances have the Auto Minor Version Upgrade feature enabled.",
           "severity": "medium",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"RDS Auto Minor Version Upgrade Not Enabled\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for rds auto minor version upgrade not enabled. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -1403,7 +1403,7 @@
         },
         {
           "title": "RDS Database Instance not updated",
-          "description": "Ensure that the RDS Instance is Updated. Validate this in AWS accounts, under Relational Database Service (RDS). Good hygiene that pays off over time.",
+          "description": "Ensure that the RDS Instance is Updated. Good hygiene that pays off over time.",
           "severity": "low",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"RDS Database Instance not updated\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for rds database instance not updated. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -1427,7 +1427,7 @@
         },
         {
           "title": "RDS Automated Backup is not enabled",
-          "description": "Ensure AWS RDS instances have Automated Backups feature enabled. Validate this in AWS accounts, under Relational Database Service (RDS). Schedule remediation once higher-severity gaps are closed.",
+          "description": "Ensure AWS RDS instances have Automated Backups feature enabled.",
           "severity": "medium",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"RDS Automated Backup is not enabled\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for rds automated backup is not enabled. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -1451,7 +1451,7 @@
         },
         {
           "title": "RDS Secure Transport is not Enabled (SQL Server, PostgreSQL)",
-          "description": "Ensure AWS RDS SQL Server instances have Transport Encryption feature enabled. Validate this in AWS accounts, under Relational Database Service (RDS). Worth prioritising in your next assessment cycle.",
+          "description": "Ensure AWS RDS SQL Server instances have Transport Encryption feature enabled.",
           "severity": "high",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"RDS Secure Transport is not Enabled (SQL Server, PostgreSQL)\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for rds secure transport is not enabled (sql server, postgresql). Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -1475,7 +1475,7 @@
         },
         {
           "title": "RDS Backup Retention Period is not enough",
-          "description": "Ensure AWS RDS instances have sufficient backup retention period for compliance purposes. Validate this in AWS accounts, under Relational Database Service (RDS). Schedule remediation once higher-severity gaps are closed.",
+          "description": "Ensure AWS RDS instances have sufficient backup retention period for compliance purposes.",
           "severity": "medium",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"RDS Backup Retention Period is not enough\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for rds backup retention period is not enough. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -1499,7 +1499,7 @@
         },
         {
           "title": "SSL/TLS Certificates Already Expired for RDS",
-          "description": "Ensure that RDS Instance is using the updated SSL Certificate. Validate this in AWS accounts, under Relational Database Service (RDS). Good hygiene that pays off over time.",
+          "description": "Ensure that RDS Instance is using the updated SSL Certificate.",
           "severity": "low",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"SSL/TLS Certificates Already Expired for RDS\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for ssl/tls certificates already expired for rds. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -1523,7 +1523,7 @@
         },
         {
           "title": "RDS not using Multi-AZ deployment",
-          "description": "Ensure AWS RDS clusters have the Multi-AZ feature enabled. Validate this in AWS accounts, under Relational Database Service (RDS). Good hygiene that pays off over time.",
+          "description": "Ensure AWS RDS clusters have the Multi-AZ feature enabled.",
           "severity": "low",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"RDS not using Multi-AZ deployment\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for rds not using multi-az deployment. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -1552,7 +1552,7 @@
       "items": [
         {
           "title": "Cross-Account Access for SNS Topics",
-          "description": "Ensure Amazon SNS topics do not allow unknown cross account access. Validate this in AWS accounts, under Simple Notification Service (SNS). Good hygiene that pays off over time.",
+          "description": "Ensure Amazon SNS topics do not allow unknown cross account access.",
           "severity": "low",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"Cross-Account Access for SNS Topics\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for cross-account access for sns topics. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -1575,7 +1575,7 @@
         },
         {
           "title": "SNS Topics Exposed to Everyone",
-          "description": "Ensure that AWS Simple Notification Service (SNS) topics are not exposed to everyone. Validate this in AWS accounts, under Simple Notification Service (SNS). Treat failures here as release blockers.",
+          "description": "Ensure that AWS Simple Notification Service (SNS) topics are not exposed to everyone.",
           "severity": "critical",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"SNS Topics Exposed to Everyone\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for sns topics exposed to everyone. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -1598,7 +1598,7 @@
         },
         {
           "title": "Server-Side Encryption is Not Enabled for AWS SNS Topics",
-          "description": "Ensure that Amazon SNS topics enforce Server-Side Encryption (SSE). Validate this in AWS accounts, under Simple Notification Service (SNS). Treat failures here as release blockers.",
+          "description": "Ensure that Amazon SNS topics enforce Server-Side Encryption (SSE).",
           "severity": "critical",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"Server-Side Encryption is Not Enabled for AWS SNS Topics\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for server-side encryption is not enabled for aws sns topics. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -1621,7 +1621,7 @@
         },
         {
           "title": "KMS Customer Master Keys is not used for SNS Topics Encryption",
-          "description": "Ensure that Amazon SNS topics are encrypted with KMS Customer Master Keys (CMKs). Validate this in AWS accounts, under Simple Notification Service (SNS). Worth prioritising in your next assessment cycle.",
+          "description": "Ensure that Amazon SNS topics are encrypted with KMS Customer Master Keys (CMKs).",
           "severity": "high",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"KMS Customer Master Keys is not used for SNS Topics Encryption\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for kms customer master keys is not used for sns topics encryption. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -1649,7 +1649,7 @@
       "items": [
         {
           "title": "Lack of KMS Key Rotation",
-          "description": "Ensure KMS key rotation feature is enabled for all your Customer Master Keys (CMK). Validate this in AWS accounts, under Key Management Service (KMS). Schedule remediation once higher-severity gaps are closed.",
+          "description": "Ensure KMS key rotation feature is enabled for all your Customer Master Keys (CMK).",
           "severity": "medium",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"Lack of KMS Key Rotation\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for lack of kms key rotation. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -1673,7 +1673,7 @@
         },
         {
           "title": "AWS Keys Exposed to Everyone",
-          "description": "Ensure Amazon KMS master keys are not exposed to everyone. Validate this in AWS accounts, under Key Management Service (KMS). Treat failures here as release blockers.",
+          "description": "Ensure Amazon KMS master keys are not exposed to everyone.",
           "severity": "critical",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"AWS Keys Exposed to Everyone\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for aws keys exposed to everyone. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -1697,7 +1697,7 @@
         },
         {
           "title": "Cross-Account Access for KMS Service",
-          "description": "Ensure Amazon KMS master keys do not allow unknown cross account access. Validate this in AWS accounts, under Key Management Service (KMS). Good hygiene that pays off over time.",
+          "description": "Ensure Amazon KMS master keys do not allow unknown cross account access.",
           "severity": "low",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"Cross-Account Access for KMS Service\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for cross-account access for kms service. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -1726,7 +1726,7 @@
       "items": [
         {
           "title": "Code Signing is not Enabled for Lambda Functions",
-          "description": "Ensure that Code Signing is enabled for your Amazon Lambda functions. Validate this in AWS accounts, under Lambda. Good hygiene that pays off over time.",
+          "description": "Ensure that Code Signing is enabled for your Amazon Lambda functions.",
           "severity": "low",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"Code Signing is not Enabled for Lambda Functions\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for code signing is not enabled for lambda functions. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -1750,7 +1750,7 @@
         },
         {
           "title": "Lambda Runtime Environment Version is not Latest",
-          "description": "Ensure that the latest version of the runtime environment is used for your AWS Lambda functions. Schedule remediation once higher-severity gaps are closed.",
+          "description": "Ensure that the latest version of the runtime environment is used for your AWS Lambda functions.",
           "severity": "medium",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"Lambda Runtime Environment Version is not Latest\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for lambda runtime environment version is not latest. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -1774,7 +1774,7 @@
         },
         {
           "title": "Cross-Account Access for Lambda Functions Queues",
-          "description": "Ensure AWS Lambda functions do not allow unknown cross account access via permission policies. Good hygiene that pays off over time.",
+          "description": "Ensure AWS Lambda functions do not allow unknown cross account access via permission policies.",
           "severity": "low",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"Cross-Account Access for Lambda Functions Queues\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for cross-account access for lambda functions queues. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -1798,7 +1798,7 @@
         },
         {
           "title": "Lambda Function Exposed to Everyone",
-          "description": "Ensure that your Amazon Lambda functions are not exposed to everyone. Validate this in AWS accounts, under Lambda. Treat failures here as release blockers.",
+          "description": "Ensure that your Amazon Lambda functions are not exposed to everyone.",
           "severity": "critical",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"Lambda Function Exposed to Everyone\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for lambda function exposed to everyone. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -1822,7 +1822,7 @@
         },
         {
           "title": "Lambda Environment Variables are not Encrypted",
-          "description": "Ensure encryption is enabled for the AWS Lambda environment variables that store sensitive information. Worth prioritising in your next assessment cycle.",
+          "description": "Ensure encryption is enabled for the AWS Lambda environment variables that store sensitive information.",
           "severity": "high",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"Lambda Environment Variables are not Encrypted\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for lambda environment variables are not encrypted. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -1846,7 +1846,7 @@
         },
         {
           "title": "KMS Customer Master Keys is not used for Lambda Environment Variables Encryption",
-          "description": "Ensure Lambda environment variables are encrypted with KMS Customer Master Keys (CMKs) to gain full control over data encryption and decryption. Worth prioritising in your next assessment cycle.",
+          "description": "Ensure Lambda environment variables are encrypted with KMS Customer Master Keys (CMKs) to gain full control over data encryption and decryption.",
           "severity": "high",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"KMS Customer Master Keys is not used for Lambda Environment Variables Encryption\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for kms customer master keys is not used for lambda environment variables encryption. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -1875,7 +1875,7 @@
       "items": [
         {
           "title": "AWS Config Not Used",
-          "description": "Ensure AWS Config is enabled in all regions to get the optimal visibility of the activity on your account. Good hygiene that pays off over time.",
+          "description": "Ensure AWS Config is enabled in all regions to get the optimal visibility of the activity on your account.",
           "severity": "low",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"AWS Config Not Used\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for aws config not used. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -1899,7 +1899,7 @@
         },
         {
           "title": "Validate AWS Config Rules",
-          "description": "Validate the AWS Config Rules and check for NonCompliant Rules. Validate this in AWS accounts, under AWS Config. Good hygiene that pays off over time.",
+          "description": "Validate the AWS Config Rules and check for NonCompliant Rules.",
           "severity": "low",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"Validate AWS Config Rules\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for validate aws config rules. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -1928,7 +1928,7 @@
       "items": [
         {
           "title": "AWS GuardDuty Not Used",
-          "description": "Ensure Amazon GuardDuty is enabled to help you protect your AWS accounts and workloads against security threats. Good hygiene that pays off over time.",
+          "description": "Ensure Amazon GuardDuty is enabled to help you protect your AWS accounts and workloads against security threats.",
           "severity": "low",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"AWS GuardDuty Not Used\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for aws guardduty not used. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -1952,7 +1952,7 @@
         },
         {
           "title": "Validate the AWS GuardDuty Findings",
-          "description": "Always validate the findings that are reported by GuardDuty. Validate this in AWS accounts, under AWS GuardDuty. Good hygiene that pays off over time.",
+          "description": "Always validate the findings that are reported by GuardDuty.",
           "severity": "low",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"Validate the AWS GuardDuty Findings\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for validate the aws guardduty findings. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -1981,7 +1981,7 @@
       "items": [
         {
           "title": "Route 53 Domain Transfer Lock is not Enabled",
-          "description": "Ensure your domain names have the Transfer Lock feature enabled in order to keep them secure. Good hygiene that pays off over time.",
+          "description": "Ensure your domain names have the Transfer Lock feature enabled in order to keep them secure.",
           "severity": "low",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"Route 53 Domain Transfer Lock is not Enabled\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for route 53 domain transfer lock is not enabled. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -2005,7 +2005,7 @@
         },
         {
           "title": "SPF Record not Present",
-          "description": "Ensure there is an SPF record set for each MX DNS record in order to stop spammers from spoofing your domains. Good hygiene that pays off over time.",
+          "description": "Ensure there is an SPF record set for each MX DNS record in order to stop spammers from spoofing your domains.",
           "severity": "low",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"SPF Record not Present\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for spf record not present. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -2029,7 +2029,7 @@
         },
         {
           "title": "Route53 Domains Already Expired",
-          "description": "Ensure expired AWS Route 53 domains names are restored. Validate this in AWS accounts, under Route 53. Good hygiene that pays off over time.",
+          "description": "Ensure expired AWS Route 53 domains names are restored.",
           "severity": "low",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"Route53 Domains Already Expired\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for route53 domains already expired. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -2053,7 +2053,7 @@
         },
         {
           "title": "Route53 Domains are about to Expire",
-          "description": "Ensure AWS Route 53 domain names are renewed before their expiration (90 days before expiration). Schedule remediation once higher-severity gaps are closed.",
+          "description": "Ensure AWS Route 53 domain names are renewed before their expiration (90 days before expiration).",
           "severity": "medium",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"Route53 Domains are about to Expire\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for route53 domains are about to expire. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -2077,7 +2077,7 @@
         },
         {
           "title": "DNSSEC Signing for Route 53 Hosted Zones is not Enabled",
-          "description": "Ensure that DNSSEC signing is enabled for your Amazon Route 53 Hosted Zones. Validate this in AWS accounts, under Route 53. Good hygiene that pays off over time.",
+          "description": "Ensure that DNSSEC signing is enabled for your Amazon Route 53 Hosted Zones.",
           "severity": "low",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"DNSSEC Signing for Route 53 Hosted Zones is not Enabled\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for dnssec signing for route 53 hosted zones is not enabled. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -2106,7 +2106,7 @@
       "items": [
         {
           "title": "EKS Secret Encryption is not Enabled",
-          "description": "Ensure that envelope encryption of Kubernetes secrets using Amazon KMS is enabled. Validate this in AWS accounts, under Elastic Kubernetes Service (EKS). Worth prioritising in your next assessment cycle.",
+          "description": "Ensure that envelope encryption of Kubernetes secrets using Amazon KMS is enabled.",
           "severity": "high",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"EKS Secret Encryption is not Enabled\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for eks secret encryption is not enabled. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -2131,7 +2131,7 @@
         },
         {
           "title": "Kubernetes Cluster Logging is not Enabled",
-          "description": "Ensure that EKS control plane logging is enabled for your Amazon EKS clusters. Validate this in AWS accounts, under Elastic Kubernetes Service (EKS). Good hygiene that pays off over time.",
+          "description": "Ensure that EKS control plane logging is enabled for your Amazon EKS clusters.",
           "severity": "low",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"Kubernetes Cluster Logging is not Enabled\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for kubernetes cluster logging is not enabled. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -2156,7 +2156,7 @@
         },
         {
           "title": "Kubernetes Cluster Version is not Updated",
-          "description": "Ensure that the latest version of Kubernetes is installed on your Amazon EKS clusters. Validate this in AWS accounts, under Elastic Kubernetes Service (EKS). Schedule remediation once higher-severity gaps are closed.",
+          "description": "Ensure that the latest version of Kubernetes is installed on your Amazon EKS clusters.",
           "severity": "medium",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"Kubernetes Cluster Version is not Updated\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for kubernetes cluster version is not updated. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -2181,7 +2181,7 @@
         },
         {
           "title": "Cluster Endpoints are Publicly accessible",
-          "description": "Ensure that AWS EKS cluster endpoint access is not public and prone to security risks. Validate this in AWS accounts, under Elastic Kubernetes Service (EKS). Treat failures here as release blockers.",
+          "description": "Ensure that AWS EKS cluster endpoint access is not public and prone to security risks.",
           "severity": "critical",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"Cluster Endpoints are Publicly accessible\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for cluster endpoints are publicly accessible. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -2211,7 +2211,7 @@
       "items": [
         {
           "title": "Server-Side Encryption is not Enabled for SQS Queues",
-          "description": "Ensure Amazon SQS queues enforce Server-Side Encryption (SSE). Validate this in AWS accounts, under Simple Queue Service (SQS). Treat failures here as release blockers.",
+          "description": "Ensure Amazon SQS queues enforce Server-Side Encryption (SSE).",
           "severity": "critical",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"Server-Side Encryption is not Enabled for SQS Queues\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for server-side encryption is not enabled for sqs queues. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -2234,7 +2234,7 @@
         },
         {
           "title": "KMS Customer Master Keys is not used for SQS Queue Encryption",
-          "description": "Ensure SQS queues are encrypted with KMS CMKs to gain full control over data encryption and decryption. Worth prioritising in your next assessment cycle.",
+          "description": "Ensure SQS queues are encrypted with KMS CMKs to gain full control over data encryption and decryption.",
           "severity": "high",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"KMS Customer Master Keys is not used for SQS Queue Encryption\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for kms customer master keys is not used for sqs queue encryption. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -2257,7 +2257,7 @@
         },
         {
           "title": "SQS Queue Exposed to Everyone",
-          "description": "Ensure that AWS Simple Queue Service (SQS) queues are not exposed to everyone. Validate this in AWS accounts, under Simple Queue Service (SQS). Treat failures here as release blockers.",
+          "description": "Ensure that AWS Simple Queue Service (SQS) queues are not exposed to everyone.",
           "severity": "critical",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"SQS Queue Exposed to Everyone\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for sqs queue exposed to everyone. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -2280,7 +2280,7 @@
         },
         {
           "title": "Cross-Account Access for SQS Queues",
-          "description": "Ensure AWS Simple Queue Service (SQS) queues do not allow unknown cross account access. Validate this in AWS accounts, under Simple Queue Service (SQS). Good hygiene that pays off over time.",
+          "description": "Ensure AWS Simple Queue Service (SQS) queues do not allow unknown cross account access.",
           "severity": "low",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"Cross-Account Access for SQS Queues\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for cross-account access for sqs queues. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -2308,7 +2308,7 @@
       "items": [
         {
           "title": "Continuous Backup is Not Enabled for DynamoDB",
-          "description": "Ensure that continous backup is enabld for all the DynamoDB. Validate this in AWS accounts, under DynamoDB. Schedule remediation once higher-severity gaps are closed.",
+          "description": "Ensure that continous backup is enabld for all the DynamoDB.",
           "severity": "medium",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"Continuous Backup is Not Enabled for DynamoDB\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for continuous backup is not enabled for dynamodb. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -2331,7 +2331,7 @@
         },
         {
           "title": "KMS Customer Master Keys is not used for DynamoDB Table Encryption",
-          "description": "Ensure that for all the DynamoDB tables are using KMS Customers Master Keys for encryption. Worth prioritising in your next assessment cycle.",
+          "description": "Ensure that for all the DynamoDB tables are using KMS Customers Master Keys for encryption.",
           "severity": "high",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"KMS Customer Master Keys is not used for DynamoDB Table Encryption\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for kms customer master keys is not used for dynamodb table encryption. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -2359,7 +2359,7 @@
       "items": [
         {
           "title": "AWS Backup Vault is Not Prevented from Accidental Deletion",
-          "description": "Ensure that Accidental Deletion is enabled for AWS Backup Vault. Validate this in AWS accounts, under AWS Backups. Schedule remediation once higher-severity gaps are closed.",
+          "description": "Ensure that Accidental Deletion is enabled for AWS Backup Vault.",
           "severity": "medium",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"AWS Backup Vault is Not Prevented from Accidental Deletion\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for aws backup vault is not prevented from accidental deletion. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -2388,7 +2388,7 @@
       "items": [
         {
           "title": "Redshift Cluster is publicly accessible",
-          "description": "Ensure that Redshift Cluster is not publicly accessible. Validate this in AWS accounts, under RedShift. Treat failures here as release blockers.",
+          "description": "Ensure that Redshift Cluster is not publicly accessible.",
           "severity": "critical",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"Redshift Cluster is publicly accessible\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for redshift cluster is publicly accessible. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -2416,7 +2416,7 @@
       "items": [
         {
           "title": "Workspaces Volume Encryption is not Enabled",
-          "description": "Ensure that the volume encryption is enabled for all the Workspaces. Validate this in AWS accounts, under WorkSpaces. Worth prioritising in your next assessment cycle.",
+          "description": "Ensure that the volume encryption is enabled for all the Workspaces.",
           "severity": "high",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"Workspaces Volume Encryption is not Enabled\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for workspaces volume encryption is not enabled. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -2444,7 +2444,7 @@
       "items": [
         {
           "title": "Older Version of ElastiCache Engine in Use",
-          "description": "Ensure that you are not using an older version of elasticache and use the latest version that is available. Schedule remediation once higher-severity gaps are closed.",
+          "description": "Ensure that you are not using an older version of elasticache and use the latest version that is available.",
           "severity": "medium",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"Older Version of ElastiCache Engine in Use\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for older version of elasticache engine in use. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -2467,7 +2467,7 @@
         },
         {
           "title": "ElastiCache Redis cluster In-Transit and At-rest Encryption not enabled",
-          "description": "Ensure that redis clusters data In-transit and At-rest encryptions are enabled. Validate this in AWS accounts, under ElastiCache. Worth prioritising in your next assessment cycle.",
+          "description": "Ensure that redis clusters data In-transit and At-rest encryptions are enabled.",
           "severity": "high",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"ElastiCache Redis cluster In-Transit and At-rest Encryption not enabled\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for elasticache redis cluster in-transit and at-rest encryption not enabled. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -2495,7 +2495,7 @@
       "items": [
         {
           "title": "Access logging disabled for CloudFront",
-          "description": "Ensure that access logging is enabled for Cloudfront. Validate this in AWS accounts, under CloudFront. Worth prioritising in your next assessment cycle.",
+          "description": "Ensure that access logging is enabled for Cloudfront.",
           "severity": "high",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"Access logging disabled for CloudFront\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for access logging disabled for cloudfront. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -2519,7 +2519,7 @@
         },
         {
           "title": "WAF is Not Enabled in CloudFront",
-          "description": "Ensure that WAF is enabled for all the available Cloudfront. Validate this in AWS accounts, under CloudFront. Good hygiene that pays off over time.",
+          "description": "Ensure that WAF is enabled for all the available Cloudfront.",
           "severity": "low",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"WAF is Not Enabled in CloudFront\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for waf is not enabled in cloudfront. Use IaC so the fix survives console drift, then re-scan with Prowler.",
@@ -2543,7 +2543,7 @@
         },
         {
           "title": "TLSv1.0 Supported by CloudFront Distribution",
-          "description": "Ensure that you are using latest TLS version for all Cloudfront. Validate this in AWS accounts, under CloudFront. Schedule remediation once higher-severity gaps are closed.",
+          "description": "Ensure that you are using latest TLS version for all Cloudfront.",
           "severity": "medium",
           "how_to_find": "Automated: Run Prowler or ScoutSuite and filter findings for \"TLSv1.0 Supported by CloudFront Distribution\"",
           "how_to_fix": "Apply least privilege and AWS-recommended settings for tlsv1.0 supported by cloudfront distribution. Use IaC so the fix survives console drift, then re-scan with Prowler.",
