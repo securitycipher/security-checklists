@@ -5,7 +5,25 @@ body.page-id-11001 {
   --chub-radius: 16px;
 }
 
-/* WordPress / OceanWP full-width embed */
+/* WordPress / OceanWP full-width embed (matches roadmap page layout) */
+body.page-id-11001,
+body.page-id-11001 #outer-wrap,
+body.page-id-11001 #wrap,
+body.page-id-11001 #content-wrap,
+body.page-id-11001 .content-area,
+body.page-id-11001 #primary,
+body.page-id-11001 .site-content,
+body.sc-page-checklist-hub,
+body.sc-page-checklist-hub #outer-wrap,
+body.sc-page-checklist-hub #wrap,
+body.sc-page-checklist-hub #content-wrap,
+body.sc-page-checklist-hub .content-area,
+body.sc-page-checklist-hub #primary,
+body.sc-page-checklist-hub .site-content {
+  background-color: var(--bg, #0b0c10) !important;
+  background-image: none !important;
+}
+
 body.page-id-11001 #right-sidebar,
 body.page-id-11001 #sidebar,
 body.page-id-11001 .widget-area,
@@ -24,12 +42,19 @@ body.sc-page-checklist-hub .content-area {
   float: none !important;
 }
 
+body.page-id-11001 #content-wrap,
 body.page-id-11001 #content-wrap.container,
+body.sc-page-checklist-hub #content-wrap,
 body.sc-page-checklist-hub #content-wrap.container {
   max-width: none !important;
   width: 100% !important;
   padding-left: 0 !important;
   padding-right: 0 !important;
+}
+
+body.page-id-11001 #primary,
+body.sc-page-checklist-hub #primary {
+  padding: 0 !important;
 }
 
 body.page-id-11001 .entry,
@@ -39,6 +64,12 @@ body.sc-page-checklist-hub .entry-content {
   max-width: none !important;
   padding: 0 !important;
   margin: 0 !important;
+}
+
+.sc-checklist-hub-embed,
+#sc-checklist-hub-mount {
+  width: 100%;
+  max-width: none;
 }
 
 .sc-checklist-hub-embed .wrap {
