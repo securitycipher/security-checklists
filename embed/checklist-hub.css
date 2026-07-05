@@ -179,7 +179,6 @@ body.sc-page-checklist-hub .sc-checklist-hub-main {
   text-align: center;
   position: relative;
   overflow: hidden;
-  border-bottom: 1px solid var(--border, #272b36);
 }
 
 .sc-chub-hero::before {
