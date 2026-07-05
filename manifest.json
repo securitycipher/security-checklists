@@ -1,5 +1,5 @@
 {
-  "version": "2.0.0",
+  "version": "2.1.0",
   "updated": "2026-07-05",
   "title": "Security Checklists Hub",
   "hub_url": "https://securitycipher.com/security-checklists/",
@@ -7,7 +7,7 @@
     {
       "id": "web",
       "title": "Web Application Security",
-      "description": "100+ interactive test cases for authentication, injection, business logic, and OWASP-aligned web assessments.",
+      "description": "600+ interactive test cases for authentication, injection, business logic, and OWASP WSTG-aligned web assessments.",
       "icon": "web",
       "color": "#6d7bff",
       "status": "live",
