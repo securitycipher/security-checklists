@@ -42,6 +42,21 @@ body.page-id-11001 {
   line-height: 1.3 !important;
 }
 
+#sc-checklist-hub-mount #sc-checklist-hub .sc-chub-toolbar button.sc-chub-btn,
+#sc-checklist-hub .sc-chub-toolbar button.sc-chub-btn {
+  background-color: var(--panel, #15171f) !important;
+  background-image: none !important;
+  color: var(--text, #c6ccd8) !important;
+  border: 1px solid var(--border, #272b36) !important;
+  border-radius: 10px !important;
+}
+
+#sc-checklist-hub-mount #sc-checklist-hub .sc-chub-toolbar button.sc-chub-btn-danger,
+#sc-checklist-hub .sc-chub-toolbar button.sc-chub-btn-danger {
+  background-color: transparent !important;
+  color: var(--muted, #78838f) !important;
+}
+
 #sc-checklist-hub a {
   text-decoration: none;
   transition: color 0.18s var(--chub-ease);
@@ -154,7 +169,7 @@ body.sc-page-checklist-hub .sc-checklist-hub-main {
 
 /* Hero */
 .sc-chub-hero {
-  padding: clamp(40px, 6vw, 72px) 0 clamp(28px, 4vw, 48px);
+  padding: clamp(40px, 6vw, 72px) 0 clamp(16px, 2.5vw, 24px);
   text-align: center;
   position: relative;
   overflow: hidden;
@@ -279,9 +294,9 @@ body.sc-page-checklist-hub .sc-checklist-hub-main {
 
 .sc-chub-toolbar-inner {
   display: flex;
-  gap: 12px;
+  gap: 16px;
   align-items: center;
-  padding: 12px 0;
+  padding: 16px 0;
   flex-wrap: nowrap;
 }
 
@@ -291,7 +306,8 @@ body.sc-page-checklist-hub .sc-checklist-hub-main {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 11px 18px;
+  min-height: 44px;
+  padding: 0 16px;
   background: var(--panel, #15171f);
   border: 1px solid var(--border, #272b36);
   border-radius: 12px;
@@ -330,12 +346,13 @@ body.sc-page-checklist-hub .sc-checklist-hub-main {
 
 .sc-chub-toolbar-actions {
   display: flex;
-  gap: 8px;
+  gap: 10px;
   flex: 0 0 auto;
+  align-items: center;
   overflow-x: auto;
   scrollbar-width: none;
   -ms-overflow-style: none;
-  padding: 2px 0;
+  margin-left: 4px;
 }
 
 .sc-chub-toolbar-actions::-webkit-scrollbar {
@@ -346,7 +363,9 @@ body.sc-page-checklist-hub .sc-checklist-hub-main {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 9px 16px;
+  min-height: 44px;
+  height: 44px;
+  padding: 0 16px;
   border-radius: 10px;
   font-family: var(--chub-font-display);
   font-size: 12.5px;
@@ -404,11 +423,15 @@ body.sc-page-checklist-hub .sc-checklist-hub-main {
 }
 
 /* Layout */
+.sc-chub-toolbar + .sc-chub-layout {
+  padding-top: clamp(32px, 4vw, 48px);
+}
+
 .sc-chub-layout {
   display: grid;
   grid-template-columns: minmax(220px, 272px) minmax(0, 1fr);
   gap: clamp(20px, 3vw, 32px);
-  padding-top: clamp(24px, 3vw, 36px);
+  padding-top: clamp(32px, 4vw, 48px);
   align-items: start;
 }
 
@@ -1243,7 +1266,7 @@ body.admin-bar .sc-chub-toolbar {
   .sc-chub-toolbar-inner {
     flex-direction: column;
     align-items: stretch;
-    gap: 10px;
+    gap: 12px;
   }
 
   .sc-chub-search-wrap {
@@ -1253,6 +1276,7 @@ body.admin-bar .sc-chub-toolbar {
 
   .sc-chub-toolbar-actions {
     width: 100%;
+    margin-left: 0;
     justify-content: flex-start;
     flex-wrap: nowrap;
     mask-image: linear-gradient(to right, #000 90%, transparent);
@@ -1285,8 +1309,14 @@ body.admin-bar .sc-chub-toolbar {
 
 @media (max-width: 480px) {
   .sc-chub-btn {
-    padding: 8px 12px;
+    min-height: 40px;
+    height: 40px;
+    padding: 0 12px;
     font-size: 12px;
+  }
+
+  .sc-chub-search-wrap {
+    min-height: 40px;
   }
 
   .sc-chub-hero h1 {
