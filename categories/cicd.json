@@ -7,10 +7,10 @@
       "items": [
         {
           "title": "Direct pushes to protected branches",
-          "description": "When the default/release branch accepts direct pushes, an attacker (or compromised contributor) can ship code straight to the branch that builds production, bypassing review entirely. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Confirm the default and release branches block direct pushes and require a pull/merge request. Attempt a direct push with a test commit and verify it is rejected. Common tags: cicd, flow-control, branch-protection.",
+          "description": "When the default/release branch accepts direct pushes, an attacker (or compromised contributor) can ship code straight to the branch that builds production, bypassing review entirely. Worth prioritising in your next assessment cycle.",
           "severity": "high",
-          "how_to_find": "Confirm the default and release branches block direct pushes and require a pull/merge request. Attempt a direct push with a test commit and verify it is rejected.",
-          "how_to_fix": "Remediate \"Direct pushes to protected branches\" by applying vendor and CIS/OWASP hardening guidance for Access & Flow Control — Insufficient Flow Control (CICD-SEC-1). Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_find": "Access & Flow Control — Insufficient Flow Control (CICD-SEC-1): Confirm the default and release branches block direct pushes and require a pull/merge request",
+          "how_to_fix": "Assign an owner for direct pushes to protected branches, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Legitify",
             "gato (GitHub Attack Toolkit)",
@@ -35,10 +35,10 @@
         },
         {
           "title": "Auto-merge enabled without guardrails",
-          "description": "Auto-merge that completes a PR as soon as status checks pass can merge unreviewed changes if required human approval is not also enforced, collapsing the review gate. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Check that auto-merge requires the same approvals/reviews as a manual merge, and that bot-authored or dependency-bump PRs cannot auto-merge into protected branches without a human reviewer. Common tags: cicd, flow-control, auto-merge.",
+          "description": "Auto-merge that completes a PR as soon as status checks pass can merge unreviewed changes if required human approval is not also enforced, collapsing the review gate. Schedule remediation once higher-severity gaps are closed.",
           "severity": "medium",
-          "how_to_find": "Check that auto-merge requires the same approvals/reviews as a manual merge, and that bot-authored or dependency-bump PRs cannot auto-merge into protected branches without a human reviewer.",
-          "how_to_fix": "Remediate \"Auto-merge enabled without guardrails\" by applying vendor and CIS/OWASP hardening guidance for Access & Flow Control — Insufficient Flow Control (CICD-SEC-1). Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_find": "Access & Flow Control — Insufficient Flow Control (CICD-SEC-1): Check that auto-merge requires the same approvals/reviews as a manual merge, and that bot-authored or dependency-bump PRs cannot auto-merge into protected branches without a human reviewer",
+          "how_to_fix": "Assign an owner for auto-merge enabled without guardrails, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Legitify",
             "gh CLI"
@@ -62,10 +62,10 @@
         },
         {
           "title": "Self-approval of changes",
-          "description": "If the change author can also approve their own pull/merge request, the review control is illusory — a single compromised account can both author and approve malicious code. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Verify branch protection prevents the author from satisfying the required-reviewer count, and that dismissed/stale approvals are re-requested after new commits. Common tags: cicd, flow-control, code-review.",
+          "description": "If the change author can also approve their own pull/merge request, the review control is illusory — a single compromised account can both author and approve malicious code. Worth prioritising in your next assessment cycle.",
           "severity": "high",
-          "how_to_find": "Verify branch protection prevents the author from satisfying the required-reviewer count, and that dismissed/stale approvals are re-requested after new commits.",
-          "how_to_fix": "Remediate \"Self-approval of changes\" by applying vendor and CIS/OWASP hardening guidance for Access & Flow Control — Insufficient Flow Control (CICD-SEC-1). Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_find": "Access & Flow Control — Insufficient Flow Control (CICD-SEC-1): Verify branch protection prevents the author from satisfying the required-reviewer count, and that dismissed/stale approvals are re-requested after new commits",
+          "how_to_fix": "Assign an owner for self-approval of changes, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Legitify",
             "gato (GitHub Attack Toolkit)"
@@ -89,10 +89,10 @@
         },
         {
           "title": "Unverified artifact promotion across environments",
-          "description": "Promoting build artifacts from dev to staging to production without an enforced gate lets an artifact that never passed review or scanning reach production. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm each environment promotion requires an explicit approval/gate and that the promoted artifact digest matches the one that passed earlier stages. Common tags: cicd, flow-control, deployment.",
+          "description": "Promoting build artifacts from dev to staging to production without an enforced gate lets an artifact that never passed review or scanning reach production. Schedule remediation once higher-severity gaps are closed.",
           "severity": "medium",
-          "how_to_find": "Confirm each environment promotion requires an explicit approval/gate and that the promoted artifact digest matches the one that passed earlier stages.",
-          "how_to_fix": "Remediate \"Unverified artifact promotion across environments\" by applying vendor and CIS/OWASP hardening guidance for Access & Flow Control — Insufficient Flow Control (CICD-SEC-1). Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_find": "Access & Flow Control — Insufficient Flow Control (CICD-SEC-1): Confirm each environment promotion requires an explicit approval/gate and that the promoted artifact digest matches the one that passed earlier stages",
+          "how_to_fix": "Assign an owner for unverified artifact promotion across environments, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Checkov",
             "poutine"
@@ -116,10 +116,10 @@
         },
         {
           "title": "Merge allowed on stale or skipped status checks",
-          "description": "Allowing merges when required checks are stale, skipped, or not yet completed lets unvetted code merge despite a façade of CI enforcement. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Verify branches are required to be up to date before merge and that required checks cannot be marked skipped/neutral to satisfy the gate. Common tags: cicd, flow-control, branch-protection.",
+          "description": "Allowing merges when required checks are stale, skipped, or not yet completed lets unvetted code merge despite a façade of CI enforcement. Schedule remediation once higher-severity gaps are closed.",
           "severity": "medium",
-          "how_to_find": "Verify branches are required to be up to date before merge and that required checks cannot be marked skipped/neutral to satisfy the gate.",
-          "how_to_fix": "Remediate \"Merge allowed on stale or skipped status checks\" by applying vendor and CIS/OWASP hardening guidance for Access & Flow Control — Insufficient Flow Control (CICD-SEC-1). Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_find": "Access & Flow Control — Insufficient Flow Control (CICD-SEC-1): Verify branches are required to be up to date before merge and that required checks cannot be marked skipped/neutral to satisfy the gate",
+          "how_to_fix": "Assign an owner for merge allowed on stale or skipped status checks, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Legitify",
             "gh CLI"
@@ -148,10 +148,10 @@
       "items": [
         {
           "title": "Over-privileged service accounts",
-          "description": "CI service accounts and deploy identities granted broad org/admin or cloud roles turn any pipeline compromise into a full environment takeover. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Enumerate the permissions of each CI/deploy identity and confirm they follow least privilege — scoped to the specific repos, registries, and cloud resources they actually use. Common tags: cicd, iam, least-privilege.",
+          "description": "CI service accounts and deploy identities granted broad org/admin or cloud roles turn any pipeline compromise into a full environment takeover. Worth prioritising in your next assessment cycle.",
           "severity": "high",
-          "how_to_find": "Enumerate the permissions of each CI/deploy identity and confirm they follow least privilege — scoped to the specific repos, registries, and cloud resources they actually use.",
-          "how_to_fix": "Remediate \"Over-privileged service accounts\" by applying vendor and CIS/OWASP hardening guidance for Access & Flow Control — Identity & Access Management (CICD-SEC-2). Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_find": "Access & Flow Control — Identity & Access Management (CICD-SEC-2): Enumerate the permissions of each CI/deploy identity and confirm they follow least privilege — scoped to the specific repos, registries, and cloud resources they actually use",
+          "how_to_fix": "Assign an owner for over-privileged service accounts, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Legitify",
             "gato (GitHub Attack Toolkit)",
@@ -176,10 +176,10 @@
         },
         {
           "title": "Stale and orphaned access",
-          "description": "Accounts of departed staff, unused PATs, deploy keys, and former integrations that are never revoked become unmonitored entry points into the pipeline. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Review org members, outside collaborators, deploy keys, and tokens for last-used dates; confirm a deprovisioning process removes access on offboarding and that unused credentials are revoked. Common tags: cicd, iam, access-review.",
+          "description": "Accounts of departed staff, unused PATs, deploy keys, and former integrations that are never revoked become unmonitored entry points into the pipeline. Schedule remediation once higher-severity gaps are closed.",
           "severity": "medium",
-          "how_to_find": "Review org members, outside collaborators, deploy keys, and tokens for last-used dates; confirm a deprovisioning process removes access on offboarding and that unused credentials are revoked.",
-          "how_to_fix": "Remediate \"Stale and orphaned access\" by applying vendor and CIS/OWASP hardening guidance for Access & Flow Control — Identity & Access Management (CICD-SEC-2). Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_find": "Access & Flow Control — Identity & Access Management (CICD-SEC-2): Review org members, outside collaborators, deploy keys, and tokens for last-used dates; confirm a deprovisioning process removes access on offboarding and that unused credentials are revoked",
+          "how_to_fix": "Assign an owner for stale and orphaned access, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Legitify",
             "gh CLI"
@@ -203,10 +203,10 @@
         },
         {
           "title": "Shared or non-attributable accounts",
-          "description": "Shared bot/admin accounts and personal tokens used for automation break attribution, so malicious actions in the pipeline cannot be traced to an individual. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm automation uses dedicated, attributable machine identities (apps/service accounts) rather than shared logins, and that MFA/SSO is enforced on human accounts. Common tags: cicd, iam, attribution.",
+          "description": "Shared bot/admin accounts and personal tokens used for automation break attribution, so malicious actions in the pipeline cannot be traced to an individual. Schedule remediation once higher-severity gaps are closed.",
           "severity": "medium",
-          "how_to_find": "Confirm automation uses dedicated, attributable machine identities (apps/service accounts) rather than shared logins, and that MFA/SSO is enforced on human accounts.",
-          "how_to_fix": "Remediate \"Shared or non-attributable accounts\" by applying vendor and CIS/OWASP hardening guidance for Access & Flow Control — Identity & Access Management (CICD-SEC-2). Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_find": "Access & Flow Control — Identity & Access Management (CICD-SEC-2): Confirm automation uses dedicated, attributable machine identities (apps/service accounts) rather than shared logins, and that MFA/SSO is enforced on human accounts",
+          "how_to_fix": "Assign an owner for shared or non-attributable accounts, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Legitify",
             "gato (GitHub Attack Toolkit)"
@@ -230,10 +230,10 @@
         },
         {
           "title": "Unrestricted self-registration and external joins",
-          "description": "Open SSO/self-registration into the SCM org or CI tenant lets unintended users gain repository or pipeline access, expanding the trust boundary silently. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Verify org join requires approval, external identity provider mappings are scoped, and that default member permissions are read-only rather than write. Common tags: cicd, iam, provisioning.",
+          "description": "Open SSO/self-registration into the SCM org or CI tenant lets unintended users gain repository or pipeline access, expanding the trust boundary silently. Schedule remediation once higher-severity gaps are closed.",
           "severity": "medium",
-          "how_to_find": "Verify org join requires approval, external identity provider mappings are scoped, and that default member permissions are read-only rather than write.",
-          "how_to_fix": "Remediate \"Unrestricted self-registration and external joins\" by applying vendor and CIS/OWASP hardening guidance for Access & Flow Control — Identity & Access Management (CICD-SEC-2). Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_find": "Access & Flow Control — Identity & Access Management (CICD-SEC-2): Verify org join requires approval, external identity provider mappings are scoped, and that default member permissions are read-only rather than write",
+          "how_to_fix": "Assign an owner for unrestricted self-registration and external joins, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Legitify"
           ],
@@ -261,10 +261,10 @@
       "items": [
         {
           "title": "Excessive default pipeline token permissions",
-          "description": "A pipeline whose built-in token defaults to write/all scopes (e.g. permissive GITHUB_TOKEN) gives every workflow — including those triggered by untrusted PRs — far more power than needed. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Confirm the default token is read-only at the org/repo level and that each workflow declares an explicit minimal `permissions:` block rather than inheriting broad scopes. Common tags: cicd, pbac, least-privilege.",
+          "description": "A pipeline whose built-in token defaults to write/all scopes (e.g. Validate this during security reviews, under Access & Flow Control — Pipeline-Based Access Control (PBAC). Worth prioritising in your next assessment cycle.",
           "severity": "high",
-          "how_to_find": "Confirm the default token is read-only at the org/repo level and that each workflow declares an explicit minimal `permissions:` block rather than inheriting broad scopes.",
-          "how_to_fix": "Remediate \"Excessive default pipeline token permissions\" by applying vendor and CIS/OWASP hardening guidance for Access & Flow Control — Pipeline-Based Access Control (PBAC). Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_find": "Access & Flow Control — Pipeline-Based Access Control (PBAC): Confirm the default token is read-only at the org/repo level and that each workflow declares an explicit minimal `permissions:` block rather than inheriting broad scopes",
+          "how_to_fix": "Assign an owner for excessive default pipeline token permissions, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "octoscan",
             "poutine",
@@ -289,10 +289,10 @@
         },
         {
           "title": "Pipeline definitions not under required review",
-          "description": "If workflow/pipeline files (.github/workflows, .gitlab-ci.yml, Jenkinsfile) are not covered by code owners and required reviews, an attacker can alter build logic without scrutiny. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Verify CODEOWNERS protects pipeline definition paths and that changes to them require review from a security/platform owner before merge. Common tags: cicd, pbac, code-review.",
+          "description": "If workflow/pipeline files (.github/workflows, .gitlab-ci.yml, Jenkinsfile) are not covered by code owners and required reviews, an attacker can alter build logic without scrutiny. Worth prioritising in your next assessment cycle.",
           "severity": "high",
-          "how_to_find": "Verify CODEOWNERS protects pipeline definition paths and that changes to them require review from a security/platform owner before merge.",
-          "how_to_fix": "Remediate \"Pipeline definitions not under required review\" by applying vendor and CIS/OWASP hardening guidance for Access & Flow Control — Pipeline-Based Access Control (PBAC). Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_find": "Access & Flow Control — Pipeline-Based Access Control (PBAC): Verify CODEOWNERS protects pipeline definition paths and that changes to them require review from a security/platform owner before merge",
+          "how_to_fix": "Assign an owner for pipeline definitions not under required review, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Legitify",
             "octoscan"
@@ -316,10 +316,10 @@
         },
         {
           "title": "Incomplete branch protection coverage",
-          "description": "Branch protection applied to only some branches, or with admin bypass enabled, leaves release-relevant branches modifiable outside the intended controls. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Enumerate protection rules across all release branches; confirm no \"allow administrators to bypass\" and that force-push and deletion are disabled. Common tags: cicd, pbac, branch-protection.",
+          "description": "Branch protection applied to only some branches, or with admin bypass enabled, leaves release-relevant branches modifiable outside the intended controls. Schedule remediation once higher-severity gaps are closed.",
           "severity": "medium",
-          "how_to_find": "Enumerate protection rules across all release branches; confirm no \"allow administrators to bypass\" and that force-push and deletion are disabled.",
-          "how_to_fix": "Remediate \"Incomplete branch protection coverage\" by applying vendor and CIS/OWASP hardening guidance for Access & Flow Control — Pipeline-Based Access Control (PBAC). Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_find": "Access & Flow Control — Pipeline-Based Access Control (PBAC): Enumerate protection rules across all release branches; confirm no \"allow administrators to bypass\" and that force-push and deletion are disabled",
+          "how_to_fix": "Assign an owner for incomplete branch protection coverage, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Legitify",
             "gh CLI"
@@ -343,10 +343,10 @@
         },
         {
           "title": "Deployment environments without protection rules",
-          "description": "Deployment environments (e.g. production) lacking required reviewers, wait timers, or restricted secrets allow any pipeline run to deploy and read prod secrets. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Confirm protected environments require named reviewers, restrict which branches can deploy, and scope environment secrets to approved deployments only. Common tags: cicd, pbac, deployment.",
+          "description": "Deployment environments (e.g. Worth prioritising in your next assessment cycle.",
           "severity": "high",
-          "how_to_find": "Confirm protected environments require named reviewers, restrict which branches can deploy, and scope environment secrets to approved deployments only.",
-          "how_to_fix": "Remediate \"Deployment environments without protection rules\" by applying vendor and CIS/OWASP hardening guidance for Access & Flow Control — Pipeline-Based Access Control (PBAC). Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_find": "Access & Flow Control — Pipeline-Based Access Control (PBAC): Confirm protected environments require named reviewers, restrict which branches can deploy, and scope environment secrets to approved deployments only",
+          "how_to_fix": "Assign an owner for deployment environments without protection rules, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Legitify",
             "Checkov"
@@ -375,10 +375,10 @@
       "items": [
         {
           "title": "Direct PPE via pipeline config changes",
-          "description": "An attacker with write access to a branch that triggers CI edits the pipeline definition to run their own commands with the pipeline’s privileges and secrets. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: Confirm pipeline config changes require review, that feature branches cannot trigger privileged pipelines, and that secrets are not exposed to arbitrary branch builds. Common tags: cicd, ppe, execution.",
+          "description": "An attacker with write access to a branch that triggers CI edits the pipeline definition to run their own commands with the pipeline’s privileges and secrets. Treat failures here as release blockers.",
           "severity": "critical",
-          "how_to_find": "Confirm pipeline config changes require review, that feature branches cannot trigger privileged pipelines, and that secrets are not exposed to arbitrary branch builds.",
-          "how_to_fix": "Remediate \"Direct PPE via pipeline config changes\" by applying vendor and CIS/OWASP hardening guidance for Pipeline Execution Integrity — Poisoned Pipeline Execution (CICD-SEC-4). Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_find": "Pipeline Execution Integrity — Poisoned Pipeline Execution (CICD-SEC-4): Confirm pipeline config changes require review, that feature branches cannot trigger privileged pipelines, and that secrets are not exposed to arbitrary branch builds",
+          "how_to_fix": "Assign an owner for direct ppe via pipeline config changes, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Chains/cicd-goat",
             "poutine",
@@ -403,10 +403,10 @@
         },
         {
           "title": "Indirect PPE via consumed build scripts",
-          "description": "Even without editing pipeline config, an attacker who can modify referenced build files (Makefile, package.json scripts, test config) gets their code executed by the pipeline. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Identify every script/config the pipeline invokes and confirm those paths are review-gated and cannot be altered by untrusted contributors before a privileged run. Common tags: cicd, ppe, execution.",
+          "description": "Even without editing pipeline config, an attacker who can modify referenced build files (Makefile, package.json scripts, test config) gets their code executed by the pipeline. Worth prioritising in your next assessment cycle.",
           "severity": "high",
-          "how_to_find": "Identify every script/config the pipeline invokes and confirm those paths are review-gated and cannot be altered by untrusted contributors before a privileged run.",
-          "how_to_fix": "Remediate \"Indirect PPE via consumed build scripts\" by applying vendor and CIS/OWASP hardening guidance for Pipeline Execution Integrity — Poisoned Pipeline Execution (CICD-SEC-4). Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_find": "Pipeline Execution Integrity — Poisoned Pipeline Execution (CICD-SEC-4): Identify every script/config the pipeline invokes and confirm those paths are review-gated and cannot be altered by untrusted contributors before a privileged run",
+          "how_to_fix": "Assign an owner for indirect ppe via consumed build scripts, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Chains/cicd-goat",
             "poutine"
@@ -430,10 +430,10 @@
         },
         {
           "title": "Public PPE via fork/PR-triggered workflows",
-          "description": "Workflows that run on fork pull requests with access to secrets (e.g. pull_request_target misuse) let any external contributor execute code in a privileged context. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: Confirm fork PRs run without secrets, that pull_request_target does not check out and run untrusted PR code, and that maintainer approval is required to run workflows on first-time contributors. Common tags: cicd, ppe, pull-request.",
+          "description": "Workflows that run on fork pull requests with access to secrets (e.g. Validate this during security reviews, under Pipeline Execution Integrity — Poisoned Pipeline Execution (CICD-SEC-4). Treat failures here as release blockers.",
           "severity": "critical",
-          "how_to_find": "Confirm fork PRs run without secrets, that pull_request_target does not check out and run untrusted PR code, and that maintainer approval is required to run workflows on first-time contributors.",
-          "how_to_fix": "Remediate \"Public PPE via fork/PR-triggered workflows\" by applying vendor and CIS/OWASP hardening guidance for Pipeline Execution Integrity — Poisoned Pipeline Execution (CICD-SEC-4). Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_find": "Pipeline Execution Integrity — Poisoned Pipeline Execution (CICD-SEC-4): Confirm fork PRs run without secrets, that pull_request_target does not check out and run untrusted PR code, and that maintainer approval is required to run workflows on first-time contributors",
+          "how_to_fix": "Assign an owner for public ppe via fork/pr-triggered workflows, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "octoscan",
             "poutine",
@@ -458,10 +458,10 @@
         },
         {
           "title": "Build cache poisoning",
-          "description": "Shared or unscoped build caches writable from untrusted branches/PRs can be poisoned, so a later trusted build restores attacker-controlled cached content. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Confirm caches are keyed and scoped per branch/ref, that untrusted runs cannot write caches used by trusted runs, and that restored cache contents are integrity-checked. Common tags: cicd, ppe, cache.",
+          "description": "Shared or unscoped build caches writable from untrusted branches/PRs can be poisoned, so a later trusted build restores attacker-controlled cached content. Worth prioritising in your next assessment cycle.",
           "severity": "high",
-          "how_to_find": "Confirm caches are keyed and scoped per branch/ref, that untrusted runs cannot write caches used by trusted runs, and that restored cache contents are integrity-checked.",
-          "how_to_fix": "Remediate \"Build cache poisoning\" by applying vendor and CIS/OWASP hardening guidance for Pipeline Execution Integrity — Poisoned Pipeline Execution (CICD-SEC-4). Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_find": "Pipeline Execution Integrity — Poisoned Pipeline Execution (CICD-SEC-4): Confirm caches are keyed and scoped per branch/ref, that untrusted runs cannot write caches used by trusted runs, and that restored cache contents are integrity-checked",
+          "how_to_fix": "Assign an owner for build cache poisoning, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "poutine",
             "octoscan"
@@ -490,10 +490,10 @@
       "items": [
         {
           "title": "Script injection via PR titles and branch names",
-          "description": "Interpolating attacker-controllable values like a PR title or head ref directly into a `run:` shell step lets an attacker inject and execute arbitrary commands on the runner. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: Grep workflows for untrusted context expressions (github.event.*, head_ref) used inside run steps; confirm values are passed via env vars and quoted, never inlined into the command string. Common tags: cicd, injection, execution.",
+          "description": "Interpolating attacker-controllable values like a PR title or head ref directly into a `run:` shell step lets an attacker inject and execute arbitrary commands on the runner. Treat failures here as release blockers.",
           "severity": "critical",
-          "how_to_find": "Grep workflows for untrusted context expressions (github.event.*, head_ref) used inside run steps; confirm values are passed via env vars and quoted, never inlined into the command string.",
-          "how_to_fix": "Remediate \"Script injection via PR titles and branch names\" by applying vendor and CIS/OWASP hardening guidance for Pipeline Execution Integrity — Workflow Input Injection. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_find": "Pipeline Execution Integrity — Workflow Input Injection: Grep workflows for untrusted context expressions (github.event.*, head_ref) used inside run steps; confirm values are passed via env vars and quoted, never inlined into the command string",
+          "how_to_fix": "Assign an owner for script injection via pr titles and branch names, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "octoscan",
             "poutine",
@@ -518,10 +518,10 @@
         },
         {
           "title": "Injection via commit messages and issue bodies",
-          "description": "Commit messages, issue/comment bodies and labels are attacker-controlled and, when expanded into expressions or commands, become an injection vector inside automation workflows. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Review issue/comment-triggered automation for direct use of body/title fields; confirm they are treated as untrusted data and sanitized or passed as parameters. Common tags: cicd, injection, automation.",
+          "description": "Commit messages, issue/comment bodies and labels are attacker-controlled and, when expanded into expressions or commands, become an injection vector inside automation workflows. Worth prioritising in your next assessment cycle.",
           "severity": "high",
-          "how_to_find": "Review issue/comment-triggered automation for direct use of body/title fields; confirm they are treated as untrusted data and sanitized or passed as parameters.",
-          "how_to_fix": "Remediate \"Injection via commit messages and issue bodies\" by applying vendor and CIS/OWASP hardening guidance for Pipeline Execution Integrity — Workflow Input Injection. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_find": "Pipeline Execution Integrity — Workflow Input Injection: Review issue/comment-triggered automation for direct use of body/title fields; confirm they are treated as untrusted data and sanitized or passed as parameters",
+          "how_to_fix": "Assign an owner for injection via commit messages and issue bodies, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "octoscan",
             "poutine"
@@ -545,10 +545,10 @@
         },
         {
           "title": "Unsafe expansion of pipeline variables",
-          "description": "Pipeline variables sourced from untrusted triggers and expanded unquoted in scripts (e.g. GitLab CI variables, Jenkins params) allow command and argument injection. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Confirm pipeline variables derived from external triggers are validated against an allowlist and always quoted; verify there is no `eval`/dynamic command construction from them. Common tags: cicd, injection, configuration.",
+          "description": "Pipeline variables sourced from untrusted triggers and expanded unquoted in scripts (e.g. Validate this during security reviews, under Pipeline Execution Integrity — Workflow Input Injection. Worth prioritising in your next assessment cycle.",
           "severity": "high",
-          "how_to_find": "Confirm pipeline variables derived from external triggers are validated against an allowlist and always quoted; verify there is no `eval`/dynamic command construction from them.",
-          "how_to_fix": "Remediate \"Unsafe expansion of pipeline variables\" by applying vendor and CIS/OWASP hardening guidance for Pipeline Execution Integrity — Workflow Input Injection. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_find": "Pipeline Execution Integrity — Workflow Input Injection: Confirm pipeline variables derived from external triggers are validated against an allowlist and always quoted; verify there is no `eval`/dynamic command construction from them",
+          "how_to_fix": "Assign an owner for unsafe expansion of pipeline variables, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "poutine",
             "Checkov"
@@ -572,10 +572,10 @@
         },
         {
           "title": "Template expression evaluation of untrusted data",
-          "description": "Workflow templating engines that evaluate expressions before shell quoting can execute attacker-supplied content embedded in event payloads. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Identify where templating expressions evaluate event data; confirm such data is never used to construct executable expressions and is isolated through intermediate environment variables. Common tags: cicd, injection, execution.",
+          "description": "Workflow templating engines that evaluate expressions before shell quoting can execute attacker-supplied content embedded in event payloads. Schedule remediation once higher-severity gaps are closed.",
           "severity": "medium",
-          "how_to_find": "Identify where templating expressions evaluate event data; confirm such data is never used to construct executable expressions and is isolated through intermediate environment variables.",
-          "how_to_fix": "Remediate \"Template expression evaluation of untrusted data\" by applying vendor and CIS/OWASP hardening guidance for Pipeline Execution Integrity — Workflow Input Injection. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_find": "Pipeline Execution Integrity — Workflow Input Injection: Identify where templating expressions evaluate event data; confirm such data is never used to construct executable expressions and is isolated through intermediate environment variables",
+          "how_to_fix": "Assign an owner for template expression evaluation of untrusted data, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "octoscan",
             "poutine"
@@ -604,10 +604,10 @@
       "items": [
         {
           "title": "Persistent runners leaking state between jobs",
-          "description": "Persistent (non-ephemeral) runners retain filesystem, env, and credential state across jobs, so one job can harvest secrets or tamper with another job’s build. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Confirm runners are ephemeral (fresh VM/container per job) or, if persistent, that workspaces and caches are wiped between jobs and untrusted jobs never share a runner with privileged ones. Common tags: cicd, runner, isolation.",
+          "description": "Persistent (non-ephemeral) runners retain filesystem, env, and credential state across jobs, so one job can harvest secrets or tamper with another job’s build. Worth prioritising in your next assessment cycle.",
           "severity": "high",
-          "how_to_find": "Confirm runners are ephemeral (fresh VM/container per job) or, if persistent, that workspaces and caches are wiped between jobs and untrusted jobs never share a runner with privileged ones.",
-          "how_to_fix": "Remediate \"Persistent runners leaking state between jobs\" by applying vendor and CIS/OWASP hardening guidance for Pipeline Execution Integrity — Runner & Build Node Security (CICD-SEC-7). Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_find": "Pipeline Execution Integrity — Runner & Build Node Security (CICD-SEC-7): Confirm runners are ephemeral (fresh VM/container per job) or, if persistent, that workspaces and caches are wiped between jobs and untrusted jobs never share a runner with privileged ones",
+          "how_to_fix": "Assign an owner for persistent runners leaking state between jobs, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "gato (GitHub Attack Toolkit)",
             "poutine"
@@ -631,10 +631,10 @@
         },
         {
           "title": "Self-hosted runners exposed to public repositories",
-          "description": "Attaching self-hosted runners to public repos lets external PR authors run code on your infrastructure — a well-known path to runner takeover and lateral movement. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: Confirm self-hosted runners are not used by public repos, or that workflows on forks are blocked from them; verify runner-group repo scoping is enforced. Common tags: cicd, runner, self-hosted.",
+          "description": "Attaching self-hosted runners to public repos lets external PR authors run code on your infrastructure — a well-known path to runner takeover and lateral movement. Treat failures here as release blockers.",
           "severity": "critical",
-          "how_to_find": "Confirm self-hosted runners are not used by public repos, or that workflows on forks are blocked from them; verify runner-group repo scoping is enforced.",
-          "how_to_fix": "Remediate \"Self-hosted runners exposed to public repositories\" by applying vendor and CIS/OWASP hardening guidance for Pipeline Execution Integrity — Runner & Build Node Security (CICD-SEC-7). Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_find": "Pipeline Execution Integrity — Runner & Build Node Security (CICD-SEC-7): Confirm self-hosted runners are not used by public repos, or that workflows on forks are blocked from them; verify runner-group repo scoping is enforced",
+          "how_to_fix": "Assign an owner for self-hosted runners exposed to public repositories, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "gato (GitHub Attack Toolkit)",
             "octoscan"
@@ -658,10 +658,10 @@
         },
         {
           "title": "Runners with excessive network access",
-          "description": "Build runners able to reach internal networks, cloud metadata endpoints, and production systems turn a poisoned build into an internal pivot. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Confirm runners are network-segmented from production and internal services, that cloud metadata (IMDS) access is restricted/IMDSv2-only, and that egress is filtered. Common tags: cicd, runner, network.",
+          "description": "Build runners able to reach internal networks, cloud metadata endpoints, and production systems turn a poisoned build into an internal pivot. Worth prioritising in your next assessment cycle.",
           "severity": "high",
-          "how_to_find": "Confirm runners are network-segmented from production and internal services, that cloud metadata (IMDS) access is restricted/IMDSv2-only, and that egress is filtered.",
-          "how_to_fix": "Remediate \"Runners with excessive network access\" by applying vendor and CIS/OWASP hardening guidance for Pipeline Execution Integrity — Runner & Build Node Security (CICD-SEC-7). Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_find": "Pipeline Execution Integrity — Runner & Build Node Security (CICD-SEC-7): Confirm runners are network-segmented from production and internal services, that cloud metadata (IMDS) access is restricted/IMDSv2-only, and that egress is filtered",
+          "how_to_fix": "Assign an owner for runners with excessive network access, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "ScoutSuite",
             "poutine"
@@ -685,10 +685,10 @@
         },
         {
           "title": "Privileged or root build containers",
-          "description": "Running build jobs as root or in privileged containers with mounted Docker sockets gives a compromised build host-level control and access to other containers. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Confirm build containers run as non-root, drop capabilities, and do not mount the Docker socket; verify privileged mode is disabled unless strictly required and isolated. Common tags: cicd, runner, containers.",
+          "description": "Running build jobs as root or in privileged containers with mounted Docker sockets gives a compromised build host-level control and access to other containers. Worth prioritising in your next assessment cycle.",
           "severity": "high",
-          "how_to_find": "Confirm build containers run as non-root, drop capabilities, and do not mount the Docker socket; verify privileged mode is disabled unless strictly required and isolated.",
-          "how_to_fix": "Remediate \"Privileged or root build containers\" by applying vendor and CIS/OWASP hardening guidance for Pipeline Execution Integrity — Runner & Build Node Security (CICD-SEC-7). Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_find": "Pipeline Execution Integrity — Runner & Build Node Security (CICD-SEC-7): Confirm build containers run as non-root, drop capabilities, and do not mount the Docker socket; verify privileged mode is disabled unless strictly required and isolated",
+          "how_to_fix": "Assign an owner for privileged or root build containers, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Checkov",
             "Trivy"
@@ -712,10 +712,10 @@
         },
         {
           "title": "Unpatched runner images and toolchains",
-          "description": "Outdated runner OS images, build tools, and agents accumulate known vulnerabilities that an attacker can exploit to escalate within the build environment. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm runner images are rebuilt regularly from patched bases, that the CI agent version is current, and that base images are scanned for known CVEs. Common tags: cicd, runner, patching.",
+          "description": "Outdated runner OS images, build tools, and agents accumulate known vulnerabilities that an attacker can exploit to escalate within the build environment. Schedule remediation once higher-severity gaps are closed.",
           "severity": "medium",
-          "how_to_find": "Confirm runner images are rebuilt regularly from patched bases, that the CI agent version is current, and that base images are scanned for known CVEs.",
-          "how_to_fix": "Remediate \"Unpatched runner images and toolchains\" by applying vendor and CIS/OWASP hardening guidance for Pipeline Execution Integrity — Runner & Build Node Security (CICD-SEC-7). Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_find": "Pipeline Execution Integrity — Runner & Build Node Security (CICD-SEC-7): Confirm runner images are rebuilt regularly from patched bases, that the CI agent version is current, and that base images are scanned for known CVEs",
+          "how_to_fix": "Assign an owner for unpatched runner images and toolchains, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Trivy",
             "Checkov"
@@ -744,10 +744,10 @@
       "items": [
         {
           "title": "Secrets printed to build logs",
-          "description": "Echoed environment variables, verbose tool output, or set -x tracing can write secrets into build logs that are retained and often broadly readable. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Search logs for token/key patterns; confirm secret masking is enabled and effective, and that debug/verbose modes do not echo secret values. Common tags: cicd, secrets, logging.",
+          "description": "Echoed environment variables, verbose tool output, or set -x tracing can write secrets into build logs that are retained and often broadly readable. Worth prioritising in your next assessment cycle.",
           "severity": "high",
-          "how_to_find": "Search logs for token/key patterns; confirm secret masking is enabled and effective, and that debug/verbose modes do not echo secret values.",
-          "how_to_fix": "Remediate \"Secrets printed to build logs\" by applying vendor and CIS/OWASP hardening guidance for Secrets & Credentials — Secret Exposure. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_find": "Secrets & Credentials — Secret Exposure: Search logs for token/key patterns; confirm secret masking is enabled and effective, and that debug/verbose modes do not echo secret values",
+          "how_to_fix": "Assign an owner for secrets printed to build logs, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "gitleaks",
             "TruffleHog",
@@ -772,10 +772,10 @@
         },
         {
           "title": "Hardcoded secrets in source and pipeline config",
-          "description": "API keys, tokens, and passwords committed into the repo or embedded in pipeline YAML are exposed to anyone with read access and persist in git history. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: Scan the working tree and full git history for secrets; confirm none are hardcoded in code or pipeline files and that any found are rotated, not just deleted. Common tags: cicd, secrets, source-code.",
+          "description": "API keys, tokens, and passwords committed into the repo or embedded in pipeline YAML are exposed to anyone with read access and persist in git history. Treat failures here as release blockers.",
           "severity": "critical",
-          "how_to_find": "Scan the working tree and full git history for secrets; confirm none are hardcoded in code or pipeline files and that any found are rotated, not just deleted.",
-          "how_to_fix": "Remediate \"Hardcoded secrets in source and pipeline config\" by applying vendor and CIS/OWASP hardening guidance for Secrets & Credentials — Secret Exposure. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_find": "Secrets & Credentials — Secret Exposure: Scan the working tree and full git history for secrets; confirm none are hardcoded in code or pipeline files and that any found are rotated, not just deleted",
+          "how_to_fix": "Assign an owner for hardcoded secrets in source and pipeline config, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "gitleaks",
             "TruffleHog",
@@ -800,10 +800,10 @@
         },
         {
           "title": "Secrets stored as plaintext CI variables",
-          "description": "Storing credentials in unmasked/unprotected CI variables (rather than a secrets store) exposes them in the UI, in logs, and to lower-privileged users. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Confirm sensitive CI/CD variables are marked masked and protected (restricted to protected branches/tags) and that no plaintext credentials live in project settings. Common tags: cicd, secrets, configuration.",
+          "description": "Storing credentials in unmasked/unprotected CI variables (rather than a secrets store) exposes them in the UI, in logs, and to lower-privileged users. Worth prioritising in your next assessment cycle.",
           "severity": "high",
-          "how_to_find": "Confirm sensitive CI/CD variables are marked masked and protected (restricted to protected branches/tags) and that no plaintext credentials live in project settings.",
-          "how_to_fix": "Remediate \"Secrets stored as plaintext CI variables\" by applying vendor and CIS/OWASP hardening guidance for Secrets & Credentials — Secret Exposure. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_find": "Secrets & Credentials — Secret Exposure: Confirm sensitive CI/CD variables are marked masked and protected (restricted to protected branches/tags) and that no plaintext credentials live in project settings",
+          "how_to_fix": "Assign an owner for secrets stored as plaintext ci variables, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "gitleaks",
             "Checkov"
@@ -827,10 +827,10 @@
         },
         {
           "title": "Secrets baked into artifacts and images",
-          "description": "Build steps that copy .env files, credentials, or tokens into container images or published artifacts ship secrets to anyone who pulls them. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Inspect built images/artifacts (layers, env, embedded files) for credentials; confirm build contexts exclude secret files and that multi-stage builds do not carry secrets into the final image. Common tags: cicd, secrets, artifacts.",
+          "description": "Build steps that copy .env files, credentials, or tokens into container images or published artifacts ship secrets to anyone who pulls them. Worth prioritising in your next assessment cycle.",
           "severity": "high",
-          "how_to_find": "Inspect built images/artifacts (layers, env, embedded files) for credentials; confirm build contexts exclude secret files and that multi-stage builds do not carry secrets into the final image.",
-          "how_to_fix": "Remediate \"Secrets baked into artifacts and images\" by applying vendor and CIS/OWASP hardening guidance for Secrets & Credentials — Secret Exposure. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_find": "Secrets & Credentials — Secret Exposure: Inspect built images/artifacts (layers, env, embedded files) for credentials; confirm build contexts exclude secret files and that multi-stage builds do not carry secrets into the final image",
+          "how_to_fix": "Assign an owner for secrets baked into artifacts and images, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Trivy",
             "gitleaks",
@@ -860,10 +860,10 @@
       "items": [
         {
           "title": "Over-scoped tokens and PATs",
-          "description": "Broad personal access tokens or registry/cloud tokens granted to pipelines amplify the impact of any leak — a single exposed token can reach far beyond its intended use. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Review the scopes/permissions of every token used in CI; confirm each is limited to required repos/resources and uses fine-grained tokens where available. Common tags: cicd, secrets, least-privilege.",
+          "description": "Broad personal access tokens or registry/cloud tokens granted to pipelines amplify the impact of any leak — a single exposed token can reach far beyond its intended use. Worth prioritising in your next assessment cycle.",
           "severity": "high",
-          "how_to_find": "Review the scopes/permissions of every token used in CI; confirm each is limited to required repos/resources and uses fine-grained tokens where available.",
-          "how_to_fix": "Remediate \"Over-scoped tokens and PATs\" by applying vendor and CIS/OWASP hardening guidance for Secrets & Credentials — Secret Scope & OIDC. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_find": "Secrets & Credentials — Secret Scope & OIDC: Review the scopes/permissions of every token used in CI; confirm each is limited to required repos/resources and uses fine-grained tokens where available",
+          "how_to_fix": "Assign an owner for over-scoped tokens and pats, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "gato (GitHub Attack Toolkit)",
             "Legitify"
@@ -887,10 +887,10 @@
         },
         {
           "title": "OIDC federation with loose subject conditions",
-          "description": "Cloud OIDC trust policies that match too broadly (e.g. any branch or any repo in the org) let unintended workflows assume privileged cloud roles without a stored secret. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Inspect the cloud role trust policy; confirm the subject (sub) condition pins the specific repo and ref/environment, and that the audience and issuer are correct. Common tags: cicd, secrets, oidc.",
+          "description": "Cloud OIDC trust policies that match too broadly (e.g. Validate this during security reviews, under Secrets & Credentials — Secret Scope & OIDC. Worth prioritising in your next assessment cycle.",
           "severity": "high",
-          "how_to_find": "Inspect the cloud role trust policy; confirm the subject (sub) condition pins the specific repo and ref/environment, and that the audience and issuer are correct.",
-          "how_to_fix": "Remediate \"OIDC federation with loose subject conditions\" by applying vendor and CIS/OWASP hardening guidance for Secrets & Credentials — Secret Scope & OIDC. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_find": "Secrets & Credentials — Secret Scope & OIDC: Inspect the cloud role trust policy; confirm the subject (sub) condition pins the specific repo and ref/environment, and that the audience and issuer are correct",
+          "how_to_fix": "Assign an owner for oidc federation with loose subject conditions, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "ScoutSuite",
             "Checkov"
@@ -914,10 +914,10 @@
         },
         {
           "title": "Secret masking bypass",
-          "description": "Masking that only catches exact strings can be bypassed by transforming a secret (base64, splitting, partial print), allowing exfiltration through logs. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Attempt to surface a known secret via transformation in a test workflow; confirm masking and egress controls limit exfiltration and that logs are reviewed for obfuscated leaks. Common tags: cicd, secrets, logging.",
+          "description": "Masking that only catches exact strings can be bypassed by transforming a secret (base64, splitting, partial print), allowing exfiltration through logs. Schedule remediation once higher-severity gaps are closed.",
           "severity": "medium",
-          "how_to_find": "Attempt to surface a known secret via transformation in a test workflow; confirm masking and egress controls limit exfiltration and that logs are reviewed for obfuscated leaks.",
-          "how_to_fix": "Remediate \"Secret masking bypass\" by applying vendor and CIS/OWASP hardening guidance for Secrets & Credentials — Secret Scope & OIDC. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_find": "Secrets & Credentials — Secret Scope & OIDC: Attempt to surface a known secret via transformation in a test workflow; confirm masking and egress controls limit exfiltration and that logs are reviewed for obfuscated leaks",
+          "how_to_fix": "Assign an owner for secret masking bypass, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "gitleaks",
             "octoscan"
@@ -941,10 +941,10 @@
         },
         {
           "title": "Secrets available to all repos and workflows",
-          "description": "Org-level or globally available secrets exposed to every repository and workflow widen the blast radius — a compromise in any one repo can read them. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm secrets are scoped to the repos/environments that need them rather than org-wide, and that untrusted/forked workflows cannot access them. Common tags: cicd, secrets, scope.",
+          "description": "Org-level or globally available secrets exposed to every repository and workflow widen the blast radius — a compromise in any one repo can read them. Schedule remediation once higher-severity gaps are closed.",
           "severity": "medium",
-          "how_to_find": "Confirm secrets are scoped to the repos/environments that need them rather than org-wide, and that untrusted/forked workflows cannot access them.",
-          "how_to_fix": "Remediate \"Secrets available to all repos and workflows\" by applying vendor and CIS/OWASP hardening guidance for Secrets & Credentials — Secret Scope & OIDC. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_find": "Secrets & Credentials — Secret Scope & OIDC: Confirm secrets are scoped to the repos/environments that need them rather than org-wide, and that untrusted/forked workflows cannot access them",
+          "how_to_fix": "Assign an owner for secrets available to all repos and workflows, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Legitify",
             "gh CLI"
@@ -973,10 +973,10 @@
       "items": [
         {
           "title": "Long-lived, unrotated credentials",
-          "description": "Static secrets that never expire or rotate stay valid indefinitely after a leak, maximizing the window an attacker has to use them. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm a rotation policy exists and is enforced (expiry dates on tokens/keys), and that rotation is automated rather than manual where possible. Common tags: cicd, secrets, rotation.",
+          "description": "Static secrets that never expire or rotate stay valid indefinitely after a leak, maximizing the window an attacker has to use them. Schedule remediation once higher-severity gaps are closed.",
           "severity": "medium",
-          "how_to_find": "Confirm a rotation policy exists and is enforced (expiry dates on tokens/keys), and that rotation is automated rather than manual where possible.",
-          "how_to_fix": "Remediate \"Long-lived, unrotated credentials\" by applying vendor and CIS/OWASP hardening guidance for Secrets & Credentials — Credential Hygiene & Rotation. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_find": "Secrets & Credentials — Credential Hygiene & Rotation: Confirm a rotation policy exists and is enforced (expiry dates on tokens/keys), and that rotation is automated rather than manual where possible",
+          "how_to_fix": "Assign an owner for long-lived, unrotated credentials, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "gitleaks",
             "Legitify"
@@ -1000,10 +1000,10 @@
         },
         {
           "title": "Preference for short-lived credentials",
-          "description": "Using OIDC/federated, short-lived credentials instead of stored long-lived secrets removes the standing secret an attacker could steal from the pipeline. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm cloud/registry access uses short-lived federated tokens (OIDC) where supported, and that any remaining static credentials are justified and minimized. Common tags: cicd, secrets, oidc.",
+          "description": "Using OIDC/federated, short-lived credentials instead of stored long-lived secrets removes the standing secret an attacker could steal from the pipeline. Schedule remediation once higher-severity gaps are closed.",
           "severity": "medium",
-          "how_to_find": "Confirm cloud/registry access uses short-lived federated tokens (OIDC) where supported, and that any remaining static credentials are justified and minimized.",
-          "how_to_fix": "Remediate \"Preference for short-lived credentials\" by applying vendor and CIS/OWASP hardening guidance for Secrets & Credentials — Credential Hygiene & Rotation. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_find": "Secrets & Credentials — Credential Hygiene & Rotation: Confirm cloud/registry access uses short-lived federated tokens (OIDC) where supported, and that any remaining static credentials are justified and minimized",
+          "how_to_fix": "Assign an owner for preference for short-lived credentials, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "ScoutSuite",
             "Checkov"
@@ -1027,10 +1027,10 @@
         },
         {
           "title": "No revocation path for leaked credentials",
-          "description": "Without secret scanning and a defined revoke-and-rotate response, a leaked credential discovered in code or logs remains live and exploitable. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Confirm push protection / secret scanning is enabled and that there is a documented, tested process to revoke and rotate a credential immediately on detection. Common tags: cicd, secrets, incident-response.",
+          "description": "Without secret scanning and a defined revoke-and-rotate response, a leaked credential discovered in code or logs remains live and exploitable. Worth prioritising in your next assessment cycle.",
           "severity": "high",
-          "how_to_find": "Confirm push protection / secret scanning is enabled and that there is a documented, tested process to revoke and rotate a credential immediately on detection.",
-          "how_to_fix": "Remediate \"No revocation path for leaked credentials\" by applying vendor and CIS/OWASP hardening guidance for Secrets & Credentials — Credential Hygiene & Rotation. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_find": "Secrets & Credentials — Credential Hygiene & Rotation: Confirm push protection / secret scanning is enabled and that there is a documented, tested process to revoke and rotate a credential immediately on detection",
+          "how_to_fix": "Assign an owner for no revocation path for leaked credentials, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "gitleaks",
             "TruffleHog"
@@ -1054,10 +1054,10 @@
         },
         {
           "title": "Insufficient secret-scanning coverage",
-          "description": "Secret scanning that does not cover all repos, history, and artifact build outputs leaves blind spots where leaked credentials go unnoticed. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm secret scanning runs across all repositories and full history, and that pipeline artifacts/images are also scanned for embedded credentials. Common tags: cicd, secrets, scanning.",
+          "description": "Secret scanning that does not cover all repos, history, and artifact build outputs leaves blind spots where leaked credentials go unnoticed. Schedule remediation once higher-severity gaps are closed.",
           "severity": "medium",
-          "how_to_find": "Confirm secret scanning runs across all repositories and full history, and that pipeline artifacts/images are also scanned for embedded credentials.",
-          "how_to_fix": "Remediate \"Insufficient secret-scanning coverage\" by applying vendor and CIS/OWASP hardening guidance for Secrets & Credentials — Credential Hygiene & Rotation. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_find": "Secrets & Credentials — Credential Hygiene & Rotation: Confirm secret scanning runs across all repositories and full history, and that pipeline artifacts/images are also scanned for embedded credentials",
+          "how_to_fix": "Assign an owner for insufficient secret-scanning coverage, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "gitleaks",
             "TruffleHog",
@@ -1087,10 +1087,10 @@
       "items": [
         {
           "title": "Dependency confusion / substitution",
-          "description": "When internal package names are resolvable from public registries, an attacker can publish a higher-version public package that the build pulls instead of the internal one. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Confirm internal scopes/namespaces are reserved, that the build pins a private registry for internal packages, and that public fallback cannot satisfy internal names. Common tags: cicd, supply-chain, dependencies.",
+          "description": "When internal package names are resolvable from public registries, an attacker can publish a higher-version public package that the build pulls instead of the internal one. Worth prioritising in your next assessment cycle.",
           "severity": "high",
-          "how_to_find": "Confirm internal scopes/namespaces are reserved, that the build pins a private registry for internal packages, and that public fallback cannot satisfy internal names.",
-          "how_to_fix": "Remediate \"Dependency confusion / substitution\" by applying vendor and CIS/OWASP hardening guidance for Dependencies & Supply Chain — Dependency-Chain Abuse (CICD-SEC-3). Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_find": "Dependencies & Supply Chain — Dependency-Chain Abuse (CICD-SEC-3): Confirm internal scopes/namespaces are reserved, that the build pins a private registry for internal packages, and that public fallback cannot satisfy internal names",
+          "how_to_fix": "Assign an owner for dependency confusion / substitution, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "poutine",
             "Checkov",
@@ -1115,10 +1115,10 @@
         },
         {
           "title": "Typosquatted and malicious packages",
-          "description": "Packages named to mimic popular libraries (or compromised maintainer accounts) introduce malicious code that executes during install or build. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Verify dependencies against an allowlist/known-good set, check install scripts of new packages, and confirm new/low-reputation packages are reviewed before adoption. Common tags: cicd, supply-chain, dependencies.",
+          "description": "Packages named to mimic popular libraries (or compromised maintainer accounts) introduce malicious code that executes during install or build. Worth prioritising in your next assessment cycle.",
           "severity": "high",
-          "how_to_find": "Verify dependencies against an allowlist/known-good set, check install scripts of new packages, and confirm new/low-reputation packages are reviewed before adoption.",
-          "how_to_fix": "Remediate \"Typosquatted and malicious packages\" by applying vendor and CIS/OWASP hardening guidance for Dependencies & Supply Chain — Dependency-Chain Abuse (CICD-SEC-3). Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_find": "Dependencies & Supply Chain — Dependency-Chain Abuse (CICD-SEC-3): Verify dependencies against an allowlist/known-good set, check install scripts of new packages, and confirm new/low-reputation packages are reviewed before adoption",
+          "how_to_fix": "Assign an owner for typosquatted and malicious packages, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "OWASP Dependency-Check",
             "OSV-Scanner",
@@ -1143,10 +1143,10 @@
         },
         {
           "title": "Unpinned dependencies and missing lockfiles",
-          "description": "Floating version ranges without a committed lockfile let a freshly published (possibly malicious) version be resolved on the next build without review. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm a lockfile is committed and used in CI (frozen/clean install), and that builds do not silently upgrade to new versions outside the locked set. Common tags: cicd, supply-chain, dependencies.",
+          "description": "Floating version ranges without a committed lockfile let a freshly published (possibly malicious) version be resolved on the next build without review. Schedule remediation once higher-severity gaps are closed.",
           "severity": "medium",
-          "how_to_find": "Confirm a lockfile is committed and used in CI (frozen/clean install), and that builds do not silently upgrade to new versions outside the locked set.",
-          "how_to_fix": "Remediate \"Unpinned dependencies and missing lockfiles\" by applying vendor and CIS/OWASP hardening guidance for Dependencies & Supply Chain — Dependency-Chain Abuse (CICD-SEC-3). Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_find": "Dependencies & Supply Chain — Dependency-Chain Abuse (CICD-SEC-3): Confirm a lockfile is committed and used in CI (frozen/clean install), and that builds do not silently upgrade to new versions outside the locked set",
+          "how_to_fix": "Assign an owner for unpinned dependencies and missing lockfiles, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "OSV-Scanner",
             "OWASP Dependency-Check"
@@ -1170,10 +1170,10 @@
         },
         {
           "title": "Unmonitored transitive dependency risk",
-          "description": "Most code in a build comes from transitive dependencies; without an SBOM and continuous scanning, a vulnerable or malicious transitive package goes unnoticed. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm an SBOM is generated and that transitive dependencies are scanned for known vulnerabilities and policy violations on every build. Common tags: cicd, supply-chain, sbom.",
+          "description": "Most code in a build comes from transitive dependencies; without an SBOM and continuous scanning, a vulnerable or malicious transitive package goes unnoticed. Schedule remediation once higher-severity gaps are closed.",
           "severity": "medium",
-          "how_to_find": "Confirm an SBOM is generated and that transitive dependencies are scanned for known vulnerabilities and policy violations on every build.",
-          "how_to_fix": "Remediate \"Unmonitored transitive dependency risk\" by applying vendor and CIS/OWASP hardening guidance for Dependencies & Supply Chain — Dependency-Chain Abuse (CICD-SEC-3). Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_find": "Dependencies & Supply Chain — Dependency-Chain Abuse (CICD-SEC-3): Confirm an SBOM is generated and that transitive dependencies are scanned for known vulnerabilities and policy violations on every build",
+          "how_to_fix": "Assign an owner for unmonitored transitive dependency risk, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Syft",
             "Trivy",
@@ -1203,10 +1203,10 @@
       "items": [
         {
           "title": "Unpinned third-party actions and plugins",
-          "description": "Referencing an action by a mutable tag/branch (e.g. @v1, @main) means its code can change under you; a compromised tag silently runs new, attacker-controlled code. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Confirm third-party actions are pinned to a full commit SHA (not a tag/branch), and that a process re-reviews and re-pins on updates. Common tags: cicd, supply-chain, actions.",
+          "description": "Referencing an action by a mutable tag/branch (e.g. Validate this during security reviews, under Dependencies & Supply Chain — Third-Party Services & Actions (CICD-SEC-8). Worth prioritising in your next assessment cycle.",
           "severity": "high",
-          "how_to_find": "Confirm third-party actions are pinned to a full commit SHA (not a tag/branch), and that a process re-reviews and re-pins on updates.",
-          "how_to_fix": "Remediate \"Unpinned third-party actions and plugins\" by applying vendor and CIS/OWASP hardening guidance for Dependencies & Supply Chain — Third-Party Services & Actions (CICD-SEC-8). Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_find": "Dependencies & Supply Chain — Third-Party Services & Actions (CICD-SEC-8): Confirm third-party actions are pinned to a full commit SHA (not a tag/branch), and that a process re-reviews and re-pins on updates",
+          "how_to_fix": "Assign an owner for unpinned third-party actions and plugins, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "octoscan",
             "poutine",
@@ -1231,10 +1231,10 @@
         },
         {
           "title": "Untrusted action publishers and marketplace risk",
-          "description": "Adopting actions from unknown or unverified publishers grants third parties code execution and secret access inside your pipeline. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Confirm an allowlist restricts which actions/publishers can run, that only verified or internally reviewed actions are permitted, and that marketplace use is governed. Common tags: cicd, supply-chain, actions.",
+          "description": "Adopting actions from unknown or unverified publishers grants third parties code execution and secret access inside your pipeline. Worth prioritising in your next assessment cycle.",
           "severity": "high",
-          "how_to_find": "Confirm an allowlist restricts which actions/publishers can run, that only verified or internally reviewed actions are permitted, and that marketplace use is governed.",
-          "how_to_fix": "Remediate \"Untrusted action publishers and marketplace risk\" by applying vendor and CIS/OWASP hardening guidance for Dependencies & Supply Chain — Third-Party Services & Actions (CICD-SEC-8). Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_find": "Dependencies & Supply Chain — Third-Party Services & Actions (CICD-SEC-8): Confirm an allowlist restricts which actions/publishers can run, that only verified or internally reviewed actions are permitted, and that marketplace use is governed",
+          "how_to_fix": "Assign an owner for untrusted action publishers and marketplace risk, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Legitify",
             "octoscan"
@@ -1258,10 +1258,10 @@
         },
         {
           "title": "Over-privileged third-party integrations",
-          "description": "Installed apps and SaaS integrations granted broad org/repo and token scopes become a supply-chain entry point if the third party is breached. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Review installed integrations/OAuth apps and their granted scopes; confirm each is least-privilege, still in use, and from a trusted vendor. Common tags: cicd, supply-chain, integrations.",
+          "description": "Installed apps and SaaS integrations granted broad org/repo and token scopes become a supply-chain entry point if the third party is breached. Schedule remediation once higher-severity gaps are closed.",
           "severity": "medium",
-          "how_to_find": "Review installed integrations/OAuth apps and their granted scopes; confirm each is least-privilege, still in use, and from a trusted vendor.",
-          "how_to_fix": "Remediate \"Over-privileged third-party integrations\" by applying vendor and CIS/OWASP hardening guidance for Dependencies & Supply Chain — Third-Party Services & Actions (CICD-SEC-8). Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_find": "Dependencies & Supply Chain — Third-Party Services & Actions (CICD-SEC-8): Review installed integrations/OAuth apps and their granted scopes; confirm each is least-privilege, still in use, and from a trusted vendor",
+          "how_to_fix": "Assign an owner for over-privileged third-party integrations, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Legitify",
             "gh CLI"
@@ -1285,10 +1285,10 @@
         },
         {
           "title": "Transitive (nested) action dependencies",
-          "description": "Actions that themselves call other actions extend the trust chain; an unpinned nested action can be compromised even if the top-level one is pinned. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Inspect the actions you use for nested action references and confirm those are also pinned/reviewed, or that the action is vendored after review. Common tags: cicd, supply-chain, actions.",
+          "description": "Actions that themselves call other actions extend the trust chain; an unpinned nested action can be compromised even if the top-level one is pinned. Schedule remediation once higher-severity gaps are closed.",
           "severity": "medium",
-          "how_to_find": "Inspect the actions you use for nested action references and confirm those are also pinned/reviewed, or that the action is vendored after review.",
-          "how_to_fix": "Remediate \"Transitive (nested) action dependencies\" by applying vendor and CIS/OWASP hardening guidance for Dependencies & Supply Chain — Third-Party Services & Actions (CICD-SEC-8). Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_find": "Dependencies & Supply Chain — Third-Party Services & Actions (CICD-SEC-8): Inspect the actions you use for nested action references and confirm those are also pinned/reviewed, or that the action is vendored after review",
+          "how_to_fix": "Assign an owner for transitive (nested) action dependencies, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "octoscan",
             "poutine"
@@ -1317,10 +1317,10 @@
       "items": [
         {
           "title": "Unsigned build artifacts",
-          "description": "Artifacts and container images published without signatures cannot be verified by consumers, so a tampered or substituted artifact is indistinguishable from a legitimate one. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Confirm artifacts/images are signed (e.g. Cosign/Sigstore) at publish time and that deploy/consume steps verify the signature before use. Common tags: cicd, supply-chain, signing.",
+          "description": "Artifacts and container images published without signatures cannot be verified by consumers, so a tampered or substituted artifact is indistinguishable from a legitimate one. Worth prioritising in your next assessment cycle.",
           "severity": "high",
-          "how_to_find": "Confirm artifacts/images are signed (e.g. Cosign/Sigstore) at publish time and that deploy/consume steps verify the signature before use.",
-          "how_to_fix": "Remediate \"Unsigned build artifacts\" by applying vendor and CIS/OWASP hardening guidance for Dependencies & Supply Chain — Artifact Integrity & Provenance (CICD-SEC-9). Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_find": "Dependencies & Supply Chain — Artifact Integrity & Provenance (CICD-SEC-9): Confirm artifacts/images are signed (e.g",
+          "how_to_fix": "Assign an owner for unsigned build artifacts, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Cosign",
             "Sigstore",
@@ -1345,10 +1345,10 @@
         },
         {
           "title": "Missing build provenance / attestation",
-          "description": "Without provenance attestations (who built it, from which source and pipeline), consumers cannot verify an artifact’s origin, undermining SLSA assurances. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm the pipeline generates SLSA provenance/attestations and that they are stored and verified against expected source repo, builder, and inputs. Common tags: cicd, supply-chain, provenance.",
+          "description": "Without provenance attestations (who built it, from which source and pipeline), consumers cannot verify an artifact’s origin, undermining SLSA assurances. Schedule remediation once higher-severity gaps are closed.",
           "severity": "medium",
-          "how_to_find": "Confirm the pipeline generates SLSA provenance/attestations and that they are stored and verified against expected source repo, builder, and inputs.",
-          "how_to_fix": "Remediate \"Missing build provenance / attestation\" by applying vendor and CIS/OWASP hardening guidance for Dependencies & Supply Chain — Artifact Integrity & Provenance (CICD-SEC-9). Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_find": "Dependencies & Supply Chain — Artifact Integrity & Provenance (CICD-SEC-9): Confirm the pipeline generates SLSA provenance/attestations and that they are stored and verified against expected source repo, builder, and inputs",
+          "how_to_fix": "Assign an owner for missing build provenance / attestation, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "slsa-verifier",
             "Cosign"
@@ -1372,10 +1372,10 @@
         },
         {
           "title": "Consuming artifacts by mutable tag, not digest",
-          "description": "Pulling base images or artifacts by mutable tag (e.g. :latest) instead of an immutable digest allows the underlying content to change without detection. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm base images and consumed artifacts are referenced by immutable digest, and that deployment manifests pin digests rather than floating tags. Common tags: cicd, supply-chain, integrity.",
+          "description": "Pulling base images or artifacts by mutable tag (e.g. Validate this during security reviews, under Dependencies & Supply Chain — Artifact Integrity & Provenance (CICD-SEC-9). Schedule remediation once higher-severity gaps are closed.",
           "severity": "medium",
-          "how_to_find": "Confirm base images and consumed artifacts are referenced by immutable digest, and that deployment manifests pin digests rather than floating tags.",
-          "how_to_fix": "Remediate \"Consuming artifacts by mutable tag, not digest\" by applying vendor and CIS/OWASP hardening guidance for Dependencies & Supply Chain — Artifact Integrity & Provenance (CICD-SEC-9). Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_find": "Dependencies & Supply Chain — Artifact Integrity & Provenance (CICD-SEC-9): Confirm base images and consumed artifacts are referenced by immutable digest, and that deployment manifests pin digests rather than floating tags",
+          "how_to_fix": "Assign an owner for consuming artifacts by mutable tag, not digest, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Trivy",
             "Checkov"
@@ -1399,10 +1399,10 @@
         },
         {
           "title": "Weak artifact registry access and immutability",
-          "description": "Registries that allow tag overwrites or broad push access let an attacker replace a published artifact with a malicious one under the same name. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Confirm the registry enforces immutable tags (or content-addressed storage), restricts push to the pipeline identity, and logs all pushes. Common tags: cicd, supply-chain, registry.",
+          "description": "Registries that allow tag overwrites or broad push access let an attacker replace a published artifact with a malicious one under the same name. Worth prioritising in your next assessment cycle.",
           "severity": "high",
-          "how_to_find": "Confirm the registry enforces immutable tags (or content-addressed storage), restricts push to the pipeline identity, and logs all pushes.",
-          "how_to_fix": "Remediate \"Weak artifact registry access and immutability\" by applying vendor and CIS/OWASP hardening guidance for Dependencies & Supply Chain — Artifact Integrity & Provenance (CICD-SEC-9). Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_find": "Dependencies & Supply Chain — Artifact Integrity & Provenance (CICD-SEC-9): Confirm the registry enforces immutable tags (or content-addressed storage), restricts push to the pipeline identity, and logs all pushes",
+          "how_to_fix": "Assign an owner for weak artifact registry access and immutability, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Trivy",
             "Cosign"
@@ -1431,10 +1431,10 @@
       "items": [
         {
           "title": "Publicly exposed CI dashboards and APIs",
-          "description": "CI servers, build dashboards, and orchestration APIs reachable from the internet expose build status, logs, and often unauthenticated control, inviting takeover. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Confirm CI dashboards/APIs are not publicly reachable (network restrictions/VPN/SSO), and probe for unauthenticated endpoints exposing jobs or scripts. Common tags: cicd, configuration, exposure.",
+          "description": "CI servers, build dashboards, and orchestration APIs reachable from the internet expose build status, logs, and often unauthenticated control, inviting takeover. Worth prioritising in your next assessment cycle.",
           "severity": "high",
-          "how_to_find": "Confirm CI dashboards/APIs are not publicly reachable (network restrictions/VPN/SSO), and probe for unauthenticated endpoints exposing jobs or scripts.",
-          "how_to_fix": "Remediate \"Publicly exposed CI dashboards and APIs\" by applying vendor and CIS/OWASP hardening guidance for Configuration & Monitoring — System Configuration (CICD-SEC-5 / SEC-7). Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_find": "Configuration & Monitoring — System Configuration (CICD-SEC-5 / SEC-7): Confirm CI dashboards/APIs are not publicly reachable (network restrictions/VPN/SSO), and probe for unauthenticated endpoints exposing jobs or scripts",
+          "how_to_fix": "Assign an owner for publicly exposed ci dashboards and apis, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "nuclei",
             "httpx",
@@ -1459,10 +1459,10 @@
         },
         {
           "title": "Default or weak credentials on CI systems",
-          "description": "CI orchestrators and plugins left with default admin credentials or weak auth give an attacker direct control of the build and deploy pipeline. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: Test for default/known credentials on CI components and confirm strong authentication, SSO/MFA, and removal of default admin accounts. Common tags: cicd, configuration, authentication.",
+          "description": "CI orchestrators and plugins left with default admin credentials or weak auth give an attacker direct control of the build and deploy pipeline. Treat failures here as release blockers.",
           "severity": "critical",
-          "how_to_find": "Test for default/known credentials on CI components and confirm strong authentication, SSO/MFA, and removal of default admin accounts.",
-          "how_to_fix": "Remediate \"Default or weak credentials on CI systems\" by applying vendor and CIS/OWASP hardening guidance for Configuration & Monitoring — System Configuration (CICD-SEC-5 / SEC-7). Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_find": "Configuration & Monitoring — System Configuration (CICD-SEC-5 / SEC-7): Test for default/known credentials on CI components and confirm strong authentication, SSO/MFA, and removal of default admin accounts",
+          "how_to_fix": "Assign an owner for default or weak credentials on ci systems, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "nuclei",
             "Hydra"
@@ -1486,10 +1486,10 @@
         },
         {
           "title": "Outdated CI/CD platform and plugins",
-          "description": "Unpatched CI servers and plugins (a recurring source of CVEs and RCE) let an attacker compromise the orchestrator and everything it deploys. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Confirm the CI platform and its plugins are on supported, patched versions, and that a process tracks and applies security updates. Common tags: cicd, configuration, patching.",
+          "description": "Unpatched CI servers and plugins (a recurring source of CVEs and RCE) let an attacker compromise the orchestrator and everything it deploys. Worth prioritising in your next assessment cycle.",
           "severity": "high",
-          "how_to_find": "Confirm the CI platform and its plugins are on supported, patched versions, and that a process tracks and applies security updates.",
-          "how_to_fix": "Remediate \"Outdated CI/CD platform and plugins\" by applying vendor and CIS/OWASP hardening guidance for Configuration & Monitoring — System Configuration (CICD-SEC-5 / SEC-7). Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_find": "Configuration & Monitoring — System Configuration (CICD-SEC-5 / SEC-7): Confirm the CI platform and its plugins are on supported, patched versions, and that a process tracks and applies security updates",
+          "how_to_fix": "Assign an owner for outdated ci/cd platform and plugins, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "nuclei",
             "Trivy"
@@ -1513,10 +1513,10 @@
         },
         {
           "title": "Ungoverned and inconsistent platform settings",
-          "description": "Without enforced org-wide policy, individual repos/projects drift to insecure settings (open runners, disabled protections), creating inconsistent and weak spots. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm security-relevant settings are governed centrally (org policy / policy-as-code) and audited for drift across all repos and projects. Common tags: cicd, configuration, governance.",
+          "description": "Without enforced org-wide policy, individual repos/projects drift to insecure settings (open runners, disabled protections), creating inconsistent and weak spots. Schedule remediation once higher-severity gaps are closed.",
           "severity": "medium",
-          "how_to_find": "Confirm security-relevant settings are governed centrally (org policy / policy-as-code) and audited for drift across all repos and projects.",
-          "how_to_fix": "Remediate \"Ungoverned and inconsistent platform settings\" by applying vendor and CIS/OWASP hardening guidance for Configuration & Monitoring — System Configuration (CICD-SEC-5 / SEC-7). Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_find": "Configuration & Monitoring — System Configuration (CICD-SEC-5 / SEC-7): Confirm security-relevant settings are governed centrally (org policy / policy-as-code) and audited for drift across all repos and projects",
+          "how_to_fix": "Assign an owner for ungoverned and inconsistent platform settings, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Legitify",
             "Checkov",
@@ -1546,10 +1546,10 @@
       "items": [
         {
           "title": "Insufficient audit logging coverage",
-          "description": "Missing audit logs for permission changes, secret access, pipeline edits, and deployments mean malicious actions in the pipeline go undetected. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm audit logs cover SCM admin/permission changes, secret reads, workflow edits, and deployments, and that they capture actor, action, and timestamp. Common tags: cicd, logging, audit.",
+          "description": "Missing audit logs for permission changes, secret access, pipeline edits, and deployments mean malicious actions in the pipeline go undetected. Schedule remediation once higher-severity gaps are closed.",
           "severity": "medium",
-          "how_to_find": "Confirm audit logs cover SCM admin/permission changes, secret reads, workflow edits, and deployments, and that they capture actor, action, and timestamp.",
-          "how_to_fix": "Remediate \"Insufficient audit logging coverage\" by applying vendor and CIS/OWASP hardening guidance for Configuration & Monitoring — Logging & Visibility (CICD-SEC-10). Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_find": "Configuration & Monitoring — Logging & Visibility (CICD-SEC-10): Confirm audit logs cover SCM admin/permission changes, secret reads, workflow edits, and deployments, and that they capture actor, action, and timestamp",
+          "how_to_fix": "Assign an owner for insufficient audit logging coverage, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Legitify",
             "gh CLI"
@@ -1573,10 +1573,10 @@
         },
         {
           "title": "No centralized log aggregation or retention",
-          "description": "Logs kept only locally on CI systems can be wiped by an attacker and are unavailable for correlation; short retention destroys evidence before investigation. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm CI/SCM/deploy logs are shipped to a tamper-resistant central store with adequate retention and access controls. Common tags: cicd, logging, retention.",
+          "description": "Logs kept only locally on CI systems can be wiped by an attacker and are unavailable for correlation; short retention destroys evidence before investigation. Schedule remediation once higher-severity gaps are closed.",
           "severity": "medium",
-          "how_to_find": "Confirm CI/SCM/deploy logs are shipped to a tamper-resistant central store with adequate retention and access controls.",
-          "how_to_fix": "Remediate \"No centralized log aggregation or retention\" by applying vendor and CIS/OWASP hardening guidance for Configuration & Monitoring — Logging & Visibility (CICD-SEC-10). Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_find": "Configuration & Monitoring — Logging & Visibility (CICD-SEC-10): Confirm CI/SCM/deploy logs are shipped to a tamper-resistant central store with adequate retention and access controls",
+          "how_to_fix": "Assign an owner for no centralized log aggregation or retention, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Elastic/SIEM",
             "Falco"
@@ -1600,10 +1600,10 @@
         },
         {
           "title": "No detection or alerting on pipeline anomalies",
-          "description": "Even with logs, the absence of alerting on suspicious events (new admin, secret exfil patterns, off-hours deploys) means attacks are only found after impact. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm alerts exist for high-risk events — privilege escalation, mass secret access, runner registration, and unexpected deployments — and are routed to responders. Common tags: cicd, logging, detection.",
+          "description": "Even with logs, the absence of alerting on suspicious events (new admin, secret exfil patterns, off-hours deploys) means attacks are only found after impact. Schedule remediation once higher-severity gaps are closed.",
           "severity": "medium",
-          "how_to_find": "Confirm alerts exist for high-risk events — privilege escalation, mass secret access, runner registration, and unexpected deployments — and are routed to responders.",
-          "how_to_fix": "Remediate \"No detection or alerting on pipeline anomalies\" by applying vendor and CIS/OWASP hardening guidance for Configuration & Monitoring — Logging & Visibility (CICD-SEC-10). Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_find": "Configuration & Monitoring — Logging & Visibility (CICD-SEC-10): Confirm alerts exist for high-risk events — privilege escalation, mass secret access, runner registration, and unexpected deployments — and are routed to responders",
+          "how_to_fix": "Assign an owner for no detection or alerting on pipeline anomalies, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Falco",
             "Elastic/SIEM"
@@ -1627,10 +1627,10 @@
         },
         {
           "title": "No runtime visibility into build execution",
-          "description": "Without visibility into what build jobs actually do (network egress, process execution), poisoned pipeline execution and data exfiltration leave no observable trace. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm build runs have runtime monitoring (egress logging, process/syscall visibility) sufficient to detect anomalous command execution or exfiltration. Common tags: cicd, logging, runtime.",
+          "description": "Without visibility into what build jobs actually do (network egress, process execution), poisoned pipeline execution and data exfiltration leave no observable trace. Schedule remediation once higher-severity gaps are closed.",
           "severity": "medium",
-          "how_to_find": "Confirm build runs have runtime monitoring (egress logging, process/syscall visibility) sufficient to detect anomalous command execution or exfiltration.",
-          "how_to_fix": "Remediate \"No runtime visibility into build execution\" by applying vendor and CIS/OWASP hardening guidance for Configuration & Monitoring — Logging & Visibility (CICD-SEC-10). Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_find": "Configuration & Monitoring — Logging & Visibility (CICD-SEC-10): Confirm build runs have runtime monitoring (egress logging, process/syscall visibility) sufficient to detect anomalous command execution or exfiltration",
+          "how_to_fix": "Assign an owner for no runtime visibility into build execution, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Falco",
             "Tracee"

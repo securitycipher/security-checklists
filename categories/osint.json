@@ -7,10 +7,10 @@
       "items": [
         {
           "title": "Collect WHOIS / RDAP registration data",
-          "description": "Pull WHOIS/RDAP for the apex domain and related domains to identify registrant org, registrar, name servers, and creation/expiry dates. Informational finding useful for hardening and compliance alignment. Assessors should confirm the control in practice, not only on paper: Registrant org, abuse/admin contacts, name servers, creation/expiry dates, and registrar — even if privacy-protected, the registrar and NS often leak the hosting relationship. Common tags: whois, dns, footprinting.",
+          "description": "Pull WHOIS/RDAP for the apex domain and related domains to identify registrant org, registrar, name servers, and creation/expiry dates. Useful for maturity tracking and audit evidence.",
           "severity": "info",
           "how_to_find": "Registrant org, abuse/admin contacts, name servers, creation/expiry dates, and registrar — even if privacy-protected, the registrar and NS often leak the hosting relationship.",
-          "how_to_fix": "Remediate \"Collect WHOIS / RDAP registration data\" by applying vendor and CIS/OWASP hardening guidance for Domain & Infrastructure Footprinting — Domain & DNS Records. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_fix": "Assign an owner for collect whois / rdap registration data, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "whois",
             "recon-ng",
@@ -36,10 +36,10 @@
         },
         {
           "title": "Enumerate DNS records (A/AAAA/MX/NS/TXT/CNAME)",
-          "description": "Query the full record set to discover mail servers, third-party SaaS via CNAMEs, and SPF/DKIM/DMARC TXT records that reveal infrastructure providers. This is a defense-in-depth gap that improves overall resilience when fixed. Assessors should confirm the control in practice, not only on paper: MX hosts (mail provider), TXT/SPF includes (third-party senders), NS delegation, and CNAMEs pointing to external SaaS that widen the attack surface. Common tags: dns, mx, spf, footprinting.",
+          "description": "Query the full record set to discover mail servers, third-party SaaS via CNAMEs, and SPF/DKIM/DMARC TXT records that reveal infrastructure providers. Good hygiene that pays off over time.",
           "severity": "low",
-          "how_to_find": "MX hosts (mail provider), TXT/SPF includes (third-party senders), NS delegation, and CNAMEs pointing to external SaaS that widen the attack surface.",
-          "how_to_fix": "Remediate \"Enumerate DNS records (A/AAAA/MX/NS/TXT/CNAME)\" by applying vendor and CIS/OWASP hardening guidance for Domain & Infrastructure Footprinting — Domain & DNS Records. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_find": "Domain & Infrastructure Footprinting — Domain & DNS Records: MX hosts (mail provider), TXT/SPF includes (third-party senders), NS delegation, and CNAMEs pointing to external SaaS that widen the attack surface",
+          "how_to_fix": "Assign an owner for enumerate dns records (a/aaaa/mx/ns/txt/cname), apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "dig",
             "dnsx",
@@ -66,10 +66,10 @@
         },
         {
           "title": "Perform reverse DNS (PTR) lookups",
-          "description": "Resolve IPs back to hostnames across the target's ranges to discover internal naming conventions and additional hosts on shared netblocks. This is a defense-in-depth gap that improves overall resilience when fixed. Assessors should confirm the control in practice, not only on paper: PTR records revealing hostnames, naming patterns (e.g. dev/stage/internal), and co-located hosts that may belong to the same org. Common tags: dns, reverse-dns, footprinting.",
+          "description": "Resolve IPs back to hostnames across the target's ranges to discover internal naming conventions and additional hosts on shared netblocks. Good hygiene that pays off over time.",
           "severity": "low",
           "how_to_find": "PTR records revealing hostnames, naming patterns (e.g. dev/stage/internal), and co-located hosts that may belong to the same org.",
-          "how_to_fix": "Remediate \"Perform reverse DNS (PTR) lookups\" by applying vendor and CIS/OWASP hardening guidance for Domain & Infrastructure Footprinting — Domain & DNS Records. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_fix": "Assign an owner for perform reverse dns (ptr) lookups, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "dig",
             "dnsx",
@@ -90,10 +90,10 @@
         },
         {
           "title": "Review historical DNS / passive DNS",
-          "description": "Use passive DNS and historical resolution datasets to find prior IPs, retired subdomains, and origin servers hidden behind a CDN/WAF. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Old A records that may expose the real origin behind Cloudflare/Akamai, decommissioned hosts still alive, and IP churn that maps hosting migrations. Common tags: dns, passive-dns, origin-discovery.",
+          "description": "Use passive DNS and historical resolution datasets to find prior IPs, retired subdomains, and origin servers hidden behind a CDN/WAF. Schedule remediation once higher-severity gaps are closed.",
           "severity": "medium",
           "how_to_find": "Old A records that may expose the real origin behind Cloudflare/Akamai, decommissioned hosts still alive, and IP churn that maps hosting migrations.",
-          "how_to_fix": "Remediate \"Review historical DNS / passive DNS\" by applying vendor and CIS/OWASP hardening guidance for Domain & Infrastructure Footprinting — Domain & DNS Records. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_fix": "Assign an owner for review historical dns / passive dns, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "SecurityTrails",
             "SpiderFoot",
@@ -123,10 +123,10 @@
       "items": [
         {
           "title": "Passively enumerate subdomains from OSINT sources",
-          "description": "Aggregate subdomains from passive sources (search engines, threat intel feeds, DNS aggregators) without sending traffic to the target. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Complete subdomain list with sources; flag dev/staging/admin/vpn/api naming patterns that signal higher-value targets. Common tags: subdomains, passive, recon.",
+          "description": "Aggregate subdomains from passive sources (search engines, threat intel feeds, DNS aggregators) without sending traffic to the target. Schedule remediation once higher-severity gaps are closed.",
           "severity": "medium",
-          "how_to_find": "Complete subdomain list with sources; flag dev/staging/admin/vpn/api naming patterns that signal higher-value targets.",
-          "how_to_fix": "Remediate \"Passively enumerate subdomains from OSINT sources\" by applying vendor and CIS/OWASP hardening guidance for Domain & Infrastructure Footprinting — Subdomain Enumeration. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_find": "Domain & Infrastructure Footprinting — Subdomain Enumeration: Aggregate subdomains from passive sources (search engines, threat intel feeds, DNS aggregators) without sending traffic to the target",
+          "how_to_fix": "Assign an owner for passively enumerate subdomains from osint sources, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "subfinder",
             "amass",
@@ -152,10 +152,10 @@
         },
         {
           "title": "Mine certificate transparency logs",
-          "description": "Query CT logs (crt.sh, Censys, Google CT) to discover subdomains issued TLS certificates, including internal and pre-release hostnames. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Subdomains in SAN fields, wildcard certs, and recently issued certs that hint at new infrastructure or staging environments. Common tags: certificate-transparency, subdomains, tls.",
+          "description": "Query CT logs (crt.sh, Censys, Google CT) to discover subdomains issued TLS certificates, including internal and pre-release hostnames. Schedule remediation once higher-severity gaps are closed.",
           "severity": "medium",
           "how_to_find": "Subdomains in SAN fields, wildcard certs, and recently issued certs that hint at new infrastructure or staging environments.",
-          "how_to_fix": "Remediate \"Mine certificate transparency logs\" by applying vendor and CIS/OWASP hardening guidance for Domain & Infrastructure Footprinting — Subdomain Enumeration. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_fix": "Assign an owner for mine certificate transparency logs, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "crt.sh",
             "Censys",
@@ -181,10 +181,10 @@
         },
         {
           "title": "Generate subdomain permutations from known patterns",
-          "description": "Derive likely additional subdomains by permuting/altering discovered names (e.g. api-dev, api2, staging-api) and resolving them passively. This is a defense-in-depth gap that improves overall resilience when fixed. Assessors should confirm the control in practice, not only on paper: New resolvable hosts from permutations; corroborate against passive DNS rather than brute-forcing the target directly. Common tags: subdomains, permutation, recon.",
+          "description": "Derive likely additional subdomains by permuting/altering discovered names (e.g. Validate this during security reviews, under Domain & Infrastructure Footprinting — Subdomain Enumeration. Good hygiene that pays off over time.",
           "severity": "low",
           "how_to_find": "New resolvable hosts from permutations; corroborate against passive DNS rather than brute-forcing the target directly.",
-          "how_to_fix": "Remediate \"Generate subdomain permutations from known patterns\" by applying vendor and CIS/OWASP hardening guidance for Domain & Infrastructure Footprinting — Subdomain Enumeration. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_fix": "Assign an owner for generate subdomain permutations from known patterns, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "amass",
             "subfinder",
@@ -205,10 +205,10 @@
         },
         {
           "title": "Flag dangling subdomains (takeover candidates)",
-          "description": "Identify subdomains with CNAMEs pointing to unclaimed third-party services (deprovisioned S3, Heroku, GitHub Pages, etc.) as subdomain-takeover candidates. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: CNAMEs resolving to fingerprintable \"not found\" pages on SaaS providers; flag but do not claim/exploit during passive recon. Common tags: subdomains, takeover, dangling-dns.",
+          "description": "Identify subdomains with CNAMEs pointing to unclaimed third-party services (deprovisioned S3, Heroku, GitHub Pages, etc.) as subdomain-takeover candidates. Worth prioritising in your next assessment cycle.",
           "severity": "high",
           "how_to_find": "CNAMEs resolving to fingerprintable \"not found\" pages on SaaS providers; flag but do not claim/exploit during passive recon.",
-          "how_to_fix": "Remediate \"Flag dangling subdomains (takeover candidates)\" by applying vendor and CIS/OWASP hardening guidance for Domain & Infrastructure Footprinting — Subdomain Enumeration. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_fix": "Assign an owner for flag dangling subdomains (takeover candidates), apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "amass",
             "subfinder",
@@ -238,10 +238,10 @@
       "items": [
         {
           "title": "Map ASN and owned IP ranges",
-          "description": "Identify the Autonomous System Number(s) and netblocks registered to the org to scope owned IP space for the assessment. This is a defense-in-depth gap that improves overall resilience when fixed. Assessors should confirm the control in practice, not only on paper: ASN ownership, CIDR ranges, and RIR allocations attributable to the target — distinguish owned ranges from shared cloud/CDN IPs. Common tags: asn, ip-ranges, footprinting.",
+          "description": "Identify the Autonomous System Number(s) and netblocks registered to the org to scope owned IP space for the assessment. Good hygiene that pays off over time.",
           "severity": "low",
           "how_to_find": "ASN ownership, CIDR ranges, and RIR allocations attributable to the target — distinguish owned ranges from shared cloud/CDN IPs.",
-          "how_to_fix": "Remediate \"Map ASN and owned IP ranges\" by applying vendor and CIS/OWASP hardening guidance for Domain & Infrastructure Footprinting — IP Ranges, ASN & Exposed Services. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_fix": "Assign an owner for map asn and owned ip ranges, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "amass",
             "Shodan",
@@ -267,10 +267,10 @@
         },
         {
           "title": "Inventory exposed services via Shodan",
-          "description": "Query Shodan across the target's IPs/orgs to enumerate open ports, banners, service versions, and exposed devices without touching the target. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Exposed RDP/SSH/databases/ICS, outdated banners, default credentials hints, and certificates linking additional hosts to the org. Common tags: shodan, exposed-services, recon.",
+          "description": "Query Shodan across the target's IPs/orgs to enumerate open ports, banners, service versions, and exposed devices without touching the target. Worth prioritising in your next assessment cycle.",
           "severity": "high",
           "how_to_find": "Exposed RDP/SSH/databases/ICS, outdated banners, default credentials hints, and certificates linking additional hosts to the org.",
-          "how_to_fix": "Remediate \"Inventory exposed services via Shodan\" by applying vendor and CIS/OWASP hardening guidance for Domain & Infrastructure Footprinting — IP Ranges, ASN & Exposed Services. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_fix": "Assign an owner for inventory exposed services via shodan, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Shodan",
             "SpiderFoot",
@@ -295,10 +295,10 @@
         },
         {
           "title": "Cross-reference exposed hosts via Censys",
-          "description": "Use Censys internet-wide scan data to corroborate exposed hosts, certificate associations, and service fingerprints found via Shodan. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Hosts, certificates and software versions in Censys; pivot on shared certs/keys to discover additional target-owned infrastructure. Common tags: censys, exposed-services, recon.",
+          "description": "Use Censys internet-wide scan data to corroborate exposed hosts, certificate associations, and service fingerprints found via Shodan. Schedule remediation once higher-severity gaps are closed.",
           "severity": "medium",
           "how_to_find": "Hosts, certificates and software versions in Censys; pivot on shared certs/keys to discover additional target-owned infrastructure.",
-          "how_to_fix": "Remediate \"Cross-reference exposed hosts via Censys\" by applying vendor and CIS/OWASP hardening guidance for Domain & Infrastructure Footprinting — IP Ranges, ASN & Exposed Services. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_fix": "Assign an owner for cross-reference exposed hosts via censys, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Censys",
             "SpiderFoot"
@@ -322,10 +322,10 @@
         },
         {
           "title": "Identify CDN/WAF and hunt for origin IPs",
-          "description": "Determine whether hosts sit behind a CDN/WAF and look for origin-IP leaks via historical DNS, SSL cert reuse, and scan-data pivots. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Origin IPs exposed in old DNS or matching certificates that bypass the CDN/WAF; note these as protection gaps without active probing. Common tags: cdn, origin-discovery, waf.",
+          "description": "Determine whether hosts sit behind a CDN/WAF and look for origin-IP leaks via historical DNS, SSL cert reuse, and scan-data pivots. Worth prioritising in your next assessment cycle.",
           "severity": "high",
           "how_to_find": "Origin IPs exposed in old DNS or matching certificates that bypass the CDN/WAF; note these as protection gaps without active probing.",
-          "how_to_fix": "Remediate \"Identify CDN/WAF and hunt for origin IPs\" by applying vendor and CIS/OWASP hardening guidance for Domain & Infrastructure Footprinting — IP Ranges, ASN & Exposed Services. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_fix": "Assign an owner for identify cdn/waf and hunt for origin ips, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Shodan",
             "Censys",
@@ -352,10 +352,10 @@
       "items": [
         {
           "title": "Fingerprint web technologies from public responses",
-          "description": "Identify CMS, frameworks, web servers, JS libraries, and analytics from response headers, HTML, and public technology-detection datasets. This is a defense-in-depth gap that improves overall resilience when fixed. Assessors should confirm the control in practice, not only on paper: Server/framework names and versions, CMS plugins/themes, and outdated components that map to known CVEs. Common tags: fingerprinting, tech-stack, recon.",
+          "description": "Identify CMS, frameworks, web servers, JS libraries, and analytics from response headers, HTML, and public technology-detection datasets. Good hygiene that pays off over time.",
           "severity": "low",
           "how_to_find": "Server/framework names and versions, CMS plugins/themes, and outdated components that map to known CVEs.",
-          "how_to_fix": "Remediate \"Fingerprint web technologies from public responses\" by applying vendor and CIS/OWASP hardening guidance for Domain & Infrastructure Footprinting — Technology Stack Fingerprinting. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_fix": "Assign an owner for fingerprint web technologies from public responses, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Wappalyzer",
             "SpiderFoot",
@@ -380,10 +380,10 @@
         },
         {
           "title": "Inventory third-party SaaS and dependencies",
-          "description": "Enumerate third-party services (payment, auth, support, marketing, CDNs) referenced in public assets to map supply-chain exposure. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: External script origins, OAuth providers, ticketing/support widgets, and SaaS subdomains that expand the trust boundary. Common tags: third-party, supply-chain, tech-stack.",
+          "description": "Enumerate third-party services (payment, auth, support, marketing, CDNs) referenced in public assets to map supply-chain exposure. Schedule remediation once higher-severity gaps are closed.",
           "severity": "medium",
           "how_to_find": "External script origins, OAuth providers, ticketing/support widgets, and SaaS subdomains that expand the trust boundary.",
-          "how_to_fix": "Remediate \"Inventory third-party SaaS and dependencies\" by applying vendor and CIS/OWASP hardening guidance for Domain & Infrastructure Footprinting — Technology Stack Fingerprinting. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_fix": "Assign an owner for inventory third-party saas and dependencies, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Wappalyzer",
             "SpiderFoot",
@@ -408,10 +408,10 @@
         },
         {
           "title": "Determine hosting and cloud provider footprint",
-          "description": "Attribute hosts to AWS/Azure/GCP/on-prem via IP ranges, certificates, and CNAME patterns to inform cloud-specific recon. This is a defense-in-depth gap that improves overall resilience when fixed. Assessors should confirm the control in practice, not only on paper: Which provider(s) host production vs staging, regional spread, and provider-specific service names that reveal architecture. Common tags: cloud, hosting, tech-stack.",
+          "description": "Attribute hosts to AWS/Azure/GCP/on-prem via IP ranges, certificates, and CNAME patterns to inform cloud-specific recon. Good hygiene that pays off over time.",
           "severity": "low",
           "how_to_find": "Which provider(s) host production vs staging, regional spread, and provider-specific service names that reveal architecture.",
-          "how_to_fix": "Remediate \"Determine hosting and cloud provider footprint\" by applying vendor and CIS/OWASP hardening guidance for Domain & Infrastructure Footprinting — Technology Stack Fingerprinting. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_fix": "Assign an owner for determine hosting and cloud provider footprint, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Shodan",
             "Censys",
@@ -433,10 +433,10 @@
         },
         {
           "title": "Correlate detected versions to known CVEs",
-          "description": "Map fingerprinted component versions to public vulnerability databases to prioritize likely-vulnerable surfaces — passively, from disclosed data. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Outdated/EOL components with public exploits; record candidate CVEs for later authorized active validation, not exploitation during recon. Common tags: cve, tech-stack, vulnerability-intel.",
+          "description": "Map fingerprinted component versions to public vulnerability databases to prioritize likely-vulnerable surfaces — passively, from disclosed data. Schedule remediation once higher-severity gaps are closed.",
           "severity": "medium",
           "how_to_find": "Outdated/EOL components with public exploits; record candidate CVEs for later authorized active validation, not exploitation during recon.",
-          "how_to_fix": "Remediate \"Correlate detected versions to known CVEs\" by applying vendor and CIS/OWASP hardening guidance for Domain & Infrastructure Footprinting — Technology Stack Fingerprinting. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_fix": "Assign an owner for correlate detected versions to known cves, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Wappalyzer",
             "SpiderFoot",
@@ -466,10 +466,10 @@
       "items": [
         {
           "title": "Enumerate employees from LinkedIn and professional sites",
-          "description": "Build a roster of current employees, titles, and departments from LinkedIn and similar public professional networks. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Names, roles (especially IT/security/admin/finance), tenure, and technologies named in profiles that reveal the internal stack. Common tags: employees, linkedin, people.",
+          "description": "Build a roster of current employees, titles, and departments from LinkedIn and similar public professional networks. Schedule remediation once higher-severity gaps are closed.",
           "severity": "medium",
           "how_to_find": "Names, roles (especially IT/security/admin/finance), tenure, and technologies named in profiles that reveal the internal stack.",
-          "how_to_fix": "Remediate \"Enumerate employees from LinkedIn and professional sites\" by applying vendor and CIS/OWASP hardening guidance for People & Organization — Employee & Org Enumeration. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_fix": "Assign an owner for enumerate employees from linkedin and professional sites, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "theHarvester",
             "SpiderFoot",
@@ -494,10 +494,10 @@
         },
         {
           "title": "Map organizational structure and key personnel",
-          "description": "Reconstruct reporting lines and identify high-value targets (executives, sysadmins, helpdesk) useful for social-engineering scenarios. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Decision-makers, IT/security staff, and helpdesk/support roles likely to be impersonated or targeted in phishing. Common tags: org-structure, people, social-engineering.",
+          "description": "Reconstruct reporting lines and identify high-value targets (executives, sysadmins, helpdesk) useful for social-engineering scenarios. Schedule remediation once higher-severity gaps are closed.",
           "severity": "medium",
           "how_to_find": "Decision-makers, IT/security staff, and helpdesk/support roles likely to be impersonated or targeted in phishing.",
-          "how_to_fix": "Remediate \"Map organizational structure and key personnel\" by applying vendor and CIS/OWASP hardening guidance for People & Organization — Employee & Org Enumeration. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_fix": "Assign an owner for map organizational structure and key personnel, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "SpiderFoot",
             "theHarvester",
@@ -518,10 +518,10 @@
         },
         {
           "title": "Identify technical staff and disclosed tooling",
-          "description": "Find engineers/DevOps/security staff whose public profiles, talks, or job posts disclose internal technologies, vendors, and processes. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Stack details from resumes/job listings (languages, cloud, security tools), conference talks, and OSS contributions tied to the org. Common tags: employees, tech-stack, job-postings.",
+          "description": "Find engineers/DevOps/security staff whose public profiles, talks, or job posts disclose internal technologies, vendors, and processes. Schedule remediation once higher-severity gaps are closed.",
           "severity": "medium",
           "how_to_find": "Stack details from resumes/job listings (languages, cloud, security tools), conference talks, and OSS contributions tied to the org.",
-          "how_to_fix": "Remediate \"Identify technical staff and disclosed tooling\" by applying vendor and CIS/OWASP hardening guidance for People & Organization — Employee & Org Enumeration. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_fix": "Assign an owner for identify technical staff and disclosed tooling, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "theHarvester",
             "SpiderFoot",
@@ -542,10 +542,10 @@
         },
         {
           "title": "Compile a candidate phishing/target list",
-          "description": "Consolidate employee data (name, role, email, location) into a prioritized list of likely social-engineering targets for the engagement scope. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: High-value targets with verified emails and roles; ensure list stays within authorized engagement scope and legal boundaries. Common tags: phishing, people, targeting.",
+          "description": "Consolidate employee data (name, role, email, location) into a prioritized list of likely social-engineering targets for the engagement scope. Worth prioritising in your next assessment cycle.",
           "severity": "high",
           "how_to_find": "High-value targets with verified emails and roles; ensure list stays within authorized engagement scope and legal boundaries.",
-          "how_to_fix": "Remediate \"Compile a candidate phishing/target list\" by applying vendor and CIS/OWASP hardening guidance for People & Organization — Employee & Org Enumeration. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_fix": "Assign an owner for compile a candidate phishing/target list, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "theHarvester",
             "SpiderFoot"
@@ -574,10 +574,10 @@
       "items": [
         {
           "title": "Derive the corporate email naming convention",
-          "description": "Determine the email format (first.last, flast, etc.) from harvested addresses so any employee name can be converted to a probable address. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirmed pattern across multiple known addresses, plus any exceptions for shared/role accounts (info@, hr@, security@). Common tags: email, harvesting, people.",
+          "description": "Determine the email format (first.last, flast, etc.) from harvested addresses so any employee name can be converted to a probable address. Schedule remediation once higher-severity gaps are closed.",
           "severity": "medium",
-          "how_to_find": "Confirmed pattern across multiple known addresses, plus any exceptions for shared/role accounts (info@, hr@, security@).",
-          "how_to_fix": "Remediate \"Derive the corporate email naming convention\" by applying vendor and CIS/OWASP hardening guidance for People & Organization — Email Pattern & Contact Harvesting. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_find": "People & Organization — Email Pattern & Contact Harvesting: Confirmed pattern across multiple known addresses, plus any exceptions for shared/role accounts (info@, hr@, security@)",
+          "how_to_fix": "Assign an owner for derive the corporate email naming convention, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "theHarvester",
             "hunter.io",
@@ -602,10 +602,10 @@
         },
         {
           "title": "Harvest published email addresses",
-          "description": "Collect email addresses exposed in search engines, websites, PGP keyservers, and document metadata to seed the address list. This is a defense-in-depth gap that improves overall resilience when fixed. Assessors should confirm the control in practice, not only on paper: Valid addresses with sources, role accounts, and any personal addresses tied to staff that broaden the contact map. Common tags: email, harvesting, recon.",
+          "description": "Collect email addresses exposed in search engines, websites, PGP keyservers, and document metadata to seed the address list. Good hygiene that pays off over time.",
           "severity": "low",
           "how_to_find": "Valid addresses with sources, role accounts, and any personal addresses tied to staff that broaden the contact map.",
-          "how_to_fix": "Remediate \"Harvest published email addresses\" by applying vendor and CIS/OWASP hardening guidance for People & Organization — Email Pattern & Contact Harvesting. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_fix": "Assign an owner for harvest published email addresses, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "theHarvester",
             "SpiderFoot",
@@ -626,10 +626,10 @@
         },
         {
           "title": "Validate addresses against breach/presence data",
-          "description": "Check harvested addresses for existence on services and breach corpora (without active SMTP probing of the target) to confirm live accounts. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Which addresses are confirmed real and registered to external services — useful both for targeting and breach-exposure correlation. Common tags: email, validation, breach.",
+          "description": "Check harvested addresses for existence on services and breach corpora (without active SMTP probing of the target) to confirm live accounts. Schedule remediation once higher-severity gaps are closed.",
           "severity": "medium",
-          "how_to_find": "Which addresses are confirmed real and registered to external services — useful both for targeting and breach-exposure correlation.",
-          "how_to_fix": "Remediate \"Validate addresses against breach/presence data\" by applying vendor and CIS/OWASP hardening guidance for People & Organization — Email Pattern & Contact Harvesting. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_find": "People & Organization — Email Pattern & Contact Harvesting: Which addresses are confirmed real and registered to external services — useful both for targeting and breach-exposure correlation",
+          "how_to_fix": "Assign an owner for validate addresses against breach/presence data, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "holehe",
             "dehashed",
@@ -654,10 +654,10 @@
         },
         {
           "title": "Assess email spoofing posture (SPF/DKIM/DMARC)",
-          "description": "Review published SPF, DKIM, and DMARC records to gauge how easily the domain can be spoofed in phishing — all from public DNS. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Missing/weak DMARC (p=none), permissive SPF (~all), and absent DKIM that make spoofing trivial against the org's users. Common tags: email, spoofing, dmarc, phishing.",
+          "description": "Review published SPF, DKIM, and DMARC records to gauge how easily the domain can be spoofed in phishing — all from public DNS. Worth prioritising in your next assessment cycle.",
           "severity": "high",
           "how_to_find": "Missing/weak DMARC (p=none), permissive SPF (~all), and absent DKIM that make spoofing trivial against the org's users.",
-          "how_to_fix": "Remediate \"Assess email spoofing posture (SPF/DKIM/DMARC)\" by applying vendor and CIS/OWASP hardening guidance for People & Organization — Email Pattern & Contact Harvesting. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_fix": "Assign an owner for assess email spoofing posture (spf/dkim/dmarc), apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "dig",
             "SpiderFoot"
@@ -687,10 +687,10 @@
       "items": [
         {
           "title": "Enumerate employee and org social accounts",
-          "description": "Discover official and personal social-media accounts (X, Facebook, Instagram, GitHub, etc.) tied to the org and its staff. This is a defense-in-depth gap that improves overall resilience when fixed. Assessors should confirm the control in practice, not only on paper: Account handles, cross-platform username reuse, and links between personal and work identities that aid pretexting. Common tags: social-media, people, recon.",
+          "description": "Discover official and personal social-media accounts (X, Facebook, Instagram, GitHub, etc.) tied to the org and its staff. Good hygiene that pays off over time.",
           "severity": "low",
           "how_to_find": "Account handles, cross-platform username reuse, and links between personal and work identities that aid pretexting.",
-          "how_to_fix": "Remediate \"Enumerate employee and org social accounts\" by applying vendor and CIS/OWASP hardening guidance for People & Organization — Social-Media Intelligence. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_fix": "Assign an owner for enumerate employee and org social accounts, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "sherlock",
             "SpiderFoot",
@@ -711,10 +711,10 @@
         },
         {
           "title": "Extract metadata from posted media",
-          "description": "Analyze publicly posted photos/files for EXIF/geolocation and background details that leak physical locations, badges, or screens. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: GPS coordinates in EXIF, visible badges/whiteboards/monitors in office photos, and device/software hints in metadata. Common tags: social-media, metadata, exif.",
+          "description": "Analyze publicly posted photos/files for EXIF/geolocation and background details that leak physical locations, badges, or screens. Schedule remediation once higher-severity gaps are closed.",
           "severity": "medium",
           "how_to_find": "GPS coordinates in EXIF, visible badges/whiteboards/monitors in office photos, and device/software hints in metadata.",
-          "how_to_fix": "Remediate \"Extract metadata from posted media\" by applying vendor and CIS/OWASP hardening guidance for People & Organization — Social-Media Intelligence. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_fix": "Assign an owner for extract metadata from posted media, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "exiftool",
             "SpiderFoot"
@@ -738,10 +738,10 @@
         },
         {
           "title": "Build behavioral and interest profiles",
-          "description": "Profile interests, schedules, and relationships from public posts to craft credible social-engineering pretexts within scope. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Routines (travel, events), interests, and trust relationships usable for pretexting — kept strictly within engagement rules. Common tags: social-media, profiling, social-engineering.",
+          "description": "Profile interests, schedules, and relationships from public posts to craft credible social-engineering pretexts within scope. Schedule remediation once higher-severity gaps are closed.",
           "severity": "medium",
           "how_to_find": "Routines (travel, events), interests, and trust relationships usable for pretexting — kept strictly within engagement rules.",
-          "how_to_fix": "Remediate \"Build behavioral and interest profiles\" by applying vendor and CIS/OWASP hardening guidance for People & Organization — Social-Media Intelligence. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_fix": "Assign an owner for build behavioral and interest profiles, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "SpiderFoot",
             "sherlock"
@@ -761,10 +761,10 @@
         },
         {
           "title": "Hunt for sensitive disclosures in posts",
-          "description": "Search public posts for inadvertent disclosures — screenshots with credentials, internal URLs, system names, or project details. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Leaked internal hostnames, tooling, credentials in screenshots, or project codenames that expand intel on the environment. Common tags: social-media, data-leak, recon.",
+          "description": "Search public posts for inadvertent disclosures — screenshots with credentials, internal URLs, system names, or project details. Worth prioritising in your next assessment cycle.",
           "severity": "high",
           "how_to_find": "Leaked internal hostnames, tooling, credentials in screenshots, or project codenames that expand intel on the environment.",
-          "how_to_fix": "Remediate \"Hunt for sensitive disclosures in posts\" by applying vendor and CIS/OWASP hardening guidance for People & Organization — Social-Media Intelligence. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_fix": "Assign an owner for hunt for sensitive disclosures in posts, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "SpiderFoot",
             "exiftool"
@@ -793,10 +793,10 @@
       "items": [
         {
           "title": "Search breach corpora for target email/domain hits",
-          "description": "Query breach-aggregation services for accounts at the target domain that appear in known data breaches. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Which corporate accounts appear in breaches, the breach sources/dates, and whether plaintext or hashed passwords are included. Common tags: breach, credentials, exposure.",
+          "description": "Query breach-aggregation services for accounts at the target domain that appear in known data breaches. Worth prioritising in your next assessment cycle.",
           "severity": "high",
           "how_to_find": "Which corporate accounts appear in breaches, the breach sources/dates, and whether plaintext or hashed passwords are included.",
-          "how_to_fix": "Remediate \"Search breach corpora for target email/domain hits\" by applying vendor and CIS/OWASP hardening guidance for Credential & Breach Exposure — Breach Corpora & Paste Sites. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_fix": "Assign an owner for search breach corpora for target email/domain hits, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "dehashed",
             "SpiderFoot",
@@ -821,10 +821,10 @@
         },
         {
           "title": "Identify plaintext or cracked passwords in leaks",
-          "description": "Determine whether leaked records expose usable plaintext (or already-cracked) passwords for target accounts. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: Plaintext/cracked passwords mapped to corporate accounts, and any password reuse patterns visible across multiple leaks. Common tags: breach, plaintext-password, credentials.",
+          "description": "Determine whether leaked records expose usable plaintext (or already-cracked) passwords for target accounts. Treat failures here as release blockers.",
           "severity": "critical",
           "how_to_find": "Plaintext/cracked passwords mapped to corporate accounts, and any password reuse patterns visible across multiple leaks.",
-          "how_to_fix": "Remediate \"Identify plaintext or cracked passwords in leaks\" by applying vendor and CIS/OWASP hardening guidance for Credential & Breach Exposure — Breach Corpora & Paste Sites. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_fix": "Assign an owner for identify plaintext or cracked passwords in leaks, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "dehashed",
             "SpiderFoot"
@@ -848,10 +848,10 @@
         },
         {
           "title": "Monitor paste sites for leaked target data",
-          "description": "Search paste sites (Pastebin and mirrors) for dumps containing target emails, credentials, configs, or internal data. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Pasted credential dumps, config/secret leaks, and internal documents referencing the target, with capture of source and timestamp. Common tags: paste-sites, data-leak, breach.",
+          "description": "Search paste sites (Pastebin and mirrors) for dumps containing target emails, credentials, configs, or internal data. Worth prioritising in your next assessment cycle.",
           "severity": "high",
           "how_to_find": "Pasted credential dumps, config/secret leaks, and internal documents referencing the target, with capture of source and timestamp.",
-          "how_to_fix": "Remediate \"Monitor paste sites for leaked target data\" by applying vendor and CIS/OWASP hardening guidance for Credential & Breach Exposure — Breach Corpora & Paste Sites. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_fix": "Assign an owner for monitor paste sites for leaked target data, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "SpiderFoot",
             "dehashed"
@@ -871,10 +871,10 @@
         },
         {
           "title": "Catalog exposed PII and secondary identifiers",
-          "description": "Record exposed PII (phones, addresses, security-question answers) that supports account recovery abuse or deeper targeting. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: PII usable for password resets / account recovery and identity verification bypass; treat as sensitive and scope-restricted. Common tags: breach, pii, exposure.",
+          "description": "Record exposed PII (phones, addresses, security-question answers) that supports account recovery abuse or deeper targeting. Schedule remediation once higher-severity gaps are closed.",
           "severity": "medium",
           "how_to_find": "PII usable for password resets / account recovery and identity verification bypass; treat as sensitive and scope-restricted.",
-          "how_to_fix": "Remediate \"Catalog exposed PII and secondary identifiers\" by applying vendor and CIS/OWASP hardening guidance for Credential & Breach Exposure — Breach Corpora & Paste Sites. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_fix": "Assign an owner for catalog exposed pii and secondary identifiers, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "dehashed",
             "SpiderFoot",
@@ -904,10 +904,10 @@
       "items": [
         {
           "title": "Assess relevance of exposed creds to live login surfaces",
-          "description": "Map breached credentials to the target's identified login portals (VPN, webmail, SSO) to gauge credential-stuffing risk. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Whether breached corporate emails align with discovered login endpoints; document candidate surfaces without active testing. Common tags: credential-stuffing, auth, breach.",
+          "description": "Map breached credentials to the target's identified login portals (VPN, webmail, SSO) to gauge credential-stuffing risk. Worth prioritising in your next assessment cycle.",
           "severity": "high",
-          "how_to_find": "Whether breached corporate emails align with discovered login endpoints; document candidate surfaces without active testing.",
-          "how_to_fix": "Remediate \"Assess relevance of exposed creds to live login surfaces\" by applying vendor and CIS/OWASP hardening guidance for Credential & Breach Exposure — Credential-Stuffing Intelligence. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_find": "Credential & Breach Exposure — Credential-Stuffing Intelligence: Whether breached corporate emails align with discovered login endpoints; document candidate surfaces without active testing",
+          "how_to_fix": "Assign an owner for assess relevance of exposed creds to live login surfaces, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "dehashed",
             "SpiderFoot"
@@ -931,10 +931,10 @@
         },
         {
           "title": "Identify password-reuse and reset patterns",
-          "description": "Analyze leaked passwords for reuse across services and predictable patterns (season+year, company name) informing spray candidates. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Reuse across breaches and obvious password patterns; build a prioritized, scope-bound candidate list — never spray during passive recon. Common tags: credential-stuffing, password-reuse, breach.",
+          "description": "Analyze leaked passwords for reuse across services and predictable patterns (season+year, company name) informing spray candidates. Schedule remediation once higher-severity gaps are closed.",
           "severity": "medium",
           "how_to_find": "Reuse across breaches and obvious password patterns; build a prioritized, scope-bound candidate list — never spray during passive recon.",
-          "how_to_fix": "Remediate \"Identify password-reuse and reset patterns\" by applying vendor and CIS/OWASP hardening guidance for Credential & Breach Exposure — Credential-Stuffing Intelligence. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_fix": "Assign an owner for identify password-reuse and reset patterns, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "dehashed",
             "SpiderFoot"
@@ -954,10 +954,10 @@
         },
         {
           "title": "Determine MFA coverage on exposed accounts",
-          "description": "From public/breach signals, infer which login surfaces enforce MFA so the team understands residual risk of exposed credentials. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Login portals lacking enforced MFA where exposed credentials would be directly usable; record as a control gap. Common tags: credential-stuffing, mfa, auth.",
+          "description": "From public/breach signals, infer which login surfaces enforce MFA so the team understands residual risk of exposed credentials. Worth prioritising in your next assessment cycle.",
           "severity": "high",
           "how_to_find": "Login portals lacking enforced MFA where exposed credentials would be directly usable; record as a control gap.",
-          "how_to_fix": "Remediate \"Determine MFA coverage on exposed accounts\" by applying vendor and CIS/OWASP hardening guidance for Credential & Breach Exposure — Credential-Stuffing Intelligence. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_fix": "Assign an owner for determine mfa coverage on exposed accounts, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "SpiderFoot",
             "Shodan"
@@ -977,10 +977,10 @@
         },
         {
           "title": "Check stealer-log / infostealer exposure",
-          "description": "Search for target accounts appearing in infostealer log dumps, which often include fresh, valid session and credential data. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: Presence in stealer logs (cookies, tokens, plaintext creds) indicating active compromise risk far beyond historical breaches. Common tags: credential-stuffing, infostealer, breach.",
+          "description": "Search for target accounts appearing in infostealer log dumps, which often include fresh, valid session and credential data. Treat failures here as release blockers.",
           "severity": "critical",
           "how_to_find": "Presence in stealer logs (cookies, tokens, plaintext creds) indicating active compromise risk far beyond historical breaches.",
-          "how_to_fix": "Remediate \"Check stealer-log / infostealer exposure\" by applying vendor and CIS/OWASP hardening guidance for Credential & Breach Exposure — Credential-Stuffing Intelligence. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_fix": "Assign an owner for check stealer-log / infostealer exposure, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "dehashed",
             "SpiderFoot"
@@ -1009,10 +1009,10 @@
       "items": [
         {
           "title": "Dork public repos for the org and its assets",
-          "description": "Search GitHub/GitLab for repositories, gists, and files referencing the target's domains, internal hostnames, or product names. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Public/forked repos by employees, gists, and code referencing internal systems that expose architecture or configuration. Common tags: github, dorking, code-leak.",
+          "description": "Search GitHub/GitLab for repositories, gists, and files referencing the target's domains, internal hostnames, or product names. Worth prioritising in your next assessment cycle.",
           "severity": "high",
           "how_to_find": "Public/forked repos by employees, gists, and code referencing internal systems that expose architecture or configuration.",
-          "how_to_fix": "Remediate \"Dork public repos for the org and its assets\" by applying vendor and CIS/OWASP hardening guidance for Code & Document Leakage — Public Code & Secret Leakage. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_fix": "Assign an owner for dork public repos for the org and its assets, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "trufflehog",
             "gitleaks",
@@ -1038,10 +1038,10 @@
         },
         {
           "title": "Scan discovered repos for hardcoded secrets",
-          "description": "Run secret scanners over public repos/history to find API keys, tokens, passwords, and private keys committed by mistake. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: Live API keys, cloud credentials, private keys, and DB strings in code or git history (including deleted-but-present commits). Common tags: github, secrets, code-leak.",
+          "description": "Run secret scanners over public repos/history to find API keys, tokens, passwords, and private keys committed by mistake. Treat failures here as release blockers.",
           "severity": "critical",
-          "how_to_find": "Live API keys, cloud credentials, private keys, and DB strings in code or git history (including deleted-but-present commits).",
-          "how_to_fix": "Remediate \"Scan discovered repos for hardcoded secrets\" by applying vendor and CIS/OWASP hardening guidance for Code & Document Leakage — Public Code & Secret Leakage. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_find": "Code & Document Leakage — Public Code & Secret Leakage: Run secret scanners over public repos/history to find API keys, tokens, passwords, and private keys committed by mistake",
+          "how_to_fix": "Assign an owner for scan discovered repos for hardcoded secrets, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "trufflehog",
             "gitleaks"
@@ -1065,10 +1065,10 @@
         },
         {
           "title": "Inspect commit history and deleted content",
-          "description": "Review full git history (not just HEAD) for secrets that were \"removed\" in later commits but remain recoverable from history. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Secrets present in historical commits/branches/tags even when scrubbed from the current tree; rotate-status of any keys found. Common tags: github, git-history, secrets.",
+          "description": "Review full git history (not just HEAD) for secrets that were \"removed\" in later commits but remain recoverable from history. Worth prioritising in your next assessment cycle.",
           "severity": "high",
           "how_to_find": "Secrets present in historical commits/branches/tags even when scrubbed from the current tree; rotate-status of any keys found.",
-          "how_to_fix": "Remediate \"Inspect commit history and deleted content\" by applying vendor and CIS/OWASP hardening guidance for Code & Document Leakage — Public Code & Secret Leakage. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_fix": "Assign an owner for inspect commit history and deleted content, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "trufflehog",
             "gitleaks"
@@ -1088,10 +1088,10 @@
         },
         {
           "title": "Find leaked config and CI/CD secrets",
-          "description": "Look for exposed config files, environment files, and CI/CD pipeline definitions that disclose endpoints, hosts, and embedded secrets. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Committed .env, config, or CI files with internal URLs, service accounts, and pipeline tokens usable to pivot into the environment. Common tags: github, config-leak, cicd.",
+          "description": "Look for exposed config files, environment files, and CI/CD pipeline definitions that disclose endpoints, hosts, and embedded secrets. Worth prioritising in your next assessment cycle.",
           "severity": "high",
           "how_to_find": "Committed .env, config, or CI files with internal URLs, service accounts, and pipeline tokens usable to pivot into the environment.",
-          "how_to_fix": "Remediate \"Find leaked config and CI/CD secrets\" by applying vendor and CIS/OWASP hardening guidance for Code & Document Leakage — Public Code & Secret Leakage. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_fix": "Assign an owner for find leaked config and ci/cd secrets, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "trufflehog",
             "gitleaks",
@@ -1121,10 +1121,10 @@
       "items": [
         {
           "title": "Discover public documents tied to the target",
-          "description": "Find publicly hosted documents (PDF, DOCX, XLSX, PPTX) indexed in search engines or linked from the org's sites. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Inventory of public files, especially internal-looking documents (HR, finance, technical) that should not be exposed. Common tags: documents, metadata, recon.",
+          "description": "Find publicly hosted documents (PDF, DOCX, XLSX, PPTX) indexed in search engines or linked from the org's sites. Schedule remediation once higher-severity gaps are closed.",
           "severity": "medium",
           "how_to_find": "Inventory of public files, especially internal-looking documents (HR, finance, technical) that should not be exposed.",
-          "how_to_fix": "Remediate \"Discover public documents tied to the target\" by applying vendor and CIS/OWASP hardening guidance for Code & Document Leakage — Document Metadata & Exposed Files. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_fix": "Assign an owner for discover public documents tied to the target, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "metagoofil",
             "theHarvester",
@@ -1149,10 +1149,10 @@
         },
         {
           "title": "Extract metadata (authors, software, paths)",
-          "description": "Parse document metadata for usernames, internal file paths, software versions, printer names, and timestamps. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Internal usernames (for email/AD format), software versions (CVE mapping), UNC/file paths, and device names leaking infrastructure. Common tags: documents, metadata, exif.",
+          "description": "Parse document metadata for usernames, internal file paths, software versions, printer names, and timestamps. Schedule remediation once higher-severity gaps are closed.",
           "severity": "medium",
           "how_to_find": "Internal usernames (for email/AD format), software versions (CVE mapping), UNC/file paths, and device names leaking infrastructure.",
-          "how_to_fix": "Remediate \"Extract metadata (authors, software, paths)\" by applying vendor and CIS/OWASP hardening guidance for Code & Document Leakage — Document Metadata & Exposed Files. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_fix": "Assign an owner for extract metadata (authors, software, paths), apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "exiftool",
             "metagoofil"
@@ -1176,10 +1176,10 @@
         },
         {
           "title": "Identify inadvertently exposed sensitive files",
-          "description": "Flag exposed backups, spreadsheets, and exports containing credentials, PII, or internal data that should not be public. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Exposed backups/exports with secrets or PII, default-indexed directories, and documents marked internal/confidential. Common tags: documents, data-leak, exposure.",
+          "description": "Flag exposed backups, spreadsheets, and exports containing credentials, PII, or internal data that should not be public. Worth prioritising in your next assessment cycle.",
           "severity": "high",
           "how_to_find": "Exposed backups/exports with secrets or PII, default-indexed directories, and documents marked internal/confidential.",
-          "how_to_fix": "Remediate \"Identify inadvertently exposed sensitive files\" by applying vendor and CIS/OWASP hardening guidance for Code & Document Leakage — Document Metadata & Exposed Files. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_fix": "Assign an owner for identify inadvertently exposed sensitive files, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "metagoofil",
             "SpiderFoot"
@@ -1199,10 +1199,10 @@
         },
         {
           "title": "Build a username map from document authorship",
-          "description": "Aggregate authorship/creator metadata across documents to derive the internal username convention and active-user list. This is a defense-in-depth gap that improves overall resilience when fixed. Assessors should confirm the control in practice, not only on paper: Consistent username format and an enumerated user list that supports email-format derivation and later authorized auth testing. Common tags: documents, username-enum, metadata.",
+          "description": "Aggregate authorship/creator metadata across documents to derive the internal username convention and active-user list. Good hygiene that pays off over time.",
           "severity": "low",
-          "how_to_find": "Consistent username format and an enumerated user list that supports email-format derivation and later authorized auth testing.",
-          "how_to_fix": "Remediate \"Build a username map from document authorship\" by applying vendor and CIS/OWASP hardening guidance for Code & Document Leakage — Document Metadata & Exposed Files. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_find": "Code & Document Leakage — Document Metadata & Exposed Files: Consistent username format and an enumerated user list that supports email-format derivation and later authorized auth testing",
+          "how_to_fix": "Assign an owner for build a username map from document authorship, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "metagoofil",
             "exiftool",
@@ -1228,10 +1228,10 @@
       "items": [
         {
           "title": "Dork for exposed files and directory listings",
-          "description": "Use operators (site:, filetype:, intitle:index.of) to surface indexed sensitive files and open directory listings. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Indexed config/backup/log files, open directory listings, and sensitive filetypes that should not be publicly searchable. Common tags: google-dorking, data-leak, recon.",
+          "description": "Use operators (site:, filetype:, intitle:index.of) to surface indexed sensitive files and open directory listings. Schedule remediation once higher-severity gaps are closed.",
           "severity": "medium",
           "how_to_find": "Indexed config/backup/log files, open directory listings, and sensitive filetypes that should not be publicly searchable.",
-          "how_to_fix": "Remediate \"Dork for exposed files and directory listings\" by applying vendor and CIS/OWASP hardening guidance for Code & Document Leakage — Search-Engine Dorking. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_fix": "Assign an owner for dork for exposed files and directory listings, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "recon-ng",
             "SpiderFoot"
@@ -1255,10 +1255,10 @@
         },
         {
           "title": "Locate exposed login panels and admin interfaces",
-          "description": "Dork for indexed admin/login/console pages (inurl:admin, intitle:login) that reveal entry points to the environment. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Indexed admin/login portals, device management UIs, and default panels that broaden the authenticated attack surface. Common tags: google-dorking, login-panels, recon.",
+          "description": "Dork for indexed admin/login/console pages (inurl:admin, intitle:login) that reveal entry points to the environment. Schedule remediation once higher-severity gaps are closed.",
           "severity": "medium",
           "how_to_find": "Indexed admin/login portals, device management UIs, and default panels that broaden the authenticated attack surface.",
-          "how_to_fix": "Remediate \"Locate exposed login panels and admin interfaces\" by applying vendor and CIS/OWASP hardening guidance for Code & Document Leakage — Search-Engine Dorking. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_fix": "Assign an owner for locate exposed login panels and admin interfaces, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "recon-ng",
             "SpiderFoot",
@@ -1283,10 +1283,10 @@
         },
         {
           "title": "Find error messages and info disclosure via dorks",
-          "description": "Search for indexed pages leaking stack traces, SQL errors, version strings, or debug output that disclose internals. This is a defense-in-depth gap that improves overall resilience when fixed. Assessors should confirm the control in practice, not only on paper: Indexed error pages exposing software versions, paths, queries, or secrets that aid targeting and CVE mapping. Common tags: google-dorking, info-disclosure, recon.",
+          "description": "Search for indexed pages leaking stack traces, SQL errors, version strings, or debug output that disclose internals. Good hygiene that pays off over time.",
           "severity": "low",
           "how_to_find": "Indexed error pages exposing software versions, paths, queries, or secrets that aid targeting and CVE mapping.",
-          "how_to_fix": "Remediate \"Find error messages and info disclosure via dorks\" by applying vendor and CIS/OWASP hardening guidance for Code & Document Leakage — Search-Engine Dorking. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_fix": "Assign an owner for find error messages and info disclosure via dorks, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "recon-ng",
             "SpiderFoot"
@@ -1306,10 +1306,10 @@
         },
         {
           "title": "Mine web archives and cached pages",
-          "description": "Use the Wayback Machine and search-engine caches to recover removed pages, old endpoints, and previously exposed data. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Archived endpoints/parameters, removed sensitive pages, and historical content that still informs the current attack surface. Common tags: google-dorking, wayback, recon.",
+          "description": "Use the Wayback Machine and search-engine caches to recover removed pages, old endpoints, and previously exposed data. Schedule remediation once higher-severity gaps are closed.",
           "severity": "medium",
           "how_to_find": "Archived endpoints/parameters, removed sensitive pages, and historical content that still informs the current attack surface.",
-          "how_to_fix": "Remediate \"Mine web archives and cached pages\" by applying vendor and CIS/OWASP hardening guidance for Code & Document Leakage — Search-Engine Dorking. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_fix": "Assign an owner for mine web archives and cached pages, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "waybackurls",
             "gau",
@@ -1339,10 +1339,10 @@
       "items": [
         {
           "title": "Enumerate candidate cloud storage buckets",
-          "description": "Derive likely bucket/container names from the org name, domains, and products, then check public listing/read status. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Existing buckets/containers attributable to the target and whether listing or anonymous read is enabled. Common tags: cloud, s3, buckets.",
+          "description": "Derive likely bucket/container names from the org name, domains, and products, then check public listing/read status. Worth prioritising in your next assessment cycle.",
           "severity": "high",
-          "how_to_find": "Existing buckets/containers attributable to the target and whether listing or anonymous read is enabled.",
-          "how_to_fix": "Remediate \"Enumerate candidate cloud storage buckets\" by applying vendor and CIS/OWASP hardening guidance for Exposed Assets & Cloud — Public Cloud Storage Discovery. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_find": "Exposed Assets & Cloud — Public Cloud Storage Discovery: Derive likely bucket/container names from the org name, domains, and products, then check public listing/read status",
+          "how_to_fix": "Assign an owner for enumerate candidate cloud storage buckets, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "cloud_enum",
             "S3Scanner",
@@ -1367,10 +1367,10 @@
         },
         {
           "title": "Identify publicly listable / readable buckets",
-          "description": "Determine which discovered buckets allow anonymous listing or object read, exposing the data inside. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: Buckets with public ListBucket/GetObject; capture an inventory of exposed objects without downloading sensitive data wholesale. Common tags: cloud, s3, exposure.",
+          "description": "Determine which discovered buckets allow anonymous listing or object read, exposing the data inside. Treat failures here as release blockers.",
           "severity": "critical",
           "how_to_find": "Buckets with public ListBucket/GetObject; capture an inventory of exposed objects without downloading sensitive data wholesale.",
-          "how_to_fix": "Remediate \"Identify publicly listable / readable buckets\" by applying vendor and CIS/OWASP hardening guidance for Exposed Assets & Cloud — Public Cloud Storage Discovery. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_fix": "Assign an owner for identify publicly listable / readable buckets, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "cloud_enum",
             "S3Scanner"
@@ -1394,10 +1394,10 @@
         },
         {
           "title": "Check Azure Blob and GCS exposure",
-          "description": "Extend bucket discovery to Azure Blob containers and Google Cloud Storage to cover multi-cloud footprints. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Public Azure containers and GCS buckets tied to the org, including those referenced indirectly by CNAMEs/static sites. Common tags: cloud, azure, gcs.",
+          "description": "Extend bucket discovery to Azure Blob containers and Google Cloud Storage to cover multi-cloud footprints. Worth prioritising in your next assessment cycle.",
           "severity": "high",
           "how_to_find": "Public Azure containers and GCS buckets tied to the org, including those referenced indirectly by CNAMEs/static sites.",
-          "how_to_fix": "Remediate \"Check Azure Blob and GCS exposure\" by applying vendor and CIS/OWASP hardening guidance for Exposed Assets & Cloud — Public Cloud Storage Discovery. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_fix": "Assign an owner for check azure blob and gcs exposure, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "cloud_enum",
             "SpiderFoot"
@@ -1421,10 +1421,10 @@
         },
         {
           "title": "Triage exposed object contents for sensitivity",
-          "description": "Assess the nature of exposed objects (backups, source, PII, secrets) to gauge real impact of the misconfiguration. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Presence of secrets/PII/backups/source in exposed storage; document object types and access level without exfiltrating in bulk. Common tags: cloud, data-leak, exposure.",
+          "description": "Assess the nature of exposed objects (backups, source, PII, secrets) to gauge real impact of the misconfiguration. Worth prioritising in your next assessment cycle.",
           "severity": "high",
           "how_to_find": "Presence of secrets/PII/backups/source in exposed storage; document object types and access level without exfiltrating in bulk.",
-          "how_to_fix": "Remediate \"Triage exposed object contents for sensitivity\" by applying vendor and CIS/OWASP hardening guidance for Exposed Assets & Cloud — Public Cloud Storage Discovery. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_fix": "Assign an owner for triage exposed object contents for sensitivity, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "cloud_enum",
             "S3Scanner",
@@ -1450,10 +1450,10 @@
       "items": [
         {
           "title": "Find exposed dashboards and management consoles",
-          "description": "Use scan-data search to find exposed admin dashboards (Kibana, Grafana, Jenkins, databases, Kubernetes) reachable from the internet. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Internet-exposed consoles, their auth state (open vs login), and versions; flag any unauthenticated dashboards as high risk. Common tags: exposed-services, dashboards, recon.",
+          "description": "Use scan-data search to find exposed admin dashboards (Kibana, Grafana, Jenkins, databases, Kubernetes) reachable from the internet. Worth prioritising in your next assessment cycle.",
           "severity": "high",
           "how_to_find": "Internet-exposed consoles, their auth state (open vs login), and versions; flag any unauthenticated dashboards as high risk.",
-          "how_to_fix": "Remediate \"Find exposed dashboards and management consoles\" by applying vendor and CIS/OWASP hardening guidance for Exposed Assets & Cloud — Exposed Dashboards & Dev/Staging. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_fix": "Assign an owner for find exposed dashboards and management consoles, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Shodan",
             "Censys",
@@ -1478,10 +1478,10 @@
         },
         {
           "title": "Discover dev/staging/test environments",
-          "description": "Identify non-production environments exposed publicly (dev., staging., uat., test.) that often have weaker controls. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Public dev/staging hosts, their differences from production (debug enabled, default creds, verbose errors), and data realism. Common tags: exposed-services, dev-staging, recon.",
+          "description": "Identify non-production environments exposed publicly (dev., staging., uat., test.) that often have weaker controls. Worth prioritising in your next assessment cycle.",
           "severity": "high",
-          "how_to_find": "Public dev/staging hosts, their differences from production (debug enabled, default creds, verbose errors), and data realism.",
-          "how_to_fix": "Remediate \"Discover dev/staging/test environments\" by applying vendor and CIS/OWASP hardening guidance for Exposed Assets & Cloud — Exposed Dashboards & Dev/Staging. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_find": "Exposed Assets & Cloud — Exposed Dashboards & Dev/Staging: Identify non-production environments exposed publicly (dev., staging., uat., test.) that often have weaker controls",
+          "how_to_fix": "Assign an owner for discover dev/staging/test environments, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "subfinder",
             "Shodan",
@@ -1507,10 +1507,10 @@
         },
         {
           "title": "Detect exposed databases and data stores",
-          "description": "Search scan data for internet-facing databases and caches (MongoDB, Elasticsearch, Redis, etc.) bound to public interfaces. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: Publicly reachable data stores, authentication state, and version/banner data indicating potentially open access. Common tags: exposed-services, databases, recon.",
+          "description": "Search scan data for internet-facing databases and caches (MongoDB, Elasticsearch, Redis, etc.) bound to public interfaces. Treat failures here as release blockers.",
           "severity": "critical",
           "how_to_find": "Publicly reachable data stores, authentication state, and version/banner data indicating potentially open access.",
-          "how_to_fix": "Remediate \"Detect exposed databases and data stores\" by applying vendor and CIS/OWASP hardening guidance for Exposed Assets & Cloud — Exposed Dashboards & Dev/Staging. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_fix": "Assign an owner for detect exposed databases and data stores, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Shodan",
             "Censys",
@@ -1535,10 +1535,10 @@
         },
         {
           "title": "Identify exposed IoT/OT and remote-access services",
-          "description": "Look for exposed remote-access (RDP, VNC, SSH) and IoT/OT/industrial devices attributable to the org via scan datasets. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Exposed RDP/VNC/SSH and IoT/ICS endpoints, their auth posture, and any default-credential or known-CVE indicators in banners. Common tags: exposed-services, iot, remote-access.",
+          "description": "Look for exposed remote-access (RDP, VNC, SSH) and IoT/OT/industrial devices attributable to the org via scan datasets. Worth prioritising in your next assessment cycle.",
           "severity": "high",
           "how_to_find": "Exposed RDP/VNC/SSH and IoT/ICS endpoints, their auth posture, and any default-credential or known-CVE indicators in banners.",
-          "how_to_fix": "Remediate \"Identify exposed IoT/OT and remote-access services\" by applying vendor and CIS/OWASP hardening guidance for Exposed Assets & Cloud — Exposed Dashboards & Dev/Staging. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_fix": "Assign an owner for identify exposed iot/ot and remote-access services, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Shodan",
             "Censys",
@@ -1568,10 +1568,10 @@
       "items": [
         {
           "title": "Establish continuous attack-surface monitoring",
-          "description": "Set up recurring discovery of new subdomains, IPs, and services so the external footprint stays current over the engagement. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: New assets appearing over time, change-over-baseline alerts, and coverage across domains/clouds to avoid blind spots. Common tags: monitoring, attack-surface, continuous.",
+          "description": "Set up recurring discovery of new subdomains, IPs, and services so the external footprint stays current over the engagement. Schedule remediation once higher-severity gaps are closed.",
           "severity": "medium",
           "how_to_find": "New assets appearing over time, change-over-baseline alerts, and coverage across domains/clouds to avoid blind spots.",
-          "how_to_fix": "Remediate \"Establish continuous attack-surface monitoring\" by applying vendor and CIS/OWASP hardening guidance for Exposed Assets & Cloud — Continuous Exposure Monitoring. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_fix": "Assign an owner for establish continuous attack-surface monitoring, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "SpiderFoot",
             "amass",
@@ -1596,10 +1596,10 @@
         },
         {
           "title": "Monitor certificate transparency for new hosts",
-          "description": "Subscribe to CT-log alerts for the target's domains to catch newly issued certificates revealing fresh infrastructure. This is a defense-in-depth gap that improves overall resilience when fixed. Assessors should confirm the control in practice, not only on paper: New SAN entries and wildcard issuances signaling new subdomains/environments shortly after they are created. Common tags: monitoring, certificate-transparency, continuous.",
+          "description": "Subscribe to CT-log alerts for the target's domains to catch newly issued certificates revealing fresh infrastructure. Good hygiene that pays off over time.",
           "severity": "low",
           "how_to_find": "New SAN entries and wildcard issuances signaling new subdomains/environments shortly after they are created.",
-          "how_to_fix": "Remediate \"Monitor certificate transparency for new hosts\" by applying vendor and CIS/OWASP hardening guidance for Exposed Assets & Cloud — Continuous Exposure Monitoring. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_fix": "Assign an owner for monitor certificate transparency for new hosts, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "crt.sh",
             "Censys",
@@ -1624,10 +1624,10 @@
         },
         {
           "title": "Set up breach and credential-exposure alerts",
-          "description": "Configure alerting on the target's domains/emails so newly published breach or paste data is flagged promptly. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Notifications on new breach hits, paste-site leaks, and stealer-log appearances for monitored domains and key accounts. Common tags: monitoring, breach, continuous.",
+          "description": "Configure alerting on the target's domains/emails so newly published breach or paste data is flagged promptly. Schedule remediation once higher-severity gaps are closed.",
           "severity": "medium",
           "how_to_find": "Notifications on new breach hits, paste-site leaks, and stealer-log appearances for monitored domains and key accounts.",
-          "how_to_fix": "Remediate \"Set up breach and credential-exposure alerts\" by applying vendor and CIS/OWASP hardening guidance for Exposed Assets & Cloud — Continuous Exposure Monitoring. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_fix": "Assign an owner for set up breach and credential-exposure alerts, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "HaveIBeenPwned",
             "dehashed",
@@ -1652,10 +1652,10 @@
         },
         {
           "title": "Monitor public code hosts for new secret leaks",
-          "description": "Continuously watch GitHub/GitLab for new commits/repos referencing the org that may leak secrets or sensitive code. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Newly committed secrets or sensitive references to the org as they are pushed, enabling fast detection and key rotation. Common tags: monitoring, github, continuous.",
+          "description": "Continuously watch GitHub/GitLab for new commits/repos referencing the org that may leak secrets or sensitive code. Worth prioritising in your next assessment cycle.",
           "severity": "high",
           "how_to_find": "Newly committed secrets or sensitive references to the org as they are pushed, enabling fast detection and key rotation.",
-          "how_to_fix": "Remediate \"Monitor public code hosts for new secret leaks\" by applying vendor and CIS/OWASP hardening guidance for Exposed Assets & Cloud — Continuous Exposure Monitoring. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "how_to_fix": "Assign an owner for monitor public code hosts for new secret leaks, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "trufflehog",
             "gitleaks",

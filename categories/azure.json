@@ -7,10 +7,10 @@
       "items": [
         {
           "title": "MFA enforced for privileged roles",
-          "description": "Require MFA for Global Admin, Security Admin, and privileged roles. This control is evaluated under \"Identity and Access (Azure AD / Entra ID)\" during security assessments. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Document affected assets, evidence, and business owners when reporting.",
+          "description": "Require MFA for Global Admin, Security Admin, and privileged roles. Validate this in Azure subscriptions, under Identity and Access (Azure AD / Entra ID). Treat failures here as release blockers.",
           "severity": "critical",
-          "how_to_find": "AZURE portal → Identity and Access (Azure AD / Entra ID). Audit configuration against \"MFA enforced for privileged roles\". CLI: use `az` to list resources and IAM bindings. Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings.",
-          "how_to_fix": "Require MFA for Global Admin, Security Admin, and privileged roles. Apply CIS benchmark controls: least-privilege IAM, private endpoints, encryption with customer-managed keys, centralized logging, and alert rules for policy changes. Document exceptions and set remediation SLAs by severity.",
+          "how_to_find": "Identity and Access (Azure AD / Entra ID): Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings",
+          "how_to_fix": "Assign an owner for mfa enforced for privileged roles, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Microsoft Defender for Cloud",
             "Azure CLI",
@@ -30,10 +30,10 @@
         },
         {
           "title": "Conditional Access policies",
-          "description": "Block legacy auth, require compliant devices, and restrict risky sign-ins. This control is evaluated under \"Identity and Access (Azure AD / Entra ID)\" during security assessments. Fixing this improves defense-in-depth and long-term resilience. Document affected assets, evidence, and business owners when reporting.",
+          "description": "Block legacy auth, require compliant devices, and restrict risky sign-ins. Validate this in Azure subscriptions, under Identity and Access (Azure AD / Entra ID). Good hygiene that pays off over time.",
           "severity": "low",
-          "how_to_find": "AZURE portal → Identity and Access (Azure AD / Entra ID). Audit configuration against \"Conditional Access policies\". CLI: use `az` to list resources and IAM bindings. Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings.",
-          "how_to_fix": "Block legacy auth, require compliant devices, and restrict risky sign-ins. Apply CIS benchmark controls: least-privilege IAM, private endpoints, encryption with customer-managed keys, centralized logging, and alert rules for policy changes. Document exceptions and set remediation SLAs by severity.",
+          "how_to_find": "Identity and Access (Azure AD / Entra ID): Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings",
+          "how_to_fix": "Assign an owner for conditional access policies, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Microsoft Defender for Cloud",
             "Azure CLI",
@@ -53,10 +53,10 @@
         },
         {
           "title": "Guest user access restricted",
-          "description": "Limit external collaboration and review guest permissions regularly. This control is evaluated under \"Identity and Access (Azure AD / Entra ID)\" during security assessments. Fixing this improves defense-in-depth and long-term resilience. Document affected assets, evidence, and business owners when reporting.",
+          "description": "Limit external collaboration and review guest permissions regularly. Validate this in Azure subscriptions, under Identity and Access (Azure AD / Entra ID). Good hygiene that pays off over time.",
           "severity": "low",
-          "how_to_find": "AZURE portal → Identity and Access (Azure AD / Entra ID). Audit configuration against \"Guest user access restricted\". CLI: use `az` to list resources and IAM bindings. Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings.",
-          "how_to_fix": "Limit external collaboration and review guest permissions regularly. Apply CIS benchmark controls: least-privilege IAM, private endpoints, encryption with customer-managed keys, centralized logging, and alert rules for policy changes. Document exceptions and set remediation SLAs by severity.",
+          "how_to_find": "Identity and Access (Azure AD / Entra ID): Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings",
+          "how_to_fix": "Assign an owner for guest user access restricted, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Microsoft Defender for Cloud",
             "Azure CLI",
@@ -76,10 +76,10 @@
         },
         {
           "title": "Service principal credential rotation",
-          "description": "Rotate client secrets and certificates; prefer managed identities. This control is evaluated under \"Identity and Access (Azure AD / Entra ID)\" during security assessments. This expands attack surface and should be remediated within the current remediation cycle. Document affected assets, evidence, and business owners when reporting.",
+          "description": "Rotate client secrets and certificates; prefer managed identities. Validate this in Azure subscriptions, under Identity and Access (Azure AD / Entra ID). Schedule remediation once higher-severity gaps are closed.",
           "severity": "medium",
-          "how_to_find": "AZURE portal → Identity and Access (Azure AD / Entra ID). Audit configuration against \"Service principal credential rotation\". CLI: use `az` to list resources and IAM bindings. Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings.",
-          "how_to_fix": "Rotate client secrets and certificates; prefer managed identities. Apply CIS benchmark controls: least-privilege IAM, private endpoints, encryption with customer-managed keys, centralized logging, and alert rules for policy changes. Document exceptions and set remediation SLAs by severity.",
+          "how_to_find": "Identity and Access (Azure AD / Entra ID): Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings",
+          "how_to_fix": "Assign an owner for service principal credential rotation, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Microsoft Defender for Cloud",
             "Azure CLI",
@@ -99,10 +99,10 @@
         },
         {
           "title": "PIM for just-in-time admin",
-          "description": "Use Privileged Identity Management for standing admin access. This control is evaluated under \"Identity and Access (Azure AD / Entra ID)\" during security assessments. Fixing this improves defense-in-depth and long-term resilience. Document affected assets, evidence, and business owners when reporting.",
+          "description": "Use Privileged Identity Management for standing admin access. Validate this in Azure subscriptions, under Identity and Access (Azure AD / Entra ID). Good hygiene that pays off over time.",
           "severity": "low",
-          "how_to_find": "AZURE portal → Identity and Access (Azure AD / Entra ID). Audit configuration against \"PIM for just-in-time admin\". CLI: use `az` to list resources and IAM bindings. Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings.",
-          "how_to_fix": "Use Privileged Identity Management for standing admin access. Apply CIS benchmark controls: least-privilege IAM, private endpoints, encryption with customer-managed keys, centralized logging, and alert rules for policy changes. Document exceptions and set remediation SLAs by severity.",
+          "how_to_find": "Identity and Access (Azure AD / Entra ID): Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings",
+          "how_to_fix": "Assign an owner for pim for just-in-time admin, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Microsoft Defender for Cloud",
             "Azure CLI",
@@ -127,10 +127,10 @@
       "items": [
         {
           "title": "NSG rules not over-permissive",
-          "description": "No 0.0.0.0/0 on RDP, SSH, SQL, or management ports. This control is evaluated under \"Networking\" during security assessments. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Document affected assets, evidence, and business owners when reporting.",
+          "description": "No 0.0.0.0/0 on RDP, SSH, SQL, or management ports. Validate this in Azure subscriptions, under Networking. Treat failures here as release blockers.",
           "severity": "critical",
-          "how_to_find": "AZURE portal → Networking. Audit configuration against \"NSG rules not over-permissive\". CLI: use `az` to list resources and IAM bindings. Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings.",
-          "how_to_fix": "No 0.0.0.0/0 on RDP, SSH, SQL, or management ports. Apply CIS benchmark controls: least-privilege IAM, private endpoints, encryption with customer-managed keys, centralized logging, and alert rules for policy changes. Document exceptions and set remediation SLAs by severity.",
+          "how_to_find": "Networking: Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings",
+          "how_to_fix": "Assign an owner for nsg rules not over-permissive, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Microsoft Defender for Cloud",
             "Azure CLI",
@@ -150,10 +150,10 @@
         },
         {
           "title": "VNet flow logs enabled",
-          "description": "Enable NSG flow logs and traffic analytics for visibility. This control is evaluated under \"Networking\" during security assessments. Fixing this improves defense-in-depth and long-term resilience. Document affected assets, evidence, and business owners when reporting.",
+          "description": "Enable NSG flow logs and traffic analytics for visibility. Validate this in Azure subscriptions, under Networking. Good hygiene that pays off over time.",
           "severity": "low",
-          "how_to_find": "AZURE portal → Networking. Audit configuration against \"VNet flow logs enabled\". CLI: use `az` to list resources and IAM bindings. Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings.",
-          "how_to_fix": "Enable NSG flow logs and traffic analytics for visibility. Apply CIS benchmark controls: least-privilege IAM, private endpoints, encryption with customer-managed keys, centralized logging, and alert rules for policy changes. Document exceptions and set remediation SLAs by severity.",
+          "how_to_find": "Networking: Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings",
+          "how_to_fix": "Assign an owner for vnet flow logs enabled, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Microsoft Defender for Cloud",
             "Azure CLI",
@@ -173,10 +173,10 @@
         },
         {
           "title": "Private endpoints for PaaS",
-          "description": "Use private link for storage, SQL, and Key Vault where possible. This control is evaluated under \"Networking\" during security assessments. Fixing this improves defense-in-depth and long-term resilience. Document affected assets, evidence, and business owners when reporting.",
+          "description": "Use private link for storage, SQL, and Key Vault where possible. Validate this in Azure subscriptions, under Networking. Good hygiene that pays off over time.",
           "severity": "low",
-          "how_to_find": "AZURE portal → Networking. Audit configuration against \"Private endpoints for PaaS\". CLI: use `az` to list resources and IAM bindings. Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings.",
-          "how_to_fix": "Use private link for storage, SQL, and Key Vault where possible. Apply CIS benchmark controls: least-privilege IAM, private endpoints, encryption with customer-managed keys, centralized logging, and alert rules for policy changes. Document exceptions and set remediation SLAs by severity.",
+          "how_to_find": "Networking: Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings",
+          "how_to_fix": "Assign an owner for private endpoints for paas, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Microsoft Defender for Cloud",
             "Azure CLI",
@@ -196,10 +196,10 @@
         },
         {
           "title": "Azure Firewall or WAF in front of apps",
-          "description": "Protect public-facing apps with WAF and centralized egress control. This control is evaluated under \"Networking\" during security assessments. Attackers frequently chain this with other issues to escalate access or exfiltrate data. Document affected assets, evidence, and business owners when reporting.",
+          "description": "Protect public-facing apps with WAF and centralized egress control. Validate this in Azure subscriptions, under Networking. Worth prioritising in your next assessment cycle.",
           "severity": "high",
-          "how_to_find": "AZURE portal → Networking. Audit configuration against \"Azure Firewall or WAF in front of apps\". CLI: use `az` to list resources and IAM bindings. Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings.",
-          "how_to_fix": "Protect public-facing apps with WAF and centralized egress control. Apply CIS benchmark controls: least-privilege IAM, private endpoints, encryption with customer-managed keys, centralized logging, and alert rules for policy changes. Document exceptions and set remediation SLAs by severity.",
+          "how_to_find": "Networking: Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings",
+          "how_to_fix": "Assign an owner for azure firewall or waf in front of apps, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Microsoft Defender for Cloud",
             "Azure CLI",
@@ -219,10 +219,10 @@
         },
         {
           "title": "DDoS Protection Standard",
-          "description": "Enable on production VNets serving internet-facing workloads. This control is evaluated under \"Networking\" during security assessments. Fixing this improves defense-in-depth and long-term resilience. Document affected assets, evidence, and business owners when reporting.",
+          "description": "Enable on production VNets serving internet-facing workloads. Validate this in Azure subscriptions, under Networking. Good hygiene that pays off over time.",
           "severity": "low",
-          "how_to_find": "AZURE portal → Networking. Audit configuration against \"DDoS Protection Standard\". CLI: use `az` to list resources and IAM bindings. Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings.",
-          "how_to_fix": "Enable on production VNets serving internet-facing workloads. Apply CIS benchmark controls: least-privilege IAM, private endpoints, encryption with customer-managed keys, centralized logging, and alert rules for policy changes. Document exceptions and set remediation SLAs by severity.",
+          "how_to_find": "Networking: Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings",
+          "how_to_fix": "Assign an owner for ddos protection standard, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Microsoft Defender for Cloud",
             "Azure CLI",
@@ -247,10 +247,10 @@
       "items": [
         {
           "title": "Storage account public access disabled",
-          "description": "Disable anonymous blob access and review network rules. This control is evaluated under \"Storage and Databases\" during security assessments. Attackers frequently chain this with other issues to escalate access or exfiltrate data. Document affected assets, evidence, and business owners when reporting.",
+          "description": "Disable anonymous blob access and review network rules. Validate this in Azure subscriptions, under Storage and Databases. Worth prioritising in your next assessment cycle.",
           "severity": "high",
-          "how_to_find": "AZURE portal → Storage and Databases. Audit configuration against \"Storage account public access disabled\". CLI: use `az` to list resources and IAM bindings. Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings.",
-          "how_to_fix": "Disable anonymous blob access and review network rules. Apply CIS benchmark controls: least-privilege IAM, private endpoints, encryption with customer-managed keys, centralized logging, and alert rules for policy changes. Document exceptions and set remediation SLAs by severity.",
+          "how_to_find": "Storage and Databases: Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings",
+          "how_to_fix": "Assign an owner for storage account public access disabled, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Microsoft Defender for Cloud",
             "Azure CLI",
@@ -270,10 +270,10 @@
         },
         {
           "title": "Encryption at rest with CMK",
-          "description": "Use customer-managed keys for storage and databases where required. This control is evaluated under \"Storage and Databases\" during security assessments. Attackers frequently chain this with other issues to escalate access or exfiltrate data. Document affected assets, evidence, and business owners when reporting.",
+          "description": "Use customer-managed keys for storage and databases where required. Validate this in Azure subscriptions, under Storage and Databases. Worth prioritising in your next assessment cycle.",
           "severity": "high",
-          "how_to_find": "AZURE portal → Storage and Databases. Audit configuration against \"Encryption at rest with CMK\". CLI: use `az` to list resources and IAM bindings. Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings.",
-          "how_to_fix": "Use customer-managed keys for storage and databases where required. Apply CIS benchmark controls: least-privilege IAM, private endpoints, encryption with customer-managed keys, centralized logging, and alert rules for policy changes. Document exceptions and set remediation SLAs by severity.",
+          "how_to_find": "Storage and Databases: Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings",
+          "how_to_fix": "Assign an owner for encryption at rest with cmk, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Microsoft Defender for Cloud",
             "Azure CLI",
@@ -293,10 +293,10 @@
         },
         {
           "title": "SQL TDE and auditing enabled",
-          "description": "Transparent encryption plus audit logs to Log Analytics. This control is evaluated under \"Storage and Databases\" during security assessments. Attackers frequently chain this with other issues to escalate access or exfiltrate data. Document affected assets, evidence, and business owners when reporting.",
+          "description": "Transparent encryption plus audit logs to Log Analytics. Validate this in Azure subscriptions, under Storage and Databases. Worth prioritising in your next assessment cycle.",
           "severity": "high",
-          "how_to_find": "AZURE portal → Storage and Databases. Audit configuration against \"SQL TDE and auditing enabled\". CLI: use `az` to list resources and IAM bindings. Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings.",
-          "how_to_fix": "Transparent encryption plus audit logs to Log Analytics. Apply CIS benchmark controls: least-privilege IAM, private endpoints, encryption with customer-managed keys, centralized logging, and alert rules for policy changes. Document exceptions and set remediation SLAs by severity.",
+          "how_to_find": "Storage and Databases: Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings",
+          "how_to_fix": "Assign an owner for sql tde and auditing enabled, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Microsoft Defender for Cloud",
             "Azure CLI",
@@ -316,10 +316,10 @@
         },
         {
           "title": "SQL firewall not open to internet",
-          "description": "Restrict database access to known IPs or private endpoints. This control is evaluated under \"Storage and Databases\" during security assessments. Fixing this improves defense-in-depth and long-term resilience. Document affected assets, evidence, and business owners when reporting.",
+          "description": "Restrict database access to known IPs or private endpoints. Validate this in Azure subscriptions, under Storage and Databases. Good hygiene that pays off over time.",
           "severity": "low",
-          "how_to_find": "AZURE portal → Storage and Databases. Audit configuration against \"SQL firewall not open to internet\". CLI: use `az` to list resources and IAM bindings. Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings.",
-          "how_to_fix": "Restrict database access to known IPs or private endpoints. Apply CIS benchmark controls: least-privilege IAM, private endpoints, encryption with customer-managed keys, centralized logging, and alert rules for policy changes. Document exceptions and set remediation SLAs by severity.",
+          "how_to_find": "Storage and Databases: Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings",
+          "how_to_fix": "Assign an owner for sql firewall not open to internet, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Microsoft Defender for Cloud",
             "Azure CLI",
@@ -339,10 +339,10 @@
         },
         {
           "title": "Soft delete and versioning on storage",
-          "description": "Protect against ransomware and accidental deletion. This control is evaluated under \"Storage and Databases\" during security assessments. This expands attack surface and should be remediated within the current remediation cycle. Document affected assets, evidence, and business owners when reporting.",
+          "description": "Protect against ransomware and accidental deletion. Validate this in Azure subscriptions, under Storage and Databases. Schedule remediation once higher-severity gaps are closed.",
           "severity": "medium",
-          "how_to_find": "AZURE portal → Storage and Databases. Audit configuration against \"Soft delete and versioning on storage\". CLI: use `az` to list resources and IAM bindings. Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings.",
-          "how_to_fix": "Protect against ransomware and accidental deletion. Apply CIS benchmark controls: least-privilege IAM, private endpoints, encryption with customer-managed keys, centralized logging, and alert rules for policy changes. Document exceptions and set remediation SLAs by severity.",
+          "how_to_find": "Storage and Databases: Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings",
+          "how_to_fix": "Assign an owner for soft delete and versioning on storage, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Microsoft Defender for Cloud",
             "Azure CLI",
@@ -367,10 +367,10 @@
       "items": [
         {
           "title": "VM disk encryption enabled",
-          "description": "Azure Disk Encryption or server-side encryption for all VMs. This control is evaluated under \"Compute and Kubernetes\" during security assessments. Attackers frequently chain this with other issues to escalate access or exfiltrate data. Document affected assets, evidence, and business owners when reporting.",
+          "description": "Azure Disk Encryption or server-side encryption for all VMs. Validate this in Azure subscriptions, under Compute and Kubernetes. Worth prioritising in your next assessment cycle.",
           "severity": "high",
-          "how_to_find": "AZURE portal → Compute and Kubernetes. Audit configuration against \"VM disk encryption enabled\". CLI: use `az` to list resources and IAM bindings. Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings.",
-          "how_to_fix": "Azure Disk Encryption or server-side encryption for all VMs. Apply CIS benchmark controls: least-privilege IAM, private endpoints, encryption with customer-managed keys, centralized logging, and alert rules for policy changes. Document exceptions and set remediation SLAs by severity.",
+          "how_to_find": "Compute and Kubernetes: Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings",
+          "how_to_fix": "Assign an owner for vm disk encryption enabled, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Microsoft Defender for Cloud",
             "Azure CLI",
@@ -390,10 +390,10 @@
         },
         {
           "title": "AKS RBAC and private cluster",
-          "description": "Enable Azure RBAC, private API server, and network policies. This control is evaluated under \"Compute and Kubernetes\" during security assessments. Fixing this improves defense-in-depth and long-term resilience. Document affected assets, evidence, and business owners when reporting.",
+          "description": "Enable Azure RBAC, private API server, and network policies. Validate this in Azure subscriptions, under Compute and Kubernetes. Good hygiene that pays off over time.",
           "severity": "low",
-          "how_to_find": "AZURE portal → Compute and Kubernetes. Audit configuration against \"AKS RBAC and private cluster\". CLI: use `az` to list resources and IAM bindings. Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings.",
-          "how_to_fix": "Enable Azure RBAC, private API server, and network policies. Apply CIS benchmark controls: least-privilege IAM, private endpoints, encryption with customer-managed keys, centralized logging, and alert rules for policy changes. Document exceptions and set remediation SLAs by severity.",
+          "how_to_find": "Compute and Kubernetes: Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings",
+          "how_to_fix": "Assign an owner for aks rbac and private cluster, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Microsoft Defender for Cloud",
             "Azure CLI",
@@ -413,10 +413,10 @@
         },
         {
           "title": "Managed identity over secrets",
-          "description": "Apps and functions use managed identities instead of stored creds. This control is evaluated under \"Compute and Kubernetes\" during security assessments. Fixing this improves defense-in-depth and long-term resilience. Document affected assets, evidence, and business owners when reporting.",
+          "description": "Apps and functions use managed identities instead of stored creds. Validate this in Azure subscriptions, under Compute and Kubernetes. Good hygiene that pays off over time.",
           "severity": "low",
-          "how_to_find": "AZURE portal → Compute and Kubernetes. Audit configuration against \"Managed identity over secrets\". CLI: use `az` to list resources and IAM bindings. Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings.",
-          "how_to_fix": "Apps and functions use managed identities instead of stored creds. Apply CIS benchmark controls: least-privilege IAM, private endpoints, encryption with customer-managed keys, centralized logging, and alert rules for policy changes. Document exceptions and set remediation SLAs by severity.",
+          "how_to_find": "Compute and Kubernetes: Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings",
+          "how_to_fix": "Assign an owner for managed identity over secrets, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Microsoft Defender for Cloud",
             "Azure CLI",
@@ -436,10 +436,10 @@
         },
         {
           "title": "Defender for Cloud enabled",
-          "description": "Turn on Defender plans for servers, containers, and databases. This control is evaluated under \"Compute and Kubernetes\" during security assessments. Fixing this improves defense-in-depth and long-term resilience. Document affected assets, evidence, and business owners when reporting.",
+          "description": "Turn on Defender plans for servers, containers, and databases. Validate this in Azure subscriptions, under Compute and Kubernetes. Good hygiene that pays off over time.",
           "severity": "low",
-          "how_to_find": "AZURE portal → Compute and Kubernetes. Audit configuration against \"Defender for Cloud enabled\". CLI: use `az` to list resources and IAM bindings. Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings.",
-          "how_to_fix": "Turn on Defender plans for servers, containers, and databases. Apply CIS benchmark controls: least-privilege IAM, private endpoints, encryption with customer-managed keys, centralized logging, and alert rules for policy changes. Document exceptions and set remediation SLAs by severity.",
+          "how_to_find": "Compute and Kubernetes: Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings",
+          "how_to_fix": "Assign an owner for defender for cloud enabled, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Microsoft Defender for Cloud",
             "Azure CLI",
@@ -459,10 +459,10 @@
         },
         {
           "title": "Patch management baseline",
-          "description": "Use Update Management or Automanage for timely patching. This control is evaluated under \"Compute and Kubernetes\" during security assessments. This expands attack surface and should be remediated within the current remediation cycle. Document affected assets, evidence, and business owners when reporting.",
+          "description": "Use Update Management or Automanage for timely patching. Validate this in Azure subscriptions, under Compute and Kubernetes. Schedule remediation once higher-severity gaps are closed.",
           "severity": "medium",
-          "how_to_find": "AZURE portal → Compute and Kubernetes. Audit configuration against \"Patch management baseline\". CLI: use `az` to list resources and IAM bindings. Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings.",
-          "how_to_fix": "Use Update Management or Automanage for timely patching. Apply CIS benchmark controls: least-privilege IAM, private endpoints, encryption with customer-managed keys, centralized logging, and alert rules for policy changes. Document exceptions and set remediation SLAs by severity.",
+          "how_to_find": "Compute and Kubernetes: Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings",
+          "how_to_fix": "Assign an owner for patch management baseline, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Microsoft Defender for Cloud",
             "Azure CLI",
@@ -487,10 +487,10 @@
       "items": [
         {
           "title": "Activity Log to Log Analytics",
-          "description": "Centralize subscription activity and resource logs. This control is evaluated under \"Logging and Key Management\" during security assessments. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Document affected assets, evidence, and business owners when reporting.",
+          "description": "Centralize subscription activity and resource logs. Validate this in Azure subscriptions, under Logging and Key Management. Treat failures here as release blockers.",
           "severity": "critical",
-          "how_to_find": "AZURE portal → Logging and Key Management. Audit configuration against \"Activity Log to Log Analytics\". CLI: use `az` to list resources and IAM bindings. Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings.",
-          "how_to_fix": "Centralize subscription activity and resource logs. Apply CIS benchmark controls: least-privilege IAM, private endpoints, encryption with customer-managed keys, centralized logging, and alert rules for policy changes. Document exceptions and set remediation SLAs by severity.",
+          "how_to_find": "Logging and Key Management: Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings",
+          "how_to_fix": "Assign an owner for activity log to log analytics, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Microsoft Defender for Cloud",
             "Azure CLI",
@@ -510,10 +510,10 @@
         },
         {
           "title": "Diagnostic settings on all resources",
-          "description": "Export metrics and logs for critical resources. This control is evaluated under \"Logging and Key Management\" during security assessments. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Document affected assets, evidence, and business owners when reporting.",
+          "description": "Export metrics and logs for critical resources. Validate this in Azure subscriptions, under Logging and Key Management. Treat failures here as release blockers.",
           "severity": "critical",
-          "how_to_find": "AZURE portal → Logging and Key Management. Audit configuration against \"Diagnostic settings on all resources\". CLI: use `az` to list resources and IAM bindings. Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings.",
-          "how_to_fix": "Export metrics and logs for critical resources. Apply CIS benchmark controls: least-privilege IAM, private endpoints, encryption with customer-managed keys, centralized logging, and alert rules for policy changes. Document exceptions and set remediation SLAs by severity.",
+          "how_to_find": "Logging and Key Management: Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings",
+          "how_to_fix": "Assign an owner for diagnostic settings on all resources, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Microsoft Defender for Cloud",
             "Azure CLI",
@@ -533,10 +533,10 @@
         },
         {
           "title": "Key Vault purge protection",
-          "description": "Enable soft delete and purge protection on production vaults. This control is evaluated under \"Logging and Key Management\" during security assessments. Fixing this improves defense-in-depth and long-term resilience. Document affected assets, evidence, and business owners when reporting.",
+          "description": "Enable soft delete and purge protection on production vaults. Validate this in Azure subscriptions, under Logging and Key Management. Good hygiene that pays off over time.",
           "severity": "low",
-          "how_to_find": "AZURE portal → Logging and Key Management. Audit configuration against \"Key Vault purge protection\". CLI: use `az` to list resources and IAM bindings. Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings.",
-          "how_to_fix": "Enable soft delete and purge protection on production vaults. Apply CIS benchmark controls: least-privilege IAM, private endpoints, encryption with customer-managed keys, centralized logging, and alert rules for policy changes. Document exceptions and set remediation SLAs by severity.",
+          "how_to_find": "Logging and Key Management: Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings",
+          "how_to_fix": "Assign an owner for key vault purge protection, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Microsoft Defender for Cloud",
             "Azure CLI",
@@ -556,10 +556,10 @@
         },
         {
           "title": "Key rotation policy",
-          "description": "Automate rotation for keys and secrets in Key Vault. This control is evaluated under \"Logging and Key Management\" during security assessments. This expands attack surface and should be remediated within the current remediation cycle. Document affected assets, evidence, and business owners when reporting.",
+          "description": "Automate rotation for keys and secrets in Key Vault. Validate this in Azure subscriptions, under Logging and Key Management. Schedule remediation once higher-severity gaps are closed.",
           "severity": "medium",
-          "how_to_find": "AZURE portal → Logging and Key Management. Audit configuration against \"Key rotation policy\". CLI: use `az` to list resources and IAM bindings. Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings.",
-          "how_to_fix": "Automate rotation for keys and secrets in Key Vault. Apply CIS benchmark controls: least-privilege IAM, private endpoints, encryption with customer-managed keys, centralized logging, and alert rules for policy changes. Document exceptions and set remediation SLAs by severity.",
+          "how_to_find": "Logging and Key Management: Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings",
+          "how_to_fix": "Assign an owner for key rotation policy, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Microsoft Defender for Cloud",
             "Azure CLI",
@@ -579,10 +579,10 @@
         },
         {
           "title": "Alert rules for security events",
-          "description": "Alert on failed logins, key deletions, and NSG changes. This control is evaluated under \"Logging and Key Management\" during security assessments. Fixing this improves defense-in-depth and long-term resilience. Document affected assets, evidence, and business owners when reporting.",
+          "description": "Alert on failed logins, key deletions, and NSG changes. Validate this in Azure subscriptions, under Logging and Key Management. Good hygiene that pays off over time.",
           "severity": "low",
-          "how_to_find": "AZURE portal → Logging and Key Management. Audit configuration against \"Alert rules for security events\". CLI: use `az` to list resources and IAM bindings. Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings.",
-          "how_to_fix": "Alert on failed logins, key deletions, and NSG changes. Apply CIS benchmark controls: least-privilege IAM, private endpoints, encryption with customer-managed keys, centralized logging, and alert rules for policy changes. Document exceptions and set remediation SLAs by severity.",
+          "how_to_find": "Logging and Key Management: Run Prowler (`prowler azure`) or Defender/Security Command Center for misconfig findings",
+          "how_to_fix": "Assign an owner for alert rules for security events, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
           "tools": [
             "Microsoft Defender for Cloud",
             "Azure CLI",

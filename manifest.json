@@ -1,5 +1,5 @@
 {
-  "version": "2.1.0",
+  "version": "2.2.0",
   "updated": "2026-07-05",
   "title": "Security Checklists Hub",
   "hub_url": "https://securitycipher.com/security-checklists/",
@@ -67,12 +67,22 @@
     {
       "id": "mcp",
       "title": "MCP Server Security",
-      "description": "Model Context Protocol inventory, STDIO hardening, tool poisoning tests, and agent supply-chain controls.",
+      "description": "85 controls for MCP inventory, STDIO hardening, tool poisoning, transport auth, and server supply-chain risks.",
       "icon": "mcp",
       "color": "#22d3ee",
       "status": "live",
       "legacy_url": "",
       "file": "categories/mcp.json"
+    },
+    {
+      "id": "agent-security",
+      "title": "AI Agent Security",
+      "description": "Autonomous agent trust boundaries, tool safety, memory isolation, multi-agent orchestration, and kill switches.",
+      "icon": "agent",
+      "color": "#f59e0b",
+      "status": "live",
+      "legacy_url": "",
+      "file": "categories/agent-security.json"
     },
     {
       "id": "api",
