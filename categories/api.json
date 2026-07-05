@@ -7,7 +7,7 @@
       "items": [
         {
           "title": "Broken object level authorization (BOLA/IDOR)",
-          "description": "Swap object IDs across users and roles; test horizontal and vertical access.",
+          "description": "Swap object IDs across users and roles; test horizontal and vertical access. This control is evaluated under \"Authentication and Authorization\" during API and microservice security reviews. Attackers frequently chain this with other issues to escalate access or exfiltrate data. Document affected assets, evidence, and business owners when reporting.",
           "severity": "high",
           "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Swap object IDs across users and roles; test horizontal and vertical access. Test \"Broken object level authorization (BOLA/IDOR)\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
           "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
@@ -27,7 +27,7 @@
         },
         {
           "title": "JWT validation flaws",
-          "description": "alg:none, weak secrets, missing exp/aud, and key confusion attacks.",
+          "description": "alg:none, weak secrets, missing exp/aud, and key confusion attacks. This control is evaluated under \"Authentication and Authorization\" during API and microservice security reviews. Fixing this improves defense-in-depth and long-term resilience. Document affected assets, evidence, and business owners when reporting.",
           "severity": "low",
           "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. alg:none, weak secrets, missing exp/aud, and key confusion attacks. Test \"JWT validation flaws\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
           "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
@@ -47,7 +47,7 @@
         },
         {
           "title": "OAuth misconfiguration",
-          "description": "Redirect URI validation, state parameter, and scope escalation.",
+          "description": "Redirect URI validation, state parameter, and scope escalation. This control is evaluated under \"Authentication and Authorization\" during API and microservice security reviews. Fixing this improves defense-in-depth and long-term resilience. Document affected assets, evidence, and business owners when reporting.",
           "severity": "low",
           "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Redirect URI validation, state parameter, and scope escalation. Test \"OAuth misconfiguration\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
           "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
@@ -67,7 +67,7 @@
         },
         {
           "title": "API key exposure",
-          "description": "Keys not in client bundles, logs, or referrer headers.",
+          "description": "Keys not in client bundles, logs, or referrer headers. This control is evaluated under \"Authentication and Authorization\" during API and microservice security reviews. Fixing this improves defense-in-depth and long-term resilience. Document affected assets, evidence, and business owners when reporting.",
           "severity": "low",
           "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Keys not in client bundles, logs, or referrer headers. Test \"API key exposure\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
           "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
@@ -92,7 +92,7 @@
       "items": [
         {
           "title": "Mass assignment",
-          "description": "Extra JSON fields like role:admin accepted by backend.",
+          "description": "Extra JSON fields like role:admin accepted by backend. This control is evaluated under \"Input, Logic, and Operations\" during API and microservice security reviews. Fixing this improves defense-in-depth and long-term resilience. Document affected assets, evidence, and business owners when reporting.",
           "severity": "low",
           "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Extra JSON fields like role:admin accepted by backend. Test \"Mass assignment\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
           "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
@@ -112,7 +112,7 @@
         },
         {
           "title": "Rate limiting and brute force",
-          "description": "OTP, login, and password reset endpoints throttled.",
+          "description": "OTP, login, and password reset endpoints throttled. This control is evaluated under \"Input, Logic, and Operations\" during API and microservice security reviews. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Document affected assets, evidence, and business owners when reporting.",
           "severity": "critical",
           "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. OTP, login, and password reset endpoints throttled. Test \"Rate limiting and brute force\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
           "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
@@ -132,7 +132,7 @@
         },
         {
           "title": "GraphQL introspection and depth limits",
-          "description": "Disable introspection in prod; limit query depth and cost.",
+          "description": "Disable introspection in prod; limit query depth and cost. This control is evaluated under \"Input, Logic, and Operations\" during API and microservice security reviews. Fixing this improves defense-in-depth and long-term resilience. Document affected assets, evidence, and business owners when reporting.",
           "severity": "low",
           "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Disable introspection in prod; limit query depth and cost. Test \"GraphQL introspection and depth limits\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
           "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
@@ -152,7 +152,7 @@
         },
         {
           "title": "Version sprawl",
-          "description": "Old /api/v1 endpoints not left live with weaker auth.",
+          "description": "Old /api/v1 endpoints not left live with weaker auth. This control is evaluated under \"Input, Logic, and Operations\" during API and microservice security reviews. This expands attack surface and should be remediated within the current remediation cycle. Document affected assets, evidence, and business owners when reporting.",
           "severity": "medium",
           "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Old /api/v1 endpoints not left live with weaker auth. Test \"Version sprawl\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
           "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
@@ -172,7 +172,7 @@
         },
         {
           "title": "Error message leakage",
-          "description": "Stack traces and internal IDs not returned to clients.",
+          "description": "Stack traces and internal IDs not returned to clients. This control is evaluated under \"Input, Logic, and Operations\" during API and microservice security reviews. Fixing this improves defense-in-depth and long-term resilience. Document affected assets, evidence, and business owners when reporting.",
           "severity": "low",
           "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Stack traces and internal IDs not returned to clients. Test \"Error message leakage\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
           "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
@@ -189,6 +189,2097 @@
               "url": "https://owasp.org/www-project-api-security/"
             }
           ]
+        }
+      ]
+    },
+    {
+      "title": "API Access Control — Broken Object Level Authorization (BOLA)",
+      "items": [
+        {
+          "title": "Tamper with sequential object identifiers",
+          "description": "Increment, decrement, or substitute numeric object IDs in path and query parameters to access resources belonging to other users. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: Authenticate as user A, request user B object IDs; a 200 with B data instead of 403/404 confirms BOLA. Common tags: api, api1-2023, authorization.",
+          "severity": "critical",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Increment, decrement, or substitute numeric object IDs in path and query parameters to access resources belonging to other users. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: Authenticate as user A, request user B object IDs; a 200 with B data instead of 403/404 confirms BOLA. Common tags: api, api1-2023, authorization. Test \"Tamper with sequential object identifiers\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ],
+          "tags": [
+            "api",
+            "api1-2023",
+            "authorization"
+          ],
+          "source": "api-bola-sequential-id"
+        },
+        {
+          "title": "Access nested/child objects without ownership checks",
+          "description": "Test child resources (e.g. /accounts/{id}/transactions/{txid}) where the parent is authorized but the nested object id is not re-checked. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Swap nested ids while keeping a valid parent; returning another tenant object confirms missing checks. Common tags: api, api1-2023, authorization.",
+          "severity": "critical",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Test child resources (e.g. /accounts/{id}/transactions/{txid}) where the parent is authorized but the nested object id is not re-checked. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Swap nested ids while keeping a valid parent; returning another tenant object confirms missing checks. Common tags: api, api1-2023, authorization. Test \"Access nested/child objects without ownership checks\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ],
+          "tags": [
+            "api",
+            "api1-2023",
+            "authorization"
+          ],
+          "source": "api-bola-nested-object"
+        },
+        {
+          "title": "Probe batch / bulk endpoints for object leakage",
+          "description": "Submit arrays of IDs to batch endpoints to see whether per-object authorization is skipped for items the caller does not own. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Include foreign IDs in a batch request; any returned foreign object proves authorization is not applied per element. Common tags: api, api1-2023, authorization.",
+          "severity": "low",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Submit arrays of IDs to batch endpoints to see whether per-object authorization is skipped for items the caller does not own. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Include foreign IDs in a batch request; any returned foreign object proves authorization is not applied per element. Common tags: api, api1-2023, authorization. Test \"Probe batch / bulk endpoints for object leakage\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ],
+          "tags": [
+            "api",
+            "api1-2023",
+            "authorization"
+          ],
+          "source": "api-bola-batch-endpoint"
+        },
+        {
+          "title": "Assess predictability of UUID/GUID object references",
+          "description": "Determine whether identifiers are guessable (sequential UUIDv1, timestamps, short tokens) so BOLA is exploitable without leaked IDs. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Collect many IDs and analyze entropy/version; predictable or enumerable IDs expand BOLA reach. Common tags: api, api1-2023, enumeration.",
+          "severity": "medium",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Determine whether identifiers are guessable (sequential UUIDv1, timestamps, short tokens) so BOLA is exploitable without leaked IDs. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Collect many IDs and analyze entropy/version; predictable or enumerable IDs expand BOLA reach. Common tags: api, api1-2023, enumeration. Test \"Assess predictability of UUID/GUID object references\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ],
+          "tags": [
+            "api",
+            "api1-2023",
+            "enumeration"
+          ],
+          "source": "api-bola-uuid-predictability"
+        },
+        {
+          "title": "Test BOLA on PATCH and DELETE operations",
+          "description": "Verify state-changing verbs re-check ownership; read access may be guarded while modify/delete on the same object is not. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: PATCH/DELETE a foreign object id; a 2xx and persisted change confirms write-side BOLA. Common tags: api, api1-2023, authorization.",
+          "severity": "medium",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Verify state-changing verbs re-check ownership; read access may be guarded while modify/delete on the same object is not. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: PATCH/DELETE a foreign object id; a 2xx and persisted change confirms write-side BOLA. Common tags: api, api1-2023, authorization. Test \"Test BOLA on PATCH and DELETE operations\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ],
+          "tags": [
+            "api",
+            "api1-2023",
+            "authorization"
+          ],
+          "source": "api-bola-patch-delete"
+        },
+        {
+          "title": "Move object identifiers between path, query, and body",
+          "description": "Relocate the object id into the request body or headers to bypass authorization logic that only inspects the URL path. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Resubmit with the id only in the body/header; access to a foreign object indicates location-specific checks. Common tags: api, api1-2023, authorization.",
+          "severity": "low",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Relocate the object id into the request body or headers to bypass authorization logic that only inspects the URL path. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Resubmit with the id only in the body/header; access to a foreign object indicates location-specific checks. Common tags: api, api1-2023, authorization. Test \"Move object identifiers between path, query, and body\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ],
+          "tags": [
+            "api",
+            "api1-2023",
+            "authorization"
+          ],
+          "source": "api-bola-id-in-body"
+        }
+      ]
+    },
+    {
+      "title": "API Access Control — Broken Function Level Authorization (BFLA)",
+      "items": [
+        {
+          "title": "Invoke administrative functions as a low-privilege user",
+          "description": "Call admin-only endpoints (user management, config, reporting) with a standard user token to detect missing role enforcement. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: Standard user reaching admin actions with a 2xx confirms broken function-level authorization. Common tags: api, api5-2023, authorization.",
+          "severity": "critical",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Call admin-only endpoints (user management, config, reporting) with a standard user token to detect missing role enforcement. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: Standard user reaching admin actions with a 2xx confirms broken function-level authorization. Common tags: api, api5-2023, authorization. Test \"Invoke administrative functions as a low-privilege user\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ],
+          "tags": [
+            "api",
+            "api5-2023",
+            "authorization"
+          ],
+          "source": "api-bfla-admin-function"
+        },
+        {
+          "title": "Bypass authorization via alternate HTTP methods",
+          "description": "Switch GET to POST/PUT/DELETE (or use overrides) to reach privileged behavior guarded only for the documented method. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: A blocked method succeeds when swapped for another verb on the same route, exposing the function. Common tags: api, api5-2023, http-method.",
+          "severity": "low",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Switch GET to POST/PUT/DELETE (or use overrides) to reach privileged behavior guarded only for the documented method. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: A blocked method succeeds when swapped for another verb on the same route, exposing the function. Common tags: api, api5-2023, http-method. Test \"Bypass authorization via alternate HTTP methods\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ],
+          "tags": [
+            "api",
+            "api5-2023",
+            "http-method"
+          ],
+          "source": "api-bfla-method-bypass"
+        },
+        {
+          "title": "Enumerate endpoints lacking per-endpoint role checks",
+          "description": "Map every route and confirm role/scope authorization is applied individually rather than relying on UI hiding or gateway-only rules. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Direct calls to privileged routes succeed for unauthorized roles, proving per-endpoint checks are absent. Common tags: api, api5-2023, authorization.",
+          "severity": "low",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Map every route and confirm role/scope authorization is applied individually rather than relying on UI hiding or gateway-only rules. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Direct calls to privileged routes succeed for unauthorized roles, proving per-endpoint checks are absent. Common tags: api, api5-2023, authorization. Test \"Enumerate endpoints lacking per-endpoint role checks\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ],
+          "tags": [
+            "api",
+            "api5-2023",
+            "authorization"
+          ],
+          "source": "api-bfla-missing-role-check"
+        },
+        {
+          "title": "Discover hidden or guessable administrative paths",
+          "description": "Brute-force admin namespaces (/admin, /internal, /v2/admin) that are unlinked but reachable without elevated authorization. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: A discovered privileged route returns data/actions to a non-admin token, confirming BFLA exposure. Common tags: api, api5-2023, enumeration.",
+          "severity": "critical",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Brute-force admin namespaces (/admin, /internal, /v2/admin) that are unlinked but reachable without elevated authorization. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: A discovered privileged route returns data/actions to a non-admin token, confirming BFLA exposure. Common tags: api, api5-2023, enumeration. Test \"Discover hidden or guessable administrative paths\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ],
+          "tags": [
+            "api",
+            "api5-2023",
+            "enumeration"
+          ],
+          "source": "api-bfla-hidden-admin-path"
+        },
+        {
+          "title": "Tamper with role/scope claims in tokens or parameters",
+          "description": "Modify role fields in JWT claims, cookies, or request parameters to escalate to privileged function access. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Altered role grants admin function access without server-side re-validation of privileges. Common tags: api, api5-2023, privilege-escalation.",
+          "severity": "low",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Modify role fields in JWT claims, cookies, or request parameters to escalate to privileged function access. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Altered role grants admin function access without server-side re-validation of privileges. Common tags: api, api5-2023, privilege-escalation. Test \"Tamper with role/scope claims in tokens or parameters\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ],
+          "tags": [
+            "api",
+            "api5-2023",
+            "privilege-escalation"
+          ],
+          "source": "api-bfla-role-parameter-tamper"
+        },
+        {
+          "title": "Cross-tenant privileged function access",
+          "description": "Attempt privileged operations scoped to another tenant/organization to verify function authorization is tenant-aware. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Executing a privileged function against another tenant succeeds, indicating tenant scoping is missing. Common tags: api, api5-2023, multi-tenant.",
+          "severity": "low",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Attempt privileged operations scoped to another tenant/organization to verify function authorization is tenant-aware. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Executing a privileged function against another tenant succeeds, indicating tenant scoping is missing. Common tags: api, api5-2023, multi-tenant. Test \"Cross-tenant privileged function access\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ],
+          "tags": [
+            "api",
+            "api5-2023",
+            "multi-tenant"
+          ],
+          "source": "api-bfla-tenant-function"
+        }
+      ]
+    },
+    {
+      "title": "API Access Control — Broken Object Property Level Authorization",
+      "items": [
+        {
+          "title": "Inject privileged properties via mass assignment",
+          "description": "Add unexpected fields (isAdmin, role, balance, verified) to create/update bodies to test for blind binding to the data model. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: A submitted privileged property is persisted, confirming the model auto-binds unauthorized fields. Common tags: api, api3-2023, mass-assignment.",
+          "severity": "low",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Add unexpected fields (isAdmin, role, balance, verified) to create/update bodies to test for blind binding to the data model. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: A submitted privileged property is persisted, confirming the model auto-binds unauthorized fields. Common tags: api, api3-2023, mass-assignment. Test \"Inject privileged properties via mass assignment\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ],
+          "tags": [
+            "api",
+            "api3-2023",
+            "mass-assignment"
+          ],
+          "source": "api-bopla-mass-assignment"
+        },
+        {
+          "title": "Detect excessive data exposure in responses",
+          "description": "Inspect responses for sensitive properties (PII, hashes, internal flags) the client should never receive but the API returns wholesale. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Response bodies contain sensitive fields not required by the client, indicating over-exposure. Common tags: api, api3-2023, data-exposure.",
+          "severity": "low",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Inspect responses for sensitive properties (PII, hashes, internal flags) the client should never receive but the API returns wholesale. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Response bodies contain sensitive fields not required by the client, indicating over-exposure. Common tags: api, api3-2023, data-exposure. Test \"Detect excessive data exposure in responses\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ],
+          "tags": [
+            "api",
+            "api3-2023",
+            "data-exposure"
+          ],
+          "source": "api-bopla-excessive-exposure"
+        },
+        {
+          "title": "Write to read-only or server-controlled properties",
+          "description": "Attempt to modify fields meant to be immutable (created_at, owner_id, status) to verify property-level write authorization. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: A read-only property changes after submission, proving property-level authorization is missing. Common tags: api, api3-2023, mass-assignment.",
+          "severity": "low",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Attempt to modify fields meant to be immutable (created_at, owner_id, status) to verify property-level write authorization. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: A read-only property changes after submission, proving property-level authorization is missing. Common tags: api, api3-2023, mass-assignment. Test \"Write to read-only or server-controlled properties\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ],
+          "tags": [
+            "api",
+            "api3-2023",
+            "mass-assignment"
+          ],
+          "source": "api-bopla-readonly-write"
+        },
+        {
+          "title": "Bypass response field filtering",
+          "description": "Use field-selection or include parameters (fields=, expand=, ?include) to coerce the API into returning restricted properties. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Requesting filtered/expanded fields returns properties normally withheld, confirming filter bypass. Common tags: api, api3-2023, data-exposure.",
+          "severity": "critical",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Use field-selection or include parameters (fields=, expand=, ?include) to coerce the API into returning restricted properties. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Requesting filtered/expanded fields returns properties normally withheld, confirming filter bypass. Common tags: api, api3-2023, data-exposure. Test \"Bypass response field filtering\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ],
+          "tags": [
+            "api",
+            "api3-2023",
+            "data-exposure"
+          ],
+          "source": "api-bopla-filter-bypass"
+        },
+        {
+          "title": "Set nested or relational privileged properties",
+          "description": "Inject nested objects (user.roles, account.owner) in payloads to exploit deep mass-assignment paths. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: A nested privileged property is accepted and persisted, exposing deep binding issues. Common tags: api, api3-2023, mass-assignment.",
+          "severity": "low",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Inject nested objects (user.roles, account.owner) in payloads to exploit deep mass-assignment paths. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: A nested privileged property is accepted and persisted, exposing deep binding issues. Common tags: api, api3-2023, mass-assignment. Test \"Set nested or relational privileged properties\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ],
+          "tags": [
+            "api",
+            "api3-2023",
+            "mass-assignment"
+          ],
+          "source": "api-bopla-nested-property"
+        },
+        {
+          "title": "Surface debug/internal properties in error responses",
+          "description": "Trigger errors and edge cases to reveal internal property names or values that leak through verbose serialization. This is a defense-in-depth gap that improves overall resilience when fixed. Assessors should confirm the control in practice, not only on paper: Error/edge responses disclose internal property structures useful for further property attacks. Common tags: api, api3-2023, data-exposure.",
+          "severity": "low",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Trigger errors and edge cases to reveal internal property names or values that leak through verbose serialization. This is a defense-in-depth gap that improves overall resilience when fixed. Assessors should confirm the control in practice, not only on paper: Error/edge responses disclose internal property structures useful for further property attacks. Common tags: api, api3-2023, data-exposure. Test \"Surface debug/internal properties in error responses\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ],
+          "tags": [
+            "api",
+            "api3-2023",
+            "data-exposure"
+          ],
+          "source": "api-bopla-debug-fields"
+        }
+      ]
+    },
+    {
+      "title": "API Authentication — Broken Authentication",
+      "items": [
+        {
+          "title": "Test weak or missing token validation",
+          "description": "Submit malformed, expired, none-algorithm, or tampered tokens to confirm the server rigorously validates signature, expiry, and audience. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: A tampered or expired token still authenticates, proving validation is incomplete. Common tags: api, api2-2023, authentication.",
+          "severity": "low",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Submit malformed, expired, none-algorithm, or tampered tokens to confirm the server rigorously validates signature, expiry, and audience. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: A tampered or expired token still authenticates, proving validation is incomplete. Common tags: api, api2-2023, authentication. Test \"Test weak or missing token validation\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ],
+          "tags": [
+            "api",
+            "api2-2023",
+            "authentication"
+          ],
+          "source": "api-broken-auth-weak-token-validation"
+        },
+        {
+          "title": "Find endpoints missing authentication",
+          "description": "Replay requests without credentials and brute-force routes to locate endpoints that respond without any authentication. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: An endpoint returns protected data/actions with no token, confirming missing authentication. Common tags: api, api2-2023, authentication.",
+          "severity": "critical",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Replay requests without credentials and brute-force routes to locate endpoints that respond without any authentication. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: An endpoint returns protected data/actions with no token, confirming missing authentication. Common tags: api, api2-2023, authentication. Test \"Find endpoints missing authentication\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ],
+          "tags": [
+            "api",
+            "api2-2023",
+            "authentication"
+          ],
+          "source": "api-broken-auth-missing-on-endpoint"
+        },
+        {
+          "title": "Assess credential stuffing and brute-force protections",
+          "description": "Verify login and token endpoints enforce rate limiting, lockout, and anomaly detection against automated credential attacks. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: High-volume login attempts proceed without throttling/lockout, enabling credential stuffing. Common tags: api, api2-2023, brute-force.",
+          "severity": "critical",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Verify login and token endpoints enforce rate limiting, lockout, and anomaly detection against automated credential attacks. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: High-volume login attempts proceed without throttling/lockout, enabling credential stuffing. Common tags: api, api2-2023, brute-force. Test \"Assess credential stuffing and brute-force protections\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ],
+          "tags": [
+            "api",
+            "api2-2023",
+            "brute-force"
+          ],
+          "source": "api-broken-auth-credential-stuffing"
+        },
+        {
+          "title": "Exploit JWT implementation flaws",
+          "description": "Pointer to JWT-specific attacks: alg confusion, none algorithm, weak HMAC secrets, kid injection, and unverified jku/x5u. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: A forged or modified JWT is accepted, confirming exploitable signing or verification flaws. Common tags: api, api2-2023, jwt.",
+          "severity": "low",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Pointer to JWT-specific attacks: alg confusion, none algorithm, weak HMAC secrets, kid injection, and unverified jku/x5u. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: A forged or modified JWT is accepted, confirming exploitable signing or verification flaws. Common tags: api, api2-2023, jwt. Test \"Exploit JWT implementation flaws\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ],
+          "tags": [
+            "api",
+            "api2-2023",
+            "jwt"
+          ],
+          "source": "api-broken-auth-jwt-issues"
+        },
+        {
+          "title": "Review the JWKS endpoint and key hygiene",
+          "description": "The public JWKS (/.well-known/jwks.json) governs which keys verify tokens; stale, duplicate, or attacker-influencable keys widen the forgery surface and complicate revocation. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Fetch the jwks_uri; confirm keys rotate and retired keys are removed, no private material or test keys are exposed, and the kid/jku/x5u resolution cannot be pointed at an attacker-hosted key set (SSRF/allowlist bypass). Common tags: api, api2-2023, jwt, key-management.",
+          "severity": "high",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. The public JWKS (/.well-known/jwks.json) governs which keys verify tokens; stale, duplicate, or attacker-influencable keys widen the forgery surface and complicate revocation. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Fetch the jwks_uri; confirm keys rotate and retired keys are removed, no private material or test keys are exposed, and the kid/jku/x5u resolution cannot be pointed at an attacker-hosted key set (SSRF/allowlist bypass). Common tags: api, api2-2023, jwt, key-management. Test \"Review the JWKS endpoint and key hygiene\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ],
+          "tags": [
+            "api",
+            "api2-2023",
+            "jwt",
+            "key-management"
+          ],
+          "source": "api-broken-auth-jwks-exposure"
+        },
+        {
+          "title": "Detect API keys or tokens passed in the URL",
+          "description": "Identify credentials sent as query parameters that leak via logs, referrer headers, browser history, and proxies. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Authentication succeeds with the key in the query string and the value appears in server/proxy logs. Common tags: api, api2-2023, credentials.",
+          "severity": "low",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Identify credentials sent as query parameters that leak via logs, referrer headers, browser history, and proxies. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Authentication succeeds with the key in the query string and the value appears in server/proxy logs. Common tags: api, api2-2023, credentials. Test \"Detect API keys or tokens passed in the URL\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ],
+          "tags": [
+            "api",
+            "api2-2023",
+            "credentials"
+          ],
+          "source": "api-broken-auth-key-in-url"
+        },
+        {
+          "title": "Test password reset and recovery flows",
+          "description": "Probe reset-token entropy, reuse, expiry, and host-header poisoning that allow account takeover via the recovery API. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: A predictable/reusable reset token or poisoned reset link enables takeover of another account. Common tags: api, api2-2023, account-takeover.",
+          "severity": "high",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Probe reset-token entropy, reuse, expiry, and host-header poisoning that allow account takeover via the recovery API. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: A predictable/reusable reset token or poisoned reset link enables takeover of another account. Common tags: api, api2-2023, account-takeover. Test \"Test password reset and recovery flows\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ],
+          "tags": [
+            "api",
+            "api2-2023",
+            "account-takeover"
+          ],
+          "source": "api-broken-auth-weak-reset"
+        }
+      ]
+    },
+    {
+      "title": "API Authentication — API Keys & Tokens",
+      "items": [
+        {
+          "title": "Check for keys exposed in URLs and logs",
+          "description": "Confirm keys are not transmitted in query strings or written to access logs, error logs, or analytics pipelines. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: API key appears in request URLs and corresponding log entries, confirming exposure. Common tags: api, owasp-api, credentials.",
+          "severity": "low",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Confirm keys are not transmitted in query strings or written to access logs, error logs, or analytics pipelines. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: API key appears in request URLs and corresponding log entries, confirming exposure. Common tags: api, owasp-api, credentials. Test \"Check for keys exposed in URLs and logs\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ],
+          "tags": [
+            "api",
+            "owasp-api",
+            "credentials"
+          ],
+          "source": "api-key-mgmt-key-in-url-logs"
+        },
+        {
+          "title": "Verify key and token rotation support",
+          "description": "Confirm the platform supports and enforces periodic rotation and revocation of keys and long-lived tokens. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: No mechanism exists to rotate or revoke keys, leaving compromised credentials valid indefinitely. Common tags: api, owasp-api, credentials.",
+          "severity": "critical",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Confirm the platform supports and enforces periodic rotation and revocation of keys and long-lived tokens. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: No mechanism exists to rotate or revoke keys, leaving compromised credentials valid indefinitely. Common tags: api, owasp-api, credentials. Test \"Verify key and token rotation support\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ],
+          "tags": [
+            "api",
+            "owasp-api",
+            "credentials"
+          ],
+          "source": "api-key-mgmt-no-rotation"
+        },
+        {
+          "title": "Assess over-scoped key permissions",
+          "description": "Verify keys follow least privilege; a read-only key should not perform writes or reach unrelated services. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: A narrowly intended key performs broader privileged actions, confirming excessive scope. Common tags: api, owasp-api, authorization.",
+          "severity": "low",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Verify keys follow least privilege; a read-only key should not perform writes or reach unrelated services. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: A narrowly intended key performs broader privileged actions, confirming excessive scope. Common tags: api, owasp-api, authorization. Test \"Assess over-scoped key permissions\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ],
+          "tags": [
+            "api",
+            "owasp-api",
+            "authorization"
+          ],
+          "source": "api-key-mgmt-over-scoped"
+        },
+        {
+          "title": "Test for missing token/key expiry",
+          "description": "Confirm tokens and keys carry sensible lifetimes and that expired credentials are rejected. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: A long-aged or non-expiring credential still authenticates, indicating no expiry enforcement. Common tags: api, owasp-api, credentials.",
+          "severity": "critical",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Confirm tokens and keys carry sensible lifetimes and that expired credentials are rejected. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: A long-aged or non-expiring credential still authenticates, indicating no expiry enforcement. Common tags: api, owasp-api, credentials. Test \"Test for missing token/key expiry\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ],
+          "tags": [
+            "api",
+            "owasp-api",
+            "credentials"
+          ],
+          "source": "api-key-mgmt-no-expiry"
+        },
+        {
+          "title": "Hunt for keys leaked in client-side code",
+          "description": "Search SPA bundles, mobile apps, and public repositories for embedded keys or secrets usable directly against the API. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: A secret recovered from client code authenticates successfully against the API. Common tags: api, owasp-api, credentials.",
+          "severity": "high",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Search SPA bundles, mobile apps, and public repositories for embedded keys or secrets usable directly against the API. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: A secret recovered from client code authenticates successfully against the API. Common tags: api, owasp-api, credentials. Test \"Hunt for keys leaked in client-side code\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ],
+          "tags": [
+            "api",
+            "owasp-api",
+            "credentials"
+          ],
+          "source": "api-key-mgmt-client-leakage"
+        },
+        {
+          "title": "Check token binding and reuse controls",
+          "description": "Verify tokens are bound to client/IP/origin where appropriate and cannot be replayed from arbitrary contexts. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: A captured token replays successfully from an unrelated client/origin, confirming weak binding. Common tags: api, owasp-api, authentication.",
+          "severity": "low",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Verify tokens are bound to client/IP/origin where appropriate and cannot be replayed from arbitrary contexts. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: A captured token replays successfully from an unrelated client/origin, confirming weak binding. Common tags: api, owasp-api, authentication. Test \"Check token binding and reuse controls\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ],
+          "tags": [
+            "api",
+            "owasp-api",
+            "authentication"
+          ],
+          "source": "api-key-mgmt-no-binding"
+        }
+      ]
+    },
+    {
+      "title": "API Protocols & Data — REST APIs",
+      "items": [
+        {
+          "title": "HTTP verb tampering",
+          "description": "Send unexpected verbs (PUT, DELETE, PATCH, TRACE) to endpoints to reach behavior the application does not intend to expose. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: An unintended verb mutates state or returns data, confirming verb-based access gaps. Common tags: api, owasp-api, http-method.",
+          "severity": "medium",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Send unexpected verbs (PUT, DELETE, PATCH, TRACE) to endpoints to reach behavior the application does not intend to expose. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: An unintended verb mutates state or returns data, confirming verb-based access gaps. Common tags: api, owasp-api, http-method. Test \"HTTP verb tampering\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ],
+          "tags": [
+            "api",
+            "owasp-api",
+            "http-method"
+          ],
+          "source": "api-rest-verb-tampering"
+        },
+        {
+          "title": "Content-type confusion",
+          "description": "Swap Content-Type (JSON vs form vs XML) to bypass validation, trigger different parsers, or reach mass-assignment paths. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Changing the content type alters parsing/authorization and exposes new behavior. Common tags: api, owasp-api, input-validation.",
+          "severity": "low",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Swap Content-Type (JSON vs form vs XML) to bypass validation, trigger different parsers, or reach mass-assignment paths. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Changing the content type alters parsing/authorization and exposes new behavior. Common tags: api, owasp-api, input-validation. Test \"Content-type confusion\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ],
+          "tags": [
+            "api",
+            "owasp-api",
+            "input-validation"
+          ],
+          "source": "api-rest-content-type-confusion"
+        },
+        {
+          "title": "HTTP method override headers",
+          "description": "Abuse X-HTTP-Method-Override / _method to convert allowed verbs into restricted ones at the framework layer. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: An override header executes a restricted method that the gateway blocks directly. Common tags: api, owasp-api, http-method.",
+          "severity": "low",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Abuse X-HTTP-Method-Override / _method to convert allowed verbs into restricted ones at the framework layer. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: An override header executes a restricted method that the gateway blocks directly. Common tags: api, owasp-api, http-method. Test \"HTTP method override headers\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ],
+          "tags": [
+            "api",
+            "owasp-api",
+            "http-method"
+          ],
+          "source": "api-rest-method-override"
+        },
+        {
+          "title": "Pagination and limit abuse",
+          "description": "Manipulate page size, offset, and cursor parameters to extract bulk data or cause expensive enumeration. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Oversized page sizes or unbounded offsets return mass data without server-side caps. Common tags: api, owasp-api, enumeration.",
+          "severity": "low",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Manipulate page size, offset, and cursor parameters to extract bulk data or cause expensive enumeration. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Oversized page sizes or unbounded offsets return mass data without server-side caps. Common tags: api, owasp-api, enumeration. Test \"Pagination and limit abuse\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ],
+          "tags": [
+            "api",
+            "owasp-api",
+            "enumeration"
+          ],
+          "source": "api-rest-pagination-abuse"
+        },
+        {
+          "title": "Information leakage via status codes",
+          "description": "Compare 401/403/404/200 responses across resources to infer existence of objects, users, or endpoints. This is a defense-in-depth gap that improves overall resilience when fixed. Assessors should confirm the control in practice, not only on paper: Differing status codes reveal whether a resource exists, enabling enumeration. Common tags: api, owasp-api, information-disclosure.",
+          "severity": "critical",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Compare 401/403/404/200 responses across resources to infer existence of objects, users, or endpoints. This is a defense-in-depth gap that improves overall resilience when fixed. Assessors should confirm the control in practice, not only on paper: Differing status codes reveal whether a resource exists, enabling enumeration. Common tags: api, owasp-api, information-disclosure. Test \"Information leakage via status codes\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ],
+          "tags": [
+            "api",
+            "owasp-api",
+            "information-disclosure"
+          ],
+          "source": "api-rest-status-code-leak"
+        },
+        {
+          "title": "CORS misconfiguration for APIs",
+          "description": "Test reflected origins, null origin, and wildcard-with-credentials configurations that allow cross-origin data theft. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: The API reflects an arbitrary Origin with Access-Control-Allow-Credentials true, enabling cross-site reads. Common tags: api, owasp-api, cors.",
+          "severity": "low",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Test reflected origins, null origin, and wildcard-with-credentials configurations that allow cross-origin data theft. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: The API reflects an arbitrary Origin with Access-Control-Allow-Credentials true, enabling cross-site reads. Common tags: api, owasp-api, cors. Test \"CORS misconfiguration for APIs\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ],
+          "tags": [
+            "api",
+            "owasp-api",
+            "cors"
+          ],
+          "source": "api-rest-cors-misconfig"
+        },
+        {
+          "title": "Injection through REST parameters",
+          "description": "Fuzz JSON/query/path parameters for SQL, NoSQL, command, and template injection in REST handlers. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: Injected payloads alter query/command behavior or return injected output, confirming injection. Common tags: api, owasp-api, injection.",
+          "severity": "low",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Fuzz JSON/query/path parameters for SQL, NoSQL, command, and template injection in REST handlers. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: Injected payloads alter query/command behavior or return injected output, confirming injection. Common tags: api, owasp-api, injection. Test \"Injection through REST parameters\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ],
+          "tags": [
+            "api",
+            "owasp-api",
+            "injection"
+          ],
+          "source": "api-rest-injection"
+        }
+      ]
+    },
+    {
+      "title": "API Protocols & Data — GraphQL",
+      "items": [
+        {
+          "title": "Introspection enabled in production",
+          "description": "Query the __schema introspection system to map all types, queries, and mutations exposed by the endpoint. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Introspection returns the full schema in production, exposing the entire attack surface. Common tags: api, owasp-api, graphql.",
+          "severity": "low",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Query the __schema introspection system to map all types, queries, and mutations exposed by the endpoint. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Introspection returns the full schema in production, exposing the entire attack surface. Common tags: api, owasp-api, graphql. Test \"Introspection enabled in production\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ],
+          "tags": [
+            "api",
+            "owasp-api",
+            "graphql"
+          ],
+          "source": "api-graphql-introspection"
+        },
+        {
+          "title": "Deeply-nested query denial of service",
+          "description": "Construct recursively nested queries via circular relationships to exhaust CPU/memory on the resolver layer. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: A deeply nested query causes large latency/resource spikes without depth limiting. Common tags: api, owasp-api, graphql.",
+          "severity": "critical",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Construct recursively nested queries via circular relationships to exhaust CPU/memory on the resolver layer. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: A deeply nested query causes large latency/resource spikes without depth limiting. Common tags: api, owasp-api, graphql. Test \"Deeply-nested query denial of service\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ],
+          "tags": [
+            "api",
+            "owasp-api",
+            "graphql"
+          ],
+          "source": "api-graphql-deep-nesting-dos"
+        },
+        {
+          "title": "Batching and alias-based abuse",
+          "description": "Use query batching and field aliases to multiply operations in one request, bypassing rate limits and amplifying brute force. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Many aliased/batched operations execute per request without throttling, enabling amplification. Common tags: api, owasp-api, graphql.",
+          "severity": "critical",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Use query batching and field aliases to multiply operations in one request, bypassing rate limits and amplifying brute force. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Many aliased/batched operations execute per request without throttling, enabling amplification. Common tags: api, owasp-api, graphql. Test \"Batching and alias-based abuse\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ],
+          "tags": [
+            "api",
+            "owasp-api",
+            "graphql"
+          ],
+          "source": "api-graphql-batching-aliasing"
+        },
+        {
+          "title": "Field suggestion / schema leakage",
+          "description": "Send near-miss field names to harvest \"did you mean\" suggestions that reveal schema even when introspection is disabled. This is a defense-in-depth gap that improves overall resilience when fixed. Assessors should confirm the control in practice, not only on paper: Error suggestions disclose valid field/type names, reconstructing the schema. Common tags: api, owasp-api, graphql.",
+          "severity": "low",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Send near-miss field names to harvest \"did you mean\" suggestions that reveal schema even when introspection is disabled. This is a defense-in-depth gap that improves overall resilience when fixed. Assessors should confirm the control in practice, not only on paper: Error suggestions disclose valid field/type names, reconstructing the schema. Common tags: api, owasp-api, graphql. Test \"Field suggestion / schema leakage\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ],
+          "tags": [
+            "api",
+            "owasp-api",
+            "graphql"
+          ],
+          "source": "api-graphql-field-suggestion-leak"
+        },
+        {
+          "title": "Injection via GraphQL arguments",
+          "description": "Pass SQL/NoSQL/OS payloads through query and mutation arguments to reach injection sinks behind resolvers. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: Injected argument payloads change backend query/command behavior, confirming injection. Common tags: api, owasp-api, injection.",
+          "severity": "low",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Pass SQL/NoSQL/OS payloads through query and mutation arguments to reach injection sinks behind resolvers. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: Injected argument payloads change backend query/command behavior, confirming injection. Common tags: api, owasp-api, injection. Test \"Injection via GraphQL arguments\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ],
+          "tags": [
+            "api",
+            "owasp-api",
+            "injection"
+          ],
+          "source": "api-graphql-arg-injection"
+        },
+        {
+          "title": "Per-resolver authorization bypass",
+          "description": "Verify each field/resolver enforces authorization rather than relying on a single top-level check. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: A nested resolver returns data the caller is not authorized for, confirming inconsistent authz. Common tags: api, owasp-api, graphql.",
+          "severity": "critical",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Verify each field/resolver enforces authorization rather than relying on a single top-level check. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: A nested resolver returns data the caller is not authorized for, confirming inconsistent authz. Common tags: api, owasp-api, graphql. Test \"Per-resolver authorization bypass\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ],
+          "tags": [
+            "api",
+            "owasp-api",
+            "graphql"
+          ],
+          "source": "api-graphql-resolver-authz-bypass"
+        },
+        {
+          "title": "CSRF against GraphQL endpoints",
+          "description": "Test whether GET-based or form-encoded GraphQL requests allow cross-site state-changing operations without CSRF protection. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: A cross-site request executes a mutation using ambient cookies, confirming GraphQL CSRF. Common tags: api, owasp-api, csrf.",
+          "severity": "low",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Test whether GET-based or form-encoded GraphQL requests allow cross-site state-changing operations without CSRF protection. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: A cross-site request executes a mutation using ambient cookies, confirming GraphQL CSRF. Common tags: api, owasp-api, csrf. Test \"CSRF against GraphQL endpoints\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ],
+          "tags": [
+            "api",
+            "owasp-api",
+            "csrf"
+          ],
+          "source": "api-graphql-csrf"
+        },
+        {
+          "title": "Mutation abuse and unauthorized state change",
+          "description": "Enumerate mutations and attempt privileged or unintended state changes available to low-privilege users. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: A mutation performs a privileged change for an unauthorized user, confirming abuse. Common tags: api, owasp-api, graphql.",
+          "severity": "low",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Enumerate mutations and attempt privileged or unintended state changes available to low-privilege users. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: A mutation performs a privileged change for an unauthorized user, confirming abuse. Common tags: api, owasp-api, graphql. Test \"Mutation abuse and unauthorized state change\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ],
+          "tags": [
+            "api",
+            "owasp-api",
+            "graphql"
+          ],
+          "source": "api-graphql-mutation-abuse"
+        },
+        {
+          "title": "Missing query cost / complexity limits",
+          "description": "Verify the server enforces query depth, complexity, and cost analysis to prevent expensive query DoS. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Expensive high-cost queries run without rejection, indicating no cost limiting. Common tags: api, owasp-api, graphql.",
+          "severity": "critical",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Verify the server enforces query depth, complexity, and cost analysis to prevent expensive query DoS. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Expensive high-cost queries run without rejection, indicating no cost limiting. Common tags: api, owasp-api, graphql. Test \"Missing query cost / complexity limits\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ],
+          "tags": [
+            "api",
+            "owasp-api",
+            "graphql"
+          ],
+          "source": "api-graphql-query-cost-limits"
+        },
+        {
+          "title": "Persisted-query allowlist bypass",
+          "description": "Test whether ad-hoc queries are accepted when only persisted/allowlisted operations should be, or APQ hash handling can be abused. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Arbitrary queries execute despite a persisted-query allowlist, confirming bypass. Common tags: api, owasp-api, graphql.",
+          "severity": "low",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Test whether ad-hoc queries are accepted when only persisted/allowlisted operations should be, or APQ hash handling can be abused. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Arbitrary queries execute despite a persisted-query allowlist, confirming bypass. Common tags: api, owasp-api, graphql. Test \"Persisted-query allowlist bypass\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ],
+          "tags": [
+            "api",
+            "owasp-api",
+            "graphql"
+          ],
+          "source": "api-graphql-persisted-query-bypass"
+        }
+      ]
+    },
+    {
+      "title": "API Resource & Posture — Unrestricted Resource Consumption",
+      "items": [
+        {
+          "title": "Missing or weak rate limiting",
+          "description": "Send high-volume requests to confirm per-user, per-IP, and per-endpoint rate limits exist and are enforced. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Sustained high request rates proceed without throttling or 429 responses. Common tags: api, api4-2023, rate-limiting.",
+          "severity": "critical",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Send high-volume requests to confirm per-user, per-IP, and per-endpoint rate limits exist and are enforced. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Sustained high request rates proceed without throttling or 429 responses. Common tags: api, api4-2023, rate-limiting. Test \"Missing or weak rate limiting\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ],
+          "tags": [
+            "api",
+            "api4-2023",
+            "rate-limiting"
+          ],
+          "source": "api-resource-consumption-missing-rate-limit"
+        },
+        {
+          "title": "Oversized request payloads",
+          "description": "Submit very large bodies, deeply nested JSON, or many fields to test body-size and parser limits. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Large/complex payloads are accepted and processed without size or depth caps. Common tags: api, api4-2023, denial-of-service.",
+          "severity": "low",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Submit very large bodies, deeply nested JSON, or many fields to test body-size and parser limits. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Large/complex payloads are accepted and processed without size or depth caps. Common tags: api, api4-2023, denial-of-service. Test \"Oversized request payloads\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ],
+          "tags": [
+            "api",
+            "api4-2023",
+            "denial-of-service"
+          ],
+          "source": "api-resource-consumption-large-payload"
+        },
+        {
+          "title": "Expensive operation abuse",
+          "description": "Trigger costly operations (exports, reports, image processing, search) repeatedly to assess resource controls. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Expensive operations can be invoked without cost limits or quotas, exhausting resources. Common tags: api, api4-2023, denial-of-service.",
+          "severity": "critical",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Trigger costly operations (exports, reports, image processing, search) repeatedly to assess resource controls. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Expensive operations can be invoked without cost limits or quotas, exhausting resources. Common tags: api, api4-2023, denial-of-service. Test \"Expensive operation abuse\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ],
+          "tags": [
+            "api",
+            "api4-2023",
+            "denial-of-service"
+          ],
+          "source": "api-resource-consumption-expensive-ops"
+        },
+        {
+          "title": "No pagination caps",
+          "description": "Request unbounded result sets via limit/page-size parameters to confirm maximum result caps are enforced. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Requesting very large page sizes returns full datasets, confirming missing caps. Common tags: api, api4-2023, enumeration.",
+          "severity": "critical",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Request unbounded result sets via limit/page-size parameters to confirm maximum result caps are enforced. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Requesting very large page sizes returns full datasets, confirming missing caps. Common tags: api, api4-2023, enumeration. Test \"No pagination caps\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ],
+          "tags": [
+            "api",
+            "api4-2023",
+            "enumeration"
+          ],
+          "source": "api-resource-consumption-no-pagination-cap"
+        },
+        {
+          "title": "File upload and multipart amplification",
+          "description": "Upload large or many files (zip bombs, huge media) to test upload size limits and processing safeguards. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Large or amplifying uploads are processed without size/time limits, exhausting resources. Common tags: api, api4-2023, denial-of-service.",
+          "severity": "critical",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Upload large or many files (zip bombs, huge media) to test upload size limits and processing safeguards. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Large or amplifying uploads are processed without size/time limits, exhausting resources. Common tags: api, api4-2023, denial-of-service. Test \"File upload and multipart amplification\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ],
+          "tags": [
+            "api",
+            "api4-2023",
+            "denial-of-service"
+          ],
+          "source": "api-resource-consumption-multipart-amplification"
+        },
+        {
+          "title": "Amplified third-party / billing cost abuse",
+          "description": "Identify endpoints that trigger paid downstream calls (SMS, email, LLM) lacking quotas, causing financial denial of service. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Repeated calls drive unbounded downstream/billing cost without per-tenant quotas. Common tags: api, api4-2023, denial-of-service.",
+          "severity": "low",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Identify endpoints that trigger paid downstream calls (SMS, email, LLM) lacking quotas, causing financial denial of service. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Repeated calls drive unbounded downstream/billing cost without per-tenant quotas. Common tags: api, api4-2023, denial-of-service. Test \"Amplified third-party / billing cost abuse\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ],
+          "tags": [
+            "api",
+            "api4-2023",
+            "denial-of-service"
+          ],
+          "source": "api-resource-consumption-third-party-cost"
+        },
+        {
+          "title": "Rate-limit bypass via spoofed client headers",
+          "description": "Per-IP throttles keyed on a forwarding header rather than the real connection can be reset by rotating the header value, defeating the limit entirely. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Replay over the threshold while rotating X-Forwarded-For, X-Real-IP, X-Client-IP, X-Originating-IP, and Forwarded; if each spoofed value gets a fresh quota the limit is bypassable. Also test casing/param-pollution on the rate-limited key. Common tags: api, api4-2023, rate-limiting, bypass.",
+          "severity": "low",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Per-IP throttles keyed on a forwarding header rather than the real connection can be reset by rotating the header value, defeating the limit entirely. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Replay over the threshold while rotating X-Forwarded-For, X-Real-IP, X-Client-IP, X-Originating-IP, and Forwarded; if each spoofed value gets a fresh quota the limit is bypassable. Also test casing/param-pollution on the rate-limited key. Common tags: api, api4-2023, rate-limiting, bypass. Test \"Rate-limit bypass via spoofed client headers\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ],
+          "tags": [
+            "api",
+            "api4-2023",
+            "rate-limiting",
+            "bypass"
+          ],
+          "source": "api-resource-consumption-ratelimit-header-bypass"
+        }
+      ]
+    },
+    {
+      "title": "API Resource & Posture — Server-Side Request Forgery",
+      "items": [
+        {
+          "title": "URL parameters fetched server-side",
+          "description": "Identify parameters (url, src, image, callback) the server requests and point them at internal or attacker-controlled hosts. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: The server fetches an attacker-specified internal URL, confirming SSRF. Common tags: api, api7-2023, ssrf.",
+          "severity": "low",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Identify parameters (url, src, image, callback) the server requests and point them at internal or attacker-controlled hosts. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: The server fetches an attacker-specified internal URL, confirming SSRF. Common tags: api, api7-2023, ssrf. Test \"URL parameters fetched server-side\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ],
+          "tags": [
+            "api",
+            "api7-2023",
+            "ssrf"
+          ],
+          "source": "api-ssrf-url-param-fetch"
+        },
+        {
+          "title": "Webhook and callback URL abuse",
+          "description": "Register webhook/callback URLs pointing at internal services to coerce server-side requests to private resources. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: A configured webhook reaches internal hosts/ports, confirming callback-based SSRF. Common tags: api, api7-2023, ssrf.",
+          "severity": "critical",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Register webhook/callback URLs pointing at internal services to coerce server-side requests to private resources. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: A configured webhook reaches internal hosts/ports, confirming callback-based SSRF. Common tags: api, api7-2023, ssrf. Test \"Webhook and callback URL abuse\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ],
+          "tags": [
+            "api",
+            "api7-2023",
+            "ssrf"
+          ],
+          "source": "api-ssrf-webhook-callback"
+        },
+        {
+          "title": "Cloud metadata endpoint access",
+          "description": "Target 169.254.169.254 (and equivalents) via SSRF to retrieve cloud instance credentials and metadata. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: SSRF returns cloud metadata or IAM credentials from the instance metadata service. Common tags: api, api7-2023, ssrf.",
+          "severity": "low",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Target 169.254.169.254 (and equivalents) via SSRF to retrieve cloud instance credentials and metadata. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: SSRF returns cloud metadata or IAM credentials from the instance metadata service. Common tags: api, api7-2023, ssrf. Test \"Cloud metadata endpoint access\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ],
+          "tags": [
+            "api",
+            "api7-2023",
+            "ssrf"
+          ],
+          "source": "api-ssrf-metadata"
+        },
+        {
+          "title": "DNS rebinding to bypass host checks",
+          "description": "Use TOCTOU DNS rebinding so a validated hostname resolves to an internal IP at fetch time. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: A hostname passes validation then resolves internally during the fetch, bypassing controls. Common tags: api, api7-2023, ssrf.",
+          "severity": "low",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Use TOCTOU DNS rebinding so a validated hostname resolves to an internal IP at fetch time. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: A hostname passes validation then resolves internally during the fetch, bypassing controls. Common tags: api, api7-2023, ssrf. Test \"DNS rebinding to bypass host checks\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ],
+          "tags": [
+            "api",
+            "api7-2023",
+            "ssrf"
+          ],
+          "source": "api-ssrf-dns-rebinding"
+        },
+        {
+          "title": "SSRF allowlist/blocklist bypass",
+          "description": "Bypass URL filters using IP encodings, redirects, alternate schemes, IPv6, and decimal/hex representations. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: An encoded or redirected URL reaches a blocked internal target, confirming filter bypass. Common tags: api, api7-2023, ssrf.",
+          "severity": "low",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Bypass URL filters using IP encodings, redirects, alternate schemes, IPv6, and decimal/hex representations. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: An encoded or redirected URL reaches a blocked internal target, confirming filter bypass. Common tags: api, api7-2023, ssrf. Test \"SSRF allowlist/blocklist bypass\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ],
+          "tags": [
+            "api",
+            "api7-2023",
+            "ssrf"
+          ],
+          "source": "api-ssrf-filter-bypass"
+        },
+        {
+          "title": "Blind SSRF via out-of-band detection",
+          "description": "Inject collaborator/OAST URLs to detect blind SSRF where no response content is returned. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: An out-of-band interaction (DNS/HTTP) confirms the server made an attacker-directed request. Common tags: api, api7-2023, ssrf.",
+          "severity": "low",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Inject collaborator/OAST URLs to detect blind SSRF where no response content is returned. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: An out-of-band interaction (DNS/HTTP) confirms the server made an attacker-directed request. Common tags: api, api7-2023, ssrf. Test \"Blind SSRF via out-of-band detection\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ],
+          "tags": [
+            "api",
+            "api7-2023",
+            "ssrf"
+          ],
+          "source": "api-ssrf-blind-oob"
+        }
+      ]
+    },
+    {
+      "title": "API Resource & Posture — Improper Inventory Management",
+      "items": [
+        {
+          "title": "Old or deprecated API versions reachable",
+          "description": "Probe /v1, /v0, and legacy paths that may lack current security controls but remain live. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: A deprecated version responds with weaker controls than the current version. Common tags: api, api9-2023, inventory.",
+          "severity": "medium",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Probe /v1, /v0, and legacy paths that may lack current security controls but remain live. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: A deprecated version responds with weaker controls than the current version. Common tags: api, api9-2023, inventory. Test \"Old or deprecated API versions reachable\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ],
+          "tags": [
+            "api",
+            "api9-2023",
+            "inventory"
+          ],
+          "source": "api-inventory-old-versions"
+        },
+        {
+          "title": "Undocumented / shadow APIs",
+          "description": "Discover endpoints absent from documentation via brute force, JS analysis, and traffic inspection. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: A reachable endpoint missing from documentation is found, indicating shadow API exposure. Common tags: api, api9-2023, inventory.",
+          "severity": "critical",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Discover endpoints absent from documentation via brute force, JS analysis, and traffic inspection. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: A reachable endpoint missing from documentation is found, indicating shadow API exposure. Common tags: api, api9-2023, inventory. Test \"Undocumented / shadow APIs\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ],
+          "tags": [
+            "api",
+            "api9-2023",
+            "inventory"
+          ],
+          "source": "api-inventory-shadow-apis"
+        },
+        {
+          "title": "Exposed non-production environments",
+          "description": "Identify staging, dev, test, and debug hosts reachable from the internet that may hold weaker controls or real data. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: A non-prod host (staging/debug) is internet-reachable and serves sensitive functionality/data. Common tags: api, api9-2023, inventory.",
+          "severity": "low",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Identify staging, dev, test, and debug hosts reachable from the internet that may hold weaker controls or real data. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: A non-prod host (staging/debug) is internet-reachable and serves sensitive functionality/data. Common tags: api, api9-2023, inventory. Test \"Exposed non-production environments\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ],
+          "tags": [
+            "api",
+            "api9-2023",
+            "inventory"
+          ],
+          "source": "api-inventory-nonprod-exposed"
+        },
+        {
+          "title": "Missing API version retirement",
+          "description": "Verify a documented lifecycle exists so superseded versions are decommissioned rather than left running indefinitely. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Superseded versions remain active with no retirement plan, expanding attack surface. Common tags: api, api9-2023, inventory.",
+          "severity": "medium",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Verify a documented lifecycle exists so superseded versions are decommissioned rather than left running indefinitely. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Superseded versions remain active with no retirement plan, expanding attack surface. Common tags: api, api9-2023, inventory. Test \"Missing API version retirement\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ],
+          "tags": [
+            "api",
+            "api9-2023",
+            "inventory"
+          ],
+          "source": "api-inventory-version-retirement"
+        },
+        {
+          "title": "API host and subdomain sprawl",
+          "description": "Enumerate API subdomains and gateways to find forgotten hosts that escape monitoring and patching. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Unmonitored API hosts/subdomains are discovered serving live endpoints. Common tags: api, api9-2023, inventory.",
+          "severity": "medium",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Enumerate API subdomains and gateways to find forgotten hosts that escape monitoring and patching. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Unmonitored API hosts/subdomains are discovered serving live endpoints. Common tags: api, api9-2023, inventory. Test \"API host and subdomain sprawl\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ],
+          "tags": [
+            "api",
+            "api9-2023",
+            "inventory"
+          ],
+          "source": "api-inventory-host-sprawl"
+        },
+        {
+          "title": "Documentation and spec drift",
+          "description": "Compare OpenAPI/Swagger specs against live behavior to find endpoints/params present in one but not the other. This is a defense-in-depth gap that improves overall resilience when fixed. Assessors should confirm the control in practice, not only on paper: Live endpoints/parameters diverge from the published spec, revealing undocumented surface. Common tags: api, api9-2023, inventory.",
+          "severity": "low",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Compare OpenAPI/Swagger specs against live behavior to find endpoints/params present in one but not the other. This is a defense-in-depth gap that improves overall resilience when fixed. Assessors should confirm the control in practice, not only on paper: Live endpoints/parameters diverge from the published spec, revealing undocumented surface. Common tags: api, api9-2023, inventory. Test \"Documentation and spec drift\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ],
+          "tags": [
+            "api",
+            "api9-2023",
+            "inventory"
+          ],
+          "source": "api-inventory-doc-drift"
+        }
+      ]
+    },
+    {
+      "title": "API Resource & Posture — Security Misconfiguration",
+      "items": [
+        {
+          "title": "Missing security headers",
+          "description": "Check for absent HSTS, CSP, X-Content-Type-Options, and cache-control headers on API responses. This is a defense-in-depth gap that improves overall resilience when fixed. Assessors should confirm the control in practice, not only on paper: Responses lack expected security headers, weakening transport and content protections. Common tags: api, api8-2023, misconfiguration.",
+          "severity": "low",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Check for absent HSTS, CSP, X-Content-Type-Options, and cache-control headers on API responses. This is a defense-in-depth gap that improves overall resilience when fixed. Assessors should confirm the control in practice, not only on paper: Responses lack expected security headers, weakening transport and content protections. Common tags: api, api8-2023, misconfiguration. Test \"Missing security headers\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ],
+          "tags": [
+            "api",
+            "api8-2023",
+            "misconfiguration"
+          ],
+          "source": "api-misconfiguration-missing-headers"
+        },
+        {
+          "title": "Verbose error messages and stack traces",
+          "description": "Trigger errors to reveal stack traces, framework versions, queries, or file paths leaking internal detail. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Error responses disclose stack traces or internal details useful to an attacker. Common tags: api, api8-2023, information-disclosure.",
+          "severity": "medium",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Trigger errors to reveal stack traces, framework versions, queries, or file paths leaking internal detail. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Error responses disclose stack traces or internal details useful to an attacker. Common tags: api, api8-2023, information-disclosure. Test \"Verbose error messages and stack traces\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ],
+          "tags": [
+            "api",
+            "api8-2023",
+            "information-disclosure"
+          ],
+          "source": "api-misconfiguration-verbose-errors"
+        },
+        {
+          "title": "Unnecessary HTTP methods enabled",
+          "description": "Enumerate allowed methods (TRACE, OPTIONS, PUT, DELETE) and confirm dangerous or unused verbs are disabled. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Dangerous or unused HTTP methods are enabled where they should be disabled. Common tags: api, api8-2023, misconfiguration.",
+          "severity": "low",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Enumerate allowed methods (TRACE, OPTIONS, PUT, DELETE) and confirm dangerous or unused verbs are disabled. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Dangerous or unused HTTP methods are enabled where they should be disabled. Common tags: api, api8-2023, misconfiguration. Test \"Unnecessary HTTP methods enabled\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ],
+          "tags": [
+            "api",
+            "api8-2023",
+            "misconfiguration"
+          ],
+          "source": "api-misconfiguration-unnecessary-methods"
+        },
+        {
+          "title": "Default configurations and credentials",
+          "description": "Identify default admin paths, sample data, debug endpoints, and default credentials left from setup. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: A default credential, sample endpoint, or debug interface remains accessible. Common tags: api, api8-2023, misconfiguration.",
+          "severity": "low",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Identify default admin paths, sample data, debug endpoints, and default credentials left from setup. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: A default credential, sample endpoint, or debug interface remains accessible. Common tags: api, api8-2023, misconfiguration. Test \"Default configurations and credentials\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ],
+          "tags": [
+            "api",
+            "api8-2023",
+            "misconfiguration"
+          ],
+          "source": "api-misconfiguration-default-configs"
+        },
+        {
+          "title": "Weak transport security",
+          "description": "Verify TLS configuration, certificate validity, and absence of cleartext API endpoints. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Weak TLS or cleartext API access is permitted, exposing traffic to interception. Common tags: api, api8-2023, misconfiguration.",
+          "severity": "critical",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Verify TLS configuration, certificate validity, and absence of cleartext API endpoints. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Weak TLS or cleartext API access is permitted, exposing traffic to interception. Common tags: api, api8-2023, misconfiguration. Test \"Weak transport security\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ],
+          "tags": [
+            "api",
+            "api8-2023",
+            "misconfiguration"
+          ],
+          "source": "api-misconfiguration-tls-weak"
+        },
+        {
+          "title": "Overly permissive CORS policy",
+          "description": "Check for wildcard origins or credentialed wildcard CORS that allows untrusted sites to call the API. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: A permissive CORS policy lets untrusted origins read authenticated API responses. Common tags: api, api8-2023, cors.",
+          "severity": "high",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Check for wildcard origins or credentialed wildcard CORS that allows untrusted sites to call the API. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: A permissive CORS policy lets untrusted origins read authenticated API responses. Common tags: api, api8-2023, cors. Test \"Overly permissive CORS policy\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ],
+          "tags": [
+            "api",
+            "api8-2023",
+            "cors"
+          ],
+          "source": "api-misconfiguration-cors-permissive"
+        }
+      ]
+    },
+    {
+      "title": "API Resource & Posture — Unsafe Consumption of APIs",
+      "items": [
+        {
+          "title": "Test for blind trust of third-party API data",
+          "description": "Data from integrated APIs consumed without validation can carry injection or malformed payloads downstream. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Identify where the app consumes upstream/partner API responses and check whether that data is validated before use or storage. Common tags: api, api10-2023, validation.",
+          "severity": "low",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Data from integrated APIs consumed without validation can carry injection or malformed payloads downstream. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Identify where the app consumes upstream/partner API responses and check whether that data is validated before use or storage. Common tags: api, api10-2023, validation. Test \"Test for blind trust of third-party API data\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ],
+          "tags": [
+            "api",
+            "api10-2023",
+            "validation"
+          ],
+          "source": "api-unsafe-consumption-trust-data"
+        },
+        {
+          "title": "Verify transport security to integrated services",
+          "description": "Calls to upstream APIs over plaintext or with disabled cert validation expose data to interception. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Confirm the app uses TLS with certificate validation for all outbound integration calls (no verify=false). Common tags: api, api10-2023, tls.",
+          "severity": "critical",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Calls to upstream APIs over plaintext or with disabled cert validation expose data to interception. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Confirm the app uses TLS with certificate validation for all outbound integration calls (no verify=false). Common tags: api, api10-2023, tls. Test \"Verify transport security to integrated services\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ],
+          "tags": [
+            "api",
+            "api10-2023",
+            "tls"
+          ],
+          "source": "api-unsafe-consumption-insecure-transport"
+        },
+        {
+          "title": "Test handling of redirects from third-party APIs",
+          "description": "Blindly following redirects returned by an integrated API can enable SSRF or data exfiltration. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Check whether the client follows arbitrary redirects from upstream responses without allowlisting the destination. Common tags: api, api10-2023, ssrf.",
+          "severity": "low",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Blindly following redirects returned by an integrated API can enable SSRF or data exfiltration. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Check whether the client follows arbitrary redirects from upstream responses without allowlisting the destination. Common tags: api, api10-2023, ssrf. Test \"Test handling of redirects from third-party APIs\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ],
+          "tags": [
+            "api",
+            "api10-2023",
+            "ssrf"
+          ],
+          "source": "api-unsafe-consumption-blind-redirects"
+        },
+        {
+          "title": "Trace consumed data into injection sinks",
+          "description": "Third-party data reaching SQL/command/template/HTML sinks is exploitable just like direct user input. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Follow upstream API data into queries, commands, templates, and responses; confirm it is escaped/parameterised. Common tags: api, api10-2023, injection.",
+          "severity": "low",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Third-party data reaching SQL/command/template/HTML sinks is exploitable just like direct user input. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Follow upstream API data into queries, commands, templates, and responses; confirm it is escaped/parameterised. Common tags: api, api10-2023, injection. Test \"Trace consumed data into injection sinks\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ],
+          "tags": [
+            "api",
+            "api10-2023",
+            "injection"
+          ],
+          "source": "api-unsafe-consumption-injection-sink"
+        },
+        {
+          "title": "Test inbound webhook signature verification",
+          "description": "Endpoints that receive provider webhooks (payment, VCS, CI) must verify the HMAC/asymmetric signature; missing or flawed verification lets an attacker forge state-changing events. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Replay a webhook with the signature header removed, an empty/zeroed signature, a wrong algorithm, or a tampered body; confirm rejection. Test for timing-unsafe comparison and missing timestamp/replay protection on valid events. Common tags: api, api10-2023, webhook, signature-verification.",
+          "severity": "low",
+          "how_to_find": "Map API surface from OpenAPI/Swagger, mobile traffic, or JS bundles. Endpoints that receive provider webhooks (payment, VCS, CI) must verify the HMAC/asymmetric signature; missing or flawed verification lets an attacker forge state-changing events. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Replay a webhook with the signature header removed, an empty/zeroed signature, a wrong algorithm, or a tampered body; confirm rejection. Test for timing-unsafe comparison and missing timestamp/replay protection on valid events. Common tags: api, api10-2023, webhook, signature-verification. Test \"Test inbound webhook signature verification\" by swapping object IDs, tokens, and HTTP methods in Burp Repeater. Fuzz JSON fields and GraphQL queries for mass assignment and depth abuse.",
+          "how_to_fix": "Enforce OAuth2/OIDC correctly, validate JWT claims, object-level authorization on every endpoint, rate limits per IP/key/user, schema validation, API gateway WAF, and deprecate weak API versions.",
+          "tools": [
+            "Burp Suite",
+            "Postman",
+            "OWASP ZAP",
+            "jwt_tool",
+            "GraphQL Voyager"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security Top 10",
+              "url": "https://owasp.org/www-project-api-security/"
+            }
+          ],
+          "tags": [
+            "api",
+            "api10-2023",
+            "webhook",
+            "signature-verification"
+          ],
+          "source": "api-unsafe-consumption-webhook-signature"
         }
       ]
     }

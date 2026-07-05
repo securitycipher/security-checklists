@@ -7,7 +7,7 @@
       "items": [
         {
           "title": "Decompile and review APK",
-          "description": "Use jadx or apktool to inspect source, manifest, and hardcoded secrets.",
+          "description": "Use jadx or apktool to inspect source, manifest, and hardcoded secrets. This control is evaluated under \"Android - Static Analysis\" during mobile application security assessments. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Document affected assets, evidence, and business owners when reporting.",
           "severity": "critical",
           "how_to_find": "Platform: Android. Use jadx or apktool to inspect source, manifest, and hardcoded secrets. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Decompile and review APK.",
           "how_to_fix": "Remediate \"Decompile and review APK\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
@@ -28,7 +28,7 @@
         },
         {
           "title": "AndroidManifest exported components",
-          "description": "Flag exported activities, services, receivers, and providers without proper permissions.",
+          "description": "Flag exported activities, services, receivers, and providers without proper permissions. This control is evaluated under \"Android - Static Analysis\" during mobile application security assessments. Fixing this improves defense-in-depth and long-term resilience. Document affected assets, evidence, and business owners when reporting.",
           "severity": "low",
           "how_to_find": "Platform: Android. Flag exported activities, services, receivers, and providers without proper permissions. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: AndroidManifest exported components.",
           "how_to_fix": "Remediate \"AndroidManifest exported components\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
@@ -49,7 +49,7 @@
         },
         {
           "title": "Hardcoded API keys and secrets",
-          "description": "Search decompiled code and resources for keys, tokens, and credentials.",
+          "description": "Search decompiled code and resources for keys, tokens, and credentials. This control is evaluated under \"Android - Static Analysis\" during mobile application security assessments. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Document affected assets, evidence, and business owners when reporting.",
           "severity": "critical",
           "how_to_find": "Platform: Android. Search decompiled code and resources for keys, tokens, and credentials. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Hardcoded API keys and secrets.",
           "how_to_fix": "Remediate \"Hardcoded API keys and secrets\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
@@ -70,7 +70,7 @@
         },
         {
           "title": "Insecure local storage",
-          "description": "Check SharedPreferences, SQLite, and external storage for sensitive data.",
+          "description": "Check SharedPreferences, SQLite, and external storage for sensitive data. This control is evaluated under \"Android - Static Analysis\" during mobile application security assessments. Attackers frequently chain this with other issues to escalate access or exfiltrate data. Document affected assets, evidence, and business owners when reporting.",
           "severity": "high",
           "how_to_find": "Platform: Android. Check SharedPreferences, SQLite, and external storage for sensitive data. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Insecure local storage.",
           "how_to_fix": "Remediate \"Insecure local storage\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
@@ -91,7 +91,7 @@
         },
         {
           "title": "Backup allowed",
-          "description": "Verify android:allowBackup is false for apps handling sensitive data.",
+          "description": "Verify android:allowBackup is false for apps handling sensitive data. This control is evaluated under \"Android - Static Analysis\" during mobile application security assessments. This expands attack surface and should be remediated within the current remediation cycle. Document affected assets, evidence, and business owners when reporting.",
           "severity": "medium",
           "how_to_find": "Platform: Android. Verify android:allowBackup is false for apps handling sensitive data. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Backup allowed.",
           "how_to_fix": "Remediate \"Backup allowed\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
@@ -112,7 +112,7 @@
         },
         {
           "title": "Debuggable flag",
-          "description": "Ensure release builds are not debuggable.",
+          "description": "Ensure release builds are not debuggable. This control is evaluated under \"Android - Static Analysis\" during mobile application security assessments. Fixing this improves defense-in-depth and long-term resilience. Document affected assets, evidence, and business owners when reporting.",
           "severity": "low",
           "how_to_find": "Platform: Android. Ensure release builds are not debuggable. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Debuggable flag.",
           "how_to_fix": "Remediate \"Debuggable flag\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
@@ -138,7 +138,7 @@
       "items": [
         {
           "title": "Certificate pinning bypass",
-          "description": "Test with Frida/objection if traffic can be intercepted via Burp.",
+          "description": "Test with Frida/objection if traffic can be intercepted via Burp. This control is evaluated under \"Android - Dynamic Analysis\" during mobile application security assessments. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Document affected assets, evidence, and business owners when reporting.",
           "severity": "critical",
           "how_to_find": "Platform: Android. Test with Frida/objection if traffic can be intercepted via Burp. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Certificate pinning bypass.",
           "how_to_fix": "Remediate \"Certificate pinning bypass\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
@@ -159,7 +159,7 @@
         },
         {
           "title": "Root detection bypass",
-          "description": "Attempt to run app on rooted device or emulator with hooks.",
+          "description": "Attempt to run app on rooted device or emulator with hooks. This control is evaluated under \"Android - Dynamic Analysis\" during mobile application security assessments. Fixing this improves defense-in-depth and long-term resilience. Document affected assets, evidence, and business owners when reporting.",
           "severity": "low",
           "how_to_find": "Platform: Android. Attempt to run app on rooted device or emulator with hooks. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Root detection bypass.",
           "how_to_fix": "Remediate \"Root detection bypass\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
@@ -180,7 +180,7 @@
         },
         {
           "title": "Deep link hijacking",
-          "description": "Test custom URL schemes and App Links for takeover by malicious apps.",
+          "description": "Test custom URL schemes and App Links for takeover by malicious apps. This control is evaluated under \"Android - Dynamic Analysis\" during mobile application security assessments. Fixing this improves defense-in-depth and long-term resilience. Document affected assets, evidence, and business owners when reporting.",
           "severity": "low",
           "how_to_find": "Platform: Android. Test custom URL schemes and App Links for takeover by malicious apps. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Deep link hijacking.",
           "how_to_fix": "Remediate \"Deep link hijacking\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
@@ -201,7 +201,7 @@
         },
         {
           "title": "IPC abuse",
-          "description": "Use drozer to test content providers and inter-process communication.",
+          "description": "Use drozer to test content providers and inter-process communication. This control is evaluated under \"Android - Dynamic Analysis\" during mobile application security assessments. Fixing this improves defense-in-depth and long-term resilience. Document affected assets, evidence, and business owners when reporting.",
           "severity": "low",
           "how_to_find": "Platform: Android. Use drozer to test content providers and inter-process communication. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: IPC abuse.",
           "how_to_fix": "Remediate \"IPC abuse\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
@@ -222,7 +222,7 @@
         },
         {
           "title": "Runtime instrumentation",
-          "description": "Hook crypto, auth, and SSL routines with Frida.",
+          "description": "Hook crypto, auth, and SSL routines with Frida. This control is evaluated under \"Android - Dynamic Analysis\" during mobile application security assessments. Fixing this improves defense-in-depth and long-term resilience. Document affected assets, evidence, and business owners when reporting.",
           "severity": "low",
           "how_to_find": "Platform: Android. Hook crypto, auth, and SSL routines with Frida. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Runtime instrumentation.",
           "how_to_fix": "Remediate \"Runtime instrumentation\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
@@ -243,7 +243,7 @@
         },
         {
           "title": "Backend API replay",
-          "description": "Capture and replay mobile API calls in Burp; test IDOR and auth.",
+          "description": "Capture and replay mobile API calls in Burp; test IDOR and auth. This control is evaluated under \"Android - Dynamic Analysis\" during mobile application security assessments. Attackers frequently chain this with other issues to escalate access or exfiltrate data. Document affected assets, evidence, and business owners when reporting.",
           "severity": "high",
           "how_to_find": "Platform: Android. Capture and replay mobile API calls in Burp; test IDOR and auth. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Backend API replay.",
           "how_to_fix": "Remediate \"Backend API replay\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
@@ -269,7 +269,7 @@
       "items": [
         {
           "title": "Binary analysis",
-          "description": "Inspect IPA with class-dump, Hopper, or Ghidra for secrets and logic.",
+          "description": "Inspect IPA with class-dump, Hopper, or Ghidra for secrets and logic. This control is evaluated under \"iOS - Static Analysis\" during mobile application security assessments. Fixing this improves defense-in-depth and long-term resilience. Document affected assets, evidence, and business owners when reporting.",
           "severity": "low",
           "how_to_find": "Platform: iOS. Inspect IPA with class-dump, Hopper, or Ghidra for secrets and logic. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Binary analysis.",
           "how_to_fix": "Remediate \"Binary analysis\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
@@ -291,7 +291,7 @@
         },
         {
           "title": "Info.plist review",
-          "description": "Check ATS settings, URL schemes, and sensitive plist keys.",
+          "description": "Check ATS settings, URL schemes, and sensitive plist keys. This control is evaluated under \"iOS - Static Analysis\" during mobile application security assessments. Fixing this improves defense-in-depth and long-term resilience. Document affected assets, evidence, and business owners when reporting.",
           "severity": "low",
           "how_to_find": "Platform: iOS. Check ATS settings, URL schemes, and sensitive plist keys. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Info.plist review.",
           "how_to_fix": "Remediate \"Info.plist review\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
@@ -313,7 +313,7 @@
         },
         {
           "title": "Hardcoded secrets in bundle",
-          "description": "Search strings and plists for API keys and credentials.",
+          "description": "Search strings and plists for API keys and credentials. This control is evaluated under \"iOS - Static Analysis\" during mobile application security assessments. Fixing this improves defense-in-depth and long-term resilience. Document affected assets, evidence, and business owners when reporting.",
           "severity": "low",
           "how_to_find": "Platform: iOS. Search strings and plists for API keys and credentials. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Hardcoded secrets in bundle.",
           "how_to_fix": "Remediate \"Hardcoded secrets in bundle\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
@@ -335,7 +335,7 @@
         },
         {
           "title": "Jailbreak detection",
-          "description": "Identify and test bypass of jailbreak/root checks.",
+          "description": "Identify and test bypass of jailbreak/root checks. This control is evaluated under \"iOS - Static Analysis\" during mobile application security assessments. Fixing this improves defense-in-depth and long-term resilience. Document affected assets, evidence, and business owners when reporting.",
           "severity": "low",
           "how_to_find": "Platform: iOS. Identify and test bypass of jailbreak/root checks. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Jailbreak detection.",
           "how_to_fix": "Remediate \"Jailbreak detection\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
@@ -362,7 +362,7 @@
       "items": [
         {
           "title": "Keychain accessibility",
-          "description": "Dump keychain with objection; verify kSecAttrAccessible classes.",
+          "description": "Dump keychain with objection; verify kSecAttrAccessible classes. This control is evaluated under \"iOS - Dynamic Analysis\" during mobile application security assessments. Fixing this improves defense-in-depth and long-term resilience. Document affected assets, evidence, and business owners when reporting.",
           "severity": "low",
           "how_to_find": "Platform: iOS. Dump keychain with objection; verify kSecAttrAccessible classes. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Keychain accessibility.",
           "how_to_fix": "Remediate \"Keychain accessibility\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
@@ -384,7 +384,7 @@
         },
         {
           "title": "SSL pinning bypass",
-          "description": "Use Frida/objection ios sslpinning disable and proxy traffic.",
+          "description": "Use Frida/objection ios sslpinning disable and proxy traffic. This control is evaluated under \"iOS - Dynamic Analysis\" during mobile application security assessments. Fixing this improves defense-in-depth and long-term resilience. Document affected assets, evidence, and business owners when reporting.",
           "severity": "low",
           "how_to_find": "Platform: iOS. Use Frida/objection ios sslpinning disable and proxy traffic. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: SSL pinning bypass.",
           "how_to_fix": "Remediate \"SSL pinning bypass\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
@@ -406,7 +406,7 @@
         },
         {
           "title": "Universal link hijacking",
-          "description": "Test associated domains and URL scheme handlers.",
+          "description": "Test associated domains and URL scheme handlers. This control is evaluated under \"iOS - Dynamic Analysis\" during mobile application security assessments. Fixing this improves defense-in-depth and long-term resilience. Document affected assets, evidence, and business owners when reporting.",
           "severity": "low",
           "how_to_find": "Platform: iOS. Test associated domains and URL scheme handlers. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Universal link hijacking.",
           "how_to_fix": "Remediate \"Universal link hijacking\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
@@ -428,7 +428,7 @@
         },
         {
           "title": "Sensitive data in logs",
-          "description": "Monitor device logs during auth and payment flows.",
+          "description": "Monitor device logs during auth and payment flows. This control is evaluated under \"iOS - Dynamic Analysis\" during mobile application security assessments. Fixing this improves defense-in-depth and long-term resilience. Document affected assets, evidence, and business owners when reporting.",
           "severity": "low",
           "how_to_find": "Platform: iOS. Monitor device logs during auth and payment flows. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Sensitive data in logs.",
           "how_to_fix": "Remediate \"Sensitive data in logs\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
@@ -450,7 +450,7 @@
         },
         {
           "title": "Backend API security",
-          "description": "Apply web/API testing to endpoints the app calls.",
+          "description": "Apply web/API testing to endpoints the app calls. This control is evaluated under \"iOS - Dynamic Analysis\" during mobile application security assessments. Fixing this improves defense-in-depth and long-term resilience. Document affected assets, evidence, and business owners when reporting.",
           "severity": "low",
           "how_to_find": "Platform: iOS. Apply web/API testing to endpoints the app calls. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Backend API security.",
           "how_to_fix": "Remediate \"Backend API security\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
@@ -472,7 +472,7 @@
         },
         {
           "title": "Clipboard and screenshot leaks",
-          "description": "Verify sensitive fields are not copied or captured.",
+          "description": "Verify sensitive fields are not copied or captured. This control is evaluated under \"iOS - Dynamic Analysis\" during mobile application security assessments. Fixing this improves defense-in-depth and long-term resilience. Document affected assets, evidence, and business owners when reporting.",
           "severity": "low",
           "how_to_find": "Platform: iOS. Verify sensitive fields are not copied or captured. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Clipboard and screenshot leaks.",
           "how_to_fix": "Remediate \"Clipboard and screenshot leaks\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
@@ -491,6 +491,1610 @@
               "url": "https://owasp.org/www-project-mobile-security-testing-guide/"
             }
           ]
+        }
+      ]
+    },
+    {
+      "title": "Data Storage & Privacy — Insecure Data Storage",
+      "items": [
+        {
+          "title": "Sensitive data in SharedPreferences / NSUserDefaults",
+          "description": "Tokens, passwords or PII written to SharedPreferences (Android) or NSUserDefaults (iOS) are stored as cleartext XML/plist and are trivially readable on a rooted/jailbroken device or via backup. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Pull /data/data/<pkg>/shared_prefs/*.xml and the app Library/Preferences/*.plist; grep for tokens, passwords, PII. Confirm no secrets are stored here unencrypted. Common tags: mobile, android, ios, storage.",
+          "severity": "medium",
+          "how_to_find": "Platform: iOS. Tokens, passwords or PII written to SharedPreferences (Android) or NSUserDefaults (iOS) are stored as cleartext XML/plist and are trivially readable on a rooted/jailbroken device or via backup. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Pull /data/data/<pkg>/shared_prefs/*.xml and the app Library/Preferences/*.plist; grep for tokens, passwords, PII. Confirm no secrets are stored here unencrypted. Common tags: mobile, android, ios, storage. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Sensitive data in SharedPreferences / NSUserDefaults.",
+          "how_to_fix": "Remediate \"Sensitive data in SharedPreferences / NSUserDefaults\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
+          "tools": [
+            "objection",
+            "Frida",
+            "Hopper",
+            "MobSF",
+            "Burp Suite",
+            "jadx",
+            "apktool"
+          ],
+          "references": [
+            {
+              "title": "OWASP MSTG",
+              "url": "https://owasp.org/www-project-mobile-security-testing-guide/"
+            }
+          ],
+          "tags": [
+            "mobile",
+            "android",
+            "ios",
+            "storage"
+          ],
+          "source": "mobile-storage-sharedprefs"
+        },
+        {
+          "title": "Unencrypted SQLite / Realm databases",
+          "description": "App databases holding credentials, session data or PII are stored without encryption (no SQLCipher / Realm encryption), exposing all rows on a compromised device. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Extract *.db / *.sqlite / *.realm from the app sandbox and open them; confirm sensitive tables are encrypted, not browsable in plaintext. Common tags: mobile, android, ios, storage.",
+          "severity": "high",
+          "how_to_find": "Platform: iOS. App databases holding credentials, session data or PII are stored without encryption (no SQLCipher / Realm encryption), exposing all rows on a compromised device. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Extract *.db / *.sqlite / *.realm from the app sandbox and open them; confirm sensitive tables are encrypted, not browsable in plaintext. Common tags: mobile, android, ios, storage. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Unencrypted SQLite / Realm databases.",
+          "how_to_fix": "Remediate \"Unencrypted SQLite / Realm databases\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
+          "tools": [
+            "objection",
+            "Frida",
+            "Hopper",
+            "MobSF",
+            "Burp Suite",
+            "jadx",
+            "apktool"
+          ],
+          "references": [
+            {
+              "title": "OWASP MSTG",
+              "url": "https://owasp.org/www-project-mobile-security-testing-guide/"
+            }
+          ],
+          "tags": [
+            "mobile",
+            "android",
+            "ios",
+            "storage"
+          ],
+          "source": "mobile-storage-sqlite"
+        },
+        {
+          "title": "Sensitive data on external/shared storage",
+          "description": "Writing sensitive files to external storage (Android getExternalFilesDir/SD card or world-readable paths) exposes them to other apps and removes OS sandbox protection. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Monitor file writes during use; confirm no secrets land on /sdcard or shared storage, and that scoped storage is used on modern Android. Common tags: mobile, android, storage.",
+          "severity": "low",
+          "how_to_find": "Platform: iOS. Writing sensitive files to external storage (Android getExternalFilesDir/SD card or world-readable paths) exposes them to other apps and removes OS sandbox protection. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Monitor file writes during use; confirm no secrets land on /sdcard or shared storage, and that scoped storage is used on modern Android. Common tags: mobile, android, storage. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Sensitive data on external/shared storage.",
+          "how_to_fix": "Remediate \"Sensitive data on external/shared storage\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
+          "tools": [
+            "objection",
+            "Frida",
+            "Hopper",
+            "MobSF",
+            "Burp Suite",
+            "jadx",
+            "apktool"
+          ],
+          "references": [
+            {
+              "title": "OWASP MSTG",
+              "url": "https://owasp.org/www-project-mobile-security-testing-guide/"
+            }
+          ],
+          "tags": [
+            "mobile",
+            "android",
+            "storage"
+          ],
+          "source": "mobile-storage-external"
+        },
+        {
+          "title": "Sensitive data captured in device backups",
+          "description": "Android auto-backup (allowBackup) and iOS iCloud/iTunes backups can copy app data off-device. Secrets included in backups can be extracted from a backup archive. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Check android:allowBackup / fullBackupContent and iOS file Data Protection + isExcludedFromBackup; confirm secrets are excluded or encrypted at rest. Common tags: mobile, android, ios, backup.",
+          "severity": "medium",
+          "how_to_find": "Platform: iOS. Android auto-backup (allowBackup) and iOS iCloud/iTunes backups can copy app data off-device. Secrets included in backups can be extracted from a backup archive. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Check android:allowBackup / fullBackupContent and iOS file Data Protection + isExcludedFromBackup; confirm secrets are excluded or encrypted at rest. Common tags: mobile, android, ios, backup. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Sensitive data captured in device backups.",
+          "how_to_fix": "Remediate \"Sensitive data captured in device backups\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
+          "tools": [
+            "objection",
+            "Frida",
+            "Hopper",
+            "MobSF",
+            "Burp Suite",
+            "jadx",
+            "apktool"
+          ],
+          "references": [
+            {
+              "title": "OWASP MSTG",
+              "url": "https://owasp.org/www-project-mobile-security-testing-guide/"
+            }
+          ],
+          "tags": [
+            "mobile",
+            "android",
+            "ios",
+            "backup"
+          ],
+          "source": "mobile-storage-backups"
+        },
+        {
+          "title": "Sensitive data leaked to logs",
+          "description": "Logcat / NSLog / os_log statements that print tokens, passwords or PII leak sensitive data to system logs, crash reports and any app holding the READ_LOGS capability on older devices. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Run logcat / device console while exercising auth and payment flows; confirm no secrets, tokens or full PANs are logged. Common tags: mobile, android, ios, logging.",
+          "severity": "low",
+          "how_to_find": "Platform: iOS. Logcat / NSLog / os_log statements that print tokens, passwords or PII leak sensitive data to system logs, crash reports and any app holding the READ_LOGS capability on older devices. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Run logcat / device console while exercising auth and payment flows; confirm no secrets, tokens or full PANs are logged. Common tags: mobile, android, ios, logging. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Sensitive data leaked to logs.",
+          "how_to_fix": "Remediate \"Sensitive data leaked to logs\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
+          "tools": [
+            "objection",
+            "Frida",
+            "Hopper",
+            "MobSF",
+            "Burp Suite",
+            "jadx",
+            "apktool"
+          ],
+          "references": [
+            {
+              "title": "OWASP MSTG",
+              "url": "https://owasp.org/www-project-mobile-security-testing-guide/"
+            }
+          ],
+          "tags": [
+            "mobile",
+            "android",
+            "ios",
+            "logging"
+          ],
+          "source": "mobile-storage-logs"
+        },
+        {
+          "title": "Sensitive data exposed via clipboard",
+          "description": "Allowing copy of passwords/OTPs/tokens to the clipboard exposes them to any app reading the pasteboard; iOS universal clipboard can sync them across devices. This is a defense-in-depth gap that improves overall resilience when fixed. Assessors should confirm the control in practice, not only on paper: Confirm secret fields disable copy or clear the clipboard, and that the app does not write sensitive values to UIPasteboard/ClipboardManager. Common tags: mobile, android, ios, clipboard.",
+          "severity": "low",
+          "how_to_find": "Platform: iOS. Allowing copy of passwords/OTPs/tokens to the clipboard exposes them to any app reading the pasteboard; iOS universal clipboard can sync them across devices. This is a defense-in-depth gap that improves overall resilience when fixed. Assessors should confirm the control in practice, not only on paper: Confirm secret fields disable copy or clear the clipboard, and that the app does not write sensitive values to UIPasteboard/ClipboardManager. Common tags: mobile, android, ios, clipboard. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Sensitive data exposed via clipboard.",
+          "how_to_fix": "Remediate \"Sensitive data exposed via clipboard\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
+          "tools": [
+            "objection",
+            "Frida",
+            "Hopper",
+            "MobSF",
+            "Burp Suite",
+            "jadx",
+            "apktool"
+          ],
+          "references": [
+            {
+              "title": "OWASP MSTG",
+              "url": "https://owasp.org/www-project-mobile-security-testing-guide/"
+            }
+          ],
+          "tags": [
+            "mobile",
+            "android",
+            "ios",
+            "clipboard"
+          ],
+          "source": "mobile-storage-clipboard"
+        },
+        {
+          "title": "Sensitive data in screenshot / UI cache",
+          "description": "The OS snapshots the app on backgrounding for the task switcher. Sensitive screens captured into the snapshot cache can leak passwords, balances or PII. This is a defense-in-depth gap that improves overall resilience when fixed. Assessors should confirm the control in practice, not only on paper: Background a sensitive screen and inspect the snapshot cache; confirm FLAG_SECURE (Android) or a privacy overlay (iOS) hides sensitive content. Common tags: mobile, android, ios, privacy.",
+          "severity": "low",
+          "how_to_find": "Platform: iOS. The OS snapshots the app on backgrounding for the task switcher. Sensitive screens captured into the snapshot cache can leak passwords, balances or PII. This is a defense-in-depth gap that improves overall resilience when fixed. Assessors should confirm the control in practice, not only on paper: Background a sensitive screen and inspect the snapshot cache; confirm FLAG_SECURE (Android) or a privacy overlay (iOS) hides sensitive content. Common tags: mobile, android, ios, privacy. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Sensitive data in screenshot / UI cache.",
+          "how_to_fix": "Remediate \"Sensitive data in screenshot / UI cache\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
+          "tools": [
+            "objection",
+            "Frida",
+            "Hopper",
+            "MobSF",
+            "Burp Suite",
+            "jadx",
+            "apktool"
+          ],
+          "references": [
+            {
+              "title": "OWASP MSTG",
+              "url": "https://owasp.org/www-project-mobile-security-testing-guide/"
+            }
+          ],
+          "tags": [
+            "mobile",
+            "android",
+            "ios",
+            "privacy"
+          ],
+          "source": "mobile-storage-screenshot-cache"
+        }
+      ]
+    },
+    {
+      "title": "Data Storage & Privacy — Keychain / Keystore Usage",
+      "items": [
+        {
+          "title": "Secrets not stored in Keychain / Keystore",
+          "description": "Cryptographic keys and credentials kept in plain files or preferences instead of the OS secure store lose hardware isolation and OS access controls. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Confirm keys/tokens are created and stored via iOS Keychain Services or Android Keystore rather than custom files or preferences. Common tags: mobile, android, ios, keystore.",
+          "severity": "low",
+          "how_to_find": "Platform: iOS. Cryptographic keys and credentials kept in plain files or preferences instead of the OS secure store lose hardware isolation and OS access controls. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Confirm keys/tokens are created and stored via iOS Keychain Services or Android Keystore rather than custom files or preferences. Common tags: mobile, android, ios, keystore. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Secrets not stored in Keychain / Keystore.",
+          "how_to_fix": "Remediate \"Secrets not stored in Keychain / Keystore\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
+          "tools": [
+            "objection",
+            "Frida",
+            "Hopper",
+            "MobSF",
+            "Burp Suite",
+            "jadx",
+            "apktool"
+          ],
+          "references": [
+            {
+              "title": "OWASP MSTG",
+              "url": "https://owasp.org/www-project-mobile-security-testing-guide/"
+            }
+          ],
+          "tags": [
+            "mobile",
+            "android",
+            "ios",
+            "keystore"
+          ],
+          "source": "mobile-keystore-not-used"
+        },
+        {
+          "title": "Weak Keychain protection class",
+          "description": "Keychain items using kSecAttrAccessibleAlways or AfterFirstUnlock (with ThisDeviceOnly omitted) remain readable when the device is locked or migrate via backup, weakening protection. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Dump Keychain attributes and confirm sensitive items use WhenUnlockedThisDeviceOnly or WhenPasscodeSetThisDeviceOnly. Common tags: mobile, ios, keychain.",
+          "severity": "medium",
+          "how_to_find": "Platform: iOS. Keychain items using kSecAttrAccessibleAlways or AfterFirstUnlock (with ThisDeviceOnly omitted) remain readable when the device is locked or migrate via backup, weakening protection. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Dump Keychain attributes and confirm sensitive items use WhenUnlockedThisDeviceOnly or WhenPasscodeSetThisDeviceOnly. Common tags: mobile, ios, keychain. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Weak Keychain protection class.",
+          "how_to_fix": "Remediate \"Weak Keychain protection class\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
+          "tools": [
+            "objection",
+            "Frida",
+            "Hopper",
+            "MobSF",
+            "Burp Suite",
+            "jadx",
+            "apktool"
+          ],
+          "references": [
+            {
+              "title": "OWASP MSTG",
+              "url": "https://owasp.org/www-project-mobile-security-testing-guide/"
+            }
+          ],
+          "tags": [
+            "mobile",
+            "ios",
+            "keychain"
+          ],
+          "source": "mobile-keystore-weak-protection-class"
+        },
+        {
+          "title": "Hardware-backed keystore / StrongBox not used",
+          "description": "Keys generated in software rather than the TEE/Secure Enclave/StrongBox can be extracted on a rooted device, defeating at-rest key protection. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm KeyGenParameterSpec uses setIsStrongBoxBacked / hardware-backed flag (Android) and Secure Enclave (iOS) for high-value keys; verify key attestation. Common tags: mobile, android, ios, keystore.",
+          "severity": "low",
+          "how_to_find": "Platform: iOS. Keys generated in software rather than the TEE/Secure Enclave/StrongBox can be extracted on a rooted device, defeating at-rest key protection. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm KeyGenParameterSpec uses setIsStrongBoxBacked / hardware-backed flag (Android) and Secure Enclave (iOS) for high-value keys; verify key attestation. Common tags: mobile, android, ios, keystore. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Hardware-backed keystore / StrongBox not used.",
+          "how_to_fix": "Remediate \"Hardware-backed keystore / StrongBox not used\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
+          "tools": [
+            "objection",
+            "Frida",
+            "Hopper",
+            "MobSF",
+            "Burp Suite",
+            "jadx",
+            "apktool"
+          ],
+          "references": [
+            {
+              "title": "OWASP MSTG",
+              "url": "https://owasp.org/www-project-mobile-security-testing-guide/"
+            }
+          ],
+          "tags": [
+            "mobile",
+            "android",
+            "ios",
+            "keystore"
+          ],
+          "source": "mobile-keystore-no-hardware-backing"
+        },
+        {
+          "title": "Key material extractable at runtime",
+          "description": "Keys imported into memory or exported from the keystore (rather than used via opaque handles) can be hooked and dumped at runtime with Frida. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Hook crypto APIs with Frida; confirm raw key bytes never leave the keystore and operations run inside the secure store. Common tags: mobile, android, ios, keystore.",
+          "severity": "low",
+          "how_to_find": "Platform: iOS. Keys imported into memory or exported from the keystore (rather than used via opaque handles) can be hooked and dumped at runtime with Frida. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Hook crypto APIs with Frida; confirm raw key bytes never leave the keystore and operations run inside the secure store. Common tags: mobile, android, ios, keystore. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Key material extractable at runtime.",
+          "how_to_fix": "Remediate \"Key material extractable at runtime\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
+          "tools": [
+            "objection",
+            "Frida",
+            "Hopper",
+            "MobSF",
+            "Burp Suite",
+            "jadx",
+            "apktool"
+          ],
+          "references": [
+            {
+              "title": "OWASP MSTG",
+              "url": "https://owasp.org/www-project-mobile-security-testing-guide/"
+            }
+          ],
+          "tags": [
+            "mobile",
+            "android",
+            "ios",
+            "keystore"
+          ],
+          "source": "mobile-keystore-key-extraction"
+        },
+        {
+          "title": "Keys not bound to user authentication",
+          "description": "High-value keys that do not require user authentication (biometric/PIN) for use can be exercised by malware or an attacker with device access. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm sensitive keys set setUserAuthenticationRequired (Android) / kSecAccessControl biometryCurrentSet (iOS) so use requires fresh auth. Common tags: mobile, android, ios, keystore.",
+          "severity": "low",
+          "how_to_find": "Platform: iOS. High-value keys that do not require user authentication (biometric/PIN) for use can be exercised by malware or an attacker with device access. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm sensitive keys set setUserAuthenticationRequired (Android) / kSecAccessControl biometryCurrentSet (iOS) so use requires fresh auth. Common tags: mobile, android, ios, keystore. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Keys not bound to user authentication.",
+          "how_to_fix": "Remediate \"Keys not bound to user authentication\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
+          "tools": [
+            "objection",
+            "Frida",
+            "Hopper",
+            "MobSF",
+            "Burp Suite",
+            "jadx",
+            "apktool"
+          ],
+          "references": [
+            {
+              "title": "OWASP MSTG",
+              "url": "https://owasp.org/www-project-mobile-security-testing-guide/"
+            }
+          ],
+          "tags": [
+            "mobile",
+            "android",
+            "ios",
+            "keystore"
+          ],
+          "source": "mobile-keystore-no-user-auth-binding"
+        }
+      ]
+    },
+    {
+      "title": "Network & Transport — Transport Security",
+      "items": [
+        {
+          "title": "Cleartext (HTTP) traffic permitted",
+          "description": "Any plaintext HTTP traffic exposes data to interception and tampering. Android cleartextTrafficPermitted and iOS ATS exceptions can silently re-enable it. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Proxy traffic and inspect network_security_config / Info.plist NSAppTransportSecurity; confirm cleartext is disabled and no HTTP endpoints are used. Common tags: mobile, android, ios, tls.",
+          "severity": "critical",
+          "how_to_find": "Platform: iOS. Any plaintext HTTP traffic exposes data to interception and tampering. Android cleartextTrafficPermitted and iOS ATS exceptions can silently re-enable it. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Proxy traffic and inspect network_security_config / Info.plist NSAppTransportSecurity; confirm cleartext is disabled and no HTTP endpoints are used. Common tags: mobile, android, ios, tls. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Cleartext (HTTP) traffic permitted.",
+          "how_to_fix": "Remediate \"Cleartext (HTTP) traffic permitted\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
+          "tools": [
+            "objection",
+            "Frida",
+            "Hopper",
+            "MobSF",
+            "Burp Suite",
+            "jadx",
+            "apktool"
+          ],
+          "references": [
+            {
+              "title": "OWASP MSTG",
+              "url": "https://owasp.org/www-project-mobile-security-testing-guide/"
+            }
+          ],
+          "tags": [
+            "mobile",
+            "android",
+            "ios",
+            "tls"
+          ],
+          "source": "mobile-transport-security-cleartext"
+        },
+        {
+          "title": "Disabled or broken TLS certificate validation",
+          "description": "Trust-all TrustManagers, hostname verifiers that always return true, or ignored TLS errors let an attacker MITM the connection with any certificate. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: Present an untrusted cert via proxy; confirm the app rejects it. Decompile and search for custom TrustManager/HostnameVerifier overrides. Common tags: mobile, android, ios, tls.",
+          "severity": "low",
+          "how_to_find": "Platform: iOS. Trust-all TrustManagers, hostname verifiers that always return true, or ignored TLS errors let an attacker MITM the connection with any certificate. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: Present an untrusted cert via proxy; confirm the app rejects it. Decompile and search for custom TrustManager/HostnameVerifier overrides. Common tags: mobile, android, ios, tls. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Disabled or broken TLS certificate validation.",
+          "how_to_fix": "Remediate \"Disabled or broken TLS certificate validation\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
+          "tools": [
+            "objection",
+            "Frida",
+            "Hopper",
+            "MobSF",
+            "Burp Suite",
+            "jadx",
+            "apktool"
+          ],
+          "references": [
+            {
+              "title": "OWASP MSTG",
+              "url": "https://owasp.org/www-project-mobile-security-testing-guide/"
+            }
+          ],
+          "tags": [
+            "mobile",
+            "android",
+            "ios",
+            "tls"
+          ],
+          "source": "mobile-transport-security-tls-validation"
+        },
+        {
+          "title": "Certificate / public-key pinning present",
+          "description": "Pinning the server certificate or public key raises the bar against MITM by rejecting CAs not in the pin set. Its absence is a weakness for high-value apps. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm pinning is implemented (network_security_config pin-set, TrustKit, or OkHttp CertificatePinner) and covers all sensitive endpoints. Common tags: mobile, android, ios, pinning.",
+          "severity": "high",
+          "how_to_find": "Platform: iOS. Pinning the server certificate or public key raises the bar against MITM by rejecting CAs not in the pin set. Its absence is a weakness for high-value apps. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm pinning is implemented (network_security_config pin-set, TrustKit, or OkHttp CertificatePinner) and covers all sensitive endpoints. Common tags: mobile, android, ios, pinning. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Certificate / public-key pinning present.",
+          "how_to_fix": "Remediate \"Certificate / public-key pinning present\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
+          "tools": [
+            "objection",
+            "Frida",
+            "Hopper",
+            "MobSF",
+            "Burp Suite",
+            "jadx",
+            "apktool"
+          ],
+          "references": [
+            {
+              "title": "OWASP MSTG",
+              "url": "https://owasp.org/www-project-mobile-security-testing-guide/"
+            }
+          ],
+          "tags": [
+            "mobile",
+            "android",
+            "ios",
+            "pinning"
+          ],
+          "source": "mobile-transport-security-pinning-present"
+        },
+        {
+          "title": "Weak TLS versions or cipher suites accepted",
+          "description": "Allowing TLS 1.0/1.1 or weak ciphers exposes traffic to downgrade and cryptographic attacks. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Capture the ClientHello and confirm only TLS 1.2+ with strong cipher suites is negotiated; check ATS minimum TLS version on iOS. Common tags: mobile, android, ios, tls.",
+          "severity": "medium",
+          "how_to_find": "Platform: iOS. Allowing TLS 1.0/1.1 or weak ciphers exposes traffic to downgrade and cryptographic attacks. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Capture the ClientHello and confirm only TLS 1.2+ with strong cipher suites is negotiated; check ATS minimum TLS version on iOS. Common tags: mobile, android, ios, tls. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Weak TLS versions or cipher suites accepted.",
+          "how_to_fix": "Remediate \"Weak TLS versions or cipher suites accepted\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
+          "tools": [
+            "objection",
+            "Frida",
+            "Hopper",
+            "MobSF",
+            "Burp Suite",
+            "jadx",
+            "apktool"
+          ],
+          "references": [
+            {
+              "title": "OWASP MSTG",
+              "url": "https://owasp.org/www-project-mobile-security-testing-guide/"
+            }
+          ],
+          "tags": [
+            "mobile",
+            "android",
+            "ios",
+            "tls"
+          ],
+          "source": "mobile-transport-security-weak-tls-version"
+        },
+        {
+          "title": "iOS App Transport Security misconfiguration",
+          "description": "NSAllowsArbitraryLoads or broad NSExceptionDomains in Info.plist disable ATS protections and allow insecure connections. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Inspect Info.plist NSAppTransportSecurity; confirm no NSAllowsArbitraryLoads=true and exceptions are narrowly scoped and justified. Common tags: mobile, ios, ats.",
+          "severity": "low",
+          "how_to_find": "Platform: iOS. NSAllowsArbitraryLoads or broad NSExceptionDomains in Info.plist disable ATS protections and allow insecure connections. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Inspect Info.plist NSAppTransportSecurity; confirm no NSAllowsArbitraryLoads=true and exceptions are narrowly scoped and justified. Common tags: mobile, ios, ats. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: iOS App Transport Security misconfiguration.",
+          "how_to_fix": "Remediate \"iOS App Transport Security misconfiguration\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
+          "tools": [
+            "objection",
+            "Frida",
+            "Hopper",
+            "MobSF",
+            "Burp Suite",
+            "jadx",
+            "apktool"
+          ],
+          "references": [
+            {
+              "title": "OWASP MSTG",
+              "url": "https://owasp.org/www-project-mobile-security-testing-guide/"
+            }
+          ],
+          "tags": [
+            "mobile",
+            "ios",
+            "ats"
+          ],
+          "source": "mobile-transport-security-ats-misconfig"
+        }
+      ]
+    },
+    {
+      "title": "Network & Transport — Cert Pinning & Interception Resistance",
+      "items": [
+        {
+          "title": "Pinning bypassable via Frida / Objection",
+          "description": "Pinning implemented purely in app code can be neutralised with universal Frida/Objection scripts, allowing full traffic interception on a rooted/jailbroken device. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Attempt objection android sslpinning disable / a Frida universal bypass; confirm whether traffic becomes interceptable and whether the app detects the bypass. Common tags: mobile, android, ios, pinning.",
+          "severity": "critical",
+          "how_to_find": "Platform: iOS. Pinning implemented purely in app code can be neutralised with universal Frida/Objection scripts, allowing full traffic interception on a rooted/jailbroken device. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Attempt objection android sslpinning disable / a Frida universal bypass; confirm whether traffic becomes interceptable and whether the app detects the bypass. Common tags: mobile, android, ios, pinning. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Pinning bypassable via Frida / Objection.",
+          "how_to_fix": "Remediate \"Pinning bypassable via Frida / Objection\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
+          "tools": [
+            "objection",
+            "Frida",
+            "Hopper",
+            "MobSF",
+            "Burp Suite",
+            "jadx",
+            "apktool"
+          ],
+          "references": [
+            {
+              "title": "OWASP MSTG",
+              "url": "https://owasp.org/www-project-mobile-security-testing-guide/"
+            }
+          ],
+          "tags": [
+            "mobile",
+            "android",
+            "ios",
+            "pinning"
+          ],
+          "source": "mobile-cert-pinning-bypass-frida"
+        },
+        {
+          "title": "Weak Android network_security_config",
+          "description": "A network security config that trusts user certificates, permits cleartext for some domains, or omits pin-sets weakens transport protection. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Extract res/xml/network_security_config.xml; confirm base-config disallows cleartext, trusts only system CAs, and defines pins for sensitive domains. Common tags: mobile, android, pinning.",
+          "severity": "low",
+          "how_to_find": "Platform: iOS. A network security config that trusts user certificates, permits cleartext for some domains, or omits pin-sets weakens transport protection. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Extract res/xml/network_security_config.xml; confirm base-config disallows cleartext, trusts only system CAs, and defines pins for sensitive domains. Common tags: mobile, android, pinning. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Weak Android network_security_config.",
+          "how_to_fix": "Remediate \"Weak Android network_security_config\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
+          "tools": [
+            "objection",
+            "Frida",
+            "Hopper",
+            "MobSF",
+            "Burp Suite",
+            "jadx",
+            "apktool"
+          ],
+          "references": [
+            {
+              "title": "OWASP MSTG",
+              "url": "https://owasp.org/www-project-mobile-security-testing-guide/"
+            }
+          ],
+          "tags": [
+            "mobile",
+            "android",
+            "pinning"
+          ],
+          "source": "mobile-cert-pinning-bypass-network-config"
+        },
+        {
+          "title": "App trusts user-installed CA certificates",
+          "description": "Trusting the user CA store (Android default below API 24, or explicitly via config) lets a proxy CA intercept traffic without rooting. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Install a proxy CA into the user store and check if traffic is interceptable; confirm the app trusts only the system store. Common tags: mobile, android, tls.",
+          "severity": "critical",
+          "how_to_find": "Platform: iOS. Trusting the user CA store (Android default below API 24, or explicitly via config) lets a proxy CA intercept traffic without rooting. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Install a proxy CA into the user store and check if traffic is interceptable; confirm the app trusts only the system store. Common tags: mobile, android, tls. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: App trusts user-installed CA certificates.",
+          "how_to_fix": "Remediate \"App trusts user-installed CA certificates\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
+          "tools": [
+            "objection",
+            "Frida",
+            "Hopper",
+            "MobSF",
+            "Burp Suite",
+            "jadx",
+            "apktool"
+          ],
+          "references": [
+            {
+              "title": "OWASP MSTG",
+              "url": "https://owasp.org/www-project-mobile-security-testing-guide/"
+            }
+          ],
+          "tags": [
+            "mobile",
+            "android",
+            "tls"
+          ],
+          "source": "mobile-cert-pinning-bypass-user-ca-trust"
+        },
+        {
+          "title": "Pinning removable via repackaging / binary patching",
+          "description": "When pinning lives only in the app, an attacker can patch the smali/binary and resign the app to strip it, then analyse traffic at scale. This is a defense-in-depth gap that improves overall resilience when fixed. Assessors should confirm the control in practice, not only on paper: Decompile, remove pinning logic, rebuild and resign; confirm whether the modified app runs (also tests integrity/anti-tamper defenses). Common tags: mobile, android, ios, pinning.",
+          "severity": "medium",
+          "how_to_find": "Platform: iOS. When pinning lives only in the app, an attacker can patch the smali/binary and resign the app to strip it, then analyse traffic at scale. This is a defense-in-depth gap that improves overall resilience when fixed. Assessors should confirm the control in practice, not only on paper: Decompile, remove pinning logic, rebuild and resign; confirm whether the modified app runs (also tests integrity/anti-tamper defenses). Common tags: mobile, android, ios, pinning. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Pinning removable via repackaging / binary patching.",
+          "how_to_fix": "Remediate \"Pinning removable via repackaging / binary patching\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
+          "tools": [
+            "objection",
+            "Frida",
+            "Hopper",
+            "MobSF",
+            "Burp Suite",
+            "jadx",
+            "apktool"
+          ],
+          "references": [
+            {
+              "title": "OWASP MSTG",
+              "url": "https://owasp.org/www-project-mobile-security-testing-guide/"
+            }
+          ],
+          "tags": [
+            "mobile",
+            "android",
+            "ios",
+            "pinning"
+          ],
+          "source": "mobile-cert-pinning-bypass-patching"
+        }
+      ]
+    },
+    {
+      "title": "Authentication & Cryptography — Authentication & Session",
+      "items": [
+        {
+          "title": "Client-side local authentication bypass",
+          "description": "When the login/PIN decision is made only on the device, hooking the check or patching the binary lets an attacker bypass authentication entirely. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Hook the auth-result method and force success with Frida; confirm sensitive functionality also requires server-side authorization, not just a local gate. Common tags: mobile, android, ios, auth.",
+          "severity": "critical",
+          "how_to_find": "Platform: iOS. When the login/PIN decision is made only on the device, hooking the check or patching the binary lets an attacker bypass authentication entirely. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Hook the auth-result method and force success with Frida; confirm sensitive functionality also requires server-side authorization, not just a local gate. Common tags: mobile, android, ios, auth. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Client-side local authentication bypass.",
+          "how_to_fix": "Remediate \"Client-side local authentication bypass\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
+          "tools": [
+            "objection",
+            "Frida",
+            "Hopper",
+            "MobSF",
+            "Burp Suite",
+            "jadx",
+            "apktool"
+          ],
+          "references": [
+            {
+              "title": "OWASP MSTG",
+              "url": "https://owasp.org/www-project-mobile-security-testing-guide/"
+            }
+          ],
+          "tags": [
+            "mobile",
+            "android",
+            "ios",
+            "auth"
+          ],
+          "source": "mobile-auth-session-local-bypass"
+        },
+        {
+          "title": "Biometric authentication bypass",
+          "description": "Event-only biometric callbacks (a boolean success) rather than crypto-bound BiometricPrompt/LAContext can be hooked to return success without a real biometric match. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Confirm biometric auth unlocks a Keystore/Keychain-bound CryptoObject rather than gating on a callback boolean; attempt a Frida bypass of the success path. Common tags: mobile, android, ios, biometric.",
+          "severity": "low",
+          "how_to_find": "Platform: iOS. Event-only biometric callbacks (a boolean success) rather than crypto-bound BiometricPrompt/LAContext can be hooked to return success without a real biometric match. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Confirm biometric auth unlocks a Keystore/Keychain-bound CryptoObject rather than gating on a callback boolean; attempt a Frida bypass of the success path. Common tags: mobile, android, ios, biometric. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Biometric authentication bypass.",
+          "how_to_fix": "Remediate \"Biometric authentication bypass\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
+          "tools": [
+            "objection",
+            "Frida",
+            "Hopper",
+            "MobSF",
+            "Burp Suite",
+            "jadx",
+            "apktool"
+          ],
+          "references": [
+            {
+              "title": "OWASP MSTG",
+              "url": "https://owasp.org/www-project-mobile-security-testing-guide/"
+            }
+          ],
+          "tags": [
+            "mobile",
+            "android",
+            "ios",
+            "biometric"
+          ],
+          "source": "mobile-auth-session-biometric-bypass"
+        },
+        {
+          "title": "Insecure session token storage",
+          "description": "Session/refresh tokens stored in cleartext preferences or files (instead of Keychain/Keystore) can be stolen from a compromised device or backup. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Locate where session and refresh tokens are persisted; confirm secure-store usage and that tokens are cleared on logout. Common tags: mobile, android, ios, session.",
+          "severity": "medium",
+          "how_to_find": "Platform: iOS. Session/refresh tokens stored in cleartext preferences or files (instead of Keychain/Keystore) can be stolen from a compromised device or backup. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Locate where session and refresh tokens are persisted; confirm secure-store usage and that tokens are cleared on logout. Common tags: mobile, android, ios, session. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Insecure session token storage.",
+          "how_to_fix": "Remediate \"Insecure session token storage\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
+          "tools": [
+            "objection",
+            "Frida",
+            "Hopper",
+            "MobSF",
+            "Burp Suite",
+            "jadx",
+            "apktool"
+          ],
+          "references": [
+            {
+              "title": "OWASP MSTG",
+              "url": "https://owasp.org/www-project-mobile-security-testing-guide/"
+            }
+          ],
+          "tags": [
+            "mobile",
+            "android",
+            "ios",
+            "session"
+          ],
+          "source": "mobile-auth-session-token-storage"
+        },
+        {
+          "title": "Session handling inside WebViews",
+          "description": "Session cookies/tokens exposed to embedded WebViews can leak via the JS bridge, cookie store, or be hijacked if the WebView loads untrusted content. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Check what auth context WebViews receive; confirm tokens are not injected into untrusted origins and cookies are scoped/HttpOnly where applicable. Common tags: mobile, android, ios, webview.",
+          "severity": "low",
+          "how_to_find": "Platform: iOS. Session cookies/tokens exposed to embedded WebViews can leak via the JS bridge, cookie store, or be hijacked if the WebView loads untrusted content. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Check what auth context WebViews receive; confirm tokens are not injected into untrusted origins and cookies are scoped/HttpOnly where applicable. Common tags: mobile, android, ios, webview. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Session handling inside WebViews.",
+          "how_to_fix": "Remediate \"Session handling inside WebViews\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
+          "tools": [
+            "objection",
+            "Frida",
+            "Hopper",
+            "MobSF",
+            "Burp Suite",
+            "jadx",
+            "apktool"
+          ],
+          "references": [
+            {
+              "title": "OWASP MSTG",
+              "url": "https://owasp.org/www-project-mobile-security-testing-guide/"
+            }
+          ],
+          "tags": [
+            "mobile",
+            "android",
+            "ios",
+            "webview"
+          ],
+          "source": "mobile-auth-session-webview-session"
+        },
+        {
+          "title": "Trusting offline / cached authentication state",
+          "description": "Apps that grant access based on cached credentials or entitlements without periodic server revalidation can be abused after a credential or entitlement is revoked. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Test access after server-side revocation/logout; confirm the app revalidates auth and entitlements rather than trusting stale local state. Common tags: mobile, android, ios, auth.",
+          "severity": "low",
+          "how_to_find": "Platform: iOS. Apps that grant access based on cached credentials or entitlements without periodic server revalidation can be abused after a credential or entitlement is revoked. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Test access after server-side revocation/logout; confirm the app revalidates auth and entitlements rather than trusting stale local state. Common tags: mobile, android, ios, auth. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Trusting offline / cached authentication state.",
+          "how_to_fix": "Remediate \"Trusting offline / cached authentication state\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
+          "tools": [
+            "objection",
+            "Frida",
+            "Hopper",
+            "MobSF",
+            "Burp Suite",
+            "jadx",
+            "apktool"
+          ],
+          "references": [
+            {
+              "title": "OWASP MSTG",
+              "url": "https://owasp.org/www-project-mobile-security-testing-guide/"
+            }
+          ],
+          "tags": [
+            "mobile",
+            "android",
+            "ios",
+            "auth"
+          ],
+          "source": "mobile-auth-session-offline-auth"
+        },
+        {
+          "title": "Session not invalidated server-side on logout",
+          "description": "If logout only clears local state while the server-side token stays valid, a stolen token remains usable, defeating the logout control. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Capture a token, log out, then replay the token against the API; confirm it is rejected server-side. Common tags: mobile, session, auth.",
+          "severity": "low",
+          "how_to_find": "Platform: iOS. If logout only clears local state while the server-side token stays valid, a stolen token remains usable, defeating the logout control. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Capture a token, log out, then replay the token against the API; confirm it is rejected server-side. Common tags: mobile, session, auth. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Session not invalidated server-side on logout.",
+          "how_to_fix": "Remediate \"Session not invalidated server-side on logout\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
+          "tools": [
+            "objection",
+            "Frida",
+            "Hopper",
+            "MobSF",
+            "Burp Suite",
+            "jadx",
+            "apktool"
+          ],
+          "references": [
+            {
+              "title": "OWASP MSTG",
+              "url": "https://owasp.org/www-project-mobile-security-testing-guide/"
+            }
+          ],
+          "tags": [
+            "mobile",
+            "session",
+            "auth"
+          ],
+          "source": "mobile-auth-session-no-logout-invalidation"
+        }
+      ]
+    },
+    {
+      "title": "Authentication & Cryptography — Cryptography",
+      "items": [
+        {
+          "title": "Hardcoded encryption keys",
+          "description": "Symmetric keys, IVs or passphrases embedded in the binary/resources can be recovered by any analyst, rendering the encryption useless. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Decompile and search strings/resources for keys and key-derivation seeds; confirm keys are derived per-user/device or stored in the keystore. Common tags: mobile, android, ios, crypto.",
+          "severity": "critical",
+          "how_to_find": "Platform: iOS. Symmetric keys, IVs or passphrases embedded in the binary/resources can be recovered by any analyst, rendering the encryption useless. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Decompile and search strings/resources for keys and key-derivation seeds; confirm keys are derived per-user/device or stored in the keystore. Common tags: mobile, android, ios, crypto. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Hardcoded encryption keys.",
+          "how_to_fix": "Remediate \"Hardcoded encryption keys\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
+          "tools": [
+            "objection",
+            "Frida",
+            "Hopper",
+            "MobSF",
+            "Burp Suite",
+            "jadx",
+            "apktool"
+          ],
+          "references": [
+            {
+              "title": "OWASP MSTG",
+              "url": "https://owasp.org/www-project-mobile-security-testing-guide/"
+            }
+          ],
+          "tags": [
+            "mobile",
+            "android",
+            "ios",
+            "crypto"
+          ],
+          "source": "mobile-crypto-hardcoded-key"
+        },
+        {
+          "title": "Weak or broken cryptographic algorithms",
+          "description": "Use of DES/3DES, RC4, ECB mode, or MD5/SHA-1 for security purposes provides little real protection and is exploitable. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Inspect Cipher/MessageDigest usage; confirm AES-GCM (or authenticated modes), SHA-256+, and no ECB/DES/MD5 for confidentiality or integrity. Common tags: mobile, android, ios, crypto.",
+          "severity": "low",
+          "how_to_find": "Platform: iOS. Use of DES/3DES, RC4, ECB mode, or MD5/SHA-1 for security purposes provides little real protection and is exploitable. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Inspect Cipher/MessageDigest usage; confirm AES-GCM (or authenticated modes), SHA-256+, and no ECB/DES/MD5 for confidentiality or integrity. Common tags: mobile, android, ios, crypto. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Weak or broken cryptographic algorithms.",
+          "how_to_fix": "Remediate \"Weak or broken cryptographic algorithms\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
+          "tools": [
+            "objection",
+            "Frida",
+            "Hopper",
+            "MobSF",
+            "Burp Suite",
+            "jadx",
+            "apktool"
+          ],
+          "references": [
+            {
+              "title": "OWASP MSTG",
+              "url": "https://owasp.org/www-project-mobile-security-testing-guide/"
+            }
+          ],
+          "tags": [
+            "mobile",
+            "android",
+            "ios",
+            "crypto"
+          ],
+          "source": "mobile-crypto-weak-algorithms"
+        },
+        {
+          "title": "Insecure random number generation",
+          "description": "Using java.util.Random / non-CSPRNG sources for keys, IVs, tokens or salts produces predictable values that undermine cryptographic security. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm SecureRandom (Android) / SecRandomCopyBytes (iOS) is used for all security-sensitive randomness, not Random or time-seeded generators. Common tags: mobile, android, ios, crypto.",
+          "severity": "critical",
+          "how_to_find": "Platform: iOS. Using java.util.Random / non-CSPRNG sources for keys, IVs, tokens or salts produces predictable values that undermine cryptographic security. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm SecureRandom (Android) / SecRandomCopyBytes (iOS) is used for all security-sensitive randomness, not Random or time-seeded generators. Common tags: mobile, android, ios, crypto. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Insecure random number generation.",
+          "how_to_fix": "Remediate \"Insecure random number generation\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
+          "tools": [
+            "objection",
+            "Frida",
+            "Hopper",
+            "MobSF",
+            "Burp Suite",
+            "jadx",
+            "apktool"
+          ],
+          "references": [
+            {
+              "title": "OWASP MSTG",
+              "url": "https://owasp.org/www-project-mobile-security-testing-guide/"
+            }
+          ],
+          "tags": [
+            "mobile",
+            "android",
+            "ios",
+            "crypto"
+          ],
+          "source": "mobile-crypto-insecure-random"
+        },
+        {
+          "title": "Custom / home-grown cryptography",
+          "description": "Roll-your-own encryption, XOR obfuscation or proprietary schemes almost always contain flaws and should be replaced with vetted primitives. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Identify any non-standard crypto routines; confirm the app uses platform/standard libraries rather than custom algorithms. Common tags: mobile, android, ios, crypto.",
+          "severity": "high",
+          "how_to_find": "Platform: iOS. Roll-your-own encryption, XOR obfuscation or proprietary schemes almost always contain flaws and should be replaced with vetted primitives. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Identify any non-standard crypto routines; confirm the app uses platform/standard libraries rather than custom algorithms. Common tags: mobile, android, ios, crypto. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Custom / home-grown cryptography.",
+          "how_to_fix": "Remediate \"Custom / home-grown cryptography\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
+          "tools": [
+            "objection",
+            "Frida",
+            "Hopper",
+            "MobSF",
+            "Burp Suite",
+            "jadx",
+            "apktool"
+          ],
+          "references": [
+            {
+              "title": "OWASP MSTG",
+              "url": "https://owasp.org/www-project-mobile-security-testing-guide/"
+            }
+          ],
+          "tags": [
+            "mobile",
+            "android",
+            "ios",
+            "crypto"
+          ],
+          "source": "mobile-crypto-custom-crypto"
+        },
+        {
+          "title": "Static IV / nonce reuse",
+          "description": "Reusing a fixed IV/nonce with the same key (especially with CTR/GCM) breaks confidentiality and, for GCM, can leak the authentication key. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm a fresh random IV/nonce per encryption and that it is not hardcoded or reused across messages with the same key. Common tags: mobile, android, ios, crypto.",
+          "severity": "high",
+          "how_to_find": "Platform: iOS. Reusing a fixed IV/nonce with the same key (especially with CTR/GCM) breaks confidentiality and, for GCM, can leak the authentication key. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm a fresh random IV/nonce per encryption and that it is not hardcoded or reused across messages with the same key. Common tags: mobile, android, ios, crypto. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Static IV / nonce reuse.",
+          "how_to_fix": "Remediate \"Static IV / nonce reuse\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
+          "tools": [
+            "objection",
+            "Frida",
+            "Hopper",
+            "MobSF",
+            "Burp Suite",
+            "jadx",
+            "apktool"
+          ],
+          "references": [
+            {
+              "title": "OWASP MSTG",
+              "url": "https://owasp.org/www-project-mobile-security-testing-guide/"
+            }
+          ],
+          "tags": [
+            "mobile",
+            "android",
+            "ios",
+            "crypto"
+          ],
+          "source": "mobile-crypto-iv-reuse"
+        }
+      ]
+    },
+    {
+      "title": "Platform Interaction — IPC & Exported Components",
+      "items": [
+        {
+          "title": "Unprotected exported components",
+          "description": "Exported activities, services, broadcast receivers and content providers without permission checks let other apps invoke privileged functionality. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Review the manifest for exported=true (or implicit export via intent-filters); confirm each is permission-protected or genuinely public. Invoke them with adb/Drozer. Common tags: mobile, android, ipc.",
+          "severity": "high",
+          "how_to_find": "Platform: iOS. Exported activities, services, broadcast receivers and content providers without permission checks let other apps invoke privileged functionality. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Review the manifest for exported=true (or implicit export via intent-filters); confirm each is permission-protected or genuinely public. Invoke them with adb/Drozer. Common tags: mobile, android, ipc. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Unprotected exported components.",
+          "how_to_fix": "Remediate \"Unprotected exported components\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
+          "tools": [
+            "objection",
+            "Frida",
+            "Hopper",
+            "MobSF",
+            "Burp Suite",
+            "jadx",
+            "apktool"
+          ],
+          "references": [
+            {
+              "title": "OWASP MSTG",
+              "url": "https://owasp.org/www-project-mobile-security-testing-guide/"
+            }
+          ],
+          "tags": [
+            "mobile",
+            "android",
+            "ipc"
+          ],
+          "source": "mobile-ipc-exported-components"
+        },
+        {
+          "title": "Insecure / exported content providers",
+          "description": "Exported content providers or those vulnerable to path traversal / SQL injection in their query interface can leak app data to other apps. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Query exported providers with adb/Drozer; test for SQLi in selection params and path traversal in openFile() URIs. Common tags: mobile, android, ipc.",
+          "severity": "high",
+          "how_to_find": "Platform: iOS. Exported content providers or those vulnerable to path traversal / SQL injection in their query interface can leak app data to other apps. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Query exported providers with adb/Drozer; test for SQLi in selection params and path traversal in openFile() URIs. Common tags: mobile, android, ipc. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Insecure / exported content providers.",
+          "how_to_fix": "Remediate \"Insecure / exported content providers\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
+          "tools": [
+            "objection",
+            "Frida",
+            "Hopper",
+            "MobSF",
+            "Burp Suite",
+            "jadx",
+            "apktool"
+          ],
+          "references": [
+            {
+              "title": "OWASP MSTG",
+              "url": "https://owasp.org/www-project-mobile-security-testing-guide/"
+            }
+          ],
+          "tags": [
+            "mobile",
+            "android",
+            "ipc"
+          ],
+          "source": "mobile-ipc-content-provider"
+        },
+        {
+          "title": "Deep link / URL scheme hijacking",
+          "description": "Custom URL schemes can be claimed by multiple apps; unverified app links/universal links can be hijacked, enabling redirection, data theft or auth-code interception. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Confirm Android App Links use autoVerify + assetlinks.json and iOS uses verified Universal Links (apple-app-site-association); test scheme collisions. Common tags: mobile, android, ios, deeplink.",
+          "severity": "critical",
+          "how_to_find": "Platform: iOS. Custom URL schemes can be claimed by multiple apps; unverified app links/universal links can be hijacked, enabling redirection, data theft or auth-code interception. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Confirm Android App Links use autoVerify + assetlinks.json and iOS uses verified Universal Links (apple-app-site-association); test scheme collisions. Common tags: mobile, android, ios, deeplink. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Deep link / URL scheme hijacking.",
+          "how_to_fix": "Remediate \"Deep link / URL scheme hijacking\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
+          "tools": [
+            "objection",
+            "Frida",
+            "Hopper",
+            "MobSF",
+            "Burp Suite",
+            "jadx",
+            "apktool"
+          ],
+          "references": [
+            {
+              "title": "OWASP MSTG",
+              "url": "https://owasp.org/www-project-mobile-security-testing-guide/"
+            }
+          ],
+          "tags": [
+            "mobile",
+            "android",
+            "ios",
+            "deeplink"
+          ],
+          "source": "mobile-ipc-deeplink-hijack"
+        },
+        {
+          "title": "Unvalidated deep link parameters",
+          "description": "Deep links that pass parameters straight into navigation, WebView loads or sensitive actions enable open redirect, parameter tampering or unauthorized actions. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Fuzz deep link parameters with adb/Frida; confirm the app validates and authorizes actions and does not load attacker-controlled URLs. Common tags: mobile, android, ios, deeplink.",
+          "severity": "low",
+          "how_to_find": "Platform: iOS. Deep links that pass parameters straight into navigation, WebView loads or sensitive actions enable open redirect, parameter tampering or unauthorized actions. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Fuzz deep link parameters with adb/Frida; confirm the app validates and authorizes actions and does not load attacker-controlled URLs. Common tags: mobile, android, ios, deeplink. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Unvalidated deep link parameters.",
+          "how_to_fix": "Remediate \"Unvalidated deep link parameters\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
+          "tools": [
+            "objection",
+            "Frida",
+            "Hopper",
+            "MobSF",
+            "Burp Suite",
+            "jadx",
+            "apktool"
+          ],
+          "references": [
+            {
+              "title": "OWASP MSTG",
+              "url": "https://owasp.org/www-project-mobile-security-testing-guide/"
+            }
+          ],
+          "tags": [
+            "mobile",
+            "android",
+            "ios",
+            "deeplink"
+          ],
+          "source": "mobile-ipc-deeplink-input-validation"
+        },
+        {
+          "title": "Intent redirection / confused deputy",
+          "description": "A component that forwards an attacker-supplied nested Intent (startActivity on an extra) can be abused to launch internal components or leak data. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Identify components that read an Intent from extras and re-dispatch it; confirm they validate the target and do not forward arbitrary intents. Common tags: mobile, android, ipc.",
+          "severity": "medium",
+          "how_to_find": "Platform: iOS. A component that forwards an attacker-supplied nested Intent (startActivity on an extra) can be abused to launch internal components or leak data. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Identify components that read an Intent from extras and re-dispatch it; confirm they validate the target and do not forward arbitrary intents. Common tags: mobile, android, ipc. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Intent redirection / confused deputy.",
+          "how_to_fix": "Remediate \"Intent redirection / confused deputy\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
+          "tools": [
+            "objection",
+            "Frida",
+            "Hopper",
+            "MobSF",
+            "Burp Suite",
+            "jadx",
+            "apktool"
+          ],
+          "references": [
+            {
+              "title": "OWASP MSTG",
+              "url": "https://owasp.org/www-project-mobile-security-testing-guide/"
+            }
+          ],
+          "tags": [
+            "mobile",
+            "android",
+            "ipc"
+          ],
+          "source": "mobile-ipc-intent-redirection"
+        },
+        {
+          "title": "Sensitive data shared via pasteboard / IPC extras",
+          "description": "Passing secrets through the global pasteboard or broadcast intents exposes them to other apps that monitor those channels. This is a defense-in-depth gap that improves overall resilience when fixed. Assessors should confirm the control in practice, not only on paper: Monitor pasteboard and broadcasts during sensitive flows; confirm no secrets are placed on the global pasteboard or sent in implicit broadcasts. Common tags: mobile, android, ios, ipc.",
+          "severity": "low",
+          "how_to_find": "Platform: iOS. Passing secrets through the global pasteboard or broadcast intents exposes them to other apps that monitor those channels. This is a defense-in-depth gap that improves overall resilience when fixed. Assessors should confirm the control in practice, not only on paper: Monitor pasteboard and broadcasts during sensitive flows; confirm no secrets are placed on the global pasteboard or sent in implicit broadcasts. Common tags: mobile, android, ios, ipc. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Sensitive data shared via pasteboard / IPC extras.",
+          "how_to_fix": "Remediate \"Sensitive data shared via pasteboard / IPC extras\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
+          "tools": [
+            "objection",
+            "Frida",
+            "Hopper",
+            "MobSF",
+            "Burp Suite",
+            "jadx",
+            "apktool"
+          ],
+          "references": [
+            {
+              "title": "OWASP MSTG",
+              "url": "https://owasp.org/www-project-mobile-security-testing-guide/"
+            }
+          ],
+          "tags": [
+            "mobile",
+            "android",
+            "ios",
+            "ipc"
+          ],
+          "source": "mobile-ipc-pasteboard"
+        },
+        {
+          "title": "Tapjacking and overlay attacks",
+          "description": "Sensitive Android screens that do not filter touches obscured by overlays can be tapjacked: a malicious app draws over the UI and tricks the user into approving actions or leaking input. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm sensitive views set filterTouchesWhenObscured (or reject MotionEvents with FLAG_WINDOW_IS_OBSCURED) and that the app detects/blocks overlay-based UI redress. On iOS, verify sensitive flows are not capturable via screen recording/overlay where applicable. Common tags: mobile, android, tapjacking, overlay.",
+          "severity": "low",
+          "how_to_find": "Platform: iOS. Sensitive Android screens that do not filter touches obscured by overlays can be tapjacked: a malicious app draws over the UI and tricks the user into approving actions or leaking input. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm sensitive views set filterTouchesWhenObscured (or reject MotionEvents with FLAG_WINDOW_IS_OBSCURED) and that the app detects/blocks overlay-based UI redress. On iOS, verify sensitive flows are not capturable via screen recording/overlay where applicable. Common tags: mobile, android, tapjacking, overlay. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Tapjacking and overlay attacks.",
+          "how_to_fix": "Remediate \"Tapjacking and overlay attacks\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
+          "tools": [
+            "objection",
+            "Frida",
+            "Hopper",
+            "MobSF",
+            "Burp Suite",
+            "jadx",
+            "apktool"
+          ],
+          "references": [
+            {
+              "title": "OWASP MSTG",
+              "url": "https://owasp.org/www-project-mobile-security-testing-guide/"
+            }
+          ],
+          "tags": [
+            "mobile",
+            "android",
+            "tapjacking",
+            "overlay"
+          ],
+          "source": "mobile-ipc-tapjacking-overlay"
+        }
+      ]
+    },
+    {
+      "title": "Platform Interaction — WebView Security",
+      "items": [
+        {
+          "title": "Insecure JavaScript bridge (addJavascriptInterface)",
+          "description": "Exposing native objects to web content via addJavascriptInterface / WKScriptMessageHandler can give untrusted JS access to native capabilities and, historically, RCE. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Enumerate exposed bridge methods; confirm @JavascriptInterface surfaces are minimal, called only from trusted origins, and never expose dangerous functionality. Common tags: mobile, android, ios, webview.",
+          "severity": "critical",
+          "how_to_find": "Platform: iOS. Exposing native objects to web content via addJavascriptInterface / WKScriptMessageHandler can give untrusted JS access to native capabilities and, historically, RCE. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Enumerate exposed bridge methods; confirm @JavascriptInterface surfaces are minimal, called only from trusted origins, and never expose dangerous functionality. Common tags: mobile, android, ios, webview. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Insecure JavaScript bridge (addJavascriptInterface).",
+          "how_to_fix": "Remediate \"Insecure JavaScript bridge (addJavascriptInterface)\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
+          "tools": [
+            "objection",
+            "Frida",
+            "Hopper",
+            "MobSF",
+            "Burp Suite",
+            "jadx",
+            "apktool"
+          ],
+          "references": [
+            {
+              "title": "OWASP MSTG",
+              "url": "https://owasp.org/www-project-mobile-security-testing-guide/"
+            }
+          ],
+          "tags": [
+            "mobile",
+            "android",
+            "ios",
+            "webview"
+          ],
+          "source": "mobile-webview-jsbridge"
+        },
+        {
+          "title": "WebView file:// and content access enabled",
+          "description": "Enabling setAllowFileAccess / AllowFileAccessFromFileURLs / AllowUniversalAccessFromFileURLs lets web content read local files, enabling cross-zone data theft. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Check WebSettings file-access flags; confirm file access (and universal access from file URLs) is disabled unless strictly required. Common tags: mobile, android, webview.",
+          "severity": "low",
+          "how_to_find": "Platform: iOS. Enabling setAllowFileAccess / AllowFileAccessFromFileURLs / AllowUniversalAccessFromFileURLs lets web content read local files, enabling cross-zone data theft. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Check WebSettings file-access flags; confirm file access (and universal access from file URLs) is disabled unless strictly required. Common tags: mobile, android, webview. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: WebView file:// and content access enabled.",
+          "how_to_fix": "Remediate \"WebView file:// and content access enabled\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
+          "tools": [
+            "objection",
+            "Frida",
+            "Hopper",
+            "MobSF",
+            "Burp Suite",
+            "jadx",
+            "apktool"
+          ],
+          "references": [
+            {
+              "title": "OWASP MSTG",
+              "url": "https://owasp.org/www-project-mobile-security-testing-guide/"
+            }
+          ],
+          "tags": [
+            "mobile",
+            "android",
+            "webview"
+          ],
+          "source": "mobile-webview-file-access"
+        },
+        {
+          "title": "WebView loads untrusted / attacker-controlled URLs",
+          "description": "Calling loadUrl/loadData with input derived from intents, deep links or server responses can load malicious content into a privileged WebView. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Trace all loadUrl/loadData sources; confirm URLs are validated against an allowlist and untrusted content cannot reach the WebView. Common tags: mobile, android, ios, webview.",
+          "severity": "critical",
+          "how_to_find": "Platform: iOS. Calling loadUrl/loadData with input derived from intents, deep links or server responses can load malicious content into a privileged WebView. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Trace all loadUrl/loadData sources; confirm URLs are validated against an allowlist and untrusted content cannot reach the WebView. Common tags: mobile, android, ios, webview. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: WebView loads untrusted / attacker-controlled URLs.",
+          "how_to_fix": "Remediate \"WebView loads untrusted / attacker-controlled URLs\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
+          "tools": [
+            "objection",
+            "Frida",
+            "Hopper",
+            "MobSF",
+            "Burp Suite",
+            "jadx",
+            "apktool"
+          ],
+          "references": [
+            {
+              "title": "OWASP MSTG",
+              "url": "https://owasp.org/www-project-mobile-security-testing-guide/"
+            }
+          ],
+          "tags": [
+            "mobile",
+            "android",
+            "ios",
+            "webview"
+          ],
+          "source": "mobile-webview-untrusted-loadurl"
+        },
+        {
+          "title": "WebView mixed content allowed",
+          "description": "Setting MIXED_CONTENT_ALWAYS_ALLOW lets an HTTPS page load HTTP subresources, enabling MITM injection into the WebView. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm setMixedContentMode is NEVER_ALLOW (or compatibility mode at most) so cleartext subresources are blocked. Common tags: mobile, android, webview.",
+          "severity": "critical",
+          "how_to_find": "Platform: iOS. Setting MIXED_CONTENT_ALWAYS_ALLOW lets an HTTPS page load HTTP subresources, enabling MITM injection into the WebView. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm setMixedContentMode is NEVER_ALLOW (or compatibility mode at most) so cleartext subresources are blocked. Common tags: mobile, android, webview. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: WebView mixed content allowed.",
+          "how_to_fix": "Remediate \"WebView mixed content allowed\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
+          "tools": [
+            "objection",
+            "Frida",
+            "Hopper",
+            "MobSF",
+            "Burp Suite",
+            "jadx",
+            "apktool"
+          ],
+          "references": [
+            {
+              "title": "OWASP MSTG",
+              "url": "https://owasp.org/www-project-mobile-security-testing-guide/"
+            }
+          ],
+          "tags": [
+            "mobile",
+            "android",
+            "webview"
+          ],
+          "source": "mobile-webview-mixed-content"
+        },
+        {
+          "title": "WKWebView / UIWebView misconfiguration",
+          "description": "Use of deprecated UIWebView, enabling JavaScript where unneeded, or message handlers exposed to untrusted origins weakens the iOS WebView surface. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm WKWebView (not UIWebView) is used, javaScriptEnabled is scoped, and WKScriptMessageHandlers validate the message origin. Common tags: mobile, ios, webview.",
+          "severity": "low",
+          "how_to_find": "Platform: iOS. Use of deprecated UIWebView, enabling JavaScript where unneeded, or message handlers exposed to untrusted origins weakens the iOS WebView surface. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm WKWebView (not UIWebView) is used, javaScriptEnabled is scoped, and WKScriptMessageHandlers validate the message origin. Common tags: mobile, ios, webview. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: WKWebView / UIWebView misconfiguration.",
+          "how_to_fix": "Remediate \"WKWebView / UIWebView misconfiguration\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
+          "tools": [
+            "objection",
+            "Frida",
+            "Hopper",
+            "MobSF",
+            "Burp Suite",
+            "jadx",
+            "apktool"
+          ],
+          "references": [
+            {
+              "title": "OWASP MSTG",
+              "url": "https://owasp.org/www-project-mobile-security-testing-guide/"
+            }
+          ],
+          "tags": [
+            "mobile",
+            "ios",
+            "webview"
+          ],
+          "source": "mobile-webview-wkwebview-config"
+        }
+      ]
+    },
+    {
+      "title": "Code Quality & Resilience — Reverse Engineering & Resilience",
+      "items": [
+        {
+          "title": "No code obfuscation",
+          "description": "Unobfuscated code with original class/method names makes reverse engineering, logic recovery and bypass development trivial for high-value apps. This is a defense-in-depth gap that improves overall resilience when fixed. Assessors should confirm the control in practice, not only on paper: Decompile and assess readability; confirm obfuscation (R8/ProGuard, name and string protection) is applied to sensitive logic where resilience is required. Common tags: mobile, android, ios, resilience.",
+          "severity": "low",
+          "how_to_find": "Platform: iOS. Unobfuscated code with original class/method names makes reverse engineering, logic recovery and bypass development trivial for high-value apps. This is a defense-in-depth gap that improves overall resilience when fixed. Assessors should confirm the control in practice, not only on paper: Decompile and assess readability; confirm obfuscation (R8/ProGuard, name and string protection) is applied to sensitive logic where resilience is required. Common tags: mobile, android, ios, resilience. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: No code obfuscation.",
+          "how_to_fix": "Remediate \"No code obfuscation\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
+          "tools": [
+            "objection",
+            "Frida",
+            "Hopper",
+            "MobSF",
+            "Burp Suite",
+            "jadx",
+            "apktool"
+          ],
+          "references": [
+            {
+              "title": "OWASP MSTG",
+              "url": "https://owasp.org/www-project-mobile-security-testing-guide/"
+            }
+          ],
+          "tags": [
+            "mobile",
+            "android",
+            "ios",
+            "resilience"
+          ],
+          "source": "mobile-reverse-engineering-no-obfuscation"
+        },
+        {
+          "title": "App shipped as debuggable",
+          "description": "A release build with android:debuggable=true (or get-task-allow on iOS) lets anyone attach a debugger, dump memory and inspect runtime state. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Check the manifest debuggable flag and iOS get-task-allow entitlement; confirm release builds are non-debuggable. Common tags: mobile, android, ios, resilience.",
+          "severity": "low",
+          "how_to_find": "Platform: iOS. A release build with android:debuggable=true (or get-task-allow on iOS) lets anyone attach a debugger, dump memory and inspect runtime state. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Check the manifest debuggable flag and iOS get-task-allow entitlement; confirm release builds are non-debuggable. Common tags: mobile, android, ios, resilience. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: App shipped as debuggable.",
+          "how_to_fix": "Remediate \"App shipped as debuggable\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
+          "tools": [
+            "objection",
+            "Frida",
+            "Hopper",
+            "MobSF",
+            "Burp Suite",
+            "jadx",
+            "apktool"
+          ],
+          "references": [
+            {
+              "title": "OWASP MSTG",
+              "url": "https://owasp.org/www-project-mobile-security-testing-guide/"
+            }
+          ],
+          "tags": [
+            "mobile",
+            "android",
+            "ios",
+            "resilience"
+          ],
+          "source": "mobile-reverse-engineering-debuggable"
+        },
+        {
+          "title": "Missing root / jailbreak detection",
+          "description": "Absent root/jailbreak detection means the app runs on fully compromised devices where storage, memory and pinning protections are void, with no resistance signal. This is a defense-in-depth gap that improves overall resilience when fixed. Assessors should confirm the control in practice, not only on paper: Run on a rooted/jailbroken device; confirm the app detects it and responds (warn/limit/exit) and that detection is not a single trivially-hooked check. Common tags: mobile, android, ios, resilience.",
+          "severity": "low",
+          "how_to_find": "Platform: iOS. Absent root/jailbreak detection means the app runs on fully compromised devices where storage, memory and pinning protections are void, with no resistance signal. This is a defense-in-depth gap that improves overall resilience when fixed. Assessors should confirm the control in practice, not only on paper: Run on a rooted/jailbroken device; confirm the app detects it and responds (warn/limit/exit) and that detection is not a single trivially-hooked check. Common tags: mobile, android, ios, resilience. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Missing root / jailbreak detection.",
+          "how_to_fix": "Remediate \"Missing root / jailbreak detection\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
+          "tools": [
+            "objection",
+            "Frida",
+            "Hopper",
+            "MobSF",
+            "Burp Suite",
+            "jadx",
+            "apktool"
+          ],
+          "references": [
+            {
+              "title": "OWASP MSTG",
+              "url": "https://owasp.org/www-project-mobile-security-testing-guide/"
+            }
+          ],
+          "tags": [
+            "mobile",
+            "android",
+            "ios",
+            "resilience"
+          ],
+          "source": "mobile-reverse-engineering-root-jailbreak-detection"
+        },
+        {
+          "title": "Missing integrity / anti-tamper checks",
+          "description": "Without signature/integrity verification, an attacker can repackage and resign the app (strip pinning, inject code) and distribute a modified build. This is a defense-in-depth gap that improves overall resilience when fixed. Assessors should confirm the control in practice, not only on paper: Repackage and resign the app; confirm it detects the changed signature/checksum and refuses to run or alerts the backend. Common tags: mobile, android, ios, resilience.",
+          "severity": "low",
+          "how_to_find": "Platform: iOS. Without signature/integrity verification, an attacker can repackage and resign the app (strip pinning, inject code) and distribute a modified build. This is a defense-in-depth gap that improves overall resilience when fixed. Assessors should confirm the control in practice, not only on paper: Repackage and resign the app; confirm it detects the changed signature/checksum and refuses to run or alerts the backend. Common tags: mobile, android, ios, resilience. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Missing integrity / anti-tamper checks.",
+          "how_to_fix": "Remediate \"Missing integrity / anti-tamper checks\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
+          "tools": [
+            "objection",
+            "Frida",
+            "Hopper",
+            "MobSF",
+            "Burp Suite",
+            "jadx",
+            "apktool"
+          ],
+          "references": [
+            {
+              "title": "OWASP MSTG",
+              "url": "https://owasp.org/www-project-mobile-security-testing-guide/"
+            }
+          ],
+          "tags": [
+            "mobile",
+            "android",
+            "ios",
+            "resilience"
+          ],
+          "source": "mobile-reverse-engineering-anti-tamper"
+        },
+        {
+          "title": "Missing Frida / emulator / hooking detection",
+          "description": "No detection of dynamic instrumentation (Frida/Xposed) or emulators allows full runtime manipulation of the app, defeating client-side controls. This is a defense-in-depth gap that improves overall resilience when fixed. Assessors should confirm the control in practice, not only on paper: Attach Frida and run in an emulator; confirm the app detects instrumentation/emulation and that detection is not bypassable with a single hook. Common tags: mobile, android, ios, resilience.",
+          "severity": "low",
+          "how_to_find": "Platform: iOS. No detection of dynamic instrumentation (Frida/Xposed) or emulators allows full runtime manipulation of the app, defeating client-side controls. This is a defense-in-depth gap that improves overall resilience when fixed. Assessors should confirm the control in practice, not only on paper: Attach Frida and run in an emulator; confirm the app detects instrumentation/emulation and that detection is not bypassable with a single hook. Common tags: mobile, android, ios, resilience. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Missing Frida / emulator / hooking detection.",
+          "how_to_fix": "Remediate \"Missing Frida / emulator / hooking detection\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
+          "tools": [
+            "objection",
+            "Frida",
+            "Hopper",
+            "MobSF",
+            "Burp Suite",
+            "jadx",
+            "apktool"
+          ],
+          "references": [
+            {
+              "title": "OWASP MSTG",
+              "url": "https://owasp.org/www-project-mobile-security-testing-guide/"
+            }
+          ],
+          "tags": [
+            "mobile",
+            "android",
+            "ios",
+            "resilience"
+          ],
+          "source": "mobile-reverse-engineering-frida-emulator-detection"
+        }
+      ]
+    },
+    {
+      "title": "Code Quality & Resilience — Hardcoded Secrets",
+      "items": [
+        {
+          "title": "Hardcoded API keys / secrets",
+          "description": "API keys, tokens and signing secrets baked into the binary, strings.xml or resources are recoverable from the package and can be abused against backend services. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Run a secret scanner over the decompiled app and resources; confirm no privileged keys/secrets are embedded and that any client keys are appropriately scoped. Common tags: mobile, android, ios, secrets.",
+          "severity": "critical",
+          "how_to_find": "Platform: iOS. API keys, tokens and signing secrets baked into the binary, strings.xml or resources are recoverable from the package and can be abused against backend services. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Run a secret scanner over the decompiled app and resources; confirm no privileged keys/secrets are embedded and that any client keys are appropriately scoped. Common tags: mobile, android, ios, secrets. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Hardcoded API keys / secrets.",
+          "how_to_fix": "Remediate \"Hardcoded API keys / secrets\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
+          "tools": [
+            "objection",
+            "Frida",
+            "Hopper",
+            "MobSF",
+            "Burp Suite",
+            "jadx",
+            "apktool"
+          ],
+          "references": [
+            {
+              "title": "OWASP MSTG",
+              "url": "https://owasp.org/www-project-mobile-security-testing-guide/"
+            }
+          ],
+          "tags": [
+            "mobile",
+            "android",
+            "ios",
+            "secrets"
+          ],
+          "source": "mobile-secrets-api-keys"
+        },
+        {
+          "title": "Embedded credentials / accounts",
+          "description": "Hardcoded usernames, passwords or service-account credentials grant anyone who extracts them direct access to backend or third-party systems. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: Search strings/resources/native libs for credential patterns; confirm no static usernames/passwords or service accounts ship in the app. Common tags: mobile, android, ios, secrets.",
+          "severity": "critical",
+          "how_to_find": "Platform: iOS. Hardcoded usernames, passwords or service-account credentials grant anyone who extracts them direct access to backend or third-party systems. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: Search strings/resources/native libs for credential patterns; confirm no static usernames/passwords or service accounts ship in the app. Common tags: mobile, android, ios, secrets. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Embedded credentials / accounts.",
+          "how_to_fix": "Remediate \"Embedded credentials / accounts\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
+          "tools": [
+            "objection",
+            "Frida",
+            "Hopper",
+            "MobSF",
+            "Burp Suite",
+            "jadx",
+            "apktool"
+          ],
+          "references": [
+            {
+              "title": "OWASP MSTG",
+              "url": "https://owasp.org/www-project-mobile-security-testing-guide/"
+            }
+          ],
+          "tags": [
+            "mobile",
+            "android",
+            "ios",
+            "secrets"
+          ],
+          "source": "mobile-secrets-embedded-credentials"
+        },
+        {
+          "title": "Exposed Firebase / cloud configuration",
+          "description": "Firebase config, cloud bucket URLs and tokens in the app can reveal open databases/buckets or misconfigured rules, leading to data exposure. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Extract Firebase/cloud endpoints and test for open read/write (e.g. /.json on RTDB, public buckets); confirm backend rules enforce auth. Common tags: mobile, android, ios, cloud.",
+          "severity": "critical",
+          "how_to_find": "Platform: iOS. Firebase config, cloud bucket URLs and tokens in the app can reveal open databases/buckets or misconfigured rules, leading to data exposure. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Extract Firebase/cloud endpoints and test for open read/write (e.g. /.json on RTDB, public buckets); confirm backend rules enforce auth. Common tags: mobile, android, ios, cloud. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Exposed Firebase / cloud configuration.",
+          "how_to_fix": "Remediate \"Exposed Firebase / cloud configuration\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
+          "tools": [
+            "objection",
+            "Frida",
+            "Hopper",
+            "MobSF",
+            "Burp Suite",
+            "jadx",
+            "apktool"
+          ],
+          "references": [
+            {
+              "title": "OWASP MSTG",
+              "url": "https://owasp.org/www-project-mobile-security-testing-guide/"
+            }
+          ],
+          "tags": [
+            "mobile",
+            "android",
+            "ios",
+            "cloud"
+          ],
+          "source": "mobile-secrets-firebase-cloud-config"
+        },
+        {
+          "title": "Secrets in strings / resources / assets",
+          "description": "Endpoints, encryption keys and tokens placed in res/values, assets, or BuildConfig fields are easily dumped without even decompiling code. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Unpack the APK/IPA and grep res/, assets/, plists and BuildConfig for secret-like values; confirm none are sensitive. Common tags: mobile, android, ios, secrets.",
+          "severity": "critical",
+          "how_to_find": "Platform: iOS. Endpoints, encryption keys and tokens placed in res/values, assets, or BuildConfig fields are easily dumped without even decompiling code. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Unpack the APK/IPA and grep res/, assets/, plists and BuildConfig for secret-like values; confirm none are sensitive. Common tags: mobile, android, ios, secrets. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Secrets in strings / resources / assets.",
+          "how_to_fix": "Remediate \"Secrets in strings / resources / assets\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
+          "tools": [
+            "objection",
+            "Frida",
+            "Hopper",
+            "MobSF",
+            "Burp Suite",
+            "jadx",
+            "apktool"
+          ],
+          "references": [
+            {
+              "title": "OWASP MSTG",
+              "url": "https://owasp.org/www-project-mobile-security-testing-guide/"
+            }
+          ],
+          "tags": [
+            "mobile",
+            "android",
+            "ios",
+            "secrets"
+          ],
+          "source": "mobile-secrets-strings-resources"
+        },
+        {
+          "title": "Secrets hidden in native libraries",
+          "description": "Moving keys/secrets into .so / native code only raises the bar slightly; static analysis of the binary recovers them, so it is not a real protection. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Disassemble bundled native libraries and search for embedded keys/strings; confirm secrets are not merely hidden in native code as the sole defense. Common tags: mobile, android, ios, secrets.",
+          "severity": "low",
+          "how_to_find": "Platform: iOS. Moving keys/secrets into .so / native code only raises the bar slightly; static analysis of the binary recovers them, so it is not a real protection. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Disassemble bundled native libraries and search for embedded keys/strings; confirm secrets are not merely hidden in native code as the sole defense. Common tags: mobile, android, ios, secrets. Static: decompile/review binary and manifest/plist. Dynamic: instrument with Frida/objection, proxy TLS via Burp. Control: Secrets hidden in native libraries.",
+          "how_to_fix": "Remediate \"Secrets hidden in native libraries\": remove secrets from client, disable exported components, enforce certificate pinning with backup pins, use Android Keystore / iOS Keychain with strict accessibility, disable backups/debug flags in release, and never trust client-side checks alone.",
+          "tools": [
+            "objection",
+            "Frida",
+            "Hopper",
+            "MobSF",
+            "Burp Suite",
+            "jadx",
+            "apktool"
+          ],
+          "references": [
+            {
+              "title": "OWASP MSTG",
+              "url": "https://owasp.org/www-project-mobile-security-testing-guide/"
+            }
+          ],
+          "tags": [
+            "mobile",
+            "android",
+            "ios",
+            "secrets"
+          ],
+          "source": "mobile-secrets-native-libs"
         }
       ]
     }

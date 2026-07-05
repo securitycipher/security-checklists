@@ -1,0 +1,2020 @@
+{
+  "id": "cloud",
+  "title": "Cloud",
+  "sections": [
+    {
+      "title": "Identity & Access Management — Privilege Escalation & Over-Privileged Roles",
+      "items": [
+        {
+          "title": "Wildcard actions and resources in IAM policies",
+          "description": "Policies containing \"Action\": \"*\" or \"Resource\": \"*\" (AWS), Owner/Contributor at subscription scope (Azure), or roles/owner and primitive roles (GCP) grant excessive access that violates least privilege. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Enumerate all identity and resource policies and flag statements with wildcard actions, wildcard resources, or admin-equivalent built-in roles. Confirm whether any human or service identity is bound to them. Common tags: cloud, iam, least-privilege.",
+          "severity": "high",
+          "how_to_find": "Enumerate all identity and resource policies and flag statements with wildcard actions, wildcard resources, or admin-equivalent built-in roles. Confirm whether any human or service identity is bound to them.",
+          "how_to_fix": "Remediate \"Wildcard actions and resources in IAM policies\" by applying vendor and CIS/OWASP hardening guidance for Identity & Access Management — Privilege Escalation & Over-Privileged Roles. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Prowler",
+            "ScoutSuite",
+            "cloudsplaining",
+            "aws cli"
+          ],
+          "references": [
+            {
+              "title": "AWS IAM least privilege",
+              "url": "https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html"
+            },
+            {
+              "title": "Cloudsplaining",
+              "url": "https://github.com/salesforce/cloudsplaining"
+            }
+          ],
+          "tags": [
+            "cloud",
+            "iam",
+            "least-privilege"
+          ],
+          "source": "cloud-iam-privesc-wildcard-policies"
+        },
+        {
+          "title": "Known IAM privilege-escalation paths",
+          "description": "Permissions such as iam:CreatePolicyVersion, iam:PassRole + ec2:RunInstances, lambda:UpdateFunctionCode, or sts:AssumeRole chains can be abused to escalate from a low-privileged identity to admin. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: Map effective permissions and detect known escalation primitives (Rhino Labs AWS escalation methods, Azure role-assignment write, GCP setIamPolicy / actAs). Attempt safe enumeration in an authorized test account. Common tags: cloud, iam, privesc.",
+          "severity": "critical",
+          "how_to_find": "Map effective permissions and detect known escalation primitives (Rhino Labs AWS escalation methods, Azure role-assignment write, GCP setIamPolicy / actAs). Attempt safe enumeration in an authorized test account.",
+          "how_to_fix": "Remediate \"Known IAM privilege-escalation paths\" by applying vendor and CIS/OWASP hardening guidance for Identity & Access Management — Privilege Escalation & Over-Privileged Roles. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Pacu",
+            "cloudsplaining",
+            "ScoutSuite",
+            "aws cli"
+          ],
+          "references": [
+            {
+              "title": "AWS IAM privilege escalation (Rhino/HackTricks)",
+              "url": "https://cloud.hacktricks.wiki/en/pentesting-cloud/aws-security/aws-privilege-escalation/index.html"
+            },
+            {
+              "title": "Hacking the Cloud - IAM privesc",
+              "url": "https://hackingthe.cloud/aws/exploitation/iam_privilege_escalation/"
+            }
+          ],
+          "tags": [
+            "cloud",
+            "iam",
+            "privesc"
+          ],
+          "source": "cloud-iam-privesc-paths"
+        },
+        {
+          "title": "iam:PassRole and actAs abuse",
+          "description": "An identity allowed to pass a more privileged role to a compute service (EC2, Lambda, ECS, GCE, Cloud Functions) can assume that role indirectly and inherit its permissions. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Find identities with PassRole/actAs combined with a service that runs the role. Verify whether the passable target roles are more privileged than the calling identity. Common tags: cloud, iam, privesc.",
+          "severity": "high",
+          "how_to_find": "Find identities with PassRole/actAs combined with a service that runs the role. Verify whether the passable target roles are more privileged than the calling identity.",
+          "how_to_fix": "Remediate \"iam:PassRole and actAs abuse\" by applying vendor and CIS/OWASP hardening guidance for Identity & Access Management — Privilege Escalation & Over-Privileged Roles. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "cloudsplaining",
+            "Pacu",
+            "gcloud",
+            "aws cli"
+          ],
+          "references": [
+            {
+              "title": "AWS PassRole documentation",
+              "url": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_passrole.html"
+            },
+            {
+              "title": "GCP IAM actAs / privesc (HackTricks)",
+              "url": "https://cloud.hacktricks.wiki/en/pentesting-cloud/gcp-security/gcp-privilege-escalation/index.html"
+            }
+          ],
+          "tags": [
+            "cloud",
+            "iam",
+            "privesc"
+          ],
+          "source": "cloud-iam-privesc-passrole"
+        },
+        {
+          "title": "Unused and stale permissions",
+          "description": "Permissions and identities granted but never used widen the attack surface. AWS Access Analyzer, Azure PIM access reviews, and GCP IAM Recommender highlight unused grants. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Compare granted permissions against last-used data (AWS Access Advisor, GCP IAM Recommender). Report permissions unused beyond the policy window as candidates for removal. Common tags: cloud, iam, least-privilege.",
+          "severity": "medium",
+          "how_to_find": "Compare granted permissions against last-used data (AWS Access Advisor, GCP IAM Recommender). Report permissions unused beyond the policy window as candidates for removal.",
+          "how_to_fix": "Remediate \"Unused and stale permissions\" by applying vendor and CIS/OWASP hardening guidance for Identity & Access Management — Privilege Escalation & Over-Privileged Roles. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Prowler",
+            "ScoutSuite",
+            "aws cli",
+            "gcloud"
+          ],
+          "references": [
+            {
+              "title": "AWS IAM Access Analyzer",
+              "url": "https://docs.aws.amazon.com/IAM/latest/UserGuide/access-analyzer-policy-generation.html"
+            },
+            {
+              "title": "CIS Benchmarks",
+              "url": "https://www.cisecurity.org/cis-benchmarks"
+            }
+          ],
+          "tags": [
+            "cloud",
+            "iam",
+            "least-privilege"
+          ],
+          "source": "cloud-iam-privesc-unused-perms"
+        }
+      ]
+    },
+    {
+      "title": "Identity & Access Management — Access Keys & Long-Lived Credentials",
+      "items": [
+        {
+          "title": "Leaked access keys in code, repos, and artifacts",
+          "description": "AWS access keys, Azure client secrets, and GCP service account JSON keys are frequently committed to source control, container images, CI logs, and public buckets. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: Scan repositories, container layers, build logs, and storage for credential patterns. Validate any discovered key against the cloud API (e.g., aws sts get-caller-identity) to confirm it is live. Common tags: cloud, iam, secrets.",
+          "severity": "critical",
+          "how_to_find": "Scan repositories, container layers, build logs, and storage for credential patterns. Validate any discovered key against the cloud API (e.g., aws sts get-caller-identity) to confirm it is live.",
+          "how_to_fix": "Remediate \"Leaked access keys in code, repos, and artifacts\" by applying vendor and CIS/OWASP hardening guidance for Identity & Access Management — Access Keys & Long-Lived Credentials. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "trufflehog",
+            "aws cli",
+            "gcloud",
+            "nuclei"
+          ],
+          "references": [
+            {
+              "title": "TruffleHog",
+              "url": "https://github.com/trufflesecurity/trufflehog"
+            },
+            {
+              "title": "Hacking the Cloud - leaked credentials",
+              "url": "https://hackingthe.cloud/aws/general-knowledge/credential-types/"
+            }
+          ],
+          "tags": [
+            "cloud",
+            "iam",
+            "secrets"
+          ],
+          "source": "cloud-iam-keys-leaked"
+        },
+        {
+          "title": "Long-lived static credentials",
+          "description": "Static keys without expiry (AWS IAM user keys, Azure SP secrets, GCP SA keys) should be replaced by short-lived roles, workload identity federation, or instance/managed identities. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Inventory all static credentials and their age. Flag any long-lived key where a federated or role-based alternative is available. Common tags: cloud, iam, credentials.",
+          "severity": "high",
+          "how_to_find": "Inventory all static credentials and their age. Flag any long-lived key where a federated or role-based alternative is available.",
+          "how_to_fix": "Remediate \"Long-lived static credentials\" by applying vendor and CIS/OWASP hardening guidance for Identity & Access Management — Access Keys & Long-Lived Credentials. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Prowler",
+            "ScoutSuite",
+            "aws cli",
+            "az cli"
+          ],
+          "references": [
+            {
+              "title": "AWS access key best practices",
+              "url": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html"
+            },
+            {
+              "title": "GCP service account key best practices",
+              "url": "https://cloud.google.com/iam/docs/best-practices-for-managing-service-account-keys"
+            }
+          ],
+          "tags": [
+            "cloud",
+            "iam",
+            "credentials"
+          ],
+          "source": "cloud-iam-keys-long-lived"
+        },
+        {
+          "title": "Missing or stale key rotation",
+          "description": "Credentials not rotated within policy windows increase the impact of a leak. CIS benchmarks recommend rotating access keys every 90 days or less. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Check create/last-rotated timestamps for all keys and secrets. Report any credential exceeding the rotation threshold. Common tags: cloud, iam, rotation.",
+          "severity": "medium",
+          "how_to_find": "Check create/last-rotated timestamps for all keys and secrets. Report any credential exceeding the rotation threshold.",
+          "how_to_fix": "Remediate \"Missing or stale key rotation\" by applying vendor and CIS/OWASP hardening guidance for Identity & Access Management — Access Keys & Long-Lived Credentials. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Prowler",
+            "ScoutSuite",
+            "aws cli"
+          ],
+          "references": [
+            {
+              "title": "CIS AWS Foundations Benchmark",
+              "url": "https://www.cisecurity.org/benchmark/amazon_web_services"
+            },
+            {
+              "title": "AWS rotate access keys",
+              "url": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_RotateAccessKey"
+            }
+          ],
+          "tags": [
+            "cloud",
+            "iam",
+            "rotation"
+          ],
+          "source": "cloud-iam-keys-rotation"
+        },
+        {
+          "title": "Active credentials on inactive or dormant identities",
+          "description": "Service accounts and users that are no longer used but still hold active keys are prime targets for credential-stuffing and reuse. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Correlate credential last-used data with identity activity. Flag active keys belonging to identities with no recent API activity. Common tags: cloud, iam, credentials.",
+          "severity": "medium",
+          "how_to_find": "Correlate credential last-used data with identity activity. Flag active keys belonging to identities with no recent API activity.",
+          "how_to_fix": "Remediate \"Active credentials on inactive or dormant identities\" by applying vendor and CIS/OWASP hardening guidance for Identity & Access Management — Access Keys & Long-Lived Credentials. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "ScoutSuite",
+            "Prowler",
+            "gcloud",
+            "aws cli"
+          ],
+          "references": [
+            {
+              "title": "AWS credential reports",
+              "url": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_getting-report.html"
+            },
+            {
+              "title": "MITRE ATT&CK - Valid Accounts: Cloud Accounts",
+              "url": "https://attack.mitre.org/techniques/T1078/004/"
+            }
+          ],
+          "tags": [
+            "cloud",
+            "iam",
+            "credentials"
+          ],
+          "source": "cloud-iam-keys-inactive"
+        }
+      ]
+    },
+    {
+      "title": "Identity & Access Management — MFA & Root/Privileged Account Hygiene",
+      "items": [
+        {
+          "title": "Missing MFA on console/privileged users",
+          "description": "Human identities with console access and no MFA are vulnerable to phishing and password reuse. CIS benchmarks require MFA for all users with console passwords. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Enumerate users with passwords/interactive sign-in and check MFA enrollment. Flag any privileged identity without MFA. Common tags: cloud, iam, mfa.",
+          "severity": "high",
+          "how_to_find": "Enumerate users with passwords/interactive sign-in and check MFA enrollment. Flag any privileged identity without MFA.",
+          "how_to_fix": "Remediate \"Missing MFA on console/privileged users\" by applying vendor and CIS/OWASP hardening guidance for Identity & Access Management — MFA & Root/Privileged Account Hygiene. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Prowler",
+            "ScoutSuite",
+            "aws cli",
+            "az cli"
+          ],
+          "references": [
+            {
+              "title": "AWS MFA documentation",
+              "url": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_mfa.html"
+            },
+            {
+              "title": "Azure MFA / Conditional Access",
+              "url": "https://learn.microsoft.com/en-us/entra/identity/authentication/concept-mfa-howitworks"
+            }
+          ],
+          "tags": [
+            "cloud",
+            "iam",
+            "mfa"
+          ],
+          "source": "cloud-iam-mfa-missing"
+        },
+        {
+          "title": "Root / Global Admin account usage",
+          "description": "The AWS root account, Azure Global Administrator, and GCP super admin should be locked down with MFA, no access keys, and used only for break-glass scenarios. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: Check for recent root/super-admin sign-ins and API activity, presence of root access keys, and MFA status. Any routine use is a finding. Common tags: cloud, iam, mfa.",
+          "severity": "critical",
+          "how_to_find": "Check for recent root/super-admin sign-ins and API activity, presence of root access keys, and MFA status. Any routine use is a finding.",
+          "how_to_fix": "Remediate \"Root / Global Admin account usage\" by applying vendor and CIS/OWASP hardening guidance for Identity & Access Management — MFA & Root/Privileged Account Hygiene. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Prowler",
+            "ScoutSuite",
+            "aws cli"
+          ],
+          "references": [
+            {
+              "title": "AWS root user best practices",
+              "url": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_root-user.html"
+            },
+            {
+              "title": "CIS AWS Foundations Benchmark",
+              "url": "https://www.cisecurity.org/benchmark/amazon_web_services"
+            }
+          ],
+          "tags": [
+            "cloud",
+            "iam",
+            "mfa"
+          ],
+          "source": "cloud-iam-mfa-root-usage"
+        },
+        {
+          "title": "Weak MFA factors on highly privileged identities",
+          "description": "SMS and TOTP can be phished; phishing-resistant factors (FIDO2/hardware keys) are recommended for break-glass and admin identities. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Review configured MFA factor types for privileged identities. Flag privileged accounts relying solely on phishable factors. Common tags: cloud, iam, mfa.",
+          "severity": "medium",
+          "how_to_find": "Review configured MFA factor types for privileged identities. Flag privileged accounts relying solely on phishable factors.",
+          "how_to_fix": "Remediate \"Weak MFA factors on highly privileged identities\" by applying vendor and CIS/OWASP hardening guidance for Identity & Access Management — MFA & Root/Privileged Account Hygiene. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "az cli",
+            "aws cli",
+            "gcloud"
+          ],
+          "references": [
+            {
+              "title": "AWS phishing-resistant MFA (FIDO2)",
+              "url": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_mfa.html"
+            },
+            {
+              "title": "Microsoft phishing-resistant MFA",
+              "url": "https://learn.microsoft.com/en-us/entra/identity/authentication/concept-authentication-passwordless"
+            }
+          ],
+          "tags": [
+            "cloud",
+            "iam",
+            "mfa"
+          ],
+          "source": "cloud-iam-mfa-hardware"
+        },
+        {
+          "title": "Access keys present on root/super-admin",
+          "description": "Root and super-admin accounts should never have programmatic access keys; their existence drastically increases blast radius if leaked. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Confirm no access keys exist for the AWS root account or GCP organization super admin. Any present key is a critical finding. Common tags: cloud, iam, credentials.",
+          "severity": "high",
+          "how_to_find": "Confirm no access keys exist for the AWS root account or GCP organization super admin. Any present key is a critical finding.",
+          "how_to_fix": "Remediate \"Access keys present on root/super-admin\" by applying vendor and CIS/OWASP hardening guidance for Identity & Access Management — MFA & Root/Privileged Account Hygiene. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Prowler",
+            "aws cli"
+          ],
+          "references": [
+            {
+              "title": "AWS root user credentials",
+              "url": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_root-user.html"
+            },
+            {
+              "title": "CIS AWS Foundations Benchmark",
+              "url": "https://www.cisecurity.org/benchmark/amazon_web_services"
+            }
+          ],
+          "tags": [
+            "cloud",
+            "iam",
+            "credentials"
+          ],
+          "source": "cloud-iam-mfa-no-keys-root"
+        }
+      ]
+    },
+    {
+      "title": "Identity & Access Management — Trust Policies & Federation",
+      "items": [
+        {
+          "title": "Over-broad assume-role trust policies",
+          "description": "Trust policies allowing Principal \"*\" or entire external accounts to assume a role can let attackers pivot into the account. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: Enumerate role trust policies and flag wildcard principals, broad external account trust, or trust without condition keys. Common tags: cloud, iam, trust.",
+          "severity": "critical",
+          "how_to_find": "Enumerate role trust policies and flag wildcard principals, broad external account trust, or trust without condition keys.",
+          "how_to_fix": "Remediate \"Over-broad assume-role trust policies\" by applying vendor and CIS/OWASP hardening guidance for Identity & Access Management — Trust Policies & Federation. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Prowler",
+            "ScoutSuite",
+            "cloudsplaining",
+            "aws cli"
+          ],
+          "references": [
+            {
+              "title": "AWS cross-account role trust",
+              "url": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-user_externalid.html"
+            },
+            {
+              "title": "Hacking the Cloud - assume role",
+              "url": "https://hackingthe.cloud/aws/exploitation/iam_privilege_escalation/"
+            }
+          ],
+          "tags": [
+            "cloud",
+            "iam",
+            "trust"
+          ],
+          "source": "cloud-iam-trust-broad-assume"
+        },
+        {
+          "title": "Confused deputy via missing ExternalId / condition",
+          "description": "Cross-account roles assumed by third parties must enforce sts:ExternalId or source conditions to prevent a confused-deputy attack. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Check third-party-assumable roles for ExternalId or aws:SourceAccount/SourceArn conditions. Missing conditions are a finding. Common tags: cloud, iam, confused-deputy.",
+          "severity": "high",
+          "how_to_find": "Check third-party-assumable roles for ExternalId or aws:SourceAccount/SourceArn conditions. Missing conditions are a finding.",
+          "how_to_fix": "Remediate \"Confused deputy via missing ExternalId / condition\" by applying vendor and CIS/OWASP hardening guidance for Identity & Access Management — Trust Policies & Federation. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Prowler",
+            "ScoutSuite",
+            "aws cli"
+          ],
+          "references": [
+            {
+              "title": "AWS confused deputy prevention",
+              "url": "https://docs.aws.amazon.com/IAM/latest/UserGuide/confused-deputy.html"
+            },
+            {
+              "title": "Hacking the Cloud",
+              "url": "https://hackingthe.cloud/aws/"
+            }
+          ],
+          "tags": [
+            "cloud",
+            "iam",
+            "confused-deputy"
+          ],
+          "source": "cloud-iam-trust-confused-deputy"
+        },
+        {
+          "title": "Misconfigured OIDC / workload identity federation",
+          "description": "GitHub Actions OIDC, GCP Workload Identity Federation, and Azure federated credentials with overly broad subject/audience claims let untrusted repos or workloads assume cloud roles. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Inspect OIDC provider trust conditions (sub, aud, repository claims). Flag wildcards or missing claim restrictions that allow any repo/branch to assume the role. Common tags: cloud, iam, federation.",
+          "severity": "high",
+          "how_to_find": "Inspect OIDC provider trust conditions (sub, aud, repository claims). Flag wildcards or missing claim restrictions that allow any repo/branch to assume the role.",
+          "how_to_fix": "Remediate \"Misconfigured OIDC / workload identity federation\" by applying vendor and CIS/OWASP hardening guidance for Identity & Access Management — Trust Policies & Federation. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "ScoutSuite",
+            "Prowler",
+            "aws cli",
+            "gcloud"
+          ],
+          "references": [
+            {
+              "title": "AWS OIDC for GitHub Actions",
+              "url": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_create_oidc.html"
+            },
+            {
+              "title": "GCP Workload Identity Federation",
+              "url": "https://cloud.google.com/iam/docs/workload-identity-federation"
+            }
+          ],
+          "tags": [
+            "cloud",
+            "iam",
+            "federation"
+          ],
+          "source": "cloud-iam-trust-oidc-federation"
+        },
+        {
+          "title": "Excessive service principal / managed identity grants",
+          "description": "Azure service principals and managed identities, and GCP service accounts, with broad directory or project roles can be abused for lateral movement and persistence. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Enumerate service principal/SA role assignments and API permissions (e.g., Graph application permissions). Flag high-privilege grants such as directory-wide write or project owner. Common tags: cloud, iam, trust.",
+          "severity": "high",
+          "how_to_find": "Enumerate service principal/SA role assignments and API permissions (e.g., Graph application permissions). Flag high-privilege grants such as directory-wide write or project owner.",
+          "how_to_fix": "Remediate \"Excessive service principal / managed identity grants\" by applying vendor and CIS/OWASP hardening guidance for Identity & Access Management — Trust Policies & Federation. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "ScoutSuite",
+            "az cli",
+            "gcloud"
+          ],
+          "references": [
+            {
+              "title": "Azure service principals",
+              "url": "https://learn.microsoft.com/en-us/entra/identity-platform/app-objects-and-service-principals"
+            },
+            {
+              "title": "GCP service accounts",
+              "url": "https://cloud.google.com/iam/docs/service-account-overview"
+            }
+          ],
+          "tags": [
+            "cloud",
+            "iam",
+            "trust"
+          ],
+          "source": "cloud-iam-trust-service-principal"
+        }
+      ]
+    },
+    {
+      "title": "Storage — Public Buckets & ACL/Policy Misconfiguration",
+      "items": [
+        {
+          "title": "Public-read buckets / containers",
+          "description": "S3 buckets, Azure blob containers, and GCS buckets granting read to AllUsers/anonymous expose data to anyone on the internet. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: Enumerate bucket/container ACLs and policies for public-read grants (AllUsers, allAuthenticatedUsers, anonymous). Attempt unauthenticated reads to confirm exposure. Common tags: cloud, storage, exposure.",
+          "severity": "critical",
+          "how_to_find": "Enumerate bucket/container ACLs and policies for public-read grants (AllUsers, allAuthenticatedUsers, anonymous). Attempt unauthenticated reads to confirm exposure.",
+          "how_to_fix": "Remediate \"Public-read buckets / containers\" by applying vendor and CIS/OWASP hardening guidance for Storage — Public Buckets & ACL/Policy Misconfiguration. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Prowler",
+            "ScoutSuite",
+            "nuclei",
+            "aws cli"
+          ],
+          "references": [
+            {
+              "title": "AWS S3 Block Public Access",
+              "url": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-control-block-public-access.html"
+            },
+            {
+              "title": "Hacking the Cloud - S3 enumeration",
+              "url": "https://hackingthe.cloud/aws/enumeration/loot_public_ebs_snapshots/"
+            }
+          ],
+          "tags": [
+            "cloud",
+            "storage",
+            "exposure"
+          ],
+          "source": "cloud-storage-public-read"
+        },
+        {
+          "title": "Public-write / world-writable buckets",
+          "description": "Buckets allowing anonymous PUT/DELETE enable defacement, malware hosting, and supply-chain attacks on assets served from the bucket. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: Test for anonymous write permission against discovered buckets in authorized scope. Any successful write is a critical finding. Common tags: cloud, storage, exposure.",
+          "severity": "critical",
+          "how_to_find": "Test for anonymous write permission against discovered buckets in authorized scope. Any successful write is a critical finding.",
+          "how_to_fix": "Remediate \"Public-write / world-writable buckets\" by applying vendor and CIS/OWASP hardening guidance for Storage — Public Buckets & ACL/Policy Misconfiguration. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "aws cli",
+            "ScoutSuite",
+            "nuclei"
+          ],
+          "references": [
+            {
+              "title": "AWS S3 access control",
+              "url": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-control-overview.html"
+            },
+            {
+              "title": "HackTricks Cloud - S3",
+              "url": "https://cloud.hacktricks.wiki/en/pentesting-cloud/aws-security/aws-services/aws-s3-athena-and-glacier-enum.html"
+            }
+          ],
+          "tags": [
+            "cloud",
+            "storage",
+            "exposure"
+          ],
+          "source": "cloud-storage-public-write"
+        },
+        {
+          "title": "Overly permissive bucket resource policies",
+          "description": "Resource policies with wildcard principals or broad cross-account access can expose data even when ACLs appear restricted. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Review bucket/container resource policies for Principal \"*\" or broad cross-account grants. Confirm whether Block Public Access / public access prevention overrides them. Common tags: cloud, storage, policy.",
+          "severity": "high",
+          "how_to_find": "Review bucket/container resource policies for Principal \"*\" or broad cross-account grants. Confirm whether Block Public Access / public access prevention overrides them.",
+          "how_to_fix": "Remediate \"Overly permissive bucket resource policies\" by applying vendor and CIS/OWASP hardening guidance for Storage — Public Buckets & ACL/Policy Misconfiguration. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Prowler",
+            "ScoutSuite",
+            "cloudsplaining"
+          ],
+          "references": [
+            {
+              "title": "AWS S3 bucket policies",
+              "url": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucket-policies.html"
+            },
+            {
+              "title": "GCP public access prevention",
+              "url": "https://cloud.google.com/storage/docs/public-access-prevention"
+            }
+          ],
+          "tags": [
+            "cloud",
+            "storage",
+            "policy"
+          ],
+          "source": "cloud-storage-public-policy"
+        },
+        {
+          "title": "Dangling / claimable bucket names",
+          "description": "References to deleted buckets (in code, DNS, or web assets) can be re-registered by attackers to serve malicious content (bucket takeover/squatting). While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Identify bucket references that return NoSuchBucket and confirm the name is registerable in the same provider/region. Report as a takeover risk. Common tags: cloud, storage, takeover.",
+          "severity": "medium",
+          "how_to_find": "Identify bucket references that return NoSuchBucket and confirm the name is registerable in the same provider/region. Report as a takeover risk.",
+          "how_to_fix": "Remediate \"Dangling / claimable bucket names\" by applying vendor and CIS/OWASP hardening guidance for Storage — Public Buckets & ACL/Policy Misconfiguration. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "nuclei",
+            "aws cli",
+            "ScoutSuite"
+          ],
+          "references": [
+            {
+              "title": "Hacking the Cloud - S3 bucket takeover",
+              "url": "https://hackingthe.cloud/aws/exploitation/s3_bucket_namesquatting/"
+            },
+            {
+              "title": "OWASP WSTG",
+              "url": "https://owasp.org/www-project-web-security-testing-guide/"
+            }
+          ],
+          "tags": [
+            "cloud",
+            "storage",
+            "takeover"
+          ],
+          "source": "cloud-storage-public-takeover"
+        }
+      ]
+    },
+    {
+      "title": "Storage — Encryption at Rest & Key Management",
+      "items": [
+        {
+          "title": "Unencrypted storage at rest",
+          "description": "Buckets, disks, and databases without encryption at rest fail most compliance baselines and increase impact of physical or backup compromise. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Enumerate storage resources and confirm default encryption is enabled. Flag any resource with no encryption configured. Common tags: cloud, storage, encryption.",
+          "severity": "medium",
+          "how_to_find": "Enumerate storage resources and confirm default encryption is enabled. Flag any resource with no encryption configured.",
+          "how_to_fix": "Remediate \"Unencrypted storage at rest\" by applying vendor and CIS/OWASP hardening guidance for Storage — Encryption at Rest & Key Management. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Prowler",
+            "ScoutSuite",
+            "aws cli",
+            "gcloud"
+          ],
+          "references": [
+            {
+              "title": "AWS S3 default encryption",
+              "url": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucket-encryption.html"
+            },
+            {
+              "title": "CIS Benchmarks",
+              "url": "https://www.cisecurity.org/cis-benchmarks"
+            }
+          ],
+          "tags": [
+            "cloud",
+            "storage",
+            "encryption"
+          ],
+          "source": "cloud-storage-encryption-disabled"
+        },
+        {
+          "title": "Weak KMS key policies and shared keys",
+          "description": "KMS/Key Vault key policies with wildcard principals, or use of a single shared key across sensitive datasets, weaken cryptographic isolation. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Review key policies for over-broad principals and check whether sensitive data uses dedicated customer-managed keys. Flag wildcard key access. Common tags: cloud, storage, kms.",
+          "severity": "high",
+          "how_to_find": "Review key policies for over-broad principals and check whether sensitive data uses dedicated customer-managed keys. Flag wildcard key access.",
+          "how_to_fix": "Remediate \"Weak KMS key policies and shared keys\" by applying vendor and CIS/OWASP hardening guidance for Storage — Encryption at Rest & Key Management. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Prowler",
+            "ScoutSuite",
+            "aws cli",
+            "az cli"
+          ],
+          "references": [
+            {
+              "title": "AWS KMS key policies",
+              "url": "https://docs.aws.amazon.com/kms/latest/developerguide/key-policies.html"
+            },
+            {
+              "title": "Azure Key Vault security",
+              "url": "https://learn.microsoft.com/en-us/azure/key-vault/general/security-features"
+            }
+          ],
+          "tags": [
+            "cloud",
+            "storage",
+            "kms"
+          ],
+          "source": "cloud-storage-encryption-key-mgmt"
+        },
+        {
+          "title": "Missing key rotation",
+          "description": "KMS/Key Vault keys without automatic rotation increase exposure window if a key is compromised. This is a defense-in-depth gap that improves overall resilience when fixed. Assessors should confirm the control in practice, not only on paper: Check rotation settings for customer-managed keys. Flag keys with rotation disabled where the data sensitivity warrants it. Common tags: cloud, storage, kms.",
+          "severity": "low",
+          "how_to_find": "Check rotation settings for customer-managed keys. Flag keys with rotation disabled where the data sensitivity warrants it.",
+          "how_to_fix": "Remediate \"Missing key rotation\" by applying vendor and CIS/OWASP hardening guidance for Storage — Encryption at Rest & Key Management. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Prowler",
+            "ScoutSuite",
+            "gcloud"
+          ],
+          "references": [
+            {
+              "title": "AWS KMS key rotation",
+              "url": "https://docs.aws.amazon.com/kms/latest/developerguide/rotate-keys.html"
+            },
+            {
+              "title": "GCP Cloud KMS rotation",
+              "url": "https://cloud.google.com/kms/docs/rotating-keys"
+            }
+          ],
+          "tags": [
+            "cloud",
+            "storage",
+            "kms"
+          ],
+          "source": "cloud-storage-encryption-rotation"
+        },
+        {
+          "title": "Encryption in transit not enforced",
+          "description": "Storage that allows plaintext HTTP access (no aws:SecureTransport / HTTPS-only) risks interception of data in transit. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Check bucket policies / settings for enforced TLS (deny non-HTTPS). Flag resources permitting unencrypted transport. Common tags: cloud, storage, tls.",
+          "severity": "medium",
+          "how_to_find": "Check bucket policies / settings for enforced TLS (deny non-HTTPS). Flag resources permitting unencrypted transport.",
+          "how_to_fix": "Remediate \"Encryption in transit not enforced\" by applying vendor and CIS/OWASP hardening guidance for Storage — Encryption at Rest & Key Management. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Prowler",
+            "ScoutSuite",
+            "aws cli"
+          ],
+          "references": [
+            {
+              "title": "AWS S3 enforce TLS",
+              "url": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/security-best-practices.html"
+            },
+            {
+              "title": "CIS Benchmarks",
+              "url": "https://www.cisecurity.org/cis-benchmarks"
+            }
+          ],
+          "tags": [
+            "cloud",
+            "storage",
+            "tls"
+          ],
+          "source": "cloud-storage-encryption-transit"
+        }
+      ]
+    },
+    {
+      "title": "Storage — Signed URLs & Object Listing",
+      "items": [
+        {
+          "title": "Pre-signed / SAS URL abuse",
+          "description": "Long-lived or over-scoped pre-signed URLs (S3), SAS tokens (Azure), and signed URLs (GCS) can grant broad, hard-to-revoke access if leaked. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Review generation patterns for signed URLs/SAS tokens: expiry duration, scope (object vs container), and permissions. Flag long-lived or account-level SAS tokens. Common tags: cloud, storage, exposure.",
+          "severity": "high",
+          "how_to_find": "Review generation patterns for signed URLs/SAS tokens: expiry duration, scope (object vs container), and permissions. Flag long-lived or account-level SAS tokens.",
+          "how_to_fix": "Remediate \"Pre-signed / SAS URL abuse\" by applying vendor and CIS/OWASP hardening guidance for Storage — Signed URLs & Object Listing. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "ScoutSuite",
+            "aws cli",
+            "az cli"
+          ],
+          "references": [
+            {
+              "title": "AWS pre-signed URLs",
+              "url": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-presigned-url.html"
+            },
+            {
+              "title": "Azure SAS best practices",
+              "url": "https://learn.microsoft.com/en-us/azure/storage/common/storage-sas-overview"
+            }
+          ],
+          "tags": [
+            "cloud",
+            "storage",
+            "exposure"
+          ],
+          "source": "cloud-storage-exposure-signed-urls"
+        },
+        {
+          "title": "Object listing enabled",
+          "description": "Buckets that allow listing let attackers enumerate all object keys, turning a single leak into full data discovery. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Test whether ListBucket/list is permitted for the relevant principal (including anonymous). Flag listable buckets containing sensitive data. Common tags: cloud, storage, exposure.",
+          "severity": "medium",
+          "how_to_find": "Test whether ListBucket/list is permitted for the relevant principal (including anonymous). Flag listable buckets containing sensitive data.",
+          "how_to_fix": "Remediate \"Object listing enabled\" by applying vendor and CIS/OWASP hardening guidance for Storage — Signed URLs & Object Listing. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "aws cli",
+            "nuclei",
+            "ScoutSuite"
+          ],
+          "references": [
+            {
+              "title": "AWS S3 ListBucket permission",
+              "url": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/walkthrough1.html"
+            },
+            {
+              "title": "HackTricks Cloud - S3",
+              "url": "https://cloud.hacktricks.wiki/en/pentesting-cloud/aws-security/aws-services/aws-s3-athena-and-glacier-enum.html"
+            }
+          ],
+          "tags": [
+            "cloud",
+            "storage",
+            "exposure"
+          ],
+          "source": "cloud-storage-exposure-listing"
+        },
+        {
+          "title": "Sensitive data in object versions / backups",
+          "description": "Deleted or rotated secrets may persist in object version history, snapshots, and lifecycle-managed backups accessible to over-privileged principals. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Check whether versioning exposes prior object versions to readers and whether old versions contain secrets. Review access scope on version history. Common tags: cloud, storage, data-exposure.",
+          "severity": "medium",
+          "how_to_find": "Check whether versioning exposes prior object versions to readers and whether old versions contain secrets. Review access scope on version history.",
+          "how_to_fix": "Remediate \"Sensitive data in object versions / backups\" by applying vendor and CIS/OWASP hardening guidance for Storage — Signed URLs & Object Listing. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "aws cli",
+            "ScoutSuite",
+            "trufflehog"
+          ],
+          "references": [
+            {
+              "title": "AWS S3 versioning",
+              "url": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/Versioning.html"
+            },
+            {
+              "title": "OWASP WSTG",
+              "url": "https://owasp.org/www-project-web-security-testing-guide/"
+            }
+          ],
+          "tags": [
+            "cloud",
+            "storage",
+            "data-exposure"
+          ],
+          "source": "cloud-storage-exposure-versioning"
+        }
+      ]
+    },
+    {
+      "title": "Compute & Metadata — Instance Metadata & SSRF",
+      "items": [
+        {
+          "title": "IMDSv1 enabled (no token requirement)",
+          "description": "IMDSv1 responds to simple GET requests, so any SSRF on the instance can read metadata and steal role credentials. IMDSv2 requires a session token (hop-limited, PUT-based). This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Check instance metadata options; flag instances allowing IMDSv1 (HttpTokens=optional). Confirm whether reachable apps have SSRF that can hit 169.254.169.254. Common tags: cloud, compute, ssrf.",
+          "severity": "high",
+          "how_to_find": "Check instance metadata options; flag instances allowing IMDSv1 (HttpTokens=optional). Confirm whether reachable apps have SSRF that can hit 169.254.169.254.",
+          "how_to_fix": "Remediate \"IMDSv1 enabled (no token requirement)\" by applying vendor and CIS/OWASP hardening guidance for Compute & Metadata — Instance Metadata & SSRF. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Prowler",
+            "ScoutSuite",
+            "aws cli",
+            "nuclei"
+          ],
+          "references": [
+            {
+              "title": "AWS IMDSv2",
+              "url": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-instance-metadata-service.html"
+            },
+            {
+              "title": "Hacking the Cloud - IMDS / SSRF",
+              "url": "https://hackingthe.cloud/aws/exploitation/ec2-metadata-ssrf/"
+            }
+          ],
+          "tags": [
+            "cloud",
+            "compute",
+            "ssrf"
+          ],
+          "source": "cloud-metadata-ssrf-imdsv1"
+        },
+        {
+          "title": "Role credential theft via metadata SSRF",
+          "description": "Reaching /latest/meta-data/iam/security-credentials/ (AWS), the Azure IMDS token endpoint, or the GCP metadata endpoint exposes temporary credentials usable from anywhere. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: Where an authorized SSRF exists, attempt to retrieve role/identity credentials from the metadata endpoint and confirm they authenticate via the provider API. Common tags: cloud, compute, ssrf.",
+          "severity": "critical",
+          "how_to_find": "Where an authorized SSRF exists, attempt to retrieve role/identity credentials from the metadata endpoint and confirm they authenticate via the provider API.",
+          "how_to_fix": "Remediate \"Role credential theft via metadata SSRF\" by applying vendor and CIS/OWASP hardening guidance for Compute & Metadata — Instance Metadata & SSRF. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Pacu",
+            "aws cli",
+            "gcloud",
+            "nuclei"
+          ],
+          "references": [
+            {
+              "title": "GCP metadata server",
+              "url": "https://cloud.google.com/compute/docs/metadata/overview"
+            },
+            {
+              "title": "HackTricks Cloud - SSRF metadata",
+              "url": "https://cloud.hacktricks.wiki/en/pentesting-cloud/aws-security/aws-services/aws-ec2-ebs-elb-ssm-vpc-and-vpn-enum/index.html"
+            }
+          ],
+          "tags": [
+            "cloud",
+            "compute",
+            "ssrf"
+          ],
+          "source": "cloud-metadata-ssrf-cred-theft"
+        },
+        {
+          "title": "Azure/GCP metadata header bypass exposure",
+          "description": "Azure IMDS requires the Metadata:true header and GCP requires Metadata-Flavor:Google; SSRF that can set arbitrary headers can still reach them. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Test whether reachable apps allow attacker-controlled headers to the metadata endpoint. Flag SSRF sinks that can add the required header. Common tags: cloud, compute, ssrf.",
+          "severity": "high",
+          "how_to_find": "Test whether reachable apps allow attacker-controlled headers to the metadata endpoint. Flag SSRF sinks that can add the required header.",
+          "how_to_fix": "Remediate \"Azure/GCP metadata header bypass exposure\" by applying vendor and CIS/OWASP hardening guidance for Compute & Metadata — Instance Metadata & SSRF. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "nuclei",
+            "az cli",
+            "gcloud"
+          ],
+          "references": [
+            {
+              "title": "Azure Instance Metadata Service",
+              "url": "https://learn.microsoft.com/en-us/azure/virtual-machines/instance-metadata-service"
+            },
+            {
+              "title": "GCP metadata security",
+              "url": "https://cloud.google.com/compute/docs/metadata/overview"
+            }
+          ],
+          "tags": [
+            "cloud",
+            "compute",
+            "ssrf"
+          ],
+          "source": "cloud-metadata-ssrf-azure-required"
+        },
+        {
+          "title": "IMDSv2 hop limit allows container access",
+          "description": "A metadata hop limit greater than 1 lets containers on the host reach IMDS, expanding the SSRF/credential-theft surface to compromised containers. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Check instance metadata hop limit; flag values above 1 on hosts running untrusted or internet-facing containers. Common tags: cloud, compute, containers.",
+          "severity": "medium",
+          "how_to_find": "Check instance metadata hop limit; flag values above 1 on hosts running untrusted or internet-facing containers.",
+          "how_to_fix": "Remediate \"IMDSv2 hop limit allows container access\" by applying vendor and CIS/OWASP hardening guidance for Compute & Metadata — Instance Metadata & SSRF. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Prowler",
+            "aws cli",
+            "ScoutSuite"
+          ],
+          "references": [
+            {
+              "title": "AWS IMDS hop limit",
+              "url": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-instance-metadata-options.html"
+            },
+            {
+              "title": "Hacking the Cloud",
+              "url": "https://hackingthe.cloud/aws/"
+            }
+          ],
+          "tags": [
+            "cloud",
+            "compute",
+            "containers"
+          ],
+          "source": "cloud-metadata-ssrf-hop-limit"
+        }
+      ]
+    },
+    {
+      "title": "Compute & Metadata — Instance Profiles & User-Data Secrets",
+      "items": [
+        {
+          "title": "Over-privileged instance profiles / identities",
+          "description": "Instance profiles (AWS), managed identities (Azure), and attached service accounts (GCP) with broad permissions become a powerful pivot if the host is compromised. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Enumerate roles/identities attached to compute and assess effective permissions against least privilege. Flag admin-equivalent or broad data access. Common tags: cloud, compute, least-privilege.",
+          "severity": "high",
+          "how_to_find": "Enumerate roles/identities attached to compute and assess effective permissions against least privilege. Flag admin-equivalent or broad data access.",
+          "how_to_fix": "Remediate \"Over-privileged instance profiles / identities\" by applying vendor and CIS/OWASP hardening guidance for Compute & Metadata — Instance Profiles & User-Data Secrets. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Prowler",
+            "ScoutSuite",
+            "cloudsplaining",
+            "aws cli"
+          ],
+          "references": [
+            {
+              "title": "AWS instance profiles",
+              "url": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html"
+            },
+            {
+              "title": "GCP attached service accounts",
+              "url": "https://cloud.google.com/compute/docs/access/service-accounts"
+            }
+          ],
+          "tags": [
+            "cloud",
+            "compute",
+            "least-privilege"
+          ],
+          "source": "cloud-instance-creds-overprivileged"
+        },
+        {
+          "title": "Secrets in user-data / startup scripts",
+          "description": "Passwords, API keys, and tokens placed in EC2 user-data, Azure custom data, or GCP startup-script metadata are readable by any process that can reach the metadata service. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Retrieve user-data/startup-script metadata and scan for embedded secrets. Any plaintext credential is a finding. Common tags: cloud, compute, secrets.",
+          "severity": "high",
+          "how_to_find": "Retrieve user-data/startup-script metadata and scan for embedded secrets. Any plaintext credential is a finding.",
+          "how_to_fix": "Remediate \"Secrets in user-data / startup scripts\" by applying vendor and CIS/OWASP hardening guidance for Compute & Metadata — Instance Profiles & User-Data Secrets. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "trufflehog",
+            "aws cli",
+            "gcloud",
+            "Pacu"
+          ],
+          "references": [
+            {
+              "title": "AWS EC2 user data",
+              "url": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instancedata-add-user-data.html"
+            },
+            {
+              "title": "Hacking the Cloud - user data",
+              "url": "https://hackingthe.cloud/aws/exploitation/ec2-metadata-ssrf/"
+            }
+          ],
+          "tags": [
+            "cloud",
+            "compute",
+            "secrets"
+          ],
+          "source": "cloud-instance-creds-userdata"
+        },
+        {
+          "title": "Secrets in instance/container environment",
+          "description": "Credentials injected as environment variables on instances and containers can leak via debug endpoints, process listing, or compromised dependencies. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Review how secrets reach compute (env vs secret manager). Flag plaintext secrets in environment or task/pod definitions. Common tags: cloud, compute, secrets.",
+          "severity": "medium",
+          "how_to_find": "Review how secrets reach compute (env vs secret manager). Flag plaintext secrets in environment or task/pod definitions.",
+          "how_to_fix": "Remediate \"Secrets in instance/container environment\" by applying vendor and CIS/OWASP hardening guidance for Compute & Metadata — Instance Profiles & User-Data Secrets. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "trufflehog",
+            "ScoutSuite",
+            "aws cli"
+          ],
+          "references": [
+            {
+              "title": "AWS Secrets Manager",
+              "url": "https://docs.aws.amazon.com/secretsmanager/latest/userguide/intro.html"
+            },
+            {
+              "title": "OWASP Secrets Management Cheat Sheet",
+              "url": "https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html"
+            }
+          ],
+          "tags": [
+            "cloud",
+            "compute",
+            "secrets"
+          ],
+          "source": "cloud-instance-creds-env"
+        },
+        {
+          "title": "Remote-access / agent paths to instances",
+          "description": "SSM Session Manager (AWS), Azure Bastion/Run Command, and GCP OS Login/serial console can grant interactive access; over-broad permission to these is a stealthy compromise path. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Check which identities can run commands or start sessions on instances (ssm:StartSession, RunCommand, OS Login). Flag over-broad grants. Common tags: cloud, compute, access.",
+          "severity": "medium",
+          "how_to_find": "Check which identities can run commands or start sessions on instances (ssm:StartSession, RunCommand, OS Login). Flag over-broad grants.",
+          "how_to_fix": "Remediate \"Remote-access / agent paths to instances\" by applying vendor and CIS/OWASP hardening guidance for Compute & Metadata — Instance Profiles & User-Data Secrets. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Prowler",
+            "ScoutSuite",
+            "aws cli",
+            "az cli"
+          ],
+          "references": [
+            {
+              "title": "AWS Systems Manager Session Manager",
+              "url": "https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager.html"
+            },
+            {
+              "title": "MITRE ATT&CK - Cloud",
+              "url": "https://attack.mitre.org/matrices/enterprise/cloud/"
+            }
+          ],
+          "tags": [
+            "cloud",
+            "compute",
+            "access"
+          ],
+          "source": "cloud-instance-creds-ssm"
+        }
+      ]
+    },
+    {
+      "title": "Compute & Metadata — Public Images, Snapshots & Disks",
+      "items": [
+        {
+          "title": "Public AMIs / shared images",
+          "description": "AMIs (AWS), images (GCP), and VM images (Azure) shared publicly or with external accounts may contain baked-in secrets, source code, or configuration. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Enumerate images and their sharing settings. Flag any image shared publicly or with unexpected accounts and inspect for embedded secrets. Common tags: cloud, compute, exposure.",
+          "severity": "high",
+          "how_to_find": "Enumerate images and their sharing settings. Flag any image shared publicly or with unexpected accounts and inspect for embedded secrets.",
+          "how_to_fix": "Remediate \"Public AMIs / shared images\" by applying vendor and CIS/OWASP hardening guidance for Compute & Metadata — Public Images, Snapshots & Disks. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Prowler",
+            "ScoutSuite",
+            "aws cli",
+            "gcloud"
+          ],
+          "references": [
+            {
+              "title": "AWS share an AMI",
+              "url": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/sharingamis-explicit.html"
+            },
+            {
+              "title": "Hacking the Cloud - public AMIs",
+              "url": "https://hackingthe.cloud/aws/enumeration/loot_public_ebs_snapshots/"
+            }
+          ],
+          "tags": [
+            "cloud",
+            "compute",
+            "exposure"
+          ],
+          "source": "cloud-snapshot-exposure-public-ami"
+        },
+        {
+          "title": "Public EBS / disk snapshots",
+          "description": "Publicly shared EBS snapshots, Azure managed disk snapshots, and GCP disk snapshots can be mounted by attackers to extract data and credentials. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: List snapshots and their share settings; flag public or broadly shared snapshots. Where authorized, mount a copy to confirm sensitive content. Common tags: cloud, compute, exposure.",
+          "severity": "critical",
+          "how_to_find": "List snapshots and their share settings; flag public or broadly shared snapshots. Where authorized, mount a copy to confirm sensitive content.",
+          "how_to_fix": "Remediate \"Public EBS / disk snapshots\" by applying vendor and CIS/OWASP hardening guidance for Compute & Metadata — Public Images, Snapshots & Disks. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Pacu",
+            "aws cli",
+            "ScoutSuite",
+            "gcloud"
+          ],
+          "references": [
+            {
+              "title": "AWS share an EBS snapshot",
+              "url": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-modifying-snapshot-permissions.html"
+            },
+            {
+              "title": "Hacking the Cloud - public snapshots",
+              "url": "https://hackingthe.cloud/aws/enumeration/loot_public_ebs_snapshots/"
+            }
+          ],
+          "tags": [
+            "cloud",
+            "compute",
+            "exposure"
+          ],
+          "source": "cloud-snapshot-exposure-public-snapshot"
+        },
+        {
+          "title": "Snapshots shared with untrusted accounts",
+          "description": "Snapshots and images shared with specific external accounts can be exfiltrated if those accounts are compromised or no longer trusted. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Review explicit account share lists on images/snapshots and validate each external account is current and authorized. Common tags: cloud, compute, exposure.",
+          "severity": "medium",
+          "how_to_find": "Review explicit account share lists on images/snapshots and validate each external account is current and authorized.",
+          "how_to_fix": "Remediate \"Snapshots shared with untrusted accounts\" by applying vendor and CIS/OWASP hardening guidance for Compute & Metadata — Public Images, Snapshots & Disks. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Prowler",
+            "ScoutSuite",
+            "aws cli"
+          ],
+          "references": [
+            {
+              "title": "AWS snapshot sharing",
+              "url": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-modifying-snapshot-permissions.html"
+            },
+            {
+              "title": "CIS Benchmarks",
+              "url": "https://www.cisecurity.org/cis-benchmarks"
+            }
+          ],
+          "tags": [
+            "cloud",
+            "compute",
+            "exposure"
+          ],
+          "source": "cloud-snapshot-exposure-cross-account"
+        },
+        {
+          "title": "Unencrypted snapshots and volumes",
+          "description": "Unencrypted volumes and snapshots increase impact when shared or copied, since data is readable without keys. This is a defense-in-depth gap that improves overall resilience when fixed. Assessors should confirm the control in practice, not only on paper: Check encryption status of volumes and snapshots. Flag unencrypted resources, especially those shared cross-account. Common tags: cloud, compute, encryption.",
+          "severity": "low",
+          "how_to_find": "Check encryption status of volumes and snapshots. Flag unencrypted resources, especially those shared cross-account.",
+          "how_to_fix": "Remediate \"Unencrypted snapshots and volumes\" by applying vendor and CIS/OWASP hardening guidance for Compute & Metadata — Public Images, Snapshots & Disks. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Prowler",
+            "ScoutSuite",
+            "gcloud"
+          ],
+          "references": [
+            {
+              "title": "AWS EBS encryption",
+              "url": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html"
+            },
+            {
+              "title": "CIS Benchmarks",
+              "url": "https://www.cisecurity.org/cis-benchmarks"
+            }
+          ],
+          "tags": [
+            "cloud",
+            "compute",
+            "encryption"
+          ],
+          "source": "cloud-snapshot-exposure-unencrypted"
+        }
+      ]
+    },
+    {
+      "title": "Networking — Open Security Groups & NSGs",
+      "items": [
+        {
+          "title": "Management ports open to 0.0.0.0/0",
+          "description": "SSH (22), RDP (3389), and admin ports exposed to the entire internet via security groups, NSGs, or VPC firewall rules invite brute-force and exploitation. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Enumerate ingress rules and flag 0.0.0.0/0 or ::/0 access to management ports. Confirm reachability of exposed hosts. Common tags: cloud, network, exposure.",
+          "severity": "high",
+          "how_to_find": "Enumerate ingress rules and flag 0.0.0.0/0 or ::/0 access to management ports. Confirm reachability of exposed hosts.",
+          "how_to_fix": "Remediate \"Management ports open to 0.0.0.0/0\" by applying vendor and CIS/OWASP hardening guidance for Networking — Open Security Groups & NSGs. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Prowler",
+            "ScoutSuite",
+            "nuclei",
+            "aws cli"
+          ],
+          "references": [
+            {
+              "title": "AWS security groups",
+              "url": "https://docs.aws.amazon.com/vpc/latest/userguide/vpc-security-groups.html"
+            },
+            {
+              "title": "CIS Benchmarks",
+              "url": "https://www.cisecurity.org/cis-benchmarks"
+            }
+          ],
+          "tags": [
+            "cloud",
+            "network",
+            "exposure"
+          ],
+          "source": "cloud-network-exposure-mgmt-ports"
+        },
+        {
+          "title": "Databases / data services exposed publicly",
+          "description": "Database ports (3306, 5432, 1433, 27017, 6379) and managed data services reachable from the internet are high-value targets and frequent breach causes. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: Detect public ingress to database/data ports and managed service public endpoints. Flag any internet-reachable data service. Common tags: cloud, network, exposure.",
+          "severity": "critical",
+          "how_to_find": "Detect public ingress to database/data ports and managed service public endpoints. Flag any internet-reachable data service.",
+          "how_to_fix": "Remediate \"Databases / data services exposed publicly\" by applying vendor and CIS/OWASP hardening guidance for Networking — Open Security Groups & NSGs. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Prowler",
+            "ScoutSuite",
+            "nuclei",
+            "gcloud"
+          ],
+          "references": [
+            {
+              "title": "GCP VPC firewall rules",
+              "url": "https://cloud.google.com/firewall/docs/firewalls"
+            },
+            {
+              "title": "HackTricks Cloud",
+              "url": "https://cloud.hacktricks.wiki/en/pentesting-cloud/pentesting-cloud-methodology.html"
+            }
+          ],
+          "tags": [
+            "cloud",
+            "network",
+            "exposure"
+          ],
+          "source": "cloud-network-exposure-db-ports"
+        },
+        {
+          "title": "Overly broad allow rules",
+          "description": "Rules permitting all ports/protocols from wide ranges undermine segmentation and make lateral movement easy after a single compromise. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Review rules for all-port/all-protocol grants and large source ranges. Flag rules far broader than the service requires. Common tags: cloud, network, segmentation.",
+          "severity": "medium",
+          "how_to_find": "Review rules for all-port/all-protocol grants and large source ranges. Flag rules far broader than the service requires.",
+          "how_to_fix": "Remediate \"Overly broad allow rules\" by applying vendor and CIS/OWASP hardening guidance for Networking — Open Security Groups & NSGs. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Prowler",
+            "ScoutSuite",
+            "az cli"
+          ],
+          "references": [
+            {
+              "title": "Azure NSG overview",
+              "url": "https://learn.microsoft.com/en-us/azure/virtual-network/network-security-groups-overview"
+            },
+            {
+              "title": "CIS Benchmarks",
+              "url": "https://www.cisecurity.org/cis-benchmarks"
+            }
+          ],
+          "tags": [
+            "cloud",
+            "network",
+            "segmentation"
+          ],
+          "source": "cloud-network-exposure-overbroad-rules"
+        },
+        {
+          "title": "Use of default / permissive network groups",
+          "description": "Default security groups and unrestricted default firewall rules often carry permissive settings and should not be used for production workloads. This is a defense-in-depth gap that improves overall resilience when fixed. Assessors should confirm the control in practice, not only on paper: Check whether resources rely on default security groups/firewalls and whether those defaults are locked down. Flag permissive defaults in use. Common tags: cloud, network, configuration.",
+          "severity": "low",
+          "how_to_find": "Check whether resources rely on default security groups/firewalls and whether those defaults are locked down. Flag permissive defaults in use.",
+          "how_to_fix": "Remediate \"Use of default / permissive network groups\" by applying vendor and CIS/OWASP hardening guidance for Networking — Open Security Groups & NSGs. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Prowler",
+            "ScoutSuite",
+            "aws cli"
+          ],
+          "references": [
+            {
+              "title": "AWS default security group",
+              "url": "https://docs.aws.amazon.com/vpc/latest/userguide/default-security-group.html"
+            },
+            {
+              "title": "CIS Benchmarks",
+              "url": "https://www.cisecurity.org/cis-benchmarks"
+            }
+          ],
+          "tags": [
+            "cloud",
+            "network",
+            "configuration"
+          ],
+          "source": "cloud-network-exposure-default-sg"
+        }
+      ]
+    },
+    {
+      "title": "Networking — VPC, Peering & Private Endpoints",
+      "items": [
+        {
+          "title": "Over-broad VPC peering / VNet connections",
+          "description": "Wide peering or hub-spoke designs without route filtering can let a compromise in one network reach many others. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Map peering/VNet connections and route tables. Flag peerings that grant broader reachability than necessary. Common tags: cloud, network, segmentation.",
+          "severity": "medium",
+          "how_to_find": "Map peering/VNet connections and route tables. Flag peerings that grant broader reachability than necessary.",
+          "how_to_fix": "Remediate \"Over-broad VPC peering / VNet connections\" by applying vendor and CIS/OWASP hardening guidance for Networking — VPC, Peering & Private Endpoints. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "ScoutSuite",
+            "Prowler",
+            "aws cli",
+            "az cli"
+          ],
+          "references": [
+            {
+              "title": "AWS VPC peering",
+              "url": "https://docs.aws.amazon.com/vpc/latest/peering/what-is-vpc-peering.html"
+            },
+            {
+              "title": "Azure VNet peering",
+              "url": "https://learn.microsoft.com/en-us/azure/virtual-network/virtual-network-peering-overview"
+            }
+          ],
+          "tags": [
+            "cloud",
+            "network",
+            "segmentation"
+          ],
+          "source": "cloud-network-segmentation-peering"
+        },
+        {
+          "title": "Missing private endpoints for managed services",
+          "description": "Accessing managed services over public endpoints instead of PrivateLink/Private Endpoint/Private Service Connect exposes traffic and broadens attack surface. This is a defense-in-depth gap that improves overall resilience when fixed. Assessors should confirm the control in practice, not only on paper: Identify managed-service access paths and flag services reachable only via public endpoints where private connectivity is available. Common tags: cloud, network, segmentation.",
+          "severity": "low",
+          "how_to_find": "Identify managed-service access paths and flag services reachable only via public endpoints where private connectivity is available.",
+          "how_to_fix": "Remediate \"Missing private endpoints for managed services\" by applying vendor and CIS/OWASP hardening guidance for Networking — VPC, Peering & Private Endpoints. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "ScoutSuite",
+            "Prowler",
+            "gcloud"
+          ],
+          "references": [
+            {
+              "title": "AWS PrivateLink",
+              "url": "https://docs.aws.amazon.com/vpc/latest/privatelink/what-is-privatelink.html"
+            },
+            {
+              "title": "GCP Private Service Connect",
+              "url": "https://cloud.google.com/vpc/docs/private-service-connect"
+            }
+          ],
+          "tags": [
+            "cloud",
+            "network",
+            "segmentation"
+          ],
+          "source": "cloud-network-segmentation-private-endpoints"
+        },
+        {
+          "title": "Unrestricted egress / data exfiltration paths",
+          "description": "Unrestricted outbound traffic enables data exfiltration and C2; egress filtering and VPC service controls limit this. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Review egress rules and exfiltration controls (e.g., GCP VPC Service Controls, egress firewall). Flag fully open egress from sensitive workloads. Common tags: cloud, network, egress.",
+          "severity": "medium",
+          "how_to_find": "Review egress rules and exfiltration controls (e.g., GCP VPC Service Controls, egress firewall). Flag fully open egress from sensitive workloads.",
+          "how_to_fix": "Remediate \"Unrestricted egress / data exfiltration paths\" by applying vendor and CIS/OWASP hardening guidance for Networking — VPC, Peering & Private Endpoints. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "ScoutSuite",
+            "Prowler",
+            "gcloud"
+          ],
+          "references": [
+            {
+              "title": "GCP VPC Service Controls",
+              "url": "https://cloud.google.com/vpc-service-controls/docs/overview"
+            },
+            {
+              "title": "MITRE ATT&CK - Exfiltration",
+              "url": "https://attack.mitre.org/tactics/TA0010/"
+            }
+          ],
+          "tags": [
+            "cloud",
+            "network",
+            "egress"
+          ],
+          "source": "cloud-network-segmentation-egress"
+        },
+        {
+          "title": "Flat networks with no tiering",
+          "description": "Workloads of differing trust levels in a single flat subnet allow unrestricted lateral movement after initial access. This is a defense-in-depth gap that improves overall resilience when fixed. Assessors should confirm the control in practice, not only on paper: Review subnet/tier design and intra-network rules. Flag flat designs lacking separation between public, app, and data tiers. Common tags: cloud, network, segmentation.",
+          "severity": "low",
+          "how_to_find": "Review subnet/tier design and intra-network rules. Flag flat designs lacking separation between public, app, and data tiers.",
+          "how_to_fix": "Remediate \"Flat networks with no tiering\" by applying vendor and CIS/OWASP hardening guidance for Networking — VPC, Peering & Private Endpoints. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "ScoutSuite",
+            "Prowler"
+          ],
+          "references": [
+            {
+              "title": "AWS VPC design",
+              "url": "https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html"
+            },
+            {
+              "title": "CIS Benchmarks",
+              "url": "https://www.cisecurity.org/cis-benchmarks"
+            }
+          ],
+          "tags": [
+            "cloud",
+            "network",
+            "segmentation"
+          ],
+          "source": "cloud-network-segmentation-flat"
+        }
+      ]
+    },
+    {
+      "title": "Networking — DNS & Subdomain Takeover",
+      "items": [
+        {
+          "title": "Dangling CNAME to deprovisioned cloud resource",
+          "description": "CNAMEs pointing to released cloud endpoints (S3 website, CloudFront, Azure App Service, Storage, GCP buckets) can be re-registered by attackers to take over the subdomain. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Resolve all DNS records and identify those targeting cloud resources that no longer exist. Confirm the target endpoint name is claimable. Common tags: cloud, dns, takeover.",
+          "severity": "high",
+          "how_to_find": "Resolve all DNS records and identify those targeting cloud resources that no longer exist. Confirm the target endpoint name is claimable.",
+          "how_to_fix": "Remediate \"Dangling CNAME to deprovisioned cloud resource\" by applying vendor and CIS/OWASP hardening guidance for Networking — DNS & Subdomain Takeover. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "nuclei",
+            "aws cli",
+            "az cli"
+          ],
+          "references": [
+            {
+              "title": "Azure subdomain takeover prevention",
+              "url": "https://learn.microsoft.com/en-us/azure/security/fundamentals/subdomain-takeover"
+            },
+            {
+              "title": "OWASP - subdomain takeover",
+              "url": "https://owasp.org/www-community/attacks/Subdomain_takeover"
+            }
+          ],
+          "tags": [
+            "cloud",
+            "dns",
+            "takeover"
+          ],
+          "source": "cloud-dns-dangling-cname"
+        },
+        {
+          "title": "Takeover of storage/website endpoints",
+          "description": "DNS aliases to S3/GCS static website endpoints or Azure Storage that have been deleted let an attacker create a same-named resource and serve content under the victim domain. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Identify aliases to storage/website endpoints returning not-found, and verify the underlying bucket/account name can be re-created. Common tags: cloud, dns, takeover.",
+          "severity": "high",
+          "how_to_find": "Identify aliases to storage/website endpoints returning not-found, and verify the underlying bucket/account name can be re-created.",
+          "how_to_fix": "Remediate \"Takeover of storage/website endpoints\" by applying vendor and CIS/OWASP hardening guidance for Networking — DNS & Subdomain Takeover. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "nuclei",
+            "aws cli",
+            "gcloud"
+          ],
+          "references": [
+            {
+              "title": "Hacking the Cloud - S3 takeover",
+              "url": "https://hackingthe.cloud/aws/exploitation/s3_bucket_namesquatting/"
+            },
+            {
+              "title": "OWASP - subdomain takeover",
+              "url": "https://owasp.org/www-community/attacks/Subdomain_takeover"
+            }
+          ],
+          "tags": [
+            "cloud",
+            "dns",
+            "takeover"
+          ],
+          "source": "cloud-dns-storage-website"
+        },
+        {
+          "title": "Dangling A record to released elastic/public IP",
+          "description": "A records pointing to released public/elastic IPs can resolve to an attacker who later acquires that IP from the provider pool. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Check A records against currently allocated IPs in the account. Flag records targeting IPs no longer owned by the org. Common tags: cloud, dns, takeover.",
+          "severity": "medium",
+          "how_to_find": "Check A records against currently allocated IPs in the account. Flag records targeting IPs no longer owned by the org.",
+          "how_to_fix": "Remediate \"Dangling A record to released elastic/public IP\" by applying vendor and CIS/OWASP hardening guidance for Networking — DNS & Subdomain Takeover. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "nuclei",
+            "aws cli",
+            "ScoutSuite"
+          ],
+          "references": [
+            {
+              "title": "AWS Elastic IP",
+              "url": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html"
+            },
+            {
+              "title": "OWASP - subdomain takeover",
+              "url": "https://owasp.org/www-community/attacks/Subdomain_takeover"
+            }
+          ],
+          "tags": [
+            "cloud",
+            "dns",
+            "takeover"
+          ],
+          "source": "cloud-dns-ip-reuse"
+        },
+        {
+          "title": "Public DNS zone information disclosure",
+          "description": "Overly detailed public DNS records (internal hostnames, service identifiers) aid reconnaissance and target selection. This is a defense-in-depth gap that improves overall resilience when fixed. Assessors should confirm the control in practice, not only on paper: Review public zone records for internal naming and sensitive service hints. Flag records that leak architecture details. Common tags: cloud, dns, recon.",
+          "severity": "low",
+          "how_to_find": "Review public zone records for internal naming and sensitive service hints. Flag records that leak architecture details.",
+          "how_to_fix": "Remediate \"Public DNS zone information disclosure\" by applying vendor and CIS/OWASP hardening guidance for Networking — DNS & Subdomain Takeover. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "nuclei",
+            "aws cli"
+          ],
+          "references": [
+            {
+              "title": "AWS Route 53",
+              "url": "https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/Welcome.html"
+            },
+            {
+              "title": "OWASP WSTG",
+              "url": "https://owasp.org/www-project-web-security-testing-guide/"
+            }
+          ],
+          "tags": [
+            "cloud",
+            "dns",
+            "recon"
+          ],
+          "source": "cloud-dns-zone-exposure"
+        }
+      ]
+    },
+    {
+      "title": "Serverless & PaaS — Functions: Privilege, Secrets & Injection",
+      "items": [
+        {
+          "title": "Over-privileged function execution roles",
+          "description": "Functions running with broad execution roles can be abused for privilege escalation or data access if the function is compromised via injection or a vulnerable dependency. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Enumerate function execution roles and effective permissions. Flag roles far broader than the function needs. Common tags: cloud, serverless, least-privilege.",
+          "severity": "high",
+          "how_to_find": "Enumerate function execution roles and effective permissions. Flag roles far broader than the function needs.",
+          "how_to_fix": "Remediate \"Over-privileged function execution roles\" by applying vendor and CIS/OWASP hardening guidance for Serverless & PaaS — Functions: Privilege, Secrets & Injection. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Prowler",
+            "ScoutSuite",
+            "cloudsplaining",
+            "aws cli"
+          ],
+          "references": [
+            {
+              "title": "AWS Lambda permissions",
+              "url": "https://docs.aws.amazon.com/lambda/latest/dg/lambda-permissions.html"
+            },
+            {
+              "title": "Hacking the Cloud - Lambda",
+              "url": "https://hackingthe.cloud/aws/exploitation/iam_privilege_escalation/"
+            }
+          ],
+          "tags": [
+            "cloud",
+            "serverless",
+            "least-privilege"
+          ],
+          "source": "cloud-lambda-funcs-overprivileged"
+        },
+        {
+          "title": "Secrets in function environment variables",
+          "description": "API keys and credentials stored as function environment variables can be read by anyone with read access to the function configuration. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Inspect function environment variables for plaintext secrets and check who can read function config. Recommend secret-manager references instead. Common tags: cloud, serverless, secrets.",
+          "severity": "high",
+          "how_to_find": "Inspect function environment variables for plaintext secrets and check who can read function config. Recommend secret-manager references instead.",
+          "how_to_fix": "Remediate \"Secrets in function environment variables\" by applying vendor and CIS/OWASP hardening guidance for Serverless & PaaS — Functions: Privilege, Secrets & Injection. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "trufflehog",
+            "aws cli",
+            "gcloud",
+            "ScoutSuite"
+          ],
+          "references": [
+            {
+              "title": "AWS Lambda environment variables",
+              "url": "https://docs.aws.amazon.com/lambda/latest/dg/configuration-envvars.html"
+            },
+            {
+              "title": "OWASP Secrets Management Cheat Sheet",
+              "url": "https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html"
+            }
+          ],
+          "tags": [
+            "cloud",
+            "serverless",
+            "secrets"
+          ],
+          "source": "cloud-lambda-funcs-env-secrets"
+        },
+        {
+          "title": "Event-data injection into functions",
+          "description": "Functions triggered by untrusted events (HTTP, queue, object, email) that pass input to commands, queries, or downstream APIs are vulnerable to injection. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Map function triggers and trace untrusted event data into sinks (shell, SQL, template, eval). Test for injection where authorized. Common tags: cloud, serverless, injection.",
+          "severity": "high",
+          "how_to_find": "Map function triggers and trace untrusted event data into sinks (shell, SQL, template, eval). Test for injection where authorized.",
+          "how_to_fix": "Remediate \"Event-data injection into functions\" by applying vendor and CIS/OWASP hardening guidance for Serverless & PaaS — Functions: Privilege, Secrets & Injection. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "nuclei",
+            "aws cli",
+            "gcloud"
+          ],
+          "references": [
+            {
+              "title": "OWASP Serverless Top 10",
+              "url": "https://owasp.org/www-project-serverless-top-10/"
+            },
+            {
+              "title": "HackTricks Cloud - serverless",
+              "url": "https://cloud.hacktricks.wiki/en/pentesting-cloud/pentesting-cloud-methodology.html"
+            }
+          ],
+          "tags": [
+            "cloud",
+            "serverless",
+            "injection"
+          ],
+          "source": "cloud-lambda-funcs-event-injection"
+        },
+        {
+          "title": "Publicly invokable functions / function URLs",
+          "description": "Function URLs, public API Gateway routes, or anonymous HTTP triggers without auth let anyone invoke business logic directly. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Identify function URLs and HTTP triggers and check auth configuration. Flag functions invokable without authentication or authorization. Common tags: cloud, serverless, exposure.",
+          "severity": "medium",
+          "how_to_find": "Identify function URLs and HTTP triggers and check auth configuration. Flag functions invokable without authentication or authorization.",
+          "how_to_fix": "Remediate \"Publicly invokable functions / function URLs\" by applying vendor and CIS/OWASP hardening guidance for Serverless & PaaS — Functions: Privilege, Secrets & Injection. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Prowler",
+            "ScoutSuite",
+            "nuclei"
+          ],
+          "references": [
+            {
+              "title": "AWS Lambda function URLs",
+              "url": "https://docs.aws.amazon.com/lambda/latest/dg/lambda-urls.html"
+            },
+            {
+              "title": "Azure Functions HTTP triggers",
+              "url": "https://learn.microsoft.com/en-us/azure/azure-functions/functions-bindings-http-webhook-trigger"
+            }
+          ],
+          "tags": [
+            "cloud",
+            "serverless",
+            "exposure"
+          ],
+          "source": "cloud-lambda-funcs-public-urls"
+        },
+        {
+          "title": "Over-broad function resource policies",
+          "description": "Resource-based policies allowing wildcard principals or arbitrary services to invoke a function widen the trigger surface and may enable cross-account invocation. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Review function resource policies for wildcard principals or unexpected service/account grants. Flag over-broad invoke permissions. Common tags: cloud, serverless, policy.",
+          "severity": "medium",
+          "how_to_find": "Review function resource policies for wildcard principals or unexpected service/account grants. Flag over-broad invoke permissions.",
+          "how_to_fix": "Remediate \"Over-broad function resource policies\" by applying vendor and CIS/OWASP hardening guidance for Serverless & PaaS — Functions: Privilege, Secrets & Injection. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Prowler",
+            "ScoutSuite",
+            "aws cli"
+          ],
+          "references": [
+            {
+              "title": "AWS Lambda resource-based policies",
+              "url": "https://docs.aws.amazon.com/lambda/latest/dg/access-control-resource-based.html"
+            },
+            {
+              "title": "CIS Benchmarks",
+              "url": "https://www.cisecurity.org/cis-benchmarks"
+            }
+          ],
+          "tags": [
+            "cloud",
+            "serverless",
+            "policy"
+          ],
+          "source": "cloud-lambda-funcs-resource-policy"
+        }
+      ]
+    },
+    {
+      "title": "Serverless & PaaS — Secrets Management",
+      "items": [
+        {
+          "title": "Secrets in code and configuration instead of a vault",
+          "description": "Hardcoded secrets in repos, IaC, and config bypass vault access controls, rotation, and audit logging. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Scan source, IaC, and config for secrets and compare against vault usage. Flag secrets that should be in Secrets Manager / Key Vault / Secret Manager. Common tags: cloud, secrets, vault.",
+          "severity": "high",
+          "how_to_find": "Scan source, IaC, and config for secrets and compare against vault usage. Flag secrets that should be in Secrets Manager / Key Vault / Secret Manager.",
+          "how_to_fix": "Remediate \"Secrets in code and configuration instead of a vault\" by applying vendor and CIS/OWASP hardening guidance for Serverless & PaaS — Secrets Management. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "trufflehog",
+            "nuclei",
+            "aws cli"
+          ],
+          "references": [
+            {
+              "title": "AWS Secrets Manager",
+              "url": "https://docs.aws.amazon.com/secretsmanager/latest/userguide/intro.html"
+            },
+            {
+              "title": "GCP Secret Manager",
+              "url": "https://cloud.google.com/secret-manager/docs/overview"
+            }
+          ],
+          "tags": [
+            "cloud",
+            "secrets",
+            "vault"
+          ],
+          "source": "cloud-secrets-mgmt-in-code"
+        },
+        {
+          "title": "Over-broad access to secret stores",
+          "description": "Wide read access to Secrets Manager, Key Vault, or Secret Manager lets many identities retrieve sensitive material, expanding leak impact. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Review who can read each secret/vault. Flag broad or wildcard read access and missing per-secret scoping. Common tags: cloud, secrets, least-privilege.",
+          "severity": "high",
+          "how_to_find": "Review who can read each secret/vault. Flag broad or wildcard read access and missing per-secret scoping.",
+          "how_to_fix": "Remediate \"Over-broad access to secret stores\" by applying vendor and CIS/OWASP hardening guidance for Serverless & PaaS — Secrets Management. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Prowler",
+            "ScoutSuite",
+            "cloudsplaining",
+            "az cli"
+          ],
+          "references": [
+            {
+              "title": "Azure Key Vault access",
+              "url": "https://learn.microsoft.com/en-us/azure/key-vault/general/security-features"
+            },
+            {
+              "title": "AWS Secrets Manager access control",
+              "url": "https://docs.aws.amazon.com/secretsmanager/latest/userguide/auth-and-access.html"
+            }
+          ],
+          "tags": [
+            "cloud",
+            "secrets",
+            "least-privilege"
+          ],
+          "source": "cloud-secrets-mgmt-access"
+        },
+        {
+          "title": "Secrets without rotation or expiry",
+          "description": "Long-lived secrets in the vault that are never rotated remain valid indefinitely if leaked. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Check rotation configuration and age for stored secrets. Flag secrets without rotation where supported and overdue for rotation. Common tags: cloud, secrets, rotation.",
+          "severity": "medium",
+          "how_to_find": "Check rotation configuration and age for stored secrets. Flag secrets without rotation where supported and overdue for rotation.",
+          "how_to_fix": "Remediate \"Secrets without rotation or expiry\" by applying vendor and CIS/OWASP hardening guidance for Serverless & PaaS — Secrets Management. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Prowler",
+            "ScoutSuite",
+            "aws cli"
+          ],
+          "references": [
+            {
+              "title": "AWS Secrets Manager rotation",
+              "url": "https://docs.aws.amazon.com/secretsmanager/latest/userguide/rotating-secrets.html"
+            },
+            {
+              "title": "OWASP Secrets Management Cheat Sheet",
+              "url": "https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html"
+            }
+          ],
+          "tags": [
+            "cloud",
+            "secrets",
+            "rotation"
+          ],
+          "source": "cloud-secrets-mgmt-rotation"
+        },
+        {
+          "title": "No auditing on secret access",
+          "description": "Without logging of secret retrieval, abnormal access (e.g., mass reads after a compromise) goes undetected. This is a defense-in-depth gap that improves overall resilience when fixed. Assessors should confirm the control in practice, not only on paper: Confirm secret-access events are logged (CloudTrail data events, Key Vault diagnostics, audit logs) and retained. Flag missing audit coverage. Common tags: cloud, secrets, logging.",
+          "severity": "low",
+          "how_to_find": "Confirm secret-access events are logged (CloudTrail data events, Key Vault diagnostics, audit logs) and retained. Flag missing audit coverage.",
+          "how_to_fix": "Remediate \"No auditing on secret access\" by applying vendor and CIS/OWASP hardening guidance for Serverless & PaaS — Secrets Management. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Prowler",
+            "ScoutSuite",
+            "gcloud"
+          ],
+          "references": [
+            {
+              "title": "AWS CloudTrail data events",
+              "url": "https://docs.aws.amazon.com/awscloudtrail/latest/userguide/logging-data-events-with-cloudtrail.html"
+            },
+            {
+              "title": "Azure Key Vault logging",
+              "url": "https://learn.microsoft.com/en-us/azure/key-vault/general/logging"
+            }
+          ],
+          "tags": [
+            "cloud",
+            "secrets",
+            "logging"
+          ],
+          "source": "cloud-secrets-mgmt-logging"
+        }
+      ]
+    },
+    {
+      "title": "Logging & Monitoring — Audit Logging & Tamper Resistance",
+      "items": [
+        {
+          "title": "Audit logging disabled or incomplete",
+          "description": "Missing CloudTrail trails, disabled Azure Activity/diagnostic logs, or absent GCP Data Access logs leave actions unrecorded, crippling detection and forensics. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Confirm an organization-wide, multi-region trail/log sink is enabled and covers management and key data events. Flag gaps in coverage. Common tags: cloud, logging, audit.",
+          "severity": "high",
+          "how_to_find": "Confirm an organization-wide, multi-region trail/log sink is enabled and covers management and key data events. Flag gaps in coverage.",
+          "how_to_fix": "Remediate \"Audit logging disabled or incomplete\" by applying vendor and CIS/OWASP hardening guidance for Logging & Monitoring — Audit Logging & Tamper Resistance. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Prowler",
+            "ScoutSuite",
+            "aws cli",
+            "gcloud"
+          ],
+          "references": [
+            {
+              "title": "AWS CloudTrail best practices",
+              "url": "https://docs.aws.amazon.com/awscloudtrail/latest/userguide/best-practices-security.html"
+            },
+            {
+              "title": "GCP Cloud Audit Logs",
+              "url": "https://cloud.google.com/logging/docs/audit"
+            }
+          ],
+          "tags": [
+            "cloud",
+            "logging",
+            "audit"
+          ],
+          "source": "cloud-audit-logging-disabled"
+        },
+        {
+          "title": "Log tampering / deletion possible",
+          "description": "Trails and log buckets without integrity validation, immutability, or restricted delete permissions can be tampered with to hide attacker activity. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Check log file validation, bucket object lock/immutability, and who can stop/delete trails or logs. Flag identities able to disable or alter logging. Common tags: cloud, logging, integrity.",
+          "severity": "high",
+          "how_to_find": "Check log file validation, bucket object lock/immutability, and who can stop/delete trails or logs. Flag identities able to disable or alter logging.",
+          "how_to_fix": "Remediate \"Log tampering / deletion possible\" by applying vendor and CIS/OWASP hardening guidance for Logging & Monitoring — Audit Logging & Tamper Resistance. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Prowler",
+            "ScoutSuite",
+            "aws cli"
+          ],
+          "references": [
+            {
+              "title": "AWS CloudTrail log file integrity validation",
+              "url": "https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-log-file-validation-intro.html"
+            },
+            {
+              "title": "MITRE ATT&CK - Impair Defenses",
+              "url": "https://attack.mitre.org/techniques/T1562/"
+            }
+          ],
+          "tags": [
+            "cloud",
+            "logging",
+            "integrity"
+          ],
+          "source": "cloud-audit-logging-tampering"
+        },
+        {
+          "title": "Data-plane / object access events not logged",
+          "description": "Management-only logging misses S3/object data events, Key Vault secret reads, and storage access, hiding data exfiltration. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm data events are logged for sensitive resources (S3 data events, Storage diagnostics, GCP Data Access logs). Flag missing data-plane coverage. Common tags: cloud, logging, audit.",
+          "severity": "medium",
+          "how_to_find": "Confirm data events are logged for sensitive resources (S3 data events, Storage diagnostics, GCP Data Access logs). Flag missing data-plane coverage.",
+          "how_to_fix": "Remediate \"Data-plane / object access events not logged\" by applying vendor and CIS/OWASP hardening guidance for Logging & Monitoring — Audit Logging & Tamper Resistance. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Prowler",
+            "ScoutSuite",
+            "aws cli"
+          ],
+          "references": [
+            {
+              "title": "AWS CloudTrail data events",
+              "url": "https://docs.aws.amazon.com/awscloudtrail/latest/userguide/logging-data-events-with-cloudtrail.html"
+            },
+            {
+              "title": "CIS Benchmarks",
+              "url": "https://www.cisecurity.org/cis-benchmarks"
+            }
+          ],
+          "tags": [
+            "cloud",
+            "logging",
+            "audit"
+          ],
+          "source": "cloud-audit-logging-data-events"
+        },
+        {
+          "title": "Insufficient log retention",
+          "description": "Short retention windows prevent investigation of incidents discovered late and may breach compliance requirements. This is a defense-in-depth gap that improves overall resilience when fixed. Assessors should confirm the control in practice, not only on paper: Review retention settings for audit logs and log sinks. Flag retention below policy/compliance requirements. Common tags: cloud, logging, retention.",
+          "severity": "low",
+          "how_to_find": "Review retention settings for audit logs and log sinks. Flag retention below policy/compliance requirements.",
+          "how_to_fix": "Remediate \"Insufficient log retention\" by applying vendor and CIS/OWASP hardening guidance for Logging & Monitoring — Audit Logging & Tamper Resistance. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Prowler",
+            "ScoutSuite",
+            "gcloud"
+          ],
+          "references": [
+            {
+              "title": "Azure Monitor log retention",
+              "url": "https://learn.microsoft.com/en-us/azure/azure-monitor/logs/data-retention-configure"
+            },
+            {
+              "title": "CIS Benchmarks",
+              "url": "https://www.cisecurity.org/cis-benchmarks"
+            }
+          ],
+          "tags": [
+            "cloud",
+            "logging",
+            "retention"
+          ],
+          "source": "cloud-audit-logging-retention"
+        }
+      ]
+    },
+    {
+      "title": "Logging & Monitoring — Threat Detection Coverage",
+      "items": [
+        {
+          "title": "Threat detection service disabled",
+          "description": "GuardDuty, Defender for Cloud, or Security Command Center not enabled across all accounts/regions leaves cloud-native threats undetected. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm detection services are enabled organization-wide and across regions. Flag accounts/regions without coverage. Common tags: cloud, detection, monitoring.",
+          "severity": "medium",
+          "how_to_find": "Confirm detection services are enabled organization-wide and across regions. Flag accounts/regions without coverage.",
+          "how_to_fix": "Remediate \"Threat detection service disabled\" by applying vendor and CIS/OWASP hardening guidance for Logging & Monitoring — Threat Detection Coverage. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Prowler",
+            "ScoutSuite",
+            "aws cli",
+            "az cli"
+          ],
+          "references": [
+            {
+              "title": "AWS GuardDuty",
+              "url": "https://docs.aws.amazon.com/guardduty/latest/ug/what-is-guardduty.html"
+            },
+            {
+              "title": "Microsoft Defender for Cloud",
+              "url": "https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-for-cloud-introduction"
+            }
+          ],
+          "tags": [
+            "cloud",
+            "detection",
+            "monitoring"
+          ],
+          "source": "cloud-detection-disabled"
+        },
+        {
+          "title": "No alerting / notification on findings",
+          "description": "Detection without alerting (no SNS/EventBridge, Action Group, or Pub/Sub notification) means findings sit unreviewed. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Verify findings route to an alerting pipeline and on-call. Flag detection enabled but disconnected from any notification path. Common tags: cloud, detection, alerting.",
+          "severity": "medium",
+          "how_to_find": "Verify findings route to an alerting pipeline and on-call. Flag detection enabled but disconnected from any notification path.",
+          "how_to_fix": "Remediate \"No alerting / notification on findings\" by applying vendor and CIS/OWASP hardening guidance for Logging & Monitoring — Threat Detection Coverage. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Prowler",
+            "ScoutSuite",
+            "gcloud"
+          ],
+          "references": [
+            {
+              "title": "GCP Security Command Center",
+              "url": "https://cloud.google.com/security-command-center/docs/concepts-security-command-center-overview"
+            },
+            {
+              "title": "AWS EventBridge for GuardDuty",
+              "url": "https://docs.aws.amazon.com/guardduty/latest/ug/guardduty_findings_cloudwatch.html"
+            }
+          ],
+          "tags": [
+            "cloud",
+            "detection",
+            "alerting"
+          ],
+          "source": "cloud-detection-no-alerting"
+        },
+        {
+          "title": "Detection feature/coverage gaps",
+          "description": "Detection enabled but with key protections off (e.g., GuardDuty S3/EKS/malware protection, Defender plans per resource type) leaves blind spots. This is a defense-in-depth gap that improves overall resilience when fixed. Assessors should confirm the control in practice, not only on paper: Review which detection plans/features are enabled per resource type. Flag disabled high-value protections. Common tags: cloud, detection, coverage.",
+          "severity": "low",
+          "how_to_find": "Review which detection plans/features are enabled per resource type. Flag disabled high-value protections.",
+          "how_to_fix": "Remediate \"Detection feature/coverage gaps\" by applying vendor and CIS/OWASP hardening guidance for Logging & Monitoring — Threat Detection Coverage. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Prowler",
+            "ScoutSuite",
+            "az cli"
+          ],
+          "references": [
+            {
+              "title": "AWS GuardDuty protection plans",
+              "url": "https://docs.aws.amazon.com/guardduty/latest/ug/guardduty-features-activation-model.html"
+            },
+            {
+              "title": "CIS Benchmarks",
+              "url": "https://www.cisecurity.org/cis-benchmarks"
+            }
+          ],
+          "tags": [
+            "cloud",
+            "detection",
+            "coverage"
+          ],
+          "source": "cloud-detection-coverage-gaps"
+        },
+        {
+          "title": "No posture management / config baseline",
+          "description": "Without continuous posture management (Security Hub, Defender CSPM, SCC posture), drift from secure baselines goes unnoticed. This is a defense-in-depth gap that improves overall resilience when fixed. Assessors should confirm the control in practice, not only on paper: Confirm a CSPM/posture service evaluates resources against a benchmark continuously. Flag absence of any posture baseline. Common tags: cloud, detection, posture.",
+          "severity": "low",
+          "how_to_find": "Confirm a CSPM/posture service evaluates resources against a benchmark continuously. Flag absence of any posture baseline.",
+          "how_to_fix": "Remediate \"No posture management / config baseline\" by applying vendor and CIS/OWASP hardening guidance for Logging & Monitoring — Threat Detection Coverage. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Prowler",
+            "ScoutSuite",
+            "aws cli"
+          ],
+          "references": [
+            {
+              "title": "AWS Security Hub",
+              "url": "https://docs.aws.amazon.com/securityhub/latest/userguide/what-is-securityhub.html"
+            },
+            {
+              "title": "CIS Benchmarks",
+              "url": "https://www.cisecurity.org/cis-benchmarks"
+            }
+          ],
+          "tags": [
+            "cloud",
+            "detection",
+            "posture"
+          ],
+          "source": "cloud-detection-no-baseline"
+        }
+      ]
+    }
+  ]
+}

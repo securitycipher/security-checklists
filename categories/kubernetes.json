@@ -7,7 +7,7 @@
       "items": [
         {
           "title": "API server not public",
-          "description": "Restrict kube-apiserver to private networks or authorized IPs.",
+          "description": "Restrict kube-apiserver to private networks or authorized IPs. This control is evaluated under \"Cluster Configuration\" during security assessments. Attackers frequently chain this with other issues to escalate access or exfiltrate data. Document affected assets, evidence, and business owners when reporting.",
           "severity": "high",
           "how_to_find": "Cluster audit (Cluster Configuration): Restrict kube-apiserver to private networks or authorized IPs. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: API server not public.",
           "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
@@ -27,7 +27,7 @@
         },
         {
           "title": "RBAC least privilege",
-          "description": "No cluster-admin for apps; namespace-scoped roles only.",
+          "description": "No cluster-admin for apps; namespace-scoped roles only. This control is evaluated under \"Cluster Configuration\" during security assessments. Fixing this improves defense-in-depth and long-term resilience. Document affected assets, evidence, and business owners when reporting.",
           "severity": "low",
           "how_to_find": "Cluster audit (Cluster Configuration): No cluster-admin for apps; namespace-scoped roles only. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: RBAC least privilege.",
           "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
@@ -47,7 +47,7 @@
         },
         {
           "title": "Pod Security Standards enforced",
-          "description": "Restricted or baseline policy on all namespaces.",
+          "description": "Restricted or baseline policy on all namespaces. This control is evaluated under \"Cluster Configuration\" during security assessments. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Document affected assets, evidence, and business owners when reporting.",
           "severity": "critical",
           "how_to_find": "Cluster audit (Cluster Configuration): Restricted or baseline policy on all namespaces. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: Pod Security Standards enforced.",
           "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
@@ -67,7 +67,7 @@
         },
         {
           "title": "Secrets not in env vars",
-          "description": "Use CSI drivers or mounted volumes; encrypt etcd at rest.",
+          "description": "Use CSI drivers or mounted volumes; encrypt etcd at rest. This control is evaluated under \"Cluster Configuration\" during security assessments. Fixing this improves defense-in-depth and long-term resilience. Document affected assets, evidence, and business owners when reporting.",
           "severity": "low",
           "how_to_find": "Cluster audit (Cluster Configuration): Use CSI drivers or mounted volumes; encrypt etcd at rest. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: Secrets not in env vars.",
           "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
@@ -87,7 +87,7 @@
         },
         {
           "title": "Network policies default deny",
-          "description": "Explicit allow rules between pods and egress.",
+          "description": "Explicit allow rules between pods and egress. This control is evaluated under \"Cluster Configuration\" during security assessments. Fixing this improves defense-in-depth and long-term resilience. Document affected assets, evidence, and business owners when reporting.",
           "severity": "low",
           "how_to_find": "Cluster audit (Cluster Configuration): Explicit allow rules between pods and egress. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: Network policies default deny.",
           "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
@@ -112,7 +112,7 @@
       "items": [
         {
           "title": "Images scanned for CVEs",
-          "description": "Trivy or similar in CI; block critical vulns on deploy.",
+          "description": "Trivy or similar in CI; block critical vulns on deploy. This control is evaluated under \"Containers and Supply Chain\" during security assessments. Fixing this improves defense-in-depth and long-term resilience. Document affected assets, evidence, and business owners when reporting.",
           "severity": "low",
           "how_to_find": "Cluster audit (Containers and Supply Chain): Trivy or similar in CI; block critical vulns on deploy. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: Images scanned for CVEs.",
           "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
@@ -132,8 +132,8 @@
         },
         {
           "title": "No privileged containers",
-          "description": "Drop capabilities; read-only root filesystem where possible.",
-          "severity": "low",
+          "description": "A privileged container effectively has root on the host node, disabling most isolation and providing a direct path to node compromise. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: Search all pods/workloads for securityContext.privileged: true. Verify privileged is rejected by admission policy and that any legitimate use is documented and exception-approved. Common tags: runtime, privileged, escape.",
+          "severity": "critical",
           "how_to_find": "Cluster audit (Containers and Supply Chain): Drop capabilities; read-only root filesystem where possible. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: No privileged containers.",
           "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
           "tools": [
@@ -141,18 +141,34 @@
             "kube-hunter",
             "kube-bench",
             "Trivy",
-            "Falco"
+            "Falco",
+            "kubeaudit",
+            "Peirates"
           ],
           "references": [
             {
               "title": "CIS Kubernetes Benchmark",
               "url": "https://www.cisecurity.org/benchmark/kubernetes"
+            },
+            {
+              "title": "Kubernetes — Pod Security Standards",
+              "url": "https://kubernetes.io/docs/concepts/security/pod-security-standards/"
+            },
+            {
+              "title": "MITRE ATT&CK — Escape to Host",
+              "url": "https://attack.mitre.org/techniques/T1611/"
             }
-          ]
+          ],
+          "tags": [
+            "runtime",
+            "privileged",
+            "escape"
+          ],
+          "source": "k8s-privileged-containers"
         },
         {
           "title": "Docker socket not mounted",
-          "description": "Never mount /var/run/docker.sock into application containers.",
+          "description": "Never mount /var/run/docker.sock into application containers. This control is evaluated under \"Containers and Supply Chain\" during security assessments. Fixing this improves defense-in-depth and long-term resilience. Document affected assets, evidence, and business owners when reporting.",
           "severity": "low",
           "how_to_find": "Cluster audit (Containers and Supply Chain): Never mount /var/run/docker.sock into application containers. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: Docker socket not mounted.",
           "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
@@ -172,7 +188,7 @@
         },
         {
           "title": "Image signing and admission control",
-          "description": "Only signed images from trusted registries.",
+          "description": "Only signed images from trusted registries. This control is evaluated under \"Containers and Supply Chain\" during security assessments. Fixing this improves defense-in-depth and long-term resilience. Document affected assets, evidence, and business owners when reporting.",
           "severity": "low",
           "how_to_find": "Cluster audit (Containers and Supply Chain): Only signed images from trusted registries. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: Image signing and admission control.",
           "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
@@ -192,7 +208,7 @@
         },
         {
           "title": "Resource limits set",
-          "description": "CPU and memory limits prevent DoS via resource exhaustion.",
+          "description": "CPU and memory limits prevent DoS via resource exhaustion. This control is evaluated under \"Containers and Supply Chain\" during security assessments. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Document affected assets, evidence, and business owners when reporting.",
           "severity": "critical",
           "how_to_find": "Cluster audit (Containers and Supply Chain): CPU and memory limits prevent DoS via resource exhaustion. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: Resource limits set.",
           "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
@@ -209,6 +225,1724 @@
               "url": "https://www.cisecurity.org/benchmark/kubernetes"
             }
           ]
+        }
+      ]
+    },
+    {
+      "title": "Image & Registry Security — Image Hygiene",
+      "items": [
+        {
+          "title": "Use minimal, trusted base images",
+          "description": "Bloated base images (full OS distros) drastically expand the attack surface with shells, package managers, and unneeded binaries that aid post-exploitation. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Inspect the Dockerfile FROM lines and resulting image. Prefer distroless, scratch, or slim/alpine images from trusted sources. Confirm no compilers, package managers, or interactive shells remain in the production image. Common tags: image, hardening, attack-surface.",
+          "severity": "critical",
+          "how_to_find": "Cluster audit (Image & Registry Security — Image Hygiene): Bloated base images (full OS distros) drastically expand the attack surface with shells, package managers, and unneeded binaries that aid post-exploitation. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Inspect the Dockerfile FROM lines and resulting image. Prefer distroless, scratch, or slim/alpine images from trusted sources. Confirm no compilers, package managers, or interactive shells remain in the production image. Common tags: image, hardening, attack-surface. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: Use minimal, trusted base images.",
+          "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
+          "tools": [
+            "kubectl",
+            "kube-hunter",
+            "kube-bench",
+            "Trivy",
+            "Falco"
+          ],
+          "references": [
+            {
+              "title": "CIS Kubernetes Benchmark",
+              "url": "https://www.cisecurity.org/benchmark/kubernetes"
+            }
+          ],
+          "tags": [
+            "image",
+            "hardening",
+            "attack-surface"
+          ],
+          "source": "k8s-image-base-minimal"
+        },
+        {
+          "title": "No secrets baked into image layers",
+          "description": "Secrets copied or referenced during a build persist in intermediate layers even if deleted in a later layer, and can be extracted from the image history. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Run image history/layer analysis and filesystem extraction looking for API keys, private keys, .env files, cloud credentials, and tokens. Check ARG/ENV usage and COPY of credential files. Common tags: image, secrets, leakage.",
+          "severity": "low",
+          "how_to_find": "Cluster audit (Image & Registry Security — Image Hygiene): Secrets copied or referenced during a build persist in intermediate layers even if deleted in a later layer, and can be extracted from the image history. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Run image history/layer analysis and filesystem extraction looking for API keys, private keys, .env files, cloud credentials, and tokens. Check ARG/ENV usage and COPY of credential files. Common tags: image, secrets, leakage. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: No secrets baked into image layers.",
+          "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
+          "tools": [
+            "kubectl",
+            "kube-hunter",
+            "kube-bench",
+            "Trivy",
+            "Falco"
+          ],
+          "references": [
+            {
+              "title": "CIS Kubernetes Benchmark",
+              "url": "https://www.cisecurity.org/benchmark/kubernetes"
+            }
+          ],
+          "tags": [
+            "image",
+            "secrets",
+            "leakage"
+          ],
+          "source": "k8s-image-no-secrets-in-layers"
+        },
+        {
+          "title": "Pin images to immutable digests, not mutable tags",
+          "description": "Using mutable tags like :latest means the running image can silently change, breaking reproducibility and enabling tag-overwrite supply-chain attacks. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Verify deployment manifests reference images by digest (sha256) or at least specific version tags, and confirm imagePullPolicy is consistent. Look for any use of :latest in production workloads. Common tags: image, supply-chain, pinning.",
+          "severity": "medium",
+          "how_to_find": "Cluster audit (Image & Registry Security — Image Hygiene): Using mutable tags like :latest means the running image can silently change, breaking reproducibility and enabling tag-overwrite supply-chain attacks. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Verify deployment manifests reference images by digest (sha256) or at least specific version tags, and confirm imagePullPolicy is consistent. Look for any use of :latest in production workloads. Common tags: image, supply-chain, pinning. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: Pin images to immutable digests, not mutable tags.",
+          "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
+          "tools": [
+            "kubectl",
+            "kube-hunter",
+            "kube-bench",
+            "Trivy",
+            "Falco"
+          ],
+          "references": [
+            {
+              "title": "CIS Kubernetes Benchmark",
+              "url": "https://www.cisecurity.org/benchmark/kubernetes"
+            }
+          ],
+          "tags": [
+            "image",
+            "supply-chain",
+            "pinning"
+          ],
+          "source": "k8s-image-pinned-tags"
+        },
+        {
+          "title": "Strip build tooling and dev dependencies from runtime image",
+          "description": "Leaving compilers, package managers, and debugging utilities in the final image gives an attacker ready-made tools to escalate and pivot after a foothold. This is a defense-in-depth gap that improves overall resilience when fixed. Assessors should confirm the control in practice, not only on paper: Confirm multi-stage builds are used so only runtime artifacts ship. Inspect the final image for apt/apk/yum, gcc, curl/wget, and shells that are not required at runtime. Common tags: image, hardening, attack-surface.",
+          "severity": "low",
+          "how_to_find": "Cluster audit (Image & Registry Security — Image Hygiene): Leaving compilers, package managers, and debugging utilities in the final image gives an attacker ready-made tools to escalate and pivot after a foothold. This is a defense-in-depth gap that improves overall resilience when fixed. Assessors should confirm the control in practice, not only on paper: Confirm multi-stage builds are used so only runtime artifacts ship. Inspect the final image for apt/apk/yum, gcc, curl/wget, and shells that are not required at runtime. Common tags: image, hardening, attack-surface. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: Strip build tooling and dev dependencies from runtime image.",
+          "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
+          "tools": [
+            "kubectl",
+            "kube-hunter",
+            "kube-bench",
+            "Trivy",
+            "Falco"
+          ],
+          "references": [
+            {
+              "title": "CIS Kubernetes Benchmark",
+              "url": "https://www.cisecurity.org/benchmark/kubernetes"
+            }
+          ],
+          "tags": [
+            "image",
+            "hardening",
+            "attack-surface"
+          ],
+          "source": "k8s-image-no-build-tooling"
+        }
+      ]
+    },
+    {
+      "title": "Image & Registry Security — Vulnerability Scanning & SBOM",
+      "items": [
+        {
+          "title": "Scan images for known vulnerabilities (CVEs)",
+          "description": "Images frequently ship with OS packages and language dependencies carrying known, exploitable CVEs that are never patched without scanning. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Run a vulnerability scanner against all images and confirm scanning is gated in CI/CD. Verify there is a defined policy for severity thresholds and remediation SLAs for critical/high findings. Common tags: scanning, cve, supply-chain.",
+          "severity": "medium",
+          "how_to_find": "Cluster audit (Image & Registry Security — Vulnerability Scanning & SBOM): Images frequently ship with OS packages and language dependencies carrying known, exploitable CVEs that are never patched without scanning. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Run a vulnerability scanner against all images and confirm scanning is gated in CI/CD. Verify there is a defined policy for severity thresholds and remediation SLAs for critical/high findings. Common tags: scanning, cve, supply-chain. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: Scan images for known vulnerabilities (CVEs).",
+          "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
+          "tools": [
+            "kubectl",
+            "kube-hunter",
+            "kube-bench",
+            "Trivy",
+            "Falco"
+          ],
+          "references": [
+            {
+              "title": "CIS Kubernetes Benchmark",
+              "url": "https://www.cisecurity.org/benchmark/kubernetes"
+            }
+          ],
+          "tags": [
+            "scanning",
+            "cve",
+            "supply-chain"
+          ],
+          "source": "k8s-image-vuln-scan"
+        },
+        {
+          "title": "Generate and retain an SBOM per image",
+          "description": "A software bill of materials enables rapid impact assessment when a new CVE drops (e.g. Log4Shell) and is increasingly a compliance requirement. This is a defense-in-depth gap that improves overall resilience when fixed. Assessors should confirm the control in practice, not only on paper: Confirm SBOMs (SPDX or CycloneDX) are generated at build time, attached to or stored alongside each image, and queryable. Verify they capture both OS and application dependencies. Common tags: sbom, supply-chain, inventory.",
+          "severity": "low",
+          "how_to_find": "Cluster audit (Image & Registry Security — Vulnerability Scanning & SBOM): A software bill of materials enables rapid impact assessment when a new CVE drops (e.g. Log4Shell) and is increasingly a compliance requirement. This is a defense-in-depth gap that improves overall resilience when fixed. Assessors should confirm the control in practice, not only on paper: Confirm SBOMs (SPDX or CycloneDX) are generated at build time, attached to or stored alongside each image, and queryable. Verify they capture both OS and application dependencies. Common tags: sbom, supply-chain, inventory. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: Generate and retain an SBOM per image.",
+          "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
+          "tools": [
+            "kubectl",
+            "kube-hunter",
+            "kube-bench",
+            "Trivy",
+            "Falco"
+          ],
+          "references": [
+            {
+              "title": "CIS Kubernetes Benchmark",
+              "url": "https://www.cisecurity.org/benchmark/kubernetes"
+            }
+          ],
+          "tags": [
+            "sbom",
+            "supply-chain",
+            "inventory"
+          ],
+          "source": "k8s-image-sbom"
+        },
+        {
+          "title": "Scan images already running in the cluster",
+          "description": "Images that passed scanning at build time accumulate new CVEs over time, and unscanned images may have been deployed out-of-band. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Enumerate all running image references across namespaces and scan them. Confirm an admission or runtime mechanism flags drift between scanned and deployed images. Common tags: scanning, cve, runtime.",
+          "severity": "low",
+          "how_to_find": "Cluster audit (Image & Registry Security — Vulnerability Scanning & SBOM): Images that passed scanning at build time accumulate new CVEs over time, and unscanned images may have been deployed out-of-band. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Enumerate all running image references across namespaces and scan them. Confirm an admission or runtime mechanism flags drift between scanned and deployed images. Common tags: scanning, cve, runtime. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: Scan images already running in the cluster.",
+          "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
+          "tools": [
+            "kubectl",
+            "kube-hunter",
+            "kube-bench",
+            "Trivy",
+            "Falco"
+          ],
+          "references": [
+            {
+              "title": "CIS Kubernetes Benchmark",
+              "url": "https://www.cisecurity.org/benchmark/kubernetes"
+            }
+          ],
+          "tags": [
+            "scanning",
+            "cve",
+            "runtime"
+          ],
+          "source": "k8s-image-scan-in-cluster"
+        },
+        {
+          "title": "Verify dependency provenance and integrity",
+          "description": "Dependencies pulled from public registries can be typosquatted, hijacked, or tampered with, injecting malicious code into images. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm dependencies are pinned with lockfiles and integrity hashes, sourced from trusted/internal mirrors, and that provenance attestations (SLSA) are produced where feasible. Common tags: supply-chain, provenance, integrity.",
+          "severity": "critical",
+          "how_to_find": "Cluster audit (Image & Registry Security — Vulnerability Scanning & SBOM): Dependencies pulled from public registries can be typosquatted, hijacked, or tampered with, injecting malicious code into images. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm dependencies are pinned with lockfiles and integrity hashes, sourced from trusted/internal mirrors, and that provenance attestations (SLSA) are produced where feasible. Common tags: supply-chain, provenance, integrity. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: Verify dependency provenance and integrity.",
+          "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
+          "tools": [
+            "kubectl",
+            "kube-hunter",
+            "kube-bench",
+            "Trivy",
+            "Falco"
+          ],
+          "references": [
+            {
+              "title": "CIS Kubernetes Benchmark",
+              "url": "https://www.cisecurity.org/benchmark/kubernetes"
+            }
+          ],
+          "tags": [
+            "supply-chain",
+            "provenance",
+            "integrity"
+          ],
+          "source": "k8s-image-dependency-provenance"
+        }
+      ]
+    },
+    {
+      "title": "Image & Registry Security — Registry Security",
+      "items": [
+        {
+          "title": "Require authentication and access control on registries",
+          "description": "Anonymous or weakly protected registries let attackers pull proprietary images or push malicious ones that get deployed. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Confirm registries require authentication, use scoped pull/push credentials (not shared admin tokens), and that imagePullSecrets are namespaced and least-privilege. Test for anonymous pull/push. Common tags: registry, authentication, access-control.",
+          "severity": "low",
+          "how_to_find": "Cluster audit (Image & Registry Security — Registry Security): Anonymous or weakly protected registries let attackers pull proprietary images or push malicious ones that get deployed. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Confirm registries require authentication, use scoped pull/push credentials (not shared admin tokens), and that imagePullSecrets are namespaced and least-privilege. Test for anonymous pull/push. Common tags: registry, authentication, access-control. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: Require authentication and access control on registries.",
+          "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
+          "tools": [
+            "kubectl",
+            "kube-hunter",
+            "kube-bench",
+            "Trivy",
+            "Falco"
+          ],
+          "references": [
+            {
+              "title": "CIS Kubernetes Benchmark",
+              "url": "https://www.cisecurity.org/benchmark/kubernetes"
+            }
+          ],
+          "tags": [
+            "registry",
+            "authentication",
+            "access-control"
+          ],
+          "source": "k8s-registry-auth"
+        },
+        {
+          "title": "Sign images and verify signatures",
+          "description": "Unsigned images cannot be cryptographically attributed to a trusted builder, enabling substitution and supply-chain attacks. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm images are signed (e.g. Cosign/Sigstore or Notation) and that signature verification is enforced. Verify keys are managed securely and a verification policy exists. Common tags: registry, signing, supply-chain.",
+          "severity": "critical",
+          "how_to_find": "Cluster audit (Image & Registry Security — Registry Security): Unsigned images cannot be cryptographically attributed to a trusted builder, enabling substitution and supply-chain attacks. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm images are signed (e.g. Cosign/Sigstore or Notation) and that signature verification is enforced. Verify keys are managed securely and a verification policy exists. Common tags: registry, signing, supply-chain. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: Sign images and verify signatures.",
+          "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
+          "tools": [
+            "kubectl",
+            "kube-hunter",
+            "kube-bench",
+            "Trivy",
+            "Falco"
+          ],
+          "references": [
+            {
+              "title": "CIS Kubernetes Benchmark",
+              "url": "https://www.cisecurity.org/benchmark/kubernetes"
+            }
+          ],
+          "tags": [
+            "registry",
+            "signing",
+            "supply-chain"
+          ],
+          "source": "k8s-registry-image-signing"
+        },
+        {
+          "title": "Enforce trusted-registry admission policy",
+          "description": "Without admission control, workloads can pull images from arbitrary external registries, bypassing scanning and signing controls. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Confirm an admission controller (OPA/Gatekeeper, Kyverno, or built-in ImagePolicyWebhook) restricts images to approved registries and rejects unsigned or unscanned images. Common tags: registry, admission, policy.",
+          "severity": "critical",
+          "how_to_find": "Cluster audit (Image & Registry Security — Registry Security): Without admission control, workloads can pull images from arbitrary external registries, bypassing scanning and signing controls. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Confirm an admission controller (OPA/Gatekeeper, Kyverno, or built-in ImagePolicyWebhook) restricts images to approved registries and rejects unsigned or unscanned images. Common tags: registry, admission, policy. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: Enforce trusted-registry admission policy.",
+          "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
+          "tools": [
+            "kubectl",
+            "kube-hunter",
+            "kube-bench",
+            "Trivy",
+            "Falco"
+          ],
+          "references": [
+            {
+              "title": "CIS Kubernetes Benchmark",
+              "url": "https://www.cisecurity.org/benchmark/kubernetes"
+            }
+          ],
+          "tags": [
+            "registry",
+            "admission",
+            "policy"
+          ],
+          "source": "k8s-registry-admission-trusted"
+        },
+        {
+          "title": "Check for exposed or world-readable registries",
+          "description": "Internal registries exposed to the internet or misconfigured cloud storage backing them can leak entire image catalogs and embedded secrets. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Enumerate registry endpoints, test the catalog API for unauthenticated listing, and verify backing object storage (S3/GCS) is not public. Review network exposure and TLS. Common tags: registry, exposure, recon.",
+          "severity": "critical",
+          "how_to_find": "Cluster audit (Image & Registry Security — Registry Security): Internal registries exposed to the internet or misconfigured cloud storage backing them can leak entire image catalogs and embedded secrets. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Enumerate registry endpoints, test the catalog API for unauthenticated listing, and verify backing object storage (S3/GCS) is not public. Review network exposure and TLS. Common tags: registry, exposure, recon. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: Check for exposed or world-readable registries.",
+          "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
+          "tools": [
+            "kubectl",
+            "kube-hunter",
+            "kube-bench",
+            "Trivy",
+            "Falco"
+          ],
+          "references": [
+            {
+              "title": "CIS Kubernetes Benchmark",
+              "url": "https://www.cisecurity.org/benchmark/kubernetes"
+            }
+          ],
+          "tags": [
+            "registry",
+            "exposure",
+            "recon"
+          ],
+          "source": "k8s-registry-exposure"
+        }
+      ]
+    },
+    {
+      "title": "Container Runtime Security — Privileged & Host Exposure",
+      "items": [
+        {
+          "title": "No hostPID / hostIPC / hostNetwork sharing",
+          "description": "Sharing host PID, IPC, or network namespaces lets a container observe and interfere with host processes, IPC, and traffic, undermining isolation. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Inspect pod specs for hostPID, hostIPC, and hostNetwork set to true. Confirm these are disallowed by Pod Security Admission (baseline/restricted) or policy engine. Common tags: runtime, host-namespace, isolation.",
+          "severity": "low",
+          "how_to_find": "Cluster audit (Container Runtime Security — Privileged & Host Exposure): Sharing host PID, IPC, or network namespaces lets a container observe and interfere with host processes, IPC, and traffic, undermining isolation. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Inspect pod specs for hostPID, hostIPC, and hostNetwork set to true. Confirm these are disallowed by Pod Security Admission (baseline/restricted) or policy engine. Common tags: runtime, host-namespace, isolation. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: No hostPID / hostIPC / hostNetwork sharing.",
+          "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
+          "tools": [
+            "kubectl",
+            "kube-hunter",
+            "kube-bench",
+            "Trivy",
+            "Falco"
+          ],
+          "references": [
+            {
+              "title": "CIS Kubernetes Benchmark",
+              "url": "https://www.cisecurity.org/benchmark/kubernetes"
+            }
+          ],
+          "tags": [
+            "runtime",
+            "host-namespace",
+            "isolation"
+          ],
+          "source": "k8s-host-namespaces"
+        },
+        {
+          "title": "No sensitive hostPath volume mounts",
+          "description": "Mounting host paths such as /, /var/run, /etc, or /var/lib/kubelet into a container exposes node files and can be abused to escape or read node secrets. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Enumerate hostPath volumes across workloads. Flag mounts of sensitive directories or the host root, and confirm policy restricts hostPath usage to a safe allowlist. Common tags: runtime, hostpath, escape.",
+          "severity": "low",
+          "how_to_find": "Cluster audit (Container Runtime Security — Privileged & Host Exposure): Mounting host paths such as /, /var/run, /etc, or /var/lib/kubelet into a container exposes node files and can be abused to escape or read node secrets. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Enumerate hostPath volumes across workloads. Flag mounts of sensitive directories or the host root, and confirm policy restricts hostPath usage to a safe allowlist. Common tags: runtime, hostpath, escape. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: No sensitive hostPath volume mounts.",
+          "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
+          "tools": [
+            "kubectl",
+            "kube-hunter",
+            "kube-bench",
+            "Trivy",
+            "Falco"
+          ],
+          "references": [
+            {
+              "title": "CIS Kubernetes Benchmark",
+              "url": "https://www.cisecurity.org/benchmark/kubernetes"
+            }
+          ],
+          "tags": [
+            "runtime",
+            "hostpath",
+            "escape"
+          ],
+          "source": "k8s-hostpath-mounts"
+        },
+        {
+          "title": "Disable allowPrivilegeEscalation",
+          "description": "Allowing privilege escalation lets a process gain more privileges than its parent (e.g. via setuid binaries), weakening the no-new-privs guarantee. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm securityContext.allowPrivilegeEscalation is set to false for containers, and that the restricted Pod Security Standard or policy enforces it cluster-wide. Common tags: runtime, privesc, hardening.",
+          "severity": "critical",
+          "how_to_find": "Cluster audit (Container Runtime Security — Privileged & Host Exposure): Allowing privilege escalation lets a process gain more privileges than its parent (e.g. via setuid binaries), weakening the no-new-privs guarantee. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm securityContext.allowPrivilegeEscalation is set to false for containers, and that the restricted Pod Security Standard or policy enforces it cluster-wide. Common tags: runtime, privesc, hardening. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: Disable allowPrivilegeEscalation.",
+          "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
+          "tools": [
+            "kubectl",
+            "kube-hunter",
+            "kube-bench",
+            "Trivy",
+            "Falco"
+          ],
+          "references": [
+            {
+              "title": "CIS Kubernetes Benchmark",
+              "url": "https://www.cisecurity.org/benchmark/kubernetes"
+            }
+          ],
+          "tags": [
+            "runtime",
+            "privesc",
+            "hardening"
+          ],
+          "source": "k8s-allow-privilege-escalation"
+        }
+      ]
+    },
+    {
+      "title": "Container Runtime Security — Linux Capabilities & SecurityContext",
+      "items": [
+        {
+          "title": "Drop excess Linux capabilities",
+          "description": "Capabilities like CAP_SYS_ADMIN, CAP_NET_RAW, and CAP_SYS_PTRACE grant powerful kernel-level operations that enable escape and lateral movement. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Inspect securityContext.capabilities. Confirm containers drop ALL and add back only the minimum required, and that dangerous capabilities (especially SYS_ADMIN) are not granted. Common tags: capabilities, least-privilege, escape.",
+          "severity": "low",
+          "how_to_find": "Cluster audit (Container Runtime Security — Linux Capabilities & SecurityContext): Capabilities like CAP_SYS_ADMIN, CAP_NET_RAW, and CAP_SYS_PTRACE grant powerful kernel-level operations that enable escape and lateral movement. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Inspect securityContext.capabilities. Confirm containers drop ALL and add back only the minimum required, and that dangerous capabilities (especially SYS_ADMIN) are not granted. Common tags: capabilities, least-privilege, escape. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: Drop excess Linux capabilities.",
+          "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
+          "tools": [
+            "kubectl",
+            "kube-hunter",
+            "kube-bench",
+            "Trivy",
+            "Falco"
+          ],
+          "references": [
+            {
+              "title": "CIS Kubernetes Benchmark",
+              "url": "https://www.cisecurity.org/benchmark/kubernetes"
+            }
+          ],
+          "tags": [
+            "capabilities",
+            "least-privilege",
+            "escape"
+          ],
+          "source": "k8s-capabilities-excess"
+        },
+        {
+          "title": "Define a securityContext for every workload",
+          "description": "Workloads with no securityContext inherit permissive defaults — writable root filesystem, default capabilities, and no seccomp — maximizing post-exploitation options. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm every Deployment/Pod sets a securityContext with runAsNonRoot, readOnlyRootFilesystem, dropped capabilities, and a seccomp profile. Flag workloads with none. Common tags: securitycontext, hardening, defaults.",
+          "severity": "low",
+          "how_to_find": "Cluster audit (Container Runtime Security — Linux Capabilities & SecurityContext): Workloads with no securityContext inherit permissive defaults — writable root filesystem, default capabilities, and no seccomp — maximizing post-exploitation options. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm every Deployment/Pod sets a securityContext with runAsNonRoot, readOnlyRootFilesystem, dropped capabilities, and a seccomp profile. Flag workloads with none. Common tags: securitycontext, hardening, defaults. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: Define a securityContext for every workload.",
+          "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
+          "tools": [
+            "kubectl",
+            "kube-hunter",
+            "kube-bench",
+            "Trivy",
+            "Falco"
+          ],
+          "references": [
+            {
+              "title": "CIS Kubernetes Benchmark",
+              "url": "https://www.cisecurity.org/benchmark/kubernetes"
+            }
+          ],
+          "tags": [
+            "securitycontext",
+            "hardening",
+            "defaults"
+          ],
+          "source": "k8s-missing-securitycontext"
+        },
+        {
+          "title": "Apply a seccomp profile",
+          "description": "Without seccomp, containers can issue any syscall, broadening the kernel attack surface available for container escape exploits. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm pods set seccompProfile to RuntimeDefault (or a tighter custom profile) rather than Unconfined, and that the restricted Pod Security Standard enforces it. Common tags: seccomp, syscall, hardening.",
+          "severity": "critical",
+          "how_to_find": "Cluster audit (Container Runtime Security — Linux Capabilities & SecurityContext): Without seccomp, containers can issue any syscall, broadening the kernel attack surface available for container escape exploits. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm pods set seccompProfile to RuntimeDefault (or a tighter custom profile) rather than Unconfined, and that the restricted Pod Security Standard enforces it. Common tags: seccomp, syscall, hardening. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: Apply a seccomp profile.",
+          "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
+          "tools": [
+            "kubectl",
+            "kube-hunter",
+            "kube-bench",
+            "Trivy",
+            "Falco"
+          ],
+          "references": [
+            {
+              "title": "CIS Kubernetes Benchmark",
+              "url": "https://www.cisecurity.org/benchmark/kubernetes"
+            }
+          ],
+          "tags": [
+            "seccomp",
+            "syscall",
+            "hardening"
+          ],
+          "source": "k8s-seccomp-profile"
+        },
+        {
+          "title": "Enforce read-only root filesystem",
+          "description": "A writable root filesystem lets an attacker drop tools, modify binaries, and persist inside a compromised container. This is a defense-in-depth gap that improves overall resilience when fixed. Assessors should confirm the control in practice, not only on paper: Confirm securityContext.readOnlyRootFilesystem is true and that writable scratch space is provided via tmpfs/emptyDir volumes only where genuinely required. Common tags: filesystem, hardening, persistence.",
+          "severity": "critical",
+          "how_to_find": "Cluster audit (Container Runtime Security — Linux Capabilities & SecurityContext): A writable root filesystem lets an attacker drop tools, modify binaries, and persist inside a compromised container. This is a defense-in-depth gap that improves overall resilience when fixed. Assessors should confirm the control in practice, not only on paper: Confirm securityContext.readOnlyRootFilesystem is true and that writable scratch space is provided via tmpfs/emptyDir volumes only where genuinely required. Common tags: filesystem, hardening, persistence. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: Enforce read-only root filesystem.",
+          "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
+          "tools": [
+            "kubectl",
+            "kube-hunter",
+            "kube-bench",
+            "Trivy",
+            "Falco"
+          ],
+          "references": [
+            {
+              "title": "CIS Kubernetes Benchmark",
+              "url": "https://www.cisecurity.org/benchmark/kubernetes"
+            }
+          ],
+          "tags": [
+            "filesystem",
+            "hardening",
+            "persistence"
+          ],
+          "source": "k8s-readonly-rootfs"
+        }
+      ]
+    },
+    {
+      "title": "Container Runtime Security — Container Escape Vectors",
+      "items": [
+        {
+          "title": "Patch runtime CVEs enabling escape (e.g. runc CVE-2024-21626)",
+          "description": "Container runtime vulnerabilities such as the runc file-descriptor leak (CVE-2024-21626) and CVE-2019-5736 allow breakout to the host from a crafted image or workload. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: Identify runc/containerd/Docker versions on nodes and confirm they are patched against known escape CVEs. Verify node OS and kernel are within patch SLA. Common tags: escape, cve, runtime.",
+          "severity": "medium",
+          "how_to_find": "Cluster audit (Container Runtime Security — Container Escape Vectors): Container runtime vulnerabilities such as the runc file-descriptor leak (CVE-2024-21626) and CVE-2019-5736 allow breakout to the host from a crafted image or workload. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: Identify runc/containerd/Docker versions on nodes and confirm they are patched against known escape CVEs. Verify node OS and kernel are within patch SLA. Common tags: escape, cve, runtime. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: Patch runtime CVEs enabling escape (e.g. runc CVE-2024-21626).",
+          "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
+          "tools": [
+            "kubectl",
+            "kube-hunter",
+            "kube-bench",
+            "Trivy",
+            "Falco"
+          ],
+          "references": [
+            {
+              "title": "CIS Kubernetes Benchmark",
+              "url": "https://www.cisecurity.org/benchmark/kubernetes"
+            }
+          ],
+          "tags": [
+            "escape",
+            "cve",
+            "runtime"
+          ],
+          "source": "k8s-escape-runc-cve"
+        },
+        {
+          "title": "No container engine socket mounted into pods",
+          "description": "Mounting /var/run/docker.sock or the containerd socket gives a container full control of the engine, trivially launching privileged containers on the host. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: Search for hostPath mounts of docker.sock, containerd.sock, or crio.sock. Confirm policy blocks socket mounts and that no debugging/CI workloads rely on them. Common tags: escape, docker-socket, runtime.",
+          "severity": "low",
+          "how_to_find": "Cluster audit (Container Runtime Security — Container Escape Vectors): Mounting /var/run/docker.sock or the containerd socket gives a container full control of the engine, trivially launching privileged containers on the host. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: Search for hostPath mounts of docker.sock, containerd.sock, or crio.sock. Confirm policy blocks socket mounts and that no debugging/CI workloads rely on them. Common tags: escape, docker-socket, runtime. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: No container engine socket mounted into pods.",
+          "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
+          "tools": [
+            "kubectl",
+            "kube-hunter",
+            "kube-bench",
+            "Trivy",
+            "Falco"
+          ],
+          "references": [
+            {
+              "title": "CIS Kubernetes Benchmark",
+              "url": "https://www.cisecurity.org/benchmark/kubernetes"
+            }
+          ],
+          "tags": [
+            "escape",
+            "docker-socket",
+            "runtime"
+          ],
+          "source": "k8s-escape-docker-socket"
+        },
+        {
+          "title": "Test escape-to-node and node credential theft",
+          "description": "A foothold on a node can yield kubelet credentials, mounted service-account tokens, and cloud instance metadata, enabling cluster-wide compromise. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: Attempt to read node-level kubeconfig/kubelet certs, /var/lib/kubelet, and reach the cloud metadata endpoint from a pod. Confirm metadata access is restricted and node creds are protected. Common tags: escape, credentials, lateral-movement.",
+          "severity": "low",
+          "how_to_find": "Cluster audit (Container Runtime Security — Container Escape Vectors): A foothold on a node can yield kubelet credentials, mounted service-account tokens, and cloud instance metadata, enabling cluster-wide compromise. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: Attempt to read node-level kubeconfig/kubelet certs, /var/lib/kubelet, and reach the cloud metadata endpoint from a pod. Confirm metadata access is restricted and node creds are protected. Common tags: escape, credentials, lateral-movement. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: Test escape-to-node and node credential theft.",
+          "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
+          "tools": [
+            "kubectl",
+            "kube-hunter",
+            "kube-bench",
+            "Trivy",
+            "Falco"
+          ],
+          "references": [
+            {
+              "title": "CIS Kubernetes Benchmark",
+              "url": "https://www.cisecurity.org/benchmark/kubernetes"
+            }
+          ],
+          "tags": [
+            "escape",
+            "credentials",
+            "lateral-movement"
+          ],
+          "source": "k8s-escape-node-credentials"
+        },
+        {
+          "title": "Block kernel module loading and dangerous mounts from containers",
+          "description": "Capabilities or device access that permit loading kernel modules or mounting filesystems give a direct route to host kernel compromise. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Confirm CAP_SYS_MODULE and CAP_SYS_ADMIN are not granted, /dev access is restricted, and AppArmor/SELinux profiles constrain mount and module operations. Common tags: escape, kernel, hardening.",
+          "severity": "low",
+          "how_to_find": "Cluster audit (Container Runtime Security — Container Escape Vectors): Capabilities or device access that permit loading kernel modules or mounting filesystems give a direct route to host kernel compromise. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Confirm CAP_SYS_MODULE and CAP_SYS_ADMIN are not granted, /dev access is restricted, and AppArmor/SELinux profiles constrain mount and module operations. Common tags: escape, kernel, hardening. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: Block kernel module loading and dangerous mounts from containers.",
+          "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
+          "tools": [
+            "kubectl",
+            "kube-hunter",
+            "kube-bench",
+            "Trivy",
+            "Falco"
+          ],
+          "references": [
+            {
+              "title": "CIS Kubernetes Benchmark",
+              "url": "https://www.cisecurity.org/benchmark/kubernetes"
+            }
+          ],
+          "tags": [
+            "escape",
+            "kernel",
+            "hardening"
+          ],
+          "source": "k8s-escape-kernel-modules"
+        }
+      ]
+    },
+    {
+      "title": "Container Runtime Security — Running as Root",
+      "items": [
+        {
+          "title": "Require runAsNonRoot",
+          "description": "Containers that run as root inside the namespace make capability abuse and escapes far more damaging, often equating to root on the node. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Confirm securityContext.runAsNonRoot is true and a non-zero runAsUser/runAsGroup is set. Verify the restricted Pod Security Standard or policy enforces it. Common tags: root, least-privilege, hardening.",
+          "severity": "critical",
+          "how_to_find": "Cluster audit (Container Runtime Security — Running as Root): Containers that run as root inside the namespace make capability abuse and escapes far more damaging, often equating to root on the node. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Confirm securityContext.runAsNonRoot is true and a non-zero runAsUser/runAsGroup is set. Verify the restricted Pod Security Standard or policy enforces it. Common tags: root, least-privilege, hardening. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: Require runAsNonRoot.",
+          "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
+          "tools": [
+            "kubectl",
+            "kube-hunter",
+            "kube-bench",
+            "Trivy",
+            "Falco"
+          ],
+          "references": [
+            {
+              "title": "CIS Kubernetes Benchmark",
+              "url": "https://www.cisecurity.org/benchmark/kubernetes"
+            }
+          ],
+          "tags": [
+            "root",
+            "least-privilege",
+            "hardening"
+          ],
+          "source": "k8s-root-runasnonroot"
+        },
+        {
+          "title": "Build images with a non-root USER",
+          "description": "Even with runtime controls, images defaulting to USER root run as root unless explicitly overridden, and may be deployed without the override. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Inspect Dockerfiles and image config for an explicit non-root USER directive. Confirm the runtime UID is non-zero when the pod-level override is absent. Common tags: root, image, hardening.",
+          "severity": "low",
+          "how_to_find": "Cluster audit (Container Runtime Security — Running as Root): Even with runtime controls, images defaulting to USER root run as root unless explicitly overridden, and may be deployed without the override. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Inspect Dockerfiles and image config for an explicit non-root USER directive. Confirm the runtime UID is non-zero when the pod-level override is absent. Common tags: root, image, hardening. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: Build images with a non-root USER.",
+          "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
+          "tools": [
+            "kubectl",
+            "kube-hunter",
+            "kube-bench",
+            "Trivy",
+            "Falco"
+          ],
+          "references": [
+            {
+              "title": "CIS Kubernetes Benchmark",
+              "url": "https://www.cisecurity.org/benchmark/kubernetes"
+            }
+          ],
+          "tags": [
+            "root",
+            "image",
+            "hardening"
+          ],
+          "source": "k8s-root-image-user"
+        },
+        {
+          "title": "Scope fsGroup and supplemental groups",
+          "description": "Overly broad fsGroup or supplemental group settings can grant unintended access to shared volumes and host-backed storage. This is a defense-in-depth gap that improves overall resilience when fixed. Assessors should confirm the control in practice, not only on paper: Review securityContext.fsGroup and supplementalGroups. Confirm they are set intentionally and minimally, and that group 0 (root) is not used for volume ownership. Common tags: root, volumes, least-privilege.",
+          "severity": "low",
+          "how_to_find": "Cluster audit (Container Runtime Security — Running as Root): Overly broad fsGroup or supplemental group settings can grant unintended access to shared volumes and host-backed storage. This is a defense-in-depth gap that improves overall resilience when fixed. Assessors should confirm the control in practice, not only on paper: Review securityContext.fsGroup and supplementalGroups. Confirm they are set intentionally and minimally, and that group 0 (root) is not used for volume ownership. Common tags: root, volumes, least-privilege. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: Scope fsGroup and supplemental groups.",
+          "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
+          "tools": [
+            "kubectl",
+            "kube-hunter",
+            "kube-bench",
+            "Trivy",
+            "Falco"
+          ],
+          "references": [
+            {
+              "title": "CIS Kubernetes Benchmark",
+              "url": "https://www.cisecurity.org/benchmark/kubernetes"
+            }
+          ],
+          "tags": [
+            "root",
+            "volumes",
+            "least-privilege"
+          ],
+          "source": "k8s-root-fsgroup-supplemental"
+        },
+        {
+          "title": "Confirm no-new-privileges is effective for root containers",
+          "description": "Where root is unavoidable, the no-new-privileges flag still limits setuid-based escalation paths and should be verified as active. This is a defense-in-depth gap that improves overall resilience when fixed. Assessors should confirm the control in practice, not only on paper: For any container that must run privileged operations, confirm allowPrivilegeEscalation is false so the kernel sets the no_new_privs bit, and validate behavior at runtime. Common tags: root, privesc, hardening.",
+          "severity": "low",
+          "how_to_find": "Cluster audit (Container Runtime Security — Running as Root): Where root is unavoidable, the no-new-privileges flag still limits setuid-based escalation paths and should be verified as active. This is a defense-in-depth gap that improves overall resilience when fixed. Assessors should confirm the control in practice, not only on paper: For any container that must run privileged operations, confirm allowPrivilegeEscalation is false so the kernel sets the no_new_privs bit, and validate behavior at runtime. Common tags: root, privesc, hardening. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: Confirm no-new-privileges is effective for root containers.",
+          "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
+          "tools": [
+            "kubectl",
+            "kube-hunter",
+            "kube-bench",
+            "Trivy",
+            "Falco"
+          ],
+          "references": [
+            {
+              "title": "CIS Kubernetes Benchmark",
+              "url": "https://www.cisecurity.org/benchmark/kubernetes"
+            }
+          ],
+          "tags": [
+            "root",
+            "privesc",
+            "hardening"
+          ],
+          "source": "k8s-root-no-new-privs"
+        }
+      ]
+    },
+    {
+      "title": "Kubernetes RBAC & API — RBAC Misconfiguration",
+      "items": [
+        {
+          "title": "Audit cluster-admin and wildcard role bindings",
+          "description": "Subjects bound to cluster-admin or roles using wildcard verbs/resources effectively own the cluster, so any compromise of those subjects is catastrophic. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: Enumerate ClusterRoleBindings to cluster-admin and roles with verbs/resources/apiGroups set to \"*\". Confirm bindings map to a minimal, justified set of subjects. Common tags: rbac, privesc, authorization.",
+          "severity": "critical",
+          "how_to_find": "Cluster audit (Kubernetes RBAC & API — RBAC Misconfiguration): Subjects bound to cluster-admin or roles using wildcard verbs/resources effectively own the cluster, so any compromise of those subjects is catastrophic. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: Enumerate ClusterRoleBindings to cluster-admin and roles with verbs/resources/apiGroups set to \"*\". Confirm bindings map to a minimal, justified set of subjects. Common tags: rbac, privesc, authorization. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: Audit cluster-admin and wildcard role bindings.",
+          "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
+          "tools": [
+            "kubectl",
+            "kube-hunter",
+            "kube-bench",
+            "Trivy",
+            "Falco"
+          ],
+          "references": [
+            {
+              "title": "CIS Kubernetes Benchmark",
+              "url": "https://www.cisecurity.org/benchmark/kubernetes"
+            }
+          ],
+          "tags": [
+            "rbac",
+            "privesc",
+            "authorization"
+          ],
+          "source": "k8s-rbac-cluster-admin-bindings"
+        },
+        {
+          "title": "Restrict privilege-escalation verbs (escalate, bind, impersonate)",
+          "description": "Verbs like escalate, bind, impersonate, and create on pods/secrets let a low-privileged subject grant itself or assume higher privileges. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Search roles for escalate/bind/impersonate, create/patch on roles and bindings, and exec/create on pods. Confirm these are tightly scoped and not held by application service accounts. Common tags: rbac, privesc, authorization.",
+          "severity": "medium",
+          "how_to_find": "Cluster audit (Kubernetes RBAC & API — RBAC Misconfiguration): Verbs like escalate, bind, impersonate, and create on pods/secrets let a low-privileged subject grant itself or assume higher privileges. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Search roles for escalate/bind/impersonate, create/patch on roles and bindings, and exec/create on pods. Confirm these are tightly scoped and not held by application service accounts. Common tags: rbac, privesc, authorization. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: Restrict privilege-escalation verbs (escalate, bind, impersonate).",
+          "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
+          "tools": [
+            "kubectl",
+            "kube-hunter",
+            "kube-bench",
+            "Trivy",
+            "Falco"
+          ],
+          "references": [
+            {
+              "title": "CIS Kubernetes Benchmark",
+              "url": "https://www.cisecurity.org/benchmark/kubernetes"
+            }
+          ],
+          "tags": [
+            "rbac",
+            "privesc",
+            "authorization"
+          ],
+          "source": "k8s-rbac-privesc-verbs"
+        },
+        {
+          "title": "Limit get/list access to Secrets",
+          "description": "Broad get/list on Secrets across namespaces lets an attacker harvest credentials and service-account tokens for lateral movement. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Review which roles grant get/list/watch on secrets and confirm scope is per-namespace and minimal. Verify no application SA can read cluster-wide secrets. Common tags: rbac, secrets, authorization.",
+          "severity": "low",
+          "how_to_find": "Cluster audit (Kubernetes RBAC & API — RBAC Misconfiguration): Broad get/list on Secrets across namespaces lets an attacker harvest credentials and service-account tokens for lateral movement. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Review which roles grant get/list/watch on secrets and confirm scope is per-namespace and minimal. Verify no application SA can read cluster-wide secrets. Common tags: rbac, secrets, authorization. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: Limit get/list access to Secrets.",
+          "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
+          "tools": [
+            "kubectl",
+            "kube-hunter",
+            "kube-bench",
+            "Trivy",
+            "Falco"
+          ],
+          "references": [
+            {
+              "title": "CIS Kubernetes Benchmark",
+              "url": "https://www.cisecurity.org/benchmark/kubernetes"
+            }
+          ],
+          "tags": [
+            "rbac",
+            "secrets",
+            "authorization"
+          ],
+          "source": "k8s-rbac-secrets-access"
+        },
+        {
+          "title": "Prefer namespaced Roles over ClusterRoles",
+          "description": "Using ClusterRoles where a namespaced Role would suffice grants cluster-wide reach and breaks blast-radius containment. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm permissions are scoped to namespaces with Role/RoleBinding where possible, and that ClusterRoleBindings are reserved for genuinely cluster-wide needs. Common tags: rbac, least-privilege, authorization.",
+          "severity": "low",
+          "how_to_find": "Cluster audit (Kubernetes RBAC & API — RBAC Misconfiguration): Using ClusterRoles where a namespaced Role would suffice grants cluster-wide reach and breaks blast-radius containment. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm permissions are scoped to namespaces with Role/RoleBinding where possible, and that ClusterRoleBindings are reserved for genuinely cluster-wide needs. Common tags: rbac, least-privilege, authorization. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: Prefer namespaced Roles over ClusterRoles.",
+          "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
+          "tools": [
+            "kubectl",
+            "kube-hunter",
+            "kube-bench",
+            "Trivy",
+            "Falco"
+          ],
+          "references": [
+            {
+              "title": "CIS Kubernetes Benchmark",
+              "url": "https://www.cisecurity.org/benchmark/kubernetes"
+            }
+          ],
+          "tags": [
+            "rbac",
+            "least-privilege",
+            "authorization"
+          ],
+          "source": "k8s-rbac-namespace-scoping"
+        }
+      ]
+    },
+    {
+      "title": "Kubernetes RBAC & API — API Server & Kubelet Exposure",
+      "items": [
+        {
+          "title": "Disable anonymous API server authentication",
+          "description": "Anonymous authentication on the API server can expose cluster information or actions to unauthenticated callers depending on RBAC bindings. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: Confirm --anonymous-auth=false on kube-apiserver and that system:anonymous / system:unauthenticated are not bound to meaningful roles. Test unauthenticated requests. Common tags: api, authentication, exposure.",
+          "severity": "critical",
+          "how_to_find": "Cluster audit (Kubernetes RBAC & API — API Server & Kubelet Exposure): Anonymous authentication on the API server can expose cluster information or actions to unauthenticated callers depending on RBAC bindings. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: Confirm --anonymous-auth=false on kube-apiserver and that system:anonymous / system:unauthenticated are not bound to meaningful roles. Test unauthenticated requests. Common tags: api, authentication, exposure. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: Disable anonymous API server authentication.",
+          "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
+          "tools": [
+            "kubectl",
+            "kube-hunter",
+            "kube-bench",
+            "Trivy",
+            "Falco"
+          ],
+          "references": [
+            {
+              "title": "CIS Kubernetes Benchmark",
+              "url": "https://www.cisecurity.org/benchmark/kubernetes"
+            }
+          ],
+          "tags": [
+            "api",
+            "authentication",
+            "exposure"
+          ],
+          "source": "k8s-api-anonymous-access"
+        },
+        {
+          "title": "Require authentication and authorization on the kubelet API",
+          "description": "A kubelet with anonymous auth enabled and authorization mode AlwaysAllow lets anyone reaching port 10250 run commands in pods and read logs. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: Confirm kubelet has --anonymous-auth=false and --authorization-mode=Webhook. Test the kubelet API (10250) for unauthenticated /pods, /exec, and /run endpoints. Common tags: kubelet, authentication, exposure.",
+          "severity": "critical",
+          "how_to_find": "Cluster audit (Kubernetes RBAC & API — API Server & Kubelet Exposure): A kubelet with anonymous auth enabled and authorization mode AlwaysAllow lets anyone reaching port 10250 run commands in pods and read logs. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: Confirm kubelet has --anonymous-auth=false and --authorization-mode=Webhook. Test the kubelet API (10250) for unauthenticated /pods, /exec, and /run endpoints. Common tags: kubelet, authentication, exposure. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: Require authentication and authorization on the kubelet API.",
+          "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
+          "tools": [
+            "kubectl",
+            "kube-hunter",
+            "kube-bench",
+            "Trivy",
+            "Falco"
+          ],
+          "references": [
+            {
+              "title": "CIS Kubernetes Benchmark",
+              "url": "https://www.cisecurity.org/benchmark/kubernetes"
+            }
+          ],
+          "tags": [
+            "kubelet",
+            "authentication",
+            "exposure"
+          ],
+          "source": "k8s-api-kubelet-auth"
+        },
+        {
+          "title": "Restrict network exposure of the API server",
+          "description": "An internet-reachable API server multiplies the risk of credential brute force, known CVEs, and misconfiguration exploitation. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Determine whether the API server endpoint is public, and confirm it is restricted via firewall/authorized networks, private endpoints, or a bastion. Scan exposed ports. Common tags: api, exposure, network.",
+          "severity": "critical",
+          "how_to_find": "Cluster audit (Kubernetes RBAC & API — API Server & Kubelet Exposure): An internet-reachable API server multiplies the risk of credential brute force, known CVEs, and misconfiguration exploitation. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Determine whether the API server endpoint is public, and confirm it is restricted via firewall/authorized networks, private endpoints, or a bastion. Scan exposed ports. Common tags: api, exposure, network. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: Restrict network exposure of the API server.",
+          "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
+          "tools": [
+            "kubectl",
+            "kube-hunter",
+            "kube-bench",
+            "Trivy",
+            "Falco"
+          ],
+          "references": [
+            {
+              "title": "CIS Kubernetes Benchmark",
+              "url": "https://www.cisecurity.org/benchmark/kubernetes"
+            }
+          ],
+          "tags": [
+            "api",
+            "exposure",
+            "network"
+          ],
+          "source": "k8s-api-network-exposure"
+        },
+        {
+          "title": "Verify API server audit logging is enabled",
+          "description": "Without audit logging, attacker API activity such as secret reads, exec, and RBAC changes goes undetected and uninvestigable. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm an audit policy and --audit-log-path (or webhook backend) are configured on the API server, with adequate retention and coverage of sensitive verbs/resources. Common tags: api, audit, detection.",
+          "severity": "critical",
+          "how_to_find": "Cluster audit (Kubernetes RBAC & API — API Server & Kubelet Exposure): Without audit logging, attacker API activity such as secret reads, exec, and RBAC changes goes undetected and uninvestigable. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm an audit policy and --audit-log-path (or webhook backend) are configured on the API server, with adequate retention and coverage of sensitive verbs/resources. Common tags: api, audit, detection. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: Verify API server audit logging is enabled.",
+          "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
+          "tools": [
+            "kubectl",
+            "kube-hunter",
+            "kube-bench",
+            "Trivy",
+            "Falco"
+          ],
+          "references": [
+            {
+              "title": "CIS Kubernetes Benchmark",
+              "url": "https://www.cisecurity.org/benchmark/kubernetes"
+            }
+          ],
+          "tags": [
+            "api",
+            "audit",
+            "detection"
+          ],
+          "source": "k8s-api-audit-logging"
+        }
+      ]
+    },
+    {
+      "title": "Kubernetes RBAC & API — Service Accounts & Tokens",
+      "items": [
+        {
+          "title": "Disable automatic service-account token mounting where unused",
+          "description": "By default a service-account token is mounted into every pod; if the workload does not call the API, this token is needless attack surface for a compromised container. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm automountServiceAccountToken is false on service accounts and pods that do not need API access. Verify token files are absent in those pods at runtime. Common tags: service-account, token, hardening.",
+          "severity": "low",
+          "how_to_find": "Cluster audit (Kubernetes RBAC & API — Service Accounts & Tokens): By default a service-account token is mounted into every pod; if the workload does not call the API, this token is needless attack surface for a compromised container. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm automountServiceAccountToken is false on service accounts and pods that do not need API access. Verify token files are absent in those pods at runtime. Common tags: service-account, token, hardening. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: Disable automatic service-account token mounting where unused.",
+          "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
+          "tools": [
+            "kubectl",
+            "kube-hunter",
+            "kube-bench",
+            "Trivy",
+            "Falco"
+          ],
+          "references": [
+            {
+              "title": "CIS Kubernetes Benchmark",
+              "url": "https://www.cisecurity.org/benchmark/kubernetes"
+            }
+          ],
+          "tags": [
+            "service-account",
+            "token",
+            "hardening"
+          ],
+          "source": "k8s-sa-automount-token"
+        },
+        {
+          "title": "Ensure the default service account has no granted permissions",
+          "description": "Workloads that do not specify a service account use the namespace default; any RBAC granted to it is inherited broadly and often unintentionally. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm the default service account in each namespace has no RoleBindings/ClusterRoleBindings, and that workloads use dedicated least-privilege service accounts. Common tags: service-account, rbac, least-privilege.",
+          "severity": "low",
+          "how_to_find": "Cluster audit (Kubernetes RBAC & API — Service Accounts & Tokens): Workloads that do not specify a service account use the namespace default; any RBAC granted to it is inherited broadly and often unintentionally. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm the default service account in each namespace has no RoleBindings/ClusterRoleBindings, and that workloads use dedicated least-privilege service accounts. Common tags: service-account, rbac, least-privilege. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: Ensure the default service account has no granted permissions.",
+          "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
+          "tools": [
+            "kubectl",
+            "kube-hunter",
+            "kube-bench",
+            "Trivy",
+            "Falco"
+          ],
+          "references": [
+            {
+              "title": "CIS Kubernetes Benchmark",
+              "url": "https://www.cisecurity.org/benchmark/kubernetes"
+            }
+          ],
+          "tags": [
+            "service-account",
+            "rbac",
+            "least-privilege"
+          ],
+          "source": "k8s-sa-default-permissions"
+        },
+        {
+          "title": "Test for service-account token abuse from a compromised pod",
+          "description": "A mounted token plus permissive RBAC lets an attacker enumerate and act on the API, often reaching secrets, exec, or privilege escalation. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: From a test pod, use the mounted token to probe API permissions (kubectl auth can-i --list). Confirm reachable verbs are minimal and cannot reach secrets, exec, or RBAC objects. Common tags: service-account, token, privesc.",
+          "severity": "low",
+          "how_to_find": "Cluster audit (Kubernetes RBAC & API — Service Accounts & Tokens): A mounted token plus permissive RBAC lets an attacker enumerate and act on the API, often reaching secrets, exec, or privilege escalation. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: From a test pod, use the mounted token to probe API permissions (kubectl auth can-i --list). Confirm reachable verbs are minimal and cannot reach secrets, exec, or RBAC objects. Common tags: service-account, token, privesc. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: Test for service-account token abuse from a compromised pod.",
+          "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
+          "tools": [
+            "kubectl",
+            "kube-hunter",
+            "kube-bench",
+            "Trivy",
+            "Falco"
+          ],
+          "references": [
+            {
+              "title": "CIS Kubernetes Benchmark",
+              "url": "https://www.cisecurity.org/benchmark/kubernetes"
+            }
+          ],
+          "tags": [
+            "service-account",
+            "token",
+            "privesc"
+          ],
+          "source": "k8s-sa-token-abuse"
+        },
+        {
+          "title": "Use bound, short-lived projected tokens",
+          "description": "Legacy long-lived secret-based tokens never expire and are highly valuable if leaked; bound projected tokens are audience-scoped and time-limited. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm workloads use projected service-account tokens (audience + expirationSeconds) rather than legacy auto-generated Secret tokens, and that legacy tokens are rotated/removed. Common tags: service-account, token, hardening.",
+          "severity": "medium",
+          "how_to_find": "Cluster audit (Kubernetes RBAC & API — Service Accounts & Tokens): Legacy long-lived secret-based tokens never expire and are highly valuable if leaked; bound projected tokens are audience-scoped and time-limited. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm workloads use projected service-account tokens (audience + expirationSeconds) rather than legacy auto-generated Secret tokens, and that legacy tokens are rotated/removed. Common tags: service-account, token, hardening. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: Use bound, short-lived projected tokens.",
+          "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
+          "tools": [
+            "kubectl",
+            "kube-hunter",
+            "kube-bench",
+            "Trivy",
+            "Falco"
+          ],
+          "references": [
+            {
+              "title": "CIS Kubernetes Benchmark",
+              "url": "https://www.cisecurity.org/benchmark/kubernetes"
+            }
+          ],
+          "tags": [
+            "service-account",
+            "token",
+            "hardening"
+          ],
+          "source": "k8s-sa-token-lifetime"
+        }
+      ]
+    },
+    {
+      "title": "Network & Secrets — Network Policies",
+      "items": [
+        {
+          "title": "Apply default-deny network policies",
+          "description": "By default all pods can talk to all other pods; without a default-deny baseline, a single compromised pod can reach every service in the cluster. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Confirm each namespace has a default-deny ingress (and egress) NetworkPolicy and that the CNI enforces policies. Test pod-to-pod connectivity that should be blocked. Common tags: network, lateral-movement, segmentation.",
+          "severity": "critical",
+          "how_to_find": "Cluster audit (Network & Secrets — Network Policies): By default all pods can talk to all other pods; without a default-deny baseline, a single compromised pod can reach every service in the cluster. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Confirm each namespace has a default-deny ingress (and egress) NetworkPolicy and that the CNI enforces policies. Test pod-to-pod connectivity that should be blocked. Common tags: network, lateral-movement, segmentation. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: Apply default-deny network policies.",
+          "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
+          "tools": [
+            "kubectl",
+            "kube-hunter",
+            "kube-bench",
+            "Trivy",
+            "Falco"
+          ],
+          "references": [
+            {
+              "title": "CIS Kubernetes Benchmark",
+              "url": "https://www.cisecurity.org/benchmark/kubernetes"
+            }
+          ],
+          "tags": [
+            "network",
+            "lateral-movement",
+            "segmentation"
+          ],
+          "source": "k8s-netpol-default-deny"
+        },
+        {
+          "title": "Restrict egress to limit exfiltration and C2",
+          "description": "Unrestricted egress lets a compromised pod reach the internet for command-and-control, data exfiltration, and pulling additional tooling. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm egress NetworkPolicies restrict outbound traffic to required destinations and block direct internet/metadata access. Test outbound to arbitrary hosts. Common tags: network, egress, exfiltration.",
+          "severity": "low",
+          "how_to_find": "Cluster audit (Network & Secrets — Network Policies): Unrestricted egress lets a compromised pod reach the internet for command-and-control, data exfiltration, and pulling additional tooling. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm egress NetworkPolicies restrict outbound traffic to required destinations and block direct internet/metadata access. Test outbound to arbitrary hosts. Common tags: network, egress, exfiltration. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: Restrict egress to limit exfiltration and C2.",
+          "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
+          "tools": [
+            "kubectl",
+            "kube-hunter",
+            "kube-bench",
+            "Trivy",
+            "Falco"
+          ],
+          "references": [
+            {
+              "title": "CIS Kubernetes Benchmark",
+              "url": "https://www.cisecurity.org/benchmark/kubernetes"
+            }
+          ],
+          "tags": [
+            "network",
+            "egress",
+            "exfiltration"
+          ],
+          "source": "k8s-netpol-egress-control"
+        },
+        {
+          "title": "Block pod access to the cloud metadata endpoint",
+          "description": "Reachable cloud metadata (169.254.169.254) from pods enables theft of node IAM credentials and SSRF-to-cloud escalation. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Confirm a NetworkPolicy or host-level rule blocks 169.254.169.254 from workloads, or that IMDSv2/hop-limit protections are enforced. Test reachability from a pod. Common tags: network, metadata, cloud.",
+          "severity": "critical",
+          "how_to_find": "Cluster audit (Network & Secrets — Network Policies): Reachable cloud metadata (169.254.169.254) from pods enables theft of node IAM credentials and SSRF-to-cloud escalation. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Confirm a NetworkPolicy or host-level rule blocks 169.254.169.254 from workloads, or that IMDSv2/hop-limit protections are enforced. Test reachability from a pod. Common tags: network, metadata, cloud. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: Block pod access to the cloud metadata endpoint.",
+          "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
+          "tools": [
+            "kubectl",
+            "kube-hunter",
+            "kube-bench",
+            "Trivy",
+            "Falco"
+          ],
+          "references": [
+            {
+              "title": "CIS Kubernetes Benchmark",
+              "url": "https://www.cisecurity.org/benchmark/kubernetes"
+            }
+          ],
+          "tags": [
+            "network",
+            "metadata",
+            "cloud"
+          ],
+          "source": "k8s-netpol-metadata-block"
+        },
+        {
+          "title": "Confirm the CNI actually enforces NetworkPolicy",
+          "description": "Some CNI plugins ignore NetworkPolicy objects, so policies appear configured but provide no real isolation — a dangerous false sense of security. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Verify the cluster CNI (Calico, Cilium, etc.) supports and enforces NetworkPolicy. Empirically test that a denied connection is actually dropped, not just declared. Common tags: network, cni, enforcement.",
+          "severity": "critical",
+          "how_to_find": "Cluster audit (Network & Secrets — Network Policies): Some CNI plugins ignore NetworkPolicy objects, so policies appear configured but provide no real isolation — a dangerous false sense of security. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Verify the cluster CNI (Calico, Cilium, etc.) supports and enforces NetworkPolicy. Empirically test that a denied connection is actually dropped, not just declared. Common tags: network, cni, enforcement. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: Confirm the CNI actually enforces NetworkPolicy.",
+          "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
+          "tools": [
+            "kubectl",
+            "kube-hunter",
+            "kube-bench",
+            "Trivy",
+            "Falco"
+          ],
+          "references": [
+            {
+              "title": "CIS Kubernetes Benchmark",
+              "url": "https://www.cisecurity.org/benchmark/kubernetes"
+            }
+          ],
+          "tags": [
+            "network",
+            "cni",
+            "enforcement"
+          ],
+          "source": "k8s-netpol-cni-enforcement"
+        }
+      ]
+    },
+    {
+      "title": "Network & Secrets — Secrets Management",
+      "items": [
+        {
+          "title": "Enable encryption at rest for Secrets in etcd",
+          "description": "By default Kubernetes Secrets are only base64-encoded in etcd; without encryption-at-rest, anyone reading etcd or its backups recovers all secrets in plaintext. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Confirm an EncryptionConfiguration is set on the API server (aescbc/kms provider, not identity-only) and that existing secrets were re-encrypted after enabling it. Common tags: secrets, encryption, etcd.",
+          "severity": "high",
+          "how_to_find": "Cluster audit (Network & Secrets — Secrets Management): By default Kubernetes Secrets are only base64-encoded in etcd; without encryption-at-rest, anyone reading etcd or its backups recovers all secrets in plaintext. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Confirm an EncryptionConfiguration is set on the API server (aescbc/kms provider, not identity-only) and that existing secrets were re-encrypted after enabling it. Common tags: secrets, encryption, etcd. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: Enable encryption at rest for Secrets in etcd.",
+          "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
+          "tools": [
+            "kubectl",
+            "kube-hunter",
+            "kube-bench",
+            "Trivy",
+            "Falco"
+          ],
+          "references": [
+            {
+              "title": "CIS Kubernetes Benchmark",
+              "url": "https://www.cisecurity.org/benchmark/kubernetes"
+            }
+          ],
+          "tags": [
+            "secrets",
+            "encryption",
+            "etcd"
+          ],
+          "source": "k8s-secrets-etcd-encryption"
+        },
+        {
+          "title": "Avoid injecting secrets as environment variables",
+          "description": "Secrets in environment variables leak via crash dumps, child-process inheritance, /proc, logs, and debug endpoints more readily than mounted files. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Identify secrets exposed through env (valueFrom.secretKeyRef / envFrom). Prefer mounted secret volumes with restricted permissions, and confirm env-based exposure is justified. Common tags: secrets, env, leakage.",
+          "severity": "low",
+          "how_to_find": "Cluster audit (Network & Secrets — Secrets Management): Secrets in environment variables leak via crash dumps, child-process inheritance, /proc, logs, and debug endpoints more readily than mounted files. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Identify secrets exposed through env (valueFrom.secretKeyRef / envFrom). Prefer mounted secret volumes with restricted permissions, and confirm env-based exposure is justified. Common tags: secrets, env, leakage. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: Avoid injecting secrets as environment variables.",
+          "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
+          "tools": [
+            "kubectl",
+            "kube-hunter",
+            "kube-bench",
+            "Trivy",
+            "Falco"
+          ],
+          "references": [
+            {
+              "title": "CIS Kubernetes Benchmark",
+              "url": "https://www.cisecurity.org/benchmark/kubernetes"
+            }
+          ],
+          "tags": [
+            "secrets",
+            "env",
+            "leakage"
+          ],
+          "source": "k8s-secrets-as-env"
+        },
+        {
+          "title": "Restrict permissions on mounted secret files",
+          "description": "Secret volumes mounted with overly permissive file modes can be read by unexpected processes or sidecars within the pod. This is a defense-in-depth gap that improves overall resilience when fixed. Assessors should confirm the control in practice, not only on paper: Confirm secret volume mounts use restrictive defaultMode (e.g. 0400), are mounted read-only, and are scoped to the specific containers that require them. Common tags: secrets, volumes, permissions.",
+          "severity": "high",
+          "how_to_find": "Cluster audit (Network & Secrets — Secrets Management): Secret volumes mounted with overly permissive file modes can be read by unexpected processes or sidecars within the pod. This is a defense-in-depth gap that improves overall resilience when fixed. Assessors should confirm the control in practice, not only on paper: Confirm secret volume mounts use restrictive defaultMode (e.g. 0400), are mounted read-only, and are scoped to the specific containers that require them. Common tags: secrets, volumes, permissions. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: Restrict permissions on mounted secret files.",
+          "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
+          "tools": [
+            "kubectl",
+            "kube-hunter",
+            "kube-bench",
+            "Trivy",
+            "Falco"
+          ],
+          "references": [
+            {
+              "title": "CIS Kubernetes Benchmark",
+              "url": "https://www.cisecurity.org/benchmark/kubernetes"
+            }
+          ],
+          "tags": [
+            "secrets",
+            "volumes",
+            "permissions"
+          ],
+          "source": "k8s-secrets-mounted-perms"
+        },
+        {
+          "title": "Prefer an external secrets manager with rotation",
+          "description": "Native Secrets lack first-class rotation and fine-grained audit; integrating an external manager reduces standing exposure and improves traceability. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm sensitive credentials are sourced from an external store (Vault, cloud KMS/Secrets Manager via CSI/External Secrets) with rotation and access auditing, not committed manifests. Common tags: secrets, rotation, management.",
+          "severity": "critical",
+          "how_to_find": "Cluster audit (Network & Secrets — Secrets Management): Native Secrets lack first-class rotation and fine-grained audit; integrating an external manager reduces standing exposure and improves traceability. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm sensitive credentials are sourced from an external store (Vault, cloud KMS/Secrets Manager via CSI/External Secrets) with rotation and access auditing, not committed manifests. Common tags: secrets, rotation, management. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: Prefer an external secrets manager with rotation.",
+          "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
+          "tools": [
+            "kubectl",
+            "kube-hunter",
+            "kube-bench",
+            "Trivy",
+            "Falco"
+          ],
+          "references": [
+            {
+              "title": "CIS Kubernetes Benchmark",
+              "url": "https://www.cisecurity.org/benchmark/kubernetes"
+            }
+          ],
+          "tags": [
+            "secrets",
+            "rotation",
+            "management"
+          ],
+          "source": "k8s-secrets-external-store"
+        }
+      ]
+    },
+    {
+      "title": "Network & Secrets — Ingress & Service Exposure",
+      "items": [
+        {
+          "title": "Enforce TLS on ingress and internal traffic",
+          "description": "Ingress without TLS exposes credentials and tokens to interception, and plaintext east-west traffic enables sniffing after a foothold. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm ingress resources terminate TLS with valid certificates, redirect HTTP to HTTPS, and that sensitive internal traffic uses mTLS where a mesh is present. Common tags: ingress, tls, exposure.",
+          "severity": "critical",
+          "how_to_find": "Cluster audit (Network & Secrets — Ingress & Service Exposure): Ingress without TLS exposes credentials and tokens to interception, and plaintext east-west traffic enables sniffing after a foothold. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm ingress resources terminate TLS with valid certificates, redirect HTTP to HTTPS, and that sensitive internal traffic uses mTLS where a mesh is present. Common tags: ingress, tls, exposure. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: Enforce TLS on ingress and internal traffic.",
+          "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
+          "tools": [
+            "kubectl",
+            "kube-hunter",
+            "kube-bench",
+            "Trivy",
+            "Falco"
+          ],
+          "references": [
+            {
+              "title": "CIS Kubernetes Benchmark",
+              "url": "https://www.cisecurity.org/benchmark/kubernetes"
+            }
+          ],
+          "tags": [
+            "ingress",
+            "tls",
+            "exposure"
+          ],
+          "source": "k8s-ingress-tls"
+        },
+        {
+          "title": "Identify unintentionally exposed Services (LoadBalancer/NodePort)",
+          "description": "LoadBalancer and NodePort services can expose internal applications, dashboards, and databases directly to the internet. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Enumerate Services of type LoadBalancer/NodePort and externalIPs. Confirm each exposure is intentional, authenticated, and firewalled; scan node ports externally. Common tags: ingress, exposure, recon.",
+          "severity": "low",
+          "how_to_find": "Cluster audit (Network & Secrets — Ingress & Service Exposure): LoadBalancer and NodePort services can expose internal applications, dashboards, and databases directly to the internet. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Enumerate Services of type LoadBalancer/NodePort and externalIPs. Confirm each exposure is intentional, authenticated, and firewalled; scan node ports externally. Common tags: ingress, exposure, recon. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: Identify unintentionally exposed Services (LoadBalancer/NodePort).",
+          "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
+          "tools": [
+            "kubectl",
+            "kube-hunter",
+            "kube-bench",
+            "Trivy",
+            "Falco"
+          ],
+          "references": [
+            {
+              "title": "CIS Kubernetes Benchmark",
+              "url": "https://www.cisecurity.org/benchmark/kubernetes"
+            }
+          ],
+          "tags": [
+            "ingress",
+            "exposure",
+            "recon"
+          ],
+          "source": "k8s-ingress-exposed-services"
+        },
+        {
+          "title": "Check for exposed Kubernetes Dashboard and admin UIs",
+          "description": "An exposed or weakly protected Kubernetes Dashboard (or app admin panel) has historically led directly to full cluster compromise (e.g. the Tesla cryptojacking incident). This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Confirm the Dashboard, if deployed, is not internet-exposed, requires authentication, and runs with a least-privilege service account. Probe for default/unauthenticated access. Common tags: ingress, dashboard, exposure.",
+          "severity": "critical",
+          "how_to_find": "Cluster audit (Network & Secrets — Ingress & Service Exposure): An exposed or weakly protected Kubernetes Dashboard (or app admin panel) has historically led directly to full cluster compromise (e.g. the Tesla cryptojacking incident). This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Confirm the Dashboard, if deployed, is not internet-exposed, requires authentication, and runs with a least-privilege service account. Probe for default/unauthenticated access. Common tags: ingress, dashboard, exposure. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: Check for exposed Kubernetes Dashboard and admin UIs.",
+          "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
+          "tools": [
+            "kubectl",
+            "kube-hunter",
+            "kube-bench",
+            "Trivy",
+            "Falco"
+          ],
+          "references": [
+            {
+              "title": "CIS Kubernetes Benchmark",
+              "url": "https://www.cisecurity.org/benchmark/kubernetes"
+            }
+          ],
+          "tags": [
+            "ingress",
+            "dashboard",
+            "exposure"
+          ],
+          "source": "k8s-ingress-dashboard-exposure"
+        },
+        {
+          "title": "Review ingress controller annotations for injection risks",
+          "description": "Ingress controllers like ingress-nginx have had vulnerabilities (e.g. configuration-snippet injection) where attacker-controlled annotations lead to RCE or config tampering. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Confirm the ingress controller is patched, snippet/config annotations are disabled or restricted, and that untrusted tenants cannot create arbitrary ingress annotations. Common tags: ingress, injection, cve.",
+          "severity": "critical",
+          "how_to_find": "Cluster audit (Network & Secrets — Ingress & Service Exposure): Ingress controllers like ingress-nginx have had vulnerabilities (e.g. configuration-snippet injection) where attacker-controlled annotations lead to RCE or config tampering. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Confirm the ingress controller is patched, snippet/config annotations are disabled or restricted, and that untrusted tenants cannot create arbitrary ingress annotations. Common tags: ingress, injection, cve. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: Review ingress controller annotations for injection risks.",
+          "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
+          "tools": [
+            "kubectl",
+            "kube-hunter",
+            "kube-bench",
+            "Trivy",
+            "Falco"
+          ],
+          "references": [
+            {
+              "title": "CIS Kubernetes Benchmark",
+              "url": "https://www.cisecurity.org/benchmark/kubernetes"
+            }
+          ],
+          "tags": [
+            "ingress",
+            "injection",
+            "cve"
+          ],
+          "source": "k8s-ingress-annotation-injection"
+        }
+      ]
+    },
+    {
+      "title": "Cluster Hardening & Supply Chain — Admission Control & Policy",
+      "items": [
+        {
+          "title": "Enforce Pod Security Admission (restricted) on namespaces",
+          "description": "PodSecurityPolicy is removed; without Pod Security Admission or an equivalent, nothing prevents privileged, host-sharing, or root workloads from being created. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Confirm namespaces carry pod-security.kubernetes.io/enforce labels (baseline or restricted) and that the admission plugin is enabled. Test that a privileged pod is rejected. Common tags: admission, policy, hardening.",
+          "severity": "critical",
+          "how_to_find": "Cluster audit (Cluster Hardening & Supply Chain — Admission Control & Policy): PodSecurityPolicy is removed; without Pod Security Admission or an equivalent, nothing prevents privileged, host-sharing, or root workloads from being created. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Confirm namespaces carry pod-security.kubernetes.io/enforce labels (baseline or restricted) and that the admission plugin is enabled. Test that a privileged pod is rejected. Common tags: admission, policy, hardening. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: Enforce Pod Security Admission (restricted) on namespaces.",
+          "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
+          "tools": [
+            "kubectl",
+            "kube-hunter",
+            "kube-bench",
+            "Trivy",
+            "Falco"
+          ],
+          "references": [
+            {
+              "title": "CIS Kubernetes Benchmark",
+              "url": "https://www.cisecurity.org/benchmark/kubernetes"
+            }
+          ],
+          "tags": [
+            "admission",
+            "policy",
+            "hardening"
+          ],
+          "source": "k8s-admission-psa"
+        },
+        {
+          "title": "Deploy a policy engine (OPA/Gatekeeper or Kyverno)",
+          "description": "A policy engine enforces organization-specific guardrails — trusted registries, no latest tags, required labels, blocked capabilities — beyond what PSA covers. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm Gatekeeper or Kyverno is installed with constraints/policies in enforce (not audit-only) mode, and that policies cover registry, securityContext, and resource rules. Test enforcement. Common tags: admission, policy, governance.",
+          "severity": "critical",
+          "how_to_find": "Cluster audit (Cluster Hardening & Supply Chain — Admission Control & Policy): A policy engine enforces organization-specific guardrails — trusted registries, no latest tags, required labels, blocked capabilities — beyond what PSA covers. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm Gatekeeper or Kyverno is installed with constraints/policies in enforce (not audit-only) mode, and that policies cover registry, securityContext, and resource rules. Test enforcement. Common tags: admission, policy, governance. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: Deploy a policy engine (OPA/Gatekeeper or Kyverno).",
+          "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
+          "tools": [
+            "kubectl",
+            "kube-hunter",
+            "kube-bench",
+            "Trivy",
+            "Falco"
+          ],
+          "references": [
+            {
+              "title": "CIS Kubernetes Benchmark",
+              "url": "https://www.cisecurity.org/benchmark/kubernetes"
+            }
+          ],
+          "tags": [
+            "admission",
+            "policy",
+            "governance"
+          ],
+          "source": "k8s-admission-policy-engine"
+        },
+        {
+          "title": "Harden admission webhook configuration",
+          "description": "Misconfigured admission webhooks (failurePolicy: Ignore, overly broad rules, or a compromised webhook) can be bypassed or abused to weaken or block cluster controls. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Review ValidatingWebhookConfigurations for failurePolicy, timeout, namespaceSelector scope, and TLS. Confirm critical webhooks fail closed and the webhook service is protected. Common tags: admission, webhook, hardening.",
+          "severity": "low",
+          "how_to_find": "Cluster audit (Cluster Hardening & Supply Chain — Admission Control & Policy): Misconfigured admission webhooks (failurePolicy: Ignore, overly broad rules, or a compromised webhook) can be bypassed or abused to weaken or block cluster controls. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Review ValidatingWebhookConfigurations for failurePolicy, timeout, namespaceSelector scope, and TLS. Confirm critical webhooks fail closed and the webhook service is protected. Common tags: admission, webhook, hardening. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: Harden admission webhook configuration.",
+          "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
+          "tools": [
+            "kubectl",
+            "kube-hunter",
+            "kube-bench",
+            "Trivy",
+            "Falco"
+          ],
+          "references": [
+            {
+              "title": "CIS Kubernetes Benchmark",
+              "url": "https://www.cisecurity.org/benchmark/kubernetes"
+            }
+          ],
+          "tags": [
+            "admission",
+            "webhook",
+            "hardening"
+          ],
+          "source": "k8s-admission-webhook-hardening"
+        },
+        {
+          "title": "Enforce supply-chain policy at admission (signing/provenance)",
+          "description": "Admission-time verification of image signatures and provenance attestations stops untrusted or tampered images from ever running. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm an admission policy verifies Cosign/Sigstore signatures and/or SLSA provenance, blocks unsigned images, and that the verification keys/policy are managed securely. Common tags: admission, supply-chain, signing.",
+          "severity": "critical",
+          "how_to_find": "Cluster audit (Cluster Hardening & Supply Chain — Admission Control & Policy): Admission-time verification of image signatures and provenance attestations stops untrusted or tampered images from ever running. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm an admission policy verifies Cosign/Sigstore signatures and/or SLSA provenance, blocks unsigned images, and that the verification keys/policy are managed securely. Common tags: admission, supply-chain, signing. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: Enforce supply-chain policy at admission (signing/provenance).",
+          "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
+          "tools": [
+            "kubectl",
+            "kube-hunter",
+            "kube-bench",
+            "Trivy",
+            "Falco"
+          ],
+          "references": [
+            {
+              "title": "CIS Kubernetes Benchmark",
+              "url": "https://www.cisecurity.org/benchmark/kubernetes"
+            }
+          ],
+          "tags": [
+            "admission",
+            "supply-chain",
+            "signing"
+          ],
+          "source": "k8s-admission-supply-chain-policy"
+        }
+      ]
+    },
+    {
+      "title": "Cluster Hardening & Supply Chain — etcd Security",
+      "items": [
+        {
+          "title": "Restrict network exposure of etcd",
+          "description": "etcd reachable beyond the control plane allows direct reads/writes of all cluster state and secrets, bypassing the API server and RBAC entirely. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: Confirm etcd listens only on the control-plane network, is firewalled from workloads, and that ports 2379/2380 are not reachable from pods or the internet. Test reachability. Common tags: etcd, exposure, network.",
+          "severity": "low",
+          "how_to_find": "Cluster audit (Cluster Hardening & Supply Chain — etcd Security): etcd reachable beyond the control plane allows direct reads/writes of all cluster state and secrets, bypassing the API server and RBAC entirely. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: Confirm etcd listens only on the control-plane network, is firewalled from workloads, and that ports 2379/2380 are not reachable from pods or the internet. Test reachability. Common tags: etcd, exposure, network. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: Restrict network exposure of etcd.",
+          "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
+          "tools": [
+            "kubectl",
+            "kube-hunter",
+            "kube-bench",
+            "Trivy",
+            "Falco"
+          ],
+          "references": [
+            {
+              "title": "CIS Kubernetes Benchmark",
+              "url": "https://www.cisecurity.org/benchmark/kubernetes"
+            }
+          ],
+          "tags": [
+            "etcd",
+            "exposure",
+            "network"
+          ],
+          "source": "k8s-etcd-exposure"
+        },
+        {
+          "title": "Require mutual TLS for etcd client and peer traffic",
+          "description": "Without client-cert authentication and peer TLS, anyone with network access to etcd can read or modify cluster data without credentials. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: Confirm etcd is started with --client-cert-auth, --peer-client-cert-auth, and TLS cert/key flags. Verify unauthenticated/clear-text connections to etcd are refused. Common tags: etcd, tls, authentication.",
+          "severity": "critical",
+          "how_to_find": "Cluster audit (Cluster Hardening & Supply Chain — etcd Security): Without client-cert authentication and peer TLS, anyone with network access to etcd can read or modify cluster data without credentials. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: Confirm etcd is started with --client-cert-auth, --peer-client-cert-auth, and TLS cert/key flags. Verify unauthenticated/clear-text connections to etcd are refused. Common tags: etcd, tls, authentication. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: Require mutual TLS for etcd client and peer traffic.",
+          "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
+          "tools": [
+            "kubectl",
+            "kube-hunter",
+            "kube-bench",
+            "Trivy",
+            "Falco"
+          ],
+          "references": [
+            {
+              "title": "CIS Kubernetes Benchmark",
+              "url": "https://www.cisecurity.org/benchmark/kubernetes"
+            }
+          ],
+          "tags": [
+            "etcd",
+            "tls",
+            "authentication"
+          ],
+          "source": "k8s-etcd-mutual-tls"
+        },
+        {
+          "title": "Protect and encrypt etcd backups",
+          "description": "etcd snapshots contain every secret and config in the cluster; unencrypted or world-readable backups are a complete cluster breach if obtained. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Confirm etcd backups are encrypted, access-controlled, stored off-node, and that backup storage (e.g. object storage) is private. Verify restore procedures are tested. Common tags: etcd, backup, encryption.",
+          "severity": "high",
+          "how_to_find": "Cluster audit (Cluster Hardening & Supply Chain — etcd Security): etcd snapshots contain every secret and config in the cluster; unencrypted or world-readable backups are a complete cluster breach if obtained. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Confirm etcd backups are encrypted, access-controlled, stored off-node, and that backup storage (e.g. object storage) is private. Verify restore procedures are tested. Common tags: etcd, backup, encryption. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: Protect and encrypt etcd backups.",
+          "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
+          "tools": [
+            "kubectl",
+            "kube-hunter",
+            "kube-bench",
+            "Trivy",
+            "Falco"
+          ],
+          "references": [
+            {
+              "title": "CIS Kubernetes Benchmark",
+              "url": "https://www.cisecurity.org/benchmark/kubernetes"
+            }
+          ],
+          "tags": [
+            "etcd",
+            "backup",
+            "encryption"
+          ],
+          "source": "k8s-etcd-backup-protection"
+        },
+        {
+          "title": "Confirm data-at-rest encryption covers etcd contents",
+          "description": "Even with network controls, plaintext secrets in the etcd datastore are exposed to disk theft, snapshot leaks, and host compromise. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Confirm the API server EncryptionConfiguration encrypts secrets (ideally via a KMS provider) and that etcd disk volumes are themselves encrypted at the storage layer. Common tags: etcd, encryption, secrets.",
+          "severity": "high",
+          "how_to_find": "Cluster audit (Cluster Hardening & Supply Chain — etcd Security): Even with network controls, plaintext secrets in the etcd datastore are exposed to disk theft, snapshot leaks, and host compromise. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Confirm the API server EncryptionConfiguration encrypts secrets (ideally via a KMS provider) and that etcd disk volumes are themselves encrypted at the storage layer. Common tags: etcd, encryption, secrets. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: Confirm data-at-rest encryption covers etcd contents.",
+          "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
+          "tools": [
+            "kubectl",
+            "kube-hunter",
+            "kube-bench",
+            "Trivy",
+            "Falco"
+          ],
+          "references": [
+            {
+              "title": "CIS Kubernetes Benchmark",
+              "url": "https://www.cisecurity.org/benchmark/kubernetes"
+            }
+          ],
+          "tags": [
+            "etcd",
+            "encryption",
+            "secrets"
+          ],
+          "source": "k8s-etcd-data-encryption"
+        }
+      ]
+    },
+    {
+      "title": "Cluster Hardening & Supply Chain — CIS Benchmark & Control-Plane Hardening",
+      "items": [
+        {
+          "title": "Run kube-bench against control plane and nodes",
+          "description": "The CIS Kubernetes Benchmark codifies hundreds of hardening checks; running kube-bench surfaces insecure flags and file permissions that manual review misses. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Execute kube-bench on control-plane and worker nodes, triage FAIL/WARN findings against the current CIS version, and confirm a remediation backlog with owners exists. Common tags: cis, benchmark, hardening.",
+          "severity": "medium",
+          "how_to_find": "Cluster audit (Cluster Hardening & Supply Chain — CIS Benchmark & Control-Plane Hardening): The CIS Kubernetes Benchmark codifies hundreds of hardening checks; running kube-bench surfaces insecure flags and file permissions that manual review misses. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Execute kube-bench on control-plane and worker nodes, triage FAIL/WARN findings against the current CIS version, and confirm a remediation backlog with owners exists. Common tags: cis, benchmark, hardening. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: Run kube-bench against control plane and nodes.",
+          "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
+          "tools": [
+            "kubectl",
+            "kube-hunter",
+            "kube-bench",
+            "Trivy",
+            "Falco"
+          ],
+          "references": [
+            {
+              "title": "CIS Kubernetes Benchmark",
+              "url": "https://www.cisecurity.org/benchmark/kubernetes"
+            }
+          ],
+          "tags": [
+            "cis",
+            "benchmark",
+            "hardening"
+          ],
+          "source": "k8s-cis-kube-bench-run"
+        },
+        {
+          "title": "Harden API server flags",
+          "description": "Insecure API server flags (e.g. enabled insecure port, permissive authorization-mode, missing admission plugins) directly weaken cluster authentication and authorization. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Review kube-apiserver flags: --authorization-mode includes RBAC/Node, --insecure-port=0, profiling disabled, and required admission plugins (e.g. NodeRestriction) enabled. Common tags: cis, control-plane, hardening.",
+          "severity": "low",
+          "how_to_find": "Cluster audit (Cluster Hardening & Supply Chain — CIS Benchmark & Control-Plane Hardening): Insecure API server flags (e.g. enabled insecure port, permissive authorization-mode, missing admission plugins) directly weaken cluster authentication and authorization. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Review kube-apiserver flags: --authorization-mode includes RBAC/Node, --insecure-port=0, profiling disabled, and required admission plugins (e.g. NodeRestriction) enabled. Common tags: cis, control-plane, hardening. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: Harden API server flags.",
+          "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
+          "tools": [
+            "kubectl",
+            "kube-hunter",
+            "kube-bench",
+            "Trivy",
+            "Falco"
+          ],
+          "references": [
+            {
+              "title": "CIS Kubernetes Benchmark",
+              "url": "https://www.cisecurity.org/benchmark/kubernetes"
+            }
+          ],
+          "tags": [
+            "cis",
+            "control-plane",
+            "hardening"
+          ],
+          "source": "k8s-cis-apiserver-flags"
+        },
+        {
+          "title": "Harden kubelet configuration",
+          "description": "Kubelet defaults can permit anonymous access, read-only port exposure, and unrotated certs, providing node and pod control to attackers. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Confirm kubelet has anonymous-auth disabled, authorization-mode Webhook, read-only-port 0, rotateCertificates enabled, and a tight protectKernelDefaults/streamingConnectionIdleTimeout posture. Common tags: cis, kubelet, hardening.",
+          "severity": "low",
+          "how_to_find": "Cluster audit (Cluster Hardening & Supply Chain — CIS Benchmark & Control-Plane Hardening): Kubelet defaults can permit anonymous access, read-only port exposure, and unrotated certs, providing node and pod control to attackers. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Confirm kubelet has anonymous-auth disabled, authorization-mode Webhook, read-only-port 0, rotateCertificates enabled, and a tight protectKernelDefaults/streamingConnectionIdleTimeout posture. Common tags: cis, kubelet, hardening. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: Harden kubelet configuration.",
+          "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
+          "tools": [
+            "kubectl",
+            "kube-hunter",
+            "kube-bench",
+            "Trivy",
+            "Falco"
+          ],
+          "references": [
+            {
+              "title": "CIS Kubernetes Benchmark",
+              "url": "https://www.cisecurity.org/benchmark/kubernetes"
+            }
+          ],
+          "tags": [
+            "cis",
+            "kubelet",
+            "hardening"
+          ],
+          "source": "k8s-cis-kubelet-hardening"
+        },
+        {
+          "title": "Harden the node OS and component file permissions",
+          "description": "Insecure permissions on kubeconfig, manifests, and PKI files, plus an unhardened host OS, let a node-local attacker read credentials and tamper with components. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm control-plane manifest/PKI files have restrictive ownership/modes (per CIS), the host OS is patched and CIS-hardened, and runtime threat detection (e.g. Falco) is deployed. Common tags: cis, node, hardening.",
+          "severity": "medium",
+          "how_to_find": "Cluster audit (Cluster Hardening & Supply Chain — CIS Benchmark & Control-Plane Hardening): Insecure permissions on kubeconfig, manifests, and PKI files, plus an unhardened host OS, let a node-local attacker read credentials and tamper with components. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm control-plane manifest/PKI files have restrictive ownership/modes (per CIS), the host OS is patched and CIS-hardened, and runtime threat detection (e.g. Falco) is deployed. Common tags: cis, node, hardening. Run `kubectl auth can-i --list`, kube-bench, kube-hunter, and Trivy on images. Validate control: Harden the node OS and component file permissions.",
+          "how_to_fix": "Private API server, RBAC least privilege, Pod Security Standards, network policies default-deny, no privileged pods or docker.sock mounts, scan images in CI, sign images, encrypt secrets with CSI.",
+          "tools": [
+            "kubectl",
+            "kube-hunter",
+            "kube-bench",
+            "Trivy",
+            "Falco"
+          ],
+          "references": [
+            {
+              "title": "CIS Kubernetes Benchmark",
+              "url": "https://www.cisecurity.org/benchmark/kubernetes"
+            }
+          ],
+          "tags": [
+            "cis",
+            "node",
+            "hardening"
+          ],
+          "source": "k8s-cis-node-os-hardening"
         }
       ]
     }

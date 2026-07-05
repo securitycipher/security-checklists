@@ -1,0 +1,1829 @@
+{
+  "id": "network",
+  "title": "Network",
+  "sections": [
+    {
+      "title": "Host Discovery & Scanning — Host Discovery",
+      "items": [
+        {
+          "title": "Perform ICMP ping sweep across in-scope ranges",
+          "description": "Send ICMP echo, timestamp, and address-mask requests across the target CIDR ranges to map responsive hosts before port scanning. Informational finding useful for hardening and compliance alignment. Assessors should confirm the control in practice, not only on paper: Confirm which hosts respond to ICMP and which require alternate discovery; document filtered ranges where ICMP is dropped. Common tags: discovery, icmp, recon.",
+          "severity": "info",
+          "how_to_find": "Confirm which hosts respond to ICMP and which require alternate discovery; document filtered ranges where ICMP is dropped.",
+          "how_to_fix": "Remediate \"Perform ICMP ping sweep across in-scope ranges\" by applying vendor and CIS/OWASP hardening guidance for Host Discovery & Scanning — Host Discovery. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "nmap",
+            "fping",
+            "masscan"
+          ],
+          "references": [
+            {
+              "title": "HackTricks - Pentesting Network",
+              "url": "https://hacktricks.wiki/en/generic-methodologies-and-resources/pentesting-network/index.html"
+            },
+            {
+              "title": "NIST SP 800-115",
+              "url": "https://csrc.nist.gov/pubs/sp/800/115/final"
+            }
+          ],
+          "tags": [
+            "discovery",
+            "icmp",
+            "recon"
+          ],
+          "source": "net-host-discovery-icmp-sweep"
+        },
+        {
+          "title": "Enumerate local hosts via ARP scanning",
+          "description": "On a local segment, ARP requests reliably enumerate live hosts even when ICMP is filtered, since ARP cannot be firewalled at layer 2. This is a defense-in-depth gap that improves overall resilience when fixed. Assessors should confirm the control in practice, not only on paper: Verify the full list of MAC/IP pairs on the local broadcast domain and cross-reference against expected asset inventory. Common tags: discovery, arp, layer2.",
+          "severity": "low",
+          "how_to_find": "Verify the full list of MAC/IP pairs on the local broadcast domain and cross-reference against expected asset inventory.",
+          "how_to_fix": "Remediate \"Enumerate local hosts via ARP scanning\" by applying vendor and CIS/OWASP hardening guidance for Host Discovery & Scanning — Host Discovery. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "arp-scan",
+            "nmap",
+            "netdiscover"
+          ],
+          "references": [
+            {
+              "title": "HackTricks - Pentesting Network",
+              "url": "https://hacktricks.wiki/en/generic-methodologies-and-resources/pentesting-network/index.html"
+            }
+          ],
+          "tags": [
+            "discovery",
+            "arp",
+            "layer2"
+          ],
+          "source": "net-host-discovery-arp-scan"
+        },
+        {
+          "title": "Discover hosts behind ICMP filtering via TCP/UDP probes",
+          "description": "Use TCP SYN/ACK and UDP probes to common ports to identify hosts that drop ICMP but still respond to transport-layer probes. This is a defense-in-depth gap that improves overall resilience when fixed. Assessors should confirm the control in practice, not only on paper: Confirm hosts found via TCP/UDP that were missed by ICMP; ensure no in-scope subnet is silently skipped. Common tags: discovery, tcp, udp.",
+          "severity": "low",
+          "how_to_find": "Confirm hosts found via TCP/UDP that were missed by ICMP; ensure no in-scope subnet is silently skipped.",
+          "how_to_fix": "Remediate \"Discover hosts behind ICMP filtering via TCP/UDP probes\" by applying vendor and CIS/OWASP hardening guidance for Host Discovery & Scanning — Host Discovery. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "nmap",
+            "masscan",
+            "hping3"
+          ],
+          "references": [
+            {
+              "title": "Nmap Host Discovery Reference",
+              "url": "https://nmap.org/book/man-host-discovery.html"
+            }
+          ],
+          "tags": [
+            "discovery",
+            "tcp",
+            "udp"
+          ],
+          "source": "net-host-discovery-tcp-udp-probe"
+        },
+        {
+          "title": "Validate discovered hosts against the agreed scope",
+          "description": "Cross-check every discovered live host against the engagement scope to avoid testing out-of-scope or third-party systems. Informational finding useful for hardening and compliance alignment. Assessors should confirm the control in practice, not only on paper: Ensure each target IP/range falls inside the authorized scope; flag and exclude any out-of-scope responders. Common tags: discovery, scope, rules-of-engagement.",
+          "severity": "info",
+          "how_to_find": "Ensure each target IP/range falls inside the authorized scope; flag and exclude any out-of-scope responders.",
+          "how_to_fix": "Remediate \"Validate discovered hosts against the agreed scope\" by applying vendor and CIS/OWASP hardening guidance for Host Discovery & Scanning — Host Discovery. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "nmap",
+            "masscan"
+          ],
+          "references": [
+            {
+              "title": "NIST SP 800-115",
+              "url": "https://csrc.nist.gov/pubs/sp/800/115/final"
+            }
+          ],
+          "tags": [
+            "discovery",
+            "scope",
+            "rules-of-engagement"
+          ],
+          "source": "net-host-discovery-scope-validation"
+        }
+      ]
+    },
+    {
+      "title": "Host Discovery & Scanning — Port Scanning",
+      "items": [
+        {
+          "title": "Run a full TCP port scan (all 65535 ports)",
+          "description": "A full-range TCP scan ensures services running on non-standard high ports are not missed by a default top-1000 scan. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm all 65535 TCP ports were scanned per host and that any open high ports are followed up with service detection. Common tags: scanning, tcp, ports.",
+          "severity": "medium",
+          "how_to_find": "Confirm all 65535 TCP ports were scanned per host and that any open high ports are followed up with service detection.",
+          "how_to_fix": "Remediate \"Run a full TCP port scan (all 65535 ports)\" by applying vendor and CIS/OWASP hardening guidance for Host Discovery & Scanning — Port Scanning. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "nmap",
+            "masscan",
+            "rustscan"
+          ],
+          "references": [
+            {
+              "title": "Nmap Port Scanning Techniques",
+              "url": "https://nmap.org/book/man-port-scanning-techniques.html"
+            },
+            {
+              "title": "HackTricks - Pentesting Network",
+              "url": "https://hacktricks.wiki/en/generic-methodologies-and-resources/pentesting-network/index.html"
+            }
+          ],
+          "tags": [
+            "scanning",
+            "tcp",
+            "ports"
+          ],
+          "source": "net-port-scanning-tcp-full"
+        },
+        {
+          "title": "Scan key UDP services",
+          "description": "UDP services (DNS, SNMP, NetBIOS, TFTP, IKE, NTP) are frequently overlooked yet expose high-value attack surface and amplification vectors. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Verify that common UDP ports are scanned and that open|filtered results are validated with service-specific probes. Common tags: scanning, udp, ports.",
+          "severity": "medium",
+          "how_to_find": "Verify that common UDP ports are scanned and that open|filtered results are validated with service-specific probes.",
+          "how_to_fix": "Remediate \"Scan key UDP services\" by applying vendor and CIS/OWASP hardening guidance for Host Discovery & Scanning — Port Scanning. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "nmap",
+            "unicornscan"
+          ],
+          "references": [
+            {
+              "title": "Nmap UDP Scan Reference",
+              "url": "https://nmap.org/book/scan-methods-udp-scan.html"
+            }
+          ],
+          "tags": [
+            "scanning",
+            "udp",
+            "ports"
+          ],
+          "source": "net-port-scanning-udp"
+        },
+        {
+          "title": "Tune scan timing and apply IDS/firewall evasion",
+          "description": "Aggressive scanning can trip IDS/IPS and corrupt results; tune timing templates, fragmentation, and decoys to balance stealth and accuracy. This is a defense-in-depth gap that improves overall resilience when fixed. Assessors should confirm the control in practice, not only on paper: Confirm scan timing matches rules of engagement; verify whether evasion (fragmentation, decoys, source-port spoofing) changes results, indicating filtering. Common tags: scanning, evasion, ids.",
+          "severity": "low",
+          "how_to_find": "Confirm scan timing matches rules of engagement; verify whether evasion (fragmentation, decoys, source-port spoofing) changes results, indicating filtering.",
+          "how_to_fix": "Remediate \"Tune scan timing and apply IDS/firewall evasion\" by applying vendor and CIS/OWASP hardening guidance for Host Discovery & Scanning — Port Scanning. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "nmap",
+            "hping3"
+          ],
+          "references": [
+            {
+              "title": "Nmap Firewall/IDS Evasion",
+              "url": "https://nmap.org/book/man-bypass-firewalls-ids.html"
+            },
+            {
+              "title": "MITRE ATT&CK - Network Service Discovery (T1046)",
+              "url": "https://attack.mitre.org/techniques/T1046/"
+            }
+          ],
+          "tags": [
+            "scanning",
+            "evasion",
+            "ids"
+          ],
+          "source": "net-port-scanning-timing-evasion"
+        },
+        {
+          "title": "Use a fast mass scanner for large ranges then confirm with nmap",
+          "description": "For large external ranges, a fast async scanner identifies open ports quickly; results should be re-confirmed with nmap service detection to reduce false positives. Informational finding useful for hardening and compliance alignment. Assessors should confirm the control in practice, not only on paper: Verify mass-scan open ports are re-validated with a slower accurate scan and that rate limits did not drop responses. Common tags: scanning, masscan, coverage.",
+          "severity": "info",
+          "how_to_find": "Verify mass-scan open ports are re-validated with a slower accurate scan and that rate limits did not drop responses.",
+          "how_to_fix": "Remediate \"Use a fast mass scanner for large ranges then confirm with nmap\" by applying vendor and CIS/OWASP hardening guidance for Host Discovery & Scanning — Port Scanning. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "masscan",
+            "nmap",
+            "rustscan"
+          ],
+          "references": [
+            {
+              "title": "Masscan Documentation",
+              "url": "https://github.com/robertdavidgraham/masscan"
+            }
+          ],
+          "tags": [
+            "scanning",
+            "masscan",
+            "coverage"
+          ],
+          "source": "net-port-scanning-mass-discovery"
+        }
+      ]
+    },
+    {
+      "title": "Host Discovery & Scanning — OS & Service Fingerprinting",
+      "items": [
+        {
+          "title": "Perform OS fingerprinting on live hosts",
+          "description": "TCP/IP stack fingerprinting identifies the operating system and version, which narrows down applicable exploits and EOL risk. This is a defense-in-depth gap that improves overall resilience when fixed. Assessors should confirm the control in practice, not only on paper: Confirm OS guesses with multiple data points; flag end-of-life operating systems (e.g. Windows 7/Server 2008, CentOS 6). Common tags: fingerprint, os-detection, recon.",
+          "severity": "low",
+          "how_to_find": "Confirm OS guesses with multiple data points; flag end-of-life operating systems (e.g. Windows 7/Server 2008, CentOS 6).",
+          "how_to_fix": "Remediate \"Perform OS fingerprinting on live hosts\" by applying vendor and CIS/OWASP hardening guidance for Host Discovery & Scanning — OS & Service Fingerprinting. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "nmap",
+            "p0f"
+          ],
+          "references": [
+            {
+              "title": "Nmap OS Detection",
+              "url": "https://nmap.org/book/osdetect.html"
+            }
+          ],
+          "tags": [
+            "fingerprint",
+            "os-detection",
+            "recon"
+          ],
+          "source": "net-os-fingerprint-os-detection"
+        },
+        {
+          "title": "Detect service and version banners on open ports",
+          "description": "Service/version detection maps each open port to a product and version, the foundation for CVE matching and default-credential checks. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Verify every open port has an identified service/version and capture banners for offline CVE lookup. Common tags: fingerprint, version-detection, banner.",
+          "severity": "medium",
+          "how_to_find": "Verify every open port has an identified service/version and capture banners for offline CVE lookup.",
+          "how_to_fix": "Remediate \"Detect service and version banners on open ports\" by applying vendor and CIS/OWASP hardening guidance for Host Discovery & Scanning — OS & Service Fingerprinting. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "nmap",
+            "amap",
+            "netcat"
+          ],
+          "references": [
+            {
+              "title": "Nmap Version Detection",
+              "url": "https://nmap.org/book/vscan.html"
+            },
+            {
+              "title": "HackTricks - Pentesting Network",
+              "url": "https://hacktricks.wiki/en/generic-methodologies-and-resources/pentesting-network/index.html"
+            }
+          ],
+          "tags": [
+            "fingerprint",
+            "version-detection",
+            "banner"
+          ],
+          "source": "net-os-fingerprint-service-version"
+        },
+        {
+          "title": "Run safe NSE discovery scripts for deeper fingerprinting",
+          "description": "Nmap Scripting Engine default/discovery scripts extract richer service metadata (TLS info, SMB OS, HTTP titles) without intrusive exploitation. Informational finding useful for hardening and compliance alignment. Assessors should confirm the control in practice, not only on paper: Confirm default/discovery NSE categories were run and review output for misconfigurations and exposed metadata. Common tags: fingerprint, nse, enumeration.",
+          "severity": "info",
+          "how_to_find": "Confirm default/discovery NSE categories were run and review output for misconfigurations and exposed metadata.",
+          "how_to_fix": "Remediate \"Run safe NSE discovery scripts for deeper fingerprinting\" by applying vendor and CIS/OWASP hardening guidance for Host Discovery & Scanning — OS & Service Fingerprinting. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "nmap"
+          ],
+          "references": [
+            {
+              "title": "Nmap Scripting Engine",
+              "url": "https://nmap.org/book/nse.html"
+            }
+          ],
+          "tags": [
+            "fingerprint",
+            "nse",
+            "enumeration"
+          ],
+          "source": "net-os-fingerprint-nse-scripts"
+        },
+        {
+          "title": "Flag end-of-life operating systems and services",
+          "description": "EOL software no longer receives security patches and represents persistent critical risk regardless of current known CVEs. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Verify identified OS/service versions against vendor EOL dates and document unsupported systems as findings. Common tags: fingerprint, eol, patch-management.",
+          "severity": "high",
+          "how_to_find": "Verify identified OS/service versions against vendor EOL dates and document unsupported systems as findings.",
+          "how_to_fix": "Remediate \"Flag end-of-life operating systems and services\" by applying vendor and CIS/OWASP hardening guidance for Host Discovery & Scanning — OS & Service Fingerprinting. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "nmap"
+          ],
+          "references": [
+            {
+              "title": "CISA Known Exploited Vulnerabilities Catalog",
+              "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog"
+            }
+          ],
+          "tags": [
+            "fingerprint",
+            "eol",
+            "patch-management"
+          ],
+          "source": "net-os-fingerprint-eol-software"
+        }
+      ]
+    },
+    {
+      "title": "Service Enumeration — SMB / NetBIOS",
+      "items": [
+        {
+          "title": "Test for SMB/RPC null and guest sessions",
+          "description": "Null or guest sessions can leak users, groups, shares, and password policy without credentials, fueling further attacks. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Verify whether anonymous/guest binds succeed and what information (users, shares, policies) is exposed without authentication. Common tags: smb, null-session, enumeration.",
+          "severity": "high",
+          "how_to_find": "Verify whether anonymous/guest binds succeed and what information (users, shares, policies) is exposed without authentication.",
+          "how_to_fix": "Remediate \"Test for SMB/RPC null and guest sessions\" by applying vendor and CIS/OWASP hardening guidance for Service Enumeration — SMB / NetBIOS. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "enum4linux-ng",
+            "crackmapexec/netexec",
+            "impacket",
+            "rpcclient"
+          ],
+          "references": [
+            {
+              "title": "HackTricks - 139,445 Pentesting SMB",
+              "url": "https://hacktricks.wiki/en/network-services-pentesting/pentesting-smb/index.html"
+            }
+          ],
+          "tags": [
+            "smb",
+            "null-session",
+            "enumeration"
+          ],
+          "source": "net-smb-null-session"
+        },
+        {
+          "title": "Enumerate SMB shares and access permissions",
+          "description": "Readable/writable shares often expose sensitive files, scripts, credentials, and backups accessible to low-privileged or anonymous users. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Verify which shares are listable and read/write accessible, and spider readable shares for secrets and credentials. Common tags: smb, shares, data-exposure.",
+          "severity": "high",
+          "how_to_find": "Verify which shares are listable and read/write accessible, and spider readable shares for secrets and credentials.",
+          "how_to_fix": "Remediate \"Enumerate SMB shares and access permissions\" by applying vendor and CIS/OWASP hardening guidance for Service Enumeration — SMB / NetBIOS. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "crackmapexec/netexec",
+            "smbclient",
+            "smbmap",
+            "enum4linux-ng"
+          ],
+          "references": [
+            {
+              "title": "HackTricks - 139,445 Pentesting SMB",
+              "url": "https://hacktricks.wiki/en/network-services-pentesting/pentesting-smb/index.html"
+            }
+          ],
+          "tags": [
+            "smb",
+            "shares",
+            "data-exposure"
+          ],
+          "source": "net-smb-share-enum"
+        },
+        {
+          "title": "Check SMB signing requirement",
+          "description": "Hosts with SMB signing not required are vulnerable to NTLM relay attacks, enabling authentication coercion to be relayed for code execution. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Verify signing:False hosts and confirm they are viable relay targets in combination with poisoning/coercion. Common tags: smb, signing, ntlm-relay.",
+          "severity": "high",
+          "how_to_find": "Verify signing:False hosts and confirm they are viable relay targets in combination with poisoning/coercion.",
+          "how_to_fix": "Remediate \"Check SMB signing requirement\" by applying vendor and CIS/OWASP hardening guidance for Service Enumeration — SMB / NetBIOS. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "crackmapexec/netexec",
+            "nmap",
+            "impacket"
+          ],
+          "references": [
+            {
+              "title": "HackTricks - NTLM Relay",
+              "url": "https://hacktricks.wiki/en/windows-hardening/ntlm/index.html"
+            }
+          ],
+          "tags": [
+            "smb",
+            "signing",
+            "ntlm-relay"
+          ],
+          "source": "net-smb-signing-disabled"
+        },
+        {
+          "title": "Test for MS17-010 (EternalBlue) and legacy SMBv1",
+          "description": "MS17-010 enables unauthenticated remote code execution over SMBv1 and remains common on unpatched/EOL Windows hosts. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: Verify SMBv1 is enabled and whether the MS17-010 check reports the host as vulnerable; confirm safely before any exploitation. Common tags: smb, eternalblue, rce.",
+          "severity": "critical",
+          "how_to_find": "Verify SMBv1 is enabled and whether the MS17-010 check reports the host as vulnerable; confirm safely before any exploitation.",
+          "how_to_fix": "Remediate \"Test for MS17-010 (EternalBlue) and legacy SMBv1\" by applying vendor and CIS/OWASP hardening guidance for Service Enumeration — SMB / NetBIOS. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "nmap",
+            "crackmapexec/netexec",
+            "metasploit"
+          ],
+          "references": [
+            {
+              "title": "Microsoft Security Bulletin MS17-010",
+              "url": "https://learn.microsoft.com/en-us/security-updates/securitybulletins/2017/ms17-010"
+            },
+            {
+              "title": "HackTricks - 139,445 Pentesting SMB",
+              "url": "https://hacktricks.wiki/en/network-services-pentesting/pentesting-smb/index.html"
+            }
+          ],
+          "tags": [
+            "smb",
+            "eternalblue",
+            "rce"
+          ],
+          "source": "net-smb-eternalblue"
+        }
+      ]
+    },
+    {
+      "title": "Service Enumeration — SNMP",
+      "items": [
+        {
+          "title": "Test for default/weak SNMP community strings",
+          "description": "Default community strings such as public/private grant read (or read-write) access to extensive device configuration data. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Verify whether common community strings are valid and whether read-write access is possible (enabling config changes). Common tags: snmp, default-creds, enumeration.",
+          "severity": "high",
+          "how_to_find": "Verify whether common community strings are valid and whether read-write access is possible (enabling config changes).",
+          "how_to_fix": "Remediate \"Test for default/weak SNMP community strings\" by applying vendor and CIS/OWASP hardening guidance for Service Enumeration — SNMP. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "onesixtyone",
+            "snmpwalk",
+            "nmap",
+            "hydra"
+          ],
+          "references": [
+            {
+              "title": "HackTricks - SNMP Pentesting",
+              "url": "https://hacktricks.wiki/en/network-services-pentesting/pentesting-snmp/index.html"
+            }
+          ],
+          "tags": [
+            "snmp",
+            "default-creds",
+            "enumeration"
+          ],
+          "source": "net-snmp-default-community"
+        },
+        {
+          "title": "Perform SNMP walk to extract system information",
+          "description": "SNMP walks can leak running processes, installed software, network interfaces, ARP tables, routes, and even local user accounts. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Verify what sensitive data is reachable via SNMP walk (e.g. process args containing credentials, user lists). Common tags: snmp, information-disclosure, enumeration.",
+          "severity": "medium",
+          "how_to_find": "Verify what sensitive data is reachable via SNMP walk (e.g. process args containing credentials, user lists).",
+          "how_to_fix": "Remediate \"Perform SNMP walk to extract system information\" by applying vendor and CIS/OWASP hardening guidance for Service Enumeration — SNMP. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "snmpwalk",
+            "snmp-check",
+            "nmap"
+          ],
+          "references": [
+            {
+              "title": "HackTricks - SNMP Pentesting",
+              "url": "https://hacktricks.wiki/en/network-services-pentesting/pentesting-snmp/index.html"
+            }
+          ],
+          "tags": [
+            "snmp",
+            "information-disclosure",
+            "enumeration"
+          ],
+          "source": "net-snmp-walk-extraction"
+        },
+        {
+          "title": "Identify SNMPv1/v2c cleartext exposure",
+          "description": "SNMPv1 and v2c send community strings and data in cleartext, allowing interception; only SNMPv3 provides authentication and encryption. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Verify the SNMP version in use and whether v3 with authPriv is enforced; flag cleartext v1/v2c on sensitive devices. Common tags: snmp, cleartext, crypto.",
+          "severity": "medium",
+          "how_to_find": "Verify the SNMP version in use and whether v3 with authPriv is enforced; flag cleartext v1/v2c on sensitive devices.",
+          "how_to_fix": "Remediate \"Identify SNMPv1/v2c cleartext exposure\" by applying vendor and CIS/OWASP hardening guidance for Service Enumeration — SNMP. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "nmap",
+            "snmpwalk"
+          ],
+          "references": [
+            {
+              "title": "HackTricks - SNMP Pentesting",
+              "url": "https://hacktricks.wiki/en/network-services-pentesting/pentesting-snmp/index.html"
+            }
+          ],
+          "tags": [
+            "snmp",
+            "cleartext",
+            "crypto"
+          ],
+          "source": "net-snmp-version-weakness"
+        },
+        {
+          "title": "Assess SNMP read-write access impact",
+          "description": "A read-write community string can allow reconfiguring network devices, exfiltrating configs (e.g. via TFTP), or denial of service. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Verify read-write capability and document the highest-impact action possible (config export, interface changes) without disrupting production. Common tags: snmp, read-write, config.",
+          "severity": "high",
+          "how_to_find": "Verify read-write capability and document the highest-impact action possible (config export, interface changes) without disrupting production.",
+          "how_to_fix": "Remediate \"Assess SNMP read-write access impact\" by applying vendor and CIS/OWASP hardening guidance for Service Enumeration — SNMP. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "snmpset",
+            "snmp-check"
+          ],
+          "references": [
+            {
+              "title": "MITRE ATT&CK - Network Device CLI / SNMP",
+              "url": "https://attack.mitre.org/techniques/T1602/"
+            }
+          ],
+          "tags": [
+            "snmp",
+            "read-write",
+            "config"
+          ],
+          "source": "net-snmp-rw-config-change"
+        }
+      ]
+    },
+    {
+      "title": "Service Enumeration — FTP & Telnet",
+      "items": [
+        {
+          "title": "Test for anonymous FTP access",
+          "description": "Anonymous FTP can expose downloadable files and, when writable, allow upload of webshells or tampering with served content. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Verify anonymous login works, whether the root is readable/writable, and what data is exposed. Common tags: ftp, anonymous, data-exposure.",
+          "severity": "medium",
+          "how_to_find": "Verify anonymous login works, whether the root is readable/writable, and what data is exposed.",
+          "how_to_fix": "Remediate \"Test for anonymous FTP access\" by applying vendor and CIS/OWASP hardening guidance for Service Enumeration — FTP & Telnet. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "nmap",
+            "ftp",
+            "hydra"
+          ],
+          "references": [
+            {
+              "title": "HackTricks - FTP Pentesting",
+              "url": "https://hacktricks.wiki/en/network-services-pentesting/pentesting-ftp/index.html"
+            }
+          ],
+          "tags": [
+            "ftp",
+            "anonymous",
+            "data-exposure"
+          ],
+          "source": "net-ftp-anonymous"
+        },
+        {
+          "title": "Identify cleartext FTP/Telnet authentication",
+          "description": "FTP and Telnet transmit credentials in cleartext, allowing interception on shared media or via MITM positioning. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Verify whether FTPS/SFTP/SSH replacements are enforced; capture a sample exchange to confirm cleartext credentials in transit. Common tags: ftp, telnet, cleartext.",
+          "severity": "high",
+          "how_to_find": "Verify whether FTPS/SFTP/SSH replacements are enforced; capture a sample exchange to confirm cleartext credentials in transit.",
+          "how_to_fix": "Remediate \"Identify cleartext FTP/Telnet authentication\" by applying vendor and CIS/OWASP hardening guidance for Service Enumeration — FTP & Telnet. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "wireshark",
+            "tcpdump",
+            "nmap"
+          ],
+          "references": [
+            {
+              "title": "HackTricks - Telnet Pentesting",
+              "url": "https://hacktricks.wiki/en/network-services-pentesting/pentesting-telnet.html"
+            }
+          ],
+          "tags": [
+            "ftp",
+            "telnet",
+            "cleartext"
+          ],
+          "source": "net-ftp-cleartext-creds"
+        },
+        {
+          "title": "Test FTP/Telnet for weak credentials",
+          "description": "Legacy services often retain weak or default service accounts that allow authenticated access and data access or pivoting. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Verify credential strength via controlled, rate-limited password guessing aligned with lockout policy and rules of engagement. Common tags: ftp, telnet, brute-force.",
+          "severity": "high",
+          "how_to_find": "Verify credential strength via controlled, rate-limited password guessing aligned with lockout policy and rules of engagement.",
+          "how_to_fix": "Remediate \"Test FTP/Telnet for weak credentials\" by applying vendor and CIS/OWASP hardening guidance for Service Enumeration — FTP & Telnet. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "hydra",
+            "medusa",
+            "ncrack"
+          ],
+          "references": [
+            {
+              "title": "HackTricks - FTP Pentesting",
+              "url": "https://hacktricks.wiki/en/network-services-pentesting/pentesting-ftp/index.html"
+            }
+          ],
+          "tags": [
+            "ftp",
+            "telnet",
+            "brute-force"
+          ],
+          "source": "net-ftp-bruteforce"
+        },
+        {
+          "title": "Check FTP/Telnet daemons for known CVEs",
+          "description": "Specific FTP daemons (vsftpd 2.3.4 backdoor, ProFTPD mod_copy) and old telnetd builds have known RCE vulnerabilities. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Verify daemon version against known vulnerable builds and confirm exploitability safely before any active testing. Common tags: ftp, telnet, cve.",
+          "severity": "high",
+          "how_to_find": "Verify daemon version against known vulnerable builds and confirm exploitability safely before any active testing.",
+          "how_to_fix": "Remediate \"Check FTP/Telnet daemons for known CVEs\" by applying vendor and CIS/OWASP hardening guidance for Service Enumeration — FTP & Telnet. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "nmap",
+            "searchsploit",
+            "metasploit"
+          ],
+          "references": [
+            {
+              "title": "HackTricks - FTP Pentesting",
+              "url": "https://hacktricks.wiki/en/network-services-pentesting/pentesting-ftp/index.html"
+            }
+          ],
+          "tags": [
+            "ftp",
+            "telnet",
+            "cve"
+          ],
+          "source": "net-ftp-known-cves"
+        }
+      ]
+    },
+    {
+      "title": "Service Enumeration — DNS",
+      "items": [
+        {
+          "title": "Attempt DNS zone transfer (AXFR)",
+          "description": "A misconfigured DNS server allowing AXFR discloses the full zone, mapping internal hostnames, IPs, and infrastructure. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Verify whether AXFR succeeds from an unauthorized host and document the leaked records. Common tags: dns, zone-transfer, recon.",
+          "severity": "medium",
+          "how_to_find": "Verify whether AXFR succeeds from an unauthorized host and document the leaked records.",
+          "how_to_fix": "Remediate \"Attempt DNS zone transfer (AXFR)\" by applying vendor and CIS/OWASP hardening guidance for Service Enumeration — DNS. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "dig",
+            "dnsrecon",
+            "fierce"
+          ],
+          "references": [
+            {
+              "title": "HackTricks - DNS Pentesting",
+              "url": "https://hacktricks.wiki/en/network-services-pentesting/pentesting-dns.html"
+            }
+          ],
+          "tags": [
+            "dns",
+            "zone-transfer",
+            "recon"
+          ],
+          "source": "net-dns-zone-transfer"
+        },
+        {
+          "title": "Enumerate DNS records and subdomains",
+          "description": "Brute-forcing records and subdomains expands the known attack surface and reveals dev/staging and internal-only hosts. Informational finding useful for hardening and compliance alignment. Assessors should confirm the control in practice, not only on paper: Verify the set of resolvable hosts/subdomains and identify any non-production or forgotten systems in scope. Common tags: dns, subdomain, recon.",
+          "severity": "info",
+          "how_to_find": "Verify the set of resolvable hosts/subdomains and identify any non-production or forgotten systems in scope.",
+          "how_to_fix": "Remediate \"Enumerate DNS records and subdomains\" by applying vendor and CIS/OWASP hardening guidance for Service Enumeration — DNS. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "dnsrecon",
+            "dnsenum",
+            "fierce"
+          ],
+          "references": [
+            {
+              "title": "HackTricks - DNS Pentesting",
+              "url": "https://hacktricks.wiki/en/network-services-pentesting/pentesting-dns.html"
+            }
+          ],
+          "tags": [
+            "dns",
+            "subdomain",
+            "recon"
+          ],
+          "source": "net-dns-subdomain-recon"
+        },
+        {
+          "title": "Check for open recursive resolver",
+          "description": "Open resolvers can be abused for DNS amplification DDoS and cache poisoning, harming the organization and third parties. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Verify whether the server recurses for arbitrary clients and estimate amplification factor for ANY/large responses. Common tags: dns, recursion, amplification.",
+          "severity": "medium",
+          "how_to_find": "Verify whether the server recurses for arbitrary clients and estimate amplification factor for ANY/large responses.",
+          "how_to_fix": "Remediate \"Check for open recursive resolver\" by applying vendor and CIS/OWASP hardening guidance for Service Enumeration — DNS. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "dig",
+            "nmap"
+          ],
+          "references": [
+            {
+              "title": "HackTricks - DNS Pentesting",
+              "url": "https://hacktricks.wiki/en/network-services-pentesting/pentesting-dns.html"
+            }
+          ],
+          "tags": [
+            "dns",
+            "recursion",
+            "amplification"
+          ],
+          "source": "net-dns-open-recursion"
+        },
+        {
+          "title": "Query DNS server version and software",
+          "description": "version.bind queries can disclose the resolver software/version, aiding CVE matching against known BIND/Windows DNS issues. This is a defense-in-depth gap that improves overall resilience when fixed. Assessors should confirm the control in practice, not only on paper: Verify whether version.bind is exposed and map disclosed versions to known vulnerabilities. Common tags: dns, version-disclosure, recon.",
+          "severity": "low",
+          "how_to_find": "Verify whether version.bind is exposed and map disclosed versions to known vulnerabilities.",
+          "how_to_fix": "Remediate \"Query DNS server version and software\" by applying vendor and CIS/OWASP hardening guidance for Service Enumeration — DNS. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "dig",
+            "nmap"
+          ],
+          "references": [
+            {
+              "title": "HackTricks - DNS Pentesting",
+              "url": "https://hacktricks.wiki/en/network-services-pentesting/pentesting-dns.html"
+            }
+          ],
+          "tags": [
+            "dns",
+            "version-disclosure",
+            "recon"
+          ],
+          "source": "net-dns-version-disclosure"
+        }
+      ]
+    },
+    {
+      "title": "Service Enumeration — RDP & SSH",
+      "items": [
+        {
+          "title": "Identify RDP/SSH exposed to untrusted networks",
+          "description": "Internet-facing RDP/SSH is a primary initial-access vector; exposure should be flagged even before credential testing. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Verify which remote-access services are reachable from untrusted networks and whether MFA/jump-host controls are absent. Common tags: rdp, ssh, exposure.",
+          "severity": "high",
+          "how_to_find": "Verify which remote-access services are reachable from untrusted networks and whether MFA/jump-host controls are absent.",
+          "how_to_fix": "Remediate \"Identify RDP/SSH exposed to untrusted networks\" by applying vendor and CIS/OWASP hardening guidance for Service Enumeration — RDP & SSH. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "nmap",
+            "crackmapexec/netexec"
+          ],
+          "references": [
+            {
+              "title": "MITRE ATT&CK - Remote Services (T1021)",
+              "url": "https://attack.mitre.org/techniques/T1021/"
+            }
+          ],
+          "tags": [
+            "rdp",
+            "ssh",
+            "exposure"
+          ],
+          "source": "net-rdp-ssh-exposed-internet"
+        },
+        {
+          "title": "Test RDP/SSH for weak or reused credentials",
+          "description": "Weak, default, or reused credentials on RDP/SSH frequently provide direct interactive access to hosts. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Verify credential strength via controlled guessing within lockout policy; confirm whether key-based auth and MFA are enforced for SSH. Common tags: rdp, ssh, brute-force.",
+          "severity": "high",
+          "how_to_find": "Verify credential strength via controlled guessing within lockout policy; confirm whether key-based auth and MFA are enforced for SSH.",
+          "how_to_fix": "Remediate \"Test RDP/SSH for weak or reused credentials\" by applying vendor and CIS/OWASP hardening guidance for Service Enumeration — RDP & SSH. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "hydra",
+            "crackmapexec/netexec",
+            "ncrack"
+          ],
+          "references": [
+            {
+              "title": "HackTricks - SSH Pentesting",
+              "url": "https://hacktricks.wiki/en/network-services-pentesting/pentesting-ssh.html"
+            }
+          ],
+          "tags": [
+            "rdp",
+            "ssh",
+            "brute-force"
+          ],
+          "source": "net-rdp-ssh-weak-auth"
+        },
+        {
+          "title": "Review SSH configuration weaknesses",
+          "description": "Permissive SSH config (root login, password auth, weak KEX/ciphers, agent forwarding) increases attack surface and lateral-movement risk. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Verify whether root login and password auth are allowed and whether weak key-exchange/ciphers are negotiable. Common tags: ssh, configuration, hardening.",
+          "severity": "medium",
+          "how_to_find": "Verify whether root login and password auth are allowed and whether weak key-exchange/ciphers are negotiable.",
+          "how_to_fix": "Remediate \"Review SSH configuration weaknesses\" by applying vendor and CIS/OWASP hardening guidance for Service Enumeration — RDP & SSH. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "nmap",
+            "ssh-audit"
+          ],
+          "references": [
+            {
+              "title": "HackTricks - SSH Pentesting",
+              "url": "https://hacktricks.wiki/en/network-services-pentesting/pentesting-ssh.html"
+            }
+          ],
+          "tags": [
+            "ssh",
+            "configuration",
+            "hardening"
+          ],
+          "source": "net-rdp-ssh-weak-config"
+        },
+        {
+          "title": "Check RDP for BlueKeep (CVE-2019-0708) and missing NLA",
+          "description": "BlueKeep is a wormable pre-auth RDP RCE; missing Network Level Authentication also weakens RDP against credential and DoS attacks. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: Verify whether NLA is enforced and whether the host is reported vulnerable to BlueKeep; confirm safely before exploitation. Common tags: rdp, bluekeep, rce.",
+          "severity": "critical",
+          "how_to_find": "Verify whether NLA is enforced and whether the host is reported vulnerable to BlueKeep; confirm safely before exploitation.",
+          "how_to_fix": "Remediate \"Check RDP for BlueKeep (CVE-2019-0708) and missing NLA\" by applying vendor and CIS/OWASP hardening guidance for Service Enumeration — RDP & SSH. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "nmap",
+            "metasploit",
+            "crackmapexec/netexec"
+          ],
+          "references": [
+            {
+              "title": "NVD - CVE-2019-0708 (BlueKeep)",
+              "url": "https://nvd.nist.gov/vuln/detail/CVE-2019-0708"
+            }
+          ],
+          "tags": [
+            "rdp",
+            "bluekeep",
+            "rce"
+          ],
+          "source": "net-rdp-bluekeep-nla"
+        }
+      ]
+    },
+    {
+      "title": "Service Enumeration — Exposed Databases",
+      "items": [
+        {
+          "title": "Test for unauthenticated MongoDB/Redis access",
+          "description": "MongoDB and Redis frequently ship bound to all interfaces without authentication, exposing full data read/write to anyone on the network. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: Verify whether the service allows unauthenticated connection and what data/commands are accessible (including RCE primitives in Redis). Common tags: database, nosql, unauthenticated.",
+          "severity": "critical",
+          "how_to_find": "Verify whether the service allows unauthenticated connection and what data/commands are accessible (including RCE primitives in Redis).",
+          "how_to_fix": "Remediate \"Test for unauthenticated MongoDB/Redis access\" by applying vendor and CIS/OWASP hardening guidance for Service Enumeration — Exposed Databases. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "nmap",
+            "redis-cli",
+            "mongosh"
+          ],
+          "references": [
+            {
+              "title": "HackTricks - Redis Pentesting",
+              "url": "https://hacktricks.wiki/en/network-services-pentesting/6379-pentesting-redis.html"
+            },
+            {
+              "title": "HackTricks - MongoDB Pentesting",
+              "url": "https://hacktricks.wiki/en/network-services-pentesting/27017-27018-mongodb.html"
+            }
+          ],
+          "tags": [
+            "database",
+            "nosql",
+            "unauthenticated"
+          ],
+          "source": "net-databases-unauth-nosql"
+        },
+        {
+          "title": "Test MSSQL for weak sa credentials and xp_cmdshell",
+          "description": "A weak sa password on MSSQL can lead to command execution via xp_cmdshell and lateral movement via linked servers. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: Verify sa/login strength and whether xp_cmdshell or linked-server abuse is possible from the obtained access. Common tags: database, mssql, command-execution.",
+          "severity": "critical",
+          "how_to_find": "Verify sa/login strength and whether xp_cmdshell or linked-server abuse is possible from the obtained access.",
+          "how_to_fix": "Remediate \"Test MSSQL for weak sa credentials and xp_cmdshell\" by applying vendor and CIS/OWASP hardening guidance for Service Enumeration — Exposed Databases. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "crackmapexec/netexec",
+            "impacket",
+            "hydra"
+          ],
+          "references": [
+            {
+              "title": "HackTricks - MSSQL Pentesting",
+              "url": "https://hacktricks.wiki/en/network-services-pentesting/pentesting-mssql-microsoft-sql-server/index.html"
+            }
+          ],
+          "tags": [
+            "database",
+            "mssql",
+            "command-execution"
+          ],
+          "source": "net-databases-mssql-weak-auth"
+        },
+        {
+          "title": "Test MySQL for weak credentials and over-privilege",
+          "description": "Weak MySQL credentials plus FILE privilege or remote root can expose data and, in some cases, lead to file read/write or code execution. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Verify credential strength, whether root is reachable remotely, and whether dangerous privileges (FILE) are granted. Common tags: database, mysql, brute-force.",
+          "severity": "high",
+          "how_to_find": "Verify credential strength, whether root is reachable remotely, and whether dangerous privileges (FILE) are granted.",
+          "how_to_fix": "Remediate \"Test MySQL for weak credentials and over-privilege\" by applying vendor and CIS/OWASP hardening guidance for Service Enumeration — Exposed Databases. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "hydra",
+            "nmap",
+            "mysql"
+          ],
+          "references": [
+            {
+              "title": "HackTricks - MySQL Pentesting",
+              "url": "https://hacktricks.wiki/en/network-services-pentesting/pentesting-mysql.html"
+            }
+          ],
+          "tags": [
+            "database",
+            "mysql",
+            "brute-force"
+          ],
+          "source": "net-databases-mysql-weak-auth"
+        },
+        {
+          "title": "Identify databases exposed beyond their app tier",
+          "description": "Databases should only be reachable from their application tier; broader network exposure increases breach and ransomware impact. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Verify network reachability of each database port from untrusted segments and document segmentation gaps. Common tags: database, segmentation, exposure.",
+          "severity": "high",
+          "how_to_find": "Verify network reachability of each database port from untrusted segments and document segmentation gaps.",
+          "how_to_fix": "Remediate \"Identify databases exposed beyond their app tier\" by applying vendor and CIS/OWASP hardening guidance for Service Enumeration — Exposed Databases. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "nmap",
+            "masscan"
+          ],
+          "references": [
+            {
+              "title": "NIST SP 800-115",
+              "url": "https://csrc.nist.gov/pubs/sp/800/115/final"
+            }
+          ],
+          "tags": [
+            "database",
+            "segmentation",
+            "exposure"
+          ],
+          "source": "net-databases-exposure-scope"
+        }
+      ]
+    },
+    {
+      "title": "Vulnerability Identification — Vulnerability Scanning",
+      "items": [
+        {
+          "title": "Run unauthenticated vulnerability scans",
+          "description": "Unauthenticated scanning models an external attacker view, surfacing exposed and exploitable network services. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Verify scan coverage of all live hosts/ports and that scan policies match the engagement (safe checks vs. intrusive). Common tags: vuln-scan, unauthenticated, coverage.",
+          "severity": "medium",
+          "how_to_find": "Verify scan coverage of all live hosts/ports and that scan policies match the engagement (safe checks vs. intrusive).",
+          "how_to_fix": "Remediate \"Run unauthenticated vulnerability scans\" by applying vendor and CIS/OWASP hardening guidance for Vulnerability Identification — Vulnerability Scanning. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "nessus",
+            "openvas",
+            "nuclei",
+            "nmap"
+          ],
+          "references": [
+            {
+              "title": "NIST SP 800-115",
+              "url": "https://csrc.nist.gov/pubs/sp/800/115/final"
+            }
+          ],
+          "tags": [
+            "vuln-scan",
+            "unauthenticated",
+            "coverage"
+          ],
+          "source": "net-vuln-scanning-unauth"
+        },
+        {
+          "title": "Run authenticated/credentialed scans",
+          "description": "Credentialed scans inspect installed patches and configuration from the inside, finding issues invisible to network-only scans. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Verify credentials authenticate successfully on each host and that the scan reports patch levels and local misconfigurations. Common tags: vuln-scan, authenticated, patch.",
+          "severity": "medium",
+          "how_to_find": "Verify credentials authenticate successfully on each host and that the scan reports patch levels and local misconfigurations.",
+          "how_to_fix": "Remediate \"Run authenticated/credentialed scans\" by applying vendor and CIS/OWASP hardening guidance for Vulnerability Identification — Vulnerability Scanning. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "nessus",
+            "openvas"
+          ],
+          "references": [
+            {
+              "title": "NIST SP 800-115",
+              "url": "https://csrc.nist.gov/pubs/sp/800/115/final"
+            }
+          ],
+          "tags": [
+            "vuln-scan",
+            "authenticated",
+            "patch"
+          ],
+          "source": "net-vuln-scanning-auth"
+        },
+        {
+          "title": "Triage and validate scanner findings",
+          "description": "Automated scanners produce false positives and inflated severities; manual validation is required before reporting. Informational finding useful for hardening and compliance alignment. Assessors should confirm the control in practice, not only on paper: Verify each high/critical finding manually and confirm exploitability or downgrade/remove false positives. Common tags: vuln-scan, triage, validation.",
+          "severity": "info",
+          "how_to_find": "Verify each high/critical finding manually and confirm exploitability or downgrade/remove false positives.",
+          "how_to_fix": "Remediate \"Triage and validate scanner findings\" by applying vendor and CIS/OWASP hardening guidance for Vulnerability Identification — Vulnerability Scanning. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "nmap",
+            "metasploit",
+            "searchsploit"
+          ],
+          "references": [
+            {
+              "title": "PTES Technical Guidelines",
+              "url": "http://www.pentest-standard.org/index.php/PTES_Technical_Guidelines"
+            }
+          ],
+          "tags": [
+            "vuln-scan",
+            "triage",
+            "validation"
+          ],
+          "source": "net-vuln-scanning-triage"
+        },
+        {
+          "title": "Run targeted template-based checks for known issues",
+          "description": "Template-driven scanners quickly confirm specific known-vulnerable conditions (exposed panels, misconfigs, CVEs) with high precision. This is a defense-in-depth gap that improves overall resilience when fixed. Assessors should confirm the control in practice, not only on paper: Verify template matches against actual service responses and confirm there is no false match before logging a finding. Common tags: vuln-scan, templates, cve.",
+          "severity": "low",
+          "how_to_find": "Verify template matches against actual service responses and confirm there is no false match before logging a finding.",
+          "how_to_fix": "Remediate \"Run targeted template-based checks for known issues\" by applying vendor and CIS/OWASP hardening guidance for Vulnerability Identification — Vulnerability Scanning. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "nuclei",
+            "nmap"
+          ],
+          "references": [
+            {
+              "title": "Nuclei Documentation",
+              "url": "https://docs.projectdiscovery.io/tools/nuclei/overview"
+            }
+          ],
+          "tags": [
+            "vuln-scan",
+            "templates",
+            "cve"
+          ],
+          "source": "net-vuln-scanning-template-checks"
+        }
+      ]
+    },
+    {
+      "title": "Vulnerability Identification — Missing Patches & EOL Software",
+      "items": [
+        {
+          "title": "Map service versions to known CVEs",
+          "description": "Version-to-CVE mapping highlights exploitable services; prioritize those in active-exploitation catalogs. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Verify each version-matched CVE applies to the actual configuration and check whether it is in the CISA KEV catalog. Common tags: patch, cve, prioritization.",
+          "severity": "high",
+          "how_to_find": "Verify each version-matched CVE applies to the actual configuration and check whether it is in the CISA KEV catalog.",
+          "how_to_fix": "Remediate \"Map service versions to known CVEs\" by applying vendor and CIS/OWASP hardening guidance for Vulnerability Identification — Missing Patches & EOL Software. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "searchsploit",
+            "nmap",
+            "nuclei"
+          ],
+          "references": [
+            {
+              "title": "CISA Known Exploited Vulnerabilities Catalog",
+              "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog"
+            },
+            {
+              "title": "NVD - National Vulnerability Database",
+              "url": "https://nvd.nist.gov/"
+            }
+          ],
+          "tags": [
+            "patch",
+            "cve",
+            "prioritization"
+          ],
+          "source": "net-missing-patches-known-cve"
+        },
+        {
+          "title": "Identify unsupported/EOL services and OSes",
+          "description": "EOL components receive no patches and constitute standing risk; they should be reported regardless of current CVE count. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Verify identified versions against vendor EOL schedules and quantify exposure of unsupported systems. Common tags: patch, eol, lifecycle.",
+          "severity": "high",
+          "how_to_find": "Verify identified versions against vendor EOL schedules and quantify exposure of unsupported systems.",
+          "how_to_fix": "Remediate \"Identify unsupported/EOL services and OSes\" by applying vendor and CIS/OWASP hardening guidance for Vulnerability Identification — Missing Patches & EOL Software. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "nmap",
+            "nessus"
+          ],
+          "references": [
+            {
+              "title": "CISA Known Exploited Vulnerabilities Catalog",
+              "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog"
+            }
+          ],
+          "tags": [
+            "patch",
+            "eol",
+            "lifecycle"
+          ],
+          "source": "net-missing-patches-eol-services"
+        },
+        {
+          "title": "Prioritize unauthenticated RCE-class vulnerabilities",
+          "description": "Pre-auth remote code execution on exposed services represents the most severe and time-sensitive findings. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: Verify presence of known pre-auth RCE conditions and confirm safely; escalate critical findings immediately per rules of engagement. Common tags: patch, rce, critical.",
+          "severity": "critical",
+          "how_to_find": "Verify presence of known pre-auth RCE conditions and confirm safely; escalate critical findings immediately per rules of engagement.",
+          "how_to_fix": "Remediate \"Prioritize unauthenticated RCE-class vulnerabilities\" by applying vendor and CIS/OWASP hardening guidance for Vulnerability Identification — Missing Patches & EOL Software. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "nmap",
+            "metasploit",
+            "nuclei"
+          ],
+          "references": [
+            {
+              "title": "CISA Known Exploited Vulnerabilities Catalog",
+              "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog"
+            }
+          ],
+          "tags": [
+            "patch",
+            "rce",
+            "critical"
+          ],
+          "source": "net-missing-patches-critical-rce"
+        },
+        {
+          "title": "Detect missing hardening and patch baseline drift",
+          "description": "Hosts drifting from a hardening baseline accumulate missing patches and weakened settings over time. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Verify patch levels and security settings against an agreed baseline and document deviations. Common tags: patch, hardening, baseline.",
+          "severity": "medium",
+          "how_to_find": "Verify patch levels and security settings against an agreed baseline and document deviations.",
+          "how_to_fix": "Remediate \"Detect missing hardening and patch baseline drift\" by applying vendor and CIS/OWASP hardening guidance for Vulnerability Identification — Missing Patches & EOL Software. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "nessus",
+            "openvas"
+          ],
+          "references": [
+            {
+              "title": "CIS Benchmarks",
+              "url": "https://www.cisecurity.org/cis-benchmarks"
+            }
+          ],
+          "tags": [
+            "patch",
+            "hardening",
+            "baseline"
+          ],
+          "source": "net-missing-patches-config-drift"
+        }
+      ]
+    },
+    {
+      "title": "Vulnerability Identification — Default & Weak Credentials",
+      "items": [
+        {
+          "title": "Test network devices for vendor default credentials",
+          "description": "Routers, switches, printers, IPMI/iDRAC, and appliances frequently retain documented default credentials. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Verify whether documented vendor defaults grant access to management interfaces and what control that access provides. Common tags: default-creds, devices, management.",
+          "severity": "high",
+          "how_to_find": "Verify whether documented vendor defaults grant access to management interfaces and what control that access provides.",
+          "how_to_fix": "Remediate \"Test network devices for vendor default credentials\" by applying vendor and CIS/OWASP hardening guidance for Vulnerability Identification — Default & Weak Credentials. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "hydra",
+            "crackmapexec/netexec",
+            "nmap"
+          ],
+          "references": [
+            {
+              "title": "HackTricks - Brute Force Default Credentials",
+              "url": "https://hacktricks.wiki/en/generic-hacking/brute-force.html"
+            }
+          ],
+          "tags": [
+            "default-creds",
+            "devices",
+            "management"
+          ],
+          "source": "net-default-creds-device-defaults"
+        },
+        {
+          "title": "Test services for weak/blank passwords",
+          "description": "Weak or blank passwords on exposed services (SMB, SSH, RDP, DB, web panels) provide easy authenticated footholds. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Verify password strength via controlled guessing within lockout policy and document any successful weak-credential access. Common tags: default-creds, weak-password, brute-force.",
+          "severity": "high",
+          "how_to_find": "Verify password strength via controlled guessing within lockout policy and document any successful weak-credential access.",
+          "how_to_fix": "Remediate \"Test services for weak/blank passwords\" by applying vendor and CIS/OWASP hardening guidance for Vulnerability Identification — Default & Weak Credentials. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "hydra",
+            "medusa",
+            "crackmapexec/netexec"
+          ],
+          "references": [
+            {
+              "title": "OWASP - Credential Stuffing",
+              "url": "https://owasp.org/www-community/attacks/Credential_stuffing"
+            }
+          ],
+          "tags": [
+            "default-creds",
+            "weak-password",
+            "brute-force"
+          ],
+          "source": "net-default-creds-service-accounts"
+        },
+        {
+          "title": "Test exposed management panels for default logins",
+          "description": "Tomcat Manager, Jenkins, web admin consoles, and similar panels often ship with default or guessable credentials enabling RCE. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: Verify default credentials against discovered panels and assess the post-auth impact (deploy/exec) if access succeeds. Common tags: default-creds, web-panel, rce.",
+          "severity": "critical",
+          "how_to_find": "Verify default credentials against discovered panels and assess the post-auth impact (deploy/exec) if access succeeds.",
+          "how_to_fix": "Remediate \"Test exposed management panels for default logins\" by applying vendor and CIS/OWASP hardening guidance for Vulnerability Identification — Default & Weak Credentials. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "hydra",
+            "metasploit",
+            "nuclei"
+          ],
+          "references": [
+            {
+              "title": "HackTricks - Pentesting Web Default Credentials",
+              "url": "https://hacktricks.wiki/en/generic-hacking/brute-force.html"
+            }
+          ],
+          "tags": [
+            "default-creds",
+            "web-panel",
+            "rce"
+          ],
+          "source": "net-default-creds-mgmt-panels"
+        },
+        {
+          "title": "Confirm lockout and rate-limiting before spraying",
+          "description": "Password attacks risk account lockout and outages; verifying lockout policy first prevents disruption and aligns with rules of engagement. Informational finding useful for hardening and compliance alignment. Assessors should confirm the control in practice, not only on paper: Verify lockout thresholds/observation windows and tune spraying volume/timing to stay within safe limits. Common tags: default-creds, lockout, rules-of-engagement.",
+          "severity": "info",
+          "how_to_find": "Verify lockout thresholds/observation windows and tune spraying volume/timing to stay within safe limits.",
+          "how_to_fix": "Remediate \"Confirm lockout and rate-limiting before spraying\" by applying vendor and CIS/OWASP hardening guidance for Vulnerability Identification — Default & Weak Credentials. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "crackmapexec/netexec",
+            "hydra"
+          ],
+          "references": [
+            {
+              "title": "PTES Technical Guidelines",
+              "url": "http://www.pentest-standard.org/index.php/PTES_Technical_Guidelines"
+            }
+          ],
+          "tags": [
+            "default-creds",
+            "lockout",
+            "rules-of-engagement"
+          ],
+          "source": "net-default-creds-lockout-policy"
+        }
+      ]
+    },
+    {
+      "title": "Exploitation & Pivoting — Remote Service Exploitation",
+      "items": [
+        {
+          "title": "Validate exploits in a safe manner before use",
+          "description": "Confirm an exploit applies and is non-destructive (or coordinate a maintenance window) before running it against production services. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Verify exploit/target version match, assess crash risk, and obtain authorization for any potentially disruptive action. Common tags: exploitation, validation, rules-of-engagement.",
+          "severity": "medium",
+          "how_to_find": "Verify exploit/target version match, assess crash risk, and obtain authorization for any potentially disruptive action.",
+          "how_to_fix": "Remediate \"Validate exploits in a safe manner before use\" by applying vendor and CIS/OWASP hardening guidance for Exploitation & Pivoting — Remote Service Exploitation. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "metasploit",
+            "searchsploit"
+          ],
+          "references": [
+            {
+              "title": "PTES Technical Guidelines",
+              "url": "http://www.pentest-standard.org/index.php/PTES_Technical_Guidelines"
+            }
+          ],
+          "tags": [
+            "exploitation",
+            "validation",
+            "rules-of-engagement"
+          ],
+          "source": "net-service-exploit-validate-poc"
+        },
+        {
+          "title": "Demonstrate remote code execution on vulnerable services",
+          "description": "Proving RCE (e.g. EternalBlue, deserialization, command injection in services) confirms real-world impact beyond a scanner flag. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: Verify a controlled command-execution proof (e.g. whoami/hostname) and capture evidence without disrupting the host. Common tags: exploitation, rce, impact.",
+          "severity": "critical",
+          "how_to_find": "Verify a controlled command-execution proof (e.g. whoami/hostname) and capture evidence without disrupting the host.",
+          "how_to_fix": "Remediate \"Demonstrate remote code execution on vulnerable services\" by applying vendor and CIS/OWASP hardening guidance for Exploitation & Pivoting — Remote Service Exploitation. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "metasploit",
+            "impacket",
+            "nmap"
+          ],
+          "references": [
+            {
+              "title": "MITRE ATT&CK - Exploitation of Remote Services (T1210)",
+              "url": "https://attack.mitre.org/techniques/T1210/"
+            }
+          ],
+          "tags": [
+            "exploitation",
+            "rce",
+            "impact"
+          ],
+          "source": "net-service-exploit-rce"
+        },
+        {
+          "title": "Attempt local privilege escalation post-foothold",
+          "description": "Initial access is often low-privileged; escalating to root/SYSTEM enables credential harvesting and broader impact. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Verify achievable privilege level after foothold and document the escalation path (kernel, service, misconfig). Common tags: exploitation, privilege-escalation, post-exploitation.",
+          "severity": "high",
+          "how_to_find": "Verify achievable privilege level after foothold and document the escalation path (kernel, service, misconfig).",
+          "how_to_fix": "Remediate \"Attempt local privilege escalation post-foothold\" by applying vendor and CIS/OWASP hardening guidance for Exploitation & Pivoting — Remote Service Exploitation. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "metasploit",
+            "linpeas",
+            "winpeas"
+          ],
+          "references": [
+            {
+              "title": "HackTricks - Privilege Escalation",
+              "url": "https://hacktricks.wiki/en/linux-hardening/privilege-escalation/index.html"
+            }
+          ],
+          "tags": [
+            "exploitation",
+            "privilege-escalation",
+            "post-exploitation"
+          ],
+          "source": "net-service-exploit-priv-esc"
+        },
+        {
+          "title": "Track artifacts and clean up after exploitation",
+          "description": "Payloads, accounts, and uploaded files must be logged and removed to avoid leaving the environment less secure. Informational finding useful for hardening and compliance alignment. Assessors should confirm the control in practice, not only on paper: Verify a record of every artifact created and confirm removal at engagement end; report anything that cannot be safely removed. Common tags: exploitation, cleanup, reporting.",
+          "severity": "info",
+          "how_to_find": "Verify a record of every artifact created and confirm removal at engagement end; report anything that cannot be safely removed.",
+          "how_to_fix": "Remediate \"Track artifacts and clean up after exploitation\" by applying vendor and CIS/OWASP hardening guidance for Exploitation & Pivoting — Remote Service Exploitation. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "metasploit"
+          ],
+          "references": [
+            {
+              "title": "NIST SP 800-115",
+              "url": "https://csrc.nist.gov/pubs/sp/800/115/final"
+            }
+          ],
+          "tags": [
+            "exploitation",
+            "cleanup",
+            "reporting"
+          ],
+          "source": "net-service-exploit-cleanup"
+        }
+      ]
+    },
+    {
+      "title": "Exploitation & Pivoting — Pivoting & Tunneling",
+      "items": [
+        {
+          "title": "Establish port forwarding through a compromised host",
+          "description": "Local/remote/dynamic port forwarding exposes internal services to the tester through a foothold host. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Verify forwarded access to internal-only services and document the reachable internal attack surface. Common tags: pivoting, port-forwarding, lateral.",
+          "severity": "high",
+          "how_to_find": "Verify forwarded access to internal-only services and document the reachable internal attack surface.",
+          "how_to_fix": "Remediate \"Establish port forwarding through a compromised host\" by applying vendor and CIS/OWASP hardening guidance for Exploitation & Pivoting — Pivoting & Tunneling. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "chisel",
+            "ssh",
+            "metasploit"
+          ],
+          "references": [
+            {
+              "title": "HackTricks - Tunneling and Port Forwarding",
+              "url": "https://hacktricks.wiki/en/generic-hacking/tunneling-and-port-forwarding.html"
+            }
+          ],
+          "tags": [
+            "pivoting",
+            "port-forwarding",
+            "lateral"
+          ],
+          "source": "net-pivoting-port-forward"
+        },
+        {
+          "title": "Pivot through a SOCKS proxy with proxychains",
+          "description": "A SOCKS tunnel plus proxychains lets standard tools reach internal segments through the foothold host. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Verify tooling routes correctly through the proxy and confirm reachability of internal hosts that were previously unreachable. Common tags: pivoting, socks, proxychains.",
+          "severity": "high",
+          "how_to_find": "Verify tooling routes correctly through the proxy and confirm reachability of internal hosts that were previously unreachable.",
+          "how_to_fix": "Remediate \"Pivot through a SOCKS proxy with proxychains\" by applying vendor and CIS/OWASP hardening guidance for Exploitation & Pivoting — Pivoting & Tunneling. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "chisel",
+            "proxychains",
+            "metasploit"
+          ],
+          "references": [
+            {
+              "title": "HackTricks - Tunneling and Port Forwarding",
+              "url": "https://hacktricks.wiki/en/generic-hacking/tunneling-and-port-forwarding.html"
+            }
+          ],
+          "tags": [
+            "pivoting",
+            "socks",
+            "proxychains"
+          ],
+          "source": "net-pivoting-socks-proxychains"
+        },
+        {
+          "title": "Map and test network segmentation boundaries",
+          "description": "Pivoting reveals whether segmentation actually isolates sensitive zones (PCI, OT, management) from general user networks. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Verify which protected segments are reachable from a foothold and document segmentation control failures. Common tags: pivoting, segmentation, architecture.",
+          "severity": "high",
+          "how_to_find": "Verify which protected segments are reachable from a foothold and document segmentation control failures.",
+          "how_to_fix": "Remediate \"Map and test network segmentation boundaries\" by applying vendor and CIS/OWASP hardening guidance for Exploitation & Pivoting — Pivoting & Tunneling. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "nmap",
+            "proxychains",
+            "chisel"
+          ],
+          "references": [
+            {
+              "title": "MITRE ATT&CK - Lateral Movement",
+              "url": "https://attack.mitre.org/tactics/TA0008/"
+            }
+          ],
+          "tags": [
+            "pivoting",
+            "segmentation",
+            "architecture"
+          ],
+          "source": "net-pivoting-segmentation-test"
+        },
+        {
+          "title": "Chain multiple pivots to reach deep segments",
+          "description": "Multi-hop pivoting reaches segments isolated from the initial foothold, demonstrating defense-in-depth gaps. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Verify a stable multi-hop tunnel and confirm reachability of deep/restricted segments through the chain. Common tags: pivoting, multi-hop, tunneling.",
+          "severity": "medium",
+          "how_to_find": "Verify a stable multi-hop tunnel and confirm reachability of deep/restricted segments through the chain.",
+          "how_to_fix": "Remediate \"Chain multiple pivots to reach deep segments\" by applying vendor and CIS/OWASP hardening guidance for Exploitation & Pivoting — Pivoting & Tunneling. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "chisel",
+            "metasploit",
+            "proxychains"
+          ],
+          "references": [
+            {
+              "title": "HackTricks - Tunneling and Port Forwarding",
+              "url": "https://hacktricks.wiki/en/generic-hacking/tunneling-and-port-forwarding.html"
+            }
+          ],
+          "tags": [
+            "pivoting",
+            "multi-hop",
+            "tunneling"
+          ],
+          "source": "net-pivoting-double-pivot"
+        }
+      ]
+    },
+    {
+      "title": "Exploitation & Pivoting — Lateral Movement & Credential Reuse",
+      "items": [
+        {
+          "title": "Test cleartext credential reuse across hosts",
+          "description": "Reused local-admin or service credentials allow rapid spread across many hosts once one is compromised. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: Verify how many hosts accept the same credentials and which grant administrative access. Common tags: lateral, credential-reuse, spray.",
+          "severity": "critical",
+          "how_to_find": "Verify how many hosts accept the same credentials and which grant administrative access.",
+          "how_to_fix": "Remediate \"Test cleartext credential reuse across hosts\" by applying vendor and CIS/OWASP hardening guidance for Exploitation & Pivoting — Lateral Movement & Credential Reuse. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "crackmapexec/netexec",
+            "impacket",
+            "hydra"
+          ],
+          "references": [
+            {
+              "title": "MITRE ATT&CK - Valid Accounts (T1078)",
+              "url": "https://attack.mitre.org/techniques/T1078/"
+            }
+          ],
+          "tags": [
+            "lateral",
+            "credential-reuse",
+            "spray"
+          ],
+          "source": "net-lateral-cred-reuse"
+        },
+        {
+          "title": "Test pass-the-hash with harvested NTLM hashes",
+          "description": "NTLM hashes can authenticate without cracking, enabling lateral movement to hosts sharing the same local admin hash. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: Verify which hosts accept the harvested hash and whether reuse of a single local-admin hash enables wide movement. Common tags: lateral, pass-the-hash, ntlm.",
+          "severity": "critical",
+          "how_to_find": "Verify which hosts accept the harvested hash and whether reuse of a single local-admin hash enables wide movement.",
+          "how_to_fix": "Remediate \"Test pass-the-hash with harvested NTLM hashes\" by applying vendor and CIS/OWASP hardening guidance for Exploitation & Pivoting — Lateral Movement & Credential Reuse. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "crackmapexec/netexec",
+            "impacket"
+          ],
+          "references": [
+            {
+              "title": "HackTricks - NTLM / Pass the Hash",
+              "url": "https://hacktricks.wiki/en/windows-hardening/ntlm/index.html"
+            }
+          ],
+          "tags": [
+            "lateral",
+            "pass-the-hash",
+            "ntlm"
+          ],
+          "source": "net-lateral-pass-the-hash"
+        },
+        {
+          "title": "Demonstrate remote execution via SMB/WMI/WinRM",
+          "description": "Valid credentials enable remote command execution through native protocols, the backbone of practical lateral movement. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Verify which remote-exec methods succeed with obtained credentials and capture controlled proof of execution. Common tags: lateral, remote-exec, wmi.",
+          "severity": "high",
+          "how_to_find": "Verify which remote-exec methods succeed with obtained credentials and capture controlled proof of execution.",
+          "how_to_fix": "Remediate \"Demonstrate remote execution via SMB/WMI/WinRM\" by applying vendor and CIS/OWASP hardening guidance for Exploitation & Pivoting — Lateral Movement & Credential Reuse. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "impacket",
+            "crackmapexec/netexec",
+            "metasploit"
+          ],
+          "references": [
+            {
+              "title": "MITRE ATT&CK - Remote Services (T1021)",
+              "url": "https://attack.mitre.org/techniques/T1021/"
+            }
+          ],
+          "tags": [
+            "lateral",
+            "remote-exec",
+            "wmi"
+          ],
+          "source": "net-lateral-remote-exec"
+        },
+        {
+          "title": "Harvest additional credentials from compromised hosts",
+          "description": "Memory, registry, files, and config often hold further credentials that unlock new hosts and accounts. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Verify what credentials/secrets are recoverable from compromised hosts and which new access they enable. Common tags: lateral, credential-harvest, post-exploitation.",
+          "severity": "high",
+          "how_to_find": "Verify what credentials/secrets are recoverable from compromised hosts and which new access they enable.",
+          "how_to_fix": "Remediate \"Harvest additional credentials from compromised hosts\" by applying vendor and CIS/OWASP hardening guidance for Exploitation & Pivoting — Lateral Movement & Credential Reuse. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "impacket",
+            "crackmapexec/netexec",
+            "metasploit"
+          ],
+          "references": [
+            {
+              "title": "MITRE ATT&CK - OS Credential Dumping (T1003)",
+              "url": "https://attack.mitre.org/techniques/T1003/"
+            }
+          ],
+          "tags": [
+            "lateral",
+            "credential-harvest",
+            "post-exploitation"
+          ],
+          "source": "net-lateral-cred-harvest"
+        }
+      ]
+    },
+    {
+      "title": "Transport & Sniffing — TLS Configuration",
+      "items": [
+        {
+          "title": "Identify deprecated SSL/TLS protocol versions",
+          "description": "SSLv2/SSLv3 and TLS 1.0/1.1 are deprecated and vulnerable (POODLE, BEAST); only TLS 1.2+ should be enabled. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Verify which protocol versions are accepted and flag any service still negotiating SSLv3/TLS 1.0/1.1. Common tags: tls, protocols, crypto.",
+          "severity": "medium",
+          "how_to_find": "Verify which protocol versions are accepted and flag any service still negotiating SSLv3/TLS 1.0/1.1.",
+          "how_to_fix": "Remediate \"Identify deprecated SSL/TLS protocol versions\" by applying vendor and CIS/OWASP hardening guidance for Transport & Sniffing — TLS Configuration. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "testssl.sh",
+            "sslscan",
+            "nmap"
+          ],
+          "references": [
+            {
+              "title": "OWASP Transport Layer Security Cheat Sheet",
+              "url": "https://cheatsheetseries.owasp.org/cheatsheets/Transport_Layer_Protection_Cheat_Sheet.html"
+            }
+          ],
+          "tags": [
+            "tls",
+            "protocols",
+            "crypto"
+          ],
+          "source": "net-tls-config-weak-protocols"
+        },
+        {
+          "title": "Detect weak cipher suites and key exchange",
+          "description": "NULL, EXPORT, RC4, DES/3DES, and anonymous suites, or weak DH parameters, undermine confidentiality and integrity. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Verify the negotiated cipher suites and flag weak/anonymous ciphers and small DH/RSA key sizes. Common tags: tls, ciphers, crypto.",
+          "severity": "medium",
+          "how_to_find": "Verify the negotiated cipher suites and flag weak/anonymous ciphers and small DH/RSA key sizes.",
+          "how_to_fix": "Remediate \"Detect weak cipher suites and key exchange\" by applying vendor and CIS/OWASP hardening guidance for Transport & Sniffing — TLS Configuration. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "testssl.sh",
+            "sslscan",
+            "nmap"
+          ],
+          "references": [
+            {
+              "title": "OWASP Transport Layer Security Cheat Sheet",
+              "url": "https://cheatsheetseries.owasp.org/cheatsheets/Transport_Layer_Protection_Cheat_Sheet.html"
+            }
+          ],
+          "tags": [
+            "tls",
+            "ciphers",
+            "crypto"
+          ],
+          "source": "net-tls-config-weak-ciphers"
+        },
+        {
+          "title": "Validate certificate trust, validity, and naming",
+          "description": "Expired, self-signed, wrong-CN/SAN, or weak-signature certificates enable MITM and erode trust in the service. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Verify certificate chain, expiry, hostname match, and signature algorithm; flag self-signed or expired certs on production. Common tags: tls, certificate, trust.",
+          "severity": "medium",
+          "how_to_find": "Verify certificate chain, expiry, hostname match, and signature algorithm; flag self-signed or expired certs on production.",
+          "how_to_fix": "Remediate \"Validate certificate trust, validity, and naming\" by applying vendor and CIS/OWASP hardening guidance for Transport & Sniffing — TLS Configuration. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "testssl.sh",
+            "openssl",
+            "sslscan"
+          ],
+          "references": [
+            {
+              "title": "OWASP Transport Layer Security Cheat Sheet",
+              "url": "https://cheatsheetseries.owasp.org/cheatsheets/Transport_Layer_Protection_Cheat_Sheet.html"
+            }
+          ],
+          "tags": [
+            "tls",
+            "certificate",
+            "trust"
+          ],
+          "source": "net-tls-config-cert-issues"
+        },
+        {
+          "title": "Test for known TLS vulnerabilities (Heartbleed, ROBOT)",
+          "description": "Library-level flaws like Heartbleed (CVE-2014-0160) and ROBOT can leak memory or enable decryption regardless of config. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Verify the service is not vulnerable to Heartbleed/ROBOT/CCS-injection and similar protocol/library issues. Common tags: tls, cve, heartbleed.",
+          "severity": "high",
+          "how_to_find": "Verify the service is not vulnerable to Heartbleed/ROBOT/CCS-injection and similar protocol/library issues.",
+          "how_to_fix": "Remediate \"Test for known TLS vulnerabilities (Heartbleed, ROBOT)\" by applying vendor and CIS/OWASP hardening guidance for Transport & Sniffing — TLS Configuration. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "testssl.sh",
+            "nmap",
+            "sslscan"
+          ],
+          "references": [
+            {
+              "title": "NVD - CVE-2014-0160 (Heartbleed)",
+              "url": "https://nvd.nist.gov/vuln/detail/CVE-2014-0160"
+            }
+          ],
+          "tags": [
+            "tls",
+            "cve",
+            "heartbleed"
+          ],
+          "source": "net-tls-config-known-cves"
+        }
+      ]
+    },
+    {
+      "title": "Transport & Sniffing — MITM & Poisoning",
+      "items": [
+        {
+          "title": "Test ARP spoofing on local segments",
+          "description": "ARP spoofing places the tester on-path, enabling interception/modification of traffic between hosts on the same segment. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Verify whether dynamic ARP inspection / port security is absent and what traffic becomes interceptable on-path. Common tags: mitm, arp-spoofing, layer2.",
+          "severity": "high",
+          "how_to_find": "Verify whether dynamic ARP inspection / port security is absent and what traffic becomes interceptable on-path.",
+          "how_to_fix": "Remediate \"Test ARP spoofing on local segments\" by applying vendor and CIS/OWASP hardening guidance for Transport & Sniffing — MITM & Poisoning. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "ettercap",
+            "bettercap",
+            "arpspoof"
+          ],
+          "references": [
+            {
+              "title": "MITRE ATT&CK - Adversary-in-the-Middle (T1557)",
+              "url": "https://attack.mitre.org/techniques/T1557/"
+            }
+          ],
+          "tags": [
+            "mitm",
+            "arp-spoofing",
+            "layer2"
+          ],
+          "source": "net-mitm-arp-spoof"
+        },
+        {
+          "title": "Test LLMNR/NBT-NS/mDNS poisoning",
+          "description": "When LLMNR/NBT-NS are enabled, spoofed responses coerce hosts to send NetNTLM hashes that can be cracked or relayed. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Verify whether name-resolution poisoning yields NetNTLM hashes and which accounts respond. Common tags: mitm, llmnr, responder.",
+          "severity": "high",
+          "how_to_find": "Verify whether name-resolution poisoning yields NetNTLM hashes and which accounts respond.",
+          "how_to_fix": "Remediate \"Test LLMNR/NBT-NS/mDNS poisoning\" by applying vendor and CIS/OWASP hardening guidance for Transport & Sniffing — MITM & Poisoning. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "responder",
+            "bettercap"
+          ],
+          "references": [
+            {
+              "title": "HackTricks - Spoofing LLMNR/NBT-NS/mDNS",
+              "url": "https://hacktricks.wiki/en/generic-methodologies-and-resources/pentesting-network/spoofing-llmnr-nbt-ns-mdns-dns-and-wpad-and-relay-attacks.html"
+            }
+          ],
+          "tags": [
+            "mitm",
+            "llmnr",
+            "responder"
+          ],
+          "source": "net-mitm-llmnr-poisoning"
+        },
+        {
+          "title": "Test NTLM relay to unsigned hosts",
+          "description": "Coerced NetNTLM authentication can be relayed to SMB/LDAP/HTTP targets lacking signing, yielding code execution or privilege escalation. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: Verify viable relay targets (signing not required) and demonstrate the access gained via relay safely. Common tags: mitm, ntlm-relay, impacket.",
+          "severity": "critical",
+          "how_to_find": "Verify viable relay targets (signing not required) and demonstrate the access gained via relay safely.",
+          "how_to_fix": "Remediate \"Test NTLM relay to unsigned hosts\" by applying vendor and CIS/OWASP hardening guidance for Transport & Sniffing — MITM & Poisoning. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "responder",
+            "impacket",
+            "crackmapexec/netexec"
+          ],
+          "references": [
+            {
+              "title": "HackTricks - NTLM Relay",
+              "url": "https://hacktricks.wiki/en/windows-hardening/ntlm/index.html"
+            }
+          ],
+          "tags": [
+            "mitm",
+            "ntlm-relay",
+            "impacket"
+          ],
+          "source": "net-mitm-ntlm-relay"
+        },
+        {
+          "title": "Test for rogue DHCP and gateway redirection",
+          "description": "A rogue DHCP server can set the tester as default gateway/DNS, redirecting traffic for interception. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Verify whether DHCP snooping is absent and whether clients accept rogue gateway/DNS configuration. Common tags: mitm, dhcp, redirection.",
+          "severity": "high",
+          "how_to_find": "Verify whether DHCP snooping is absent and whether clients accept rogue gateway/DNS configuration.",
+          "how_to_fix": "Remediate \"Test for rogue DHCP and gateway redirection\" by applying vendor and CIS/OWASP hardening guidance for Transport & Sniffing — MITM & Poisoning. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "ettercap",
+            "bettercap",
+            "responder"
+          ],
+          "references": [
+            {
+              "title": "MITRE ATT&CK - Adversary-in-the-Middle (T1557)",
+              "url": "https://attack.mitre.org/techniques/T1557/"
+            }
+          ],
+          "tags": [
+            "mitm",
+            "dhcp",
+            "redirection"
+          ],
+          "source": "net-mitm-dhcp-rogue"
+        }
+      ]
+    },
+    {
+      "title": "Transport & Sniffing — Cleartext Protocols & Sniffing",
+      "items": [
+        {
+          "title": "Sniff for cleartext credentials on the wire",
+          "description": "Protocols like HTTP, FTP, Telnet, POP3, IMAP, and SNMP v1/v2c carry credentials in cleartext that can be captured on-path. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Verify captured credentials/sessions from a controlled position and document which protocols exposed them. Common tags: sniffing, cleartext, credentials.",
+          "severity": "high",
+          "how_to_find": "Verify captured credentials/sessions from a controlled position and document which protocols exposed them.",
+          "how_to_fix": "Remediate \"Sniff for cleartext credentials on the wire\" by applying vendor and CIS/OWASP hardening guidance for Transport & Sniffing — Cleartext Protocols & Sniffing. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "wireshark",
+            "tcpdump",
+            "bettercap"
+          ],
+          "references": [
+            {
+              "title": "HackTricks - Pentesting Network (Sniffing)",
+              "url": "https://hacktricks.wiki/en/generic-methodologies-and-resources/pentesting-network/index.html"
+            }
+          ],
+          "tags": [
+            "sniffing",
+            "cleartext",
+            "credentials"
+          ],
+          "source": "net-cleartext-protocols-sniff-creds"
+        },
+        {
+          "title": "Inventory cleartext protocols in use",
+          "description": "Identifying all unencrypted protocols across the estate quantifies sniffing exposure and guides remediation toward encrypted equivalents. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Verify which cleartext services are still in use and whether encrypted alternatives are enforced. Common tags: sniffing, inventory, cleartext.",
+          "severity": "medium",
+          "how_to_find": "Verify which cleartext services are still in use and whether encrypted alternatives are enforced.",
+          "how_to_fix": "Remediate \"Inventory cleartext protocols in use\" by applying vendor and CIS/OWASP hardening guidance for Transport & Sniffing — Cleartext Protocols & Sniffing. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "nmap",
+            "wireshark"
+          ],
+          "references": [
+            {
+              "title": "NIST SP 800-115",
+              "url": "https://csrc.nist.gov/pubs/sp/800/115/final"
+            }
+          ],
+          "tags": [
+            "sniffing",
+            "inventory",
+            "cleartext"
+          ],
+          "source": "net-cleartext-protocols-inventory"
+        },
+        {
+          "title": "Detect sensitive data transmitted in cleartext",
+          "description": "Beyond credentials, cleartext traffic may expose PII, tokens, internal hostnames, and business data subject to interception. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Verify what sensitive data types appear in captured traffic and assess regulatory/business impact. Common tags: sniffing, data-exposure, pii.",
+          "severity": "high",
+          "how_to_find": "Verify what sensitive data types appear in captured traffic and assess regulatory/business impact.",
+          "how_to_fix": "Remediate \"Detect sensitive data transmitted in cleartext\" by applying vendor and CIS/OWASP hardening guidance for Transport & Sniffing — Cleartext Protocols & Sniffing. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "wireshark",
+            "tcpdump"
+          ],
+          "references": [
+            {
+              "title": "MITRE ATT&CK - Network Sniffing (T1040)",
+              "url": "https://attack.mitre.org/techniques/T1040/"
+            }
+          ],
+          "tags": [
+            "sniffing",
+            "data-exposure",
+            "pii"
+          ],
+          "source": "net-cleartext-protocols-sensitive-data"
+        },
+        {
+          "title": "Assess broadcast/multicast and VLAN exposure",
+          "description": "Broadcast/multicast traffic and weak VLAN segmentation can expose data and name-resolution requests to attackers on the segment. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Verify what broadcast/multicast traffic is observable and whether VLAN hopping or weak segmentation increases sniffing scope. Common tags: sniffing, vlan, broadcast.",
+          "severity": "medium",
+          "how_to_find": "Verify what broadcast/multicast traffic is observable and whether VLAN hopping or weak segmentation increases sniffing scope.",
+          "how_to_fix": "Remediate \"Assess broadcast/multicast and VLAN exposure\" by applying vendor and CIS/OWASP hardening guidance for Transport & Sniffing — Cleartext Protocols & Sniffing. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "wireshark",
+            "bettercap",
+            "tcpdump"
+          ],
+          "references": [
+            {
+              "title": "MITRE ATT&CK - Network Sniffing (T1040)",
+              "url": "https://attack.mitre.org/techniques/T1040/"
+            }
+          ],
+          "tags": [
+            "sniffing",
+            "vlan",
+            "broadcast"
+          ],
+          "source": "net-cleartext-protocols-vlan-broadcast"
+        }
+      ]
+    }
+  ]
+}

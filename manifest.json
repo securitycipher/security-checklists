@@ -93,6 +93,86 @@
       "status": "live",
       "legacy_url": "",
       "file": "categories/kubernetes.json"
+    },
+    {
+      "id": "cloud",
+      "file": "categories/cloud.json",
+      "status": "live",
+      "title": "Cloud Security (Multi-Provider)",
+      "description": "Cross-cloud IAM, storage exposure, metadata SSRF, logging, and misconfiguration checks for AWS, Azure, and GCP.",
+      "icon": "aws",
+      "color": "#38bdf8",
+      "legacy_url": ""
+    },
+    {
+      "id": "active-directory",
+      "file": "categories/active-directory.json",
+      "status": "live",
+      "title": "Active Directory Security",
+      "description": "Domain enumeration, Kerberos attacks, LDAP misconfigs, privileged groups, and lateral movement controls.",
+      "icon": "api",
+      "color": "#f97316",
+      "legacy_url": ""
+    },
+    {
+      "id": "network",
+      "file": "categories/network.json",
+      "status": "live",
+      "title": "Network Security",
+      "description": "Segmentation, firewall rules, VPN exposure, internal service enumeration, and lateral movement paths.",
+      "icon": "api",
+      "color": "#14b8a6",
+      "legacy_url": ""
+    },
+    {
+      "id": "devsecops",
+      "file": "categories/devsecops.json",
+      "status": "live",
+      "title": "DevSecOps and CI/CD",
+      "description": "Pipeline secrets, artifact integrity, SAST/DAST gates, dependency scanning, and deployment hardening.",
+      "icon": "k8s",
+      "color": "#84cc16",
+      "legacy_url": ""
+    },
+    {
+      "id": "osint",
+      "file": "categories/osint.json",
+      "status": "live",
+      "title": "OSINT and Reconnaissance",
+      "description": "Passive information gathering, asset discovery, leaked credentials, and attack surface mapping.",
+      "icon": "web",
+      "color": "#a78bfa",
+      "legacy_url": ""
+    },
+    {
+      "id": "infrastructure",
+      "file": "categories/infrastructure.json",
+      "status": "live",
+      "title": "Infrastructure and Host Security",
+      "description": "Linux and Windows hardening, patch management, service configuration, and host logging.",
+      "icon": "k8s",
+      "color": "#64748b",
+      "legacy_url": ""
+    },
+    {
+      "id": "cicd",
+      "file": "categories/cicd.json",
+      "status": "live",
+      "title": "CI/CD Pipeline Security",
+      "description": "Build pipeline integrity, runner isolation, secret management, and supply-chain controls.",
+      "icon": "mcp",
+      "color": "#22c55e",
+      "legacy_url": ""
+    },
+    {
+      "id": "secure-code-review",
+      "file": "categories/secure-code-review.json",
+      "status": "live",
+      "title": "Secure Code Review",
+      "description": "Source-level checks for dangerous APIs, crypto misuse, injection sinks, and authentication flaws.",
+      "icon": "llm",
+      "color": "#f472b6",
+      "legacy_url": ""
     }
   ],
   "item_schema": {
@@ -107,5 +187,13 @@
   "source_repos": [
     "https://github.com/securitycipher/security-checklists",
     "https://github.com/securitycipher/awsome-websecurity-checklist"
+  ],
+  "sources": [
+    "https://github.com/securitycipher/security-checklists",
+    "https://github.com/securitycipher/awsome-websecurity-checklist",
+    "https://github.com/OWASP/wstg",
+    "https://github.com/m14r41/PentestingChecklist",
+    "https://github.com/Hari-prasaanth/Web-App-Pentest-Checklist",
+    "https://github.com/TradMod/awesome-audits-checklists"
   ]
 }

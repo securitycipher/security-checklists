@@ -1,0 +1,2594 @@
+{
+  "id": "secure-code-review",
+  "title": "Secure Code Review",
+  "sections": [
+    {
+      "title": "Review Methodology — Review Approach",
+      "items": [
+        {
+          "title": "Build a lightweight threat model before reading code",
+          "description": "Identify assets, trust boundaries, and the most likely attackers so review time targets the riskiest code paths first. Informational finding useful for hardening and compliance alignment. Assessors should confirm the control in practice, not only on paper: Confirm a threat model or data-flow diagram exists; map authentication boundaries, privilege levels, and where untrusted data enters the system. Common tags: methodology, threat-modeling, planning.",
+          "severity": "info",
+          "how_to_find": "Confirm a threat model or data-flow diagram exists; map authentication boundaries, privilege levels, and where untrusted data enters the system.",
+          "how_to_fix": "Remediate \"Build a lightweight threat model before reading code\" by applying vendor and CIS/OWASP hardening guidance for Review Methodology — Review Approach. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "OWASP Threat Dragon",
+            "CodeQL",
+            "grep/ripgrep"
+          ],
+          "references": [
+            {
+              "title": "OWASP Code Review Guide",
+              "url": "https://owasp.org/www-project-code-review-guide/"
+            },
+            {
+              "title": "OWASP Threat Modeling Cheat Sheet",
+              "url": "https://cheatsheetseries.owasp.org/cheatsheets/Threat_Modeling_Cheat_Sheet.html"
+            }
+          ],
+          "tags": [
+            "methodology",
+            "threat-modeling",
+            "planning"
+          ],
+          "source": "scr-approach-threat-model"
+        },
+        {
+          "title": "Map all entry points (attack surface)",
+          "description": "Enumerate every place untrusted data enters: HTTP routes, message queues, CLI args, file imports, deserializers, webhooks, and IPC. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Find route definitions, controller mappings, event handlers, and parsers; ensure each entry point has identified input validation and authorization. Common tags: methodology, attack-surface, entry-points.",
+          "severity": "medium",
+          "how_to_find": "Find route definitions, controller mappings, event handlers, and parsers; ensure each entry point has identified input validation and authorization.",
+          "how_to_fix": "Remediate \"Map all entry points (attack surface)\" by applying vendor and CIS/OWASP hardening guidance for Review Methodology — Review Approach. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "grep/ripgrep",
+            "CodeQL",
+            "Semgrep"
+          ],
+          "references": [
+            {
+              "title": "OWASP Code Review Guide",
+              "url": "https://owasp.org/www-project-code-review-guide/"
+            },
+            {
+              "title": "OWASP Attack Surface Analysis Cheat Sheet",
+              "url": "https://cheatsheetseries.owasp.org/cheatsheets/Attack_Surface_Analysis_Cheat_Sheet.html"
+            }
+          ],
+          "tags": [
+            "methodology",
+            "attack-surface",
+            "entry-points"
+          ],
+          "source": "scr-approach-entry-points"
+        },
+        {
+          "title": "Perform source-to-sink taint analysis",
+          "description": "Trace tainted (user-controlled) data from sources to security-sensitive sinks, noting any sanitizers or encoders along the path. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: For each sink (query, exec, file open, template render), trace backward to its source; flag any path where tainted data reaches the sink without sanitization. Common tags: methodology, taint-analysis, data-flow.",
+          "severity": "high",
+          "how_to_find": "For each sink (query, exec, file open, template render), trace backward to its source; flag any path where tainted data reaches the sink without sanitization.",
+          "how_to_fix": "Remediate \"Perform source-to-sink taint analysis\" by applying vendor and CIS/OWASP hardening guidance for Review Methodology — Review Approach. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "CodeQL",
+            "Semgrep",
+            "SonarQube"
+          ],
+          "references": [
+            {
+              "title": "CodeQL data-flow analysis",
+              "url": "https://codeql.github.com/docs/writing-codeql-queries/about-data-flow-analysis/"
+            },
+            {
+              "title": "CWE-20: Improper Input Validation",
+              "url": "https://cwe.mitre.org/data/definitions/20.html"
+            }
+          ],
+          "tags": [
+            "methodology",
+            "taint-analysis",
+            "data-flow"
+          ],
+          "source": "scr-approach-taint-analysis"
+        },
+        {
+          "title": "Inspect trust boundary crossings",
+          "description": "Wherever data crosses a trust boundary (client to server, service to service, tenant to tenant) validation and authorization must be re-applied server-side. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Confirm validation is not delegated to the client; check that server-side code re-validates and re-authorizes data received from less-trusted layers. Common tags: methodology, trust-boundary, validation.",
+          "severity": "high",
+          "how_to_find": "Confirm validation is not delegated to the client; check that server-side code re-validates and re-authorizes data received from less-trusted layers.",
+          "how_to_fix": "Remediate \"Inspect trust boundary crossings\" by applying vendor and CIS/OWASP hardening guidance for Review Methodology — Review Approach. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "CodeQL",
+            "grep/ripgrep",
+            "Semgrep"
+          ],
+          "references": [
+            {
+              "title": "OWASP Input Validation Cheat Sheet",
+              "url": "https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html"
+            },
+            {
+              "title": "CWE-501: Trust Boundary Violation",
+              "url": "https://cwe.mitre.org/data/definitions/501.html"
+            }
+          ],
+          "tags": [
+            "methodology",
+            "trust-boundary",
+            "validation"
+          ],
+          "source": "scr-approach-trust-boundaries"
+        },
+        {
+          "title": "Prioritize security-relevant diffs in PR reviews",
+          "description": "In incremental reviews, focus on changes touching auth, crypto, parsers, queries, and dependency updates rather than reviewing line-by-line uniformly. This is a defense-in-depth gap that improves overall resilience when fixed. Assessors should confirm the control in practice, not only on paper: Confirm the diff is reviewed for risky changes: new sinks, weakened checks, removed validation, or added dependencies. Common tags: methodology, code-review, diff.",
+          "severity": "low",
+          "how_to_find": "Confirm the diff is reviewed for risky changes: new sinks, weakened checks, removed validation, or added dependencies.",
+          "how_to_fix": "Remediate \"Prioritize security-relevant diffs in PR reviews\" by applying vendor and CIS/OWASP hardening guidance for Review Methodology — Review Approach. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Semgrep",
+            "CodeQL",
+            "grep/ripgrep"
+          ],
+          "references": [
+            {
+              "title": "OWASP Code Review Guide",
+              "url": "https://owasp.org/www-project-code-review-guide/"
+            },
+            {
+              "title": "GitHub: About code scanning",
+              "url": "https://docs.github.com/en/code-security/code-scanning/introduction-to-code-scanning/about-code-scanning"
+            }
+          ],
+          "tags": [
+            "methodology",
+            "code-review",
+            "diff"
+          ],
+          "source": "scr-approach-prioritize-diffs"
+        }
+      ]
+    },
+    {
+      "title": "Review Methodology — Tooling & Automation",
+      "items": [
+        {
+          "title": "Configure SAST with project-appropriate rulesets",
+          "description": "Stand up a SAST engine (Semgrep, CodeQL, SonarQube) tuned to the languages and frameworks in use, and run it in CI on every change. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm SAST runs in CI, uses curated rule packs for the stack, and that high-severity findings block merges or require sign-off. Common tags: tooling, sast, ci.",
+          "severity": "medium",
+          "how_to_find": "Confirm SAST runs in CI, uses curated rule packs for the stack, and that high-severity findings block merges or require sign-off.",
+          "how_to_fix": "Remediate \"Configure SAST with project-appropriate rulesets\" by applying vendor and CIS/OWASP hardening guidance for Review Methodology — Tooling & Automation. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Semgrep",
+            "CodeQL",
+            "SonarQube"
+          ],
+          "references": [
+            {
+              "title": "Semgrep documentation",
+              "url": "https://semgrep.dev/docs/"
+            },
+            {
+              "title": "CodeQL documentation",
+              "url": "https://codeql.github.com/docs/"
+            }
+          ],
+          "tags": [
+            "tooling",
+            "sast",
+            "ci"
+          ],
+          "source": "scr-tooling-sast-setup"
+        },
+        {
+          "title": "Grep for dangerous sink patterns",
+          "description": "Use ripgrep to quickly locate high-risk APIs: exec/system, raw SQL, eval, deserializers, innerHTML, and disabled TLS verification. This is a defense-in-depth gap that improves overall resilience when fixed. Assessors should confirm the control in practice, not only on paper: Run targeted patterns (e.g. rg -n \"(exec|system|eval|innerHTML|pickle.loads|yaml.load)\") and review each hit for tainted input. Common tags: tooling, grep, sinks.",
+          "severity": "low",
+          "how_to_find": "Run targeted patterns (e.g. rg -n \"(exec|system|eval|innerHTML|pickle.loads|yaml.load)\") and review each hit for tainted input.",
+          "how_to_fix": "Remediate \"Grep for dangerous sink patterns\" by applying vendor and CIS/OWASP hardening guidance for Review Methodology — Tooling & Automation. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "grep/ripgrep",
+            "Semgrep"
+          ],
+          "references": [
+            {
+              "title": "OWASP Code Review Guide",
+              "url": "https://owasp.org/www-project-code-review-guide/"
+            },
+            {
+              "title": "Semgrep rule registry",
+              "url": "https://semgrep.dev/explore"
+            }
+          ],
+          "tags": [
+            "tooling",
+            "grep",
+            "sinks"
+          ],
+          "source": "scr-tooling-grep-sinks"
+        },
+        {
+          "title": "Write custom rules for project-specific sinks",
+          "description": "Encode internal dangerous helpers (custom query builders, in-house exec wrappers) as Semgrep/CodeQL rules so they are caught automatically. This is a defense-in-depth gap that improves overall resilience when fixed. Assessors should confirm the control in practice, not only on paper: Confirm custom Semgrep patterns or CodeQL queries exist for project-specific sink functions and unsafe internal wrappers. Common tags: tooling, custom-rules, sast.",
+          "severity": "low",
+          "how_to_find": "Confirm custom Semgrep patterns or CodeQL queries exist for project-specific sink functions and unsafe internal wrappers.",
+          "how_to_fix": "Remediate \"Write custom rules for project-specific sinks\" by applying vendor and CIS/OWASP hardening guidance for Review Methodology — Tooling & Automation. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Semgrep",
+            "CodeQL"
+          ],
+          "references": [
+            {
+              "title": "Semgrep: Writing rules",
+              "url": "https://semgrep.dev/docs/writing-rules/overview"
+            },
+            {
+              "title": "CodeQL: Writing queries",
+              "url": "https://codeql.github.com/docs/writing-codeql-queries/"
+            }
+          ],
+          "tags": [
+            "tooling",
+            "custom-rules",
+            "sast"
+          ],
+          "source": "scr-tooling-write-custom-rules"
+        },
+        {
+          "title": "Triage SAST findings and suppress with justification",
+          "description": "Investigate findings for exploitability and false positives; suppress only with a documented reason, never blanket-disable rules. Informational finding useful for hardening and compliance alignment. Assessors should confirm the control in practice, not only on paper: Check that suppressions (nosem, // codeql, sonar:ignore) carry a justification and are reviewed, and that suppression counts are not growing unchecked. Common tags: tooling, triage, false-positives.",
+          "severity": "info",
+          "how_to_find": "Check that suppressions (nosem, // codeql, sonar:ignore) carry a justification and are reviewed, and that suppression counts are not growing unchecked.",
+          "how_to_fix": "Remediate \"Triage SAST findings and suppress with justification\" by applying vendor and CIS/OWASP hardening guidance for Review Methodology — Tooling & Automation. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Semgrep",
+            "CodeQL",
+            "SonarQube"
+          ],
+          "references": [
+            {
+              "title": "Semgrep: Ignoring findings",
+              "url": "https://semgrep.dev/docs/ignoring-files-folders-code"
+            },
+            {
+              "title": "OWASP Code Review Guide",
+              "url": "https://owasp.org/www-project-code-review-guide/"
+            }
+          ],
+          "tags": [
+            "tooling",
+            "triage",
+            "false-positives"
+          ],
+          "source": "scr-tooling-triage-noise"
+        },
+        {
+          "title": "Diff against history to spot weakened controls",
+          "description": "Compare versions to detect removed validation, downgraded crypto, new debug flags, or silently added dependencies. This is a defense-in-depth gap that improves overall resilience when fixed. Assessors should confirm the control in practice, not only on paper: Use git diff/blame across the change range to confirm no security control was removed or weakened and that risky additions are intentional. Common tags: tooling, diff, git.",
+          "severity": "low",
+          "how_to_find": "Use git diff/blame across the change range to confirm no security control was removed or weakened and that risky additions are intentional.",
+          "how_to_fix": "Remediate \"Diff against history to spot weakened controls\" by applying vendor and CIS/OWASP hardening guidance for Review Methodology — Tooling & Automation. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "git",
+            "Semgrep",
+            "grep/ripgrep"
+          ],
+          "references": [
+            {
+              "title": "GitHub: About code scanning",
+              "url": "https://docs.github.com/en/code-security/code-scanning/introduction-to-code-scanning/about-code-scanning"
+            },
+            {
+              "title": "OWASP Code Review Guide",
+              "url": "https://owasp.org/www-project-code-review-guide/"
+            }
+          ],
+          "tags": [
+            "tooling",
+            "diff",
+            "git"
+          ],
+          "source": "scr-tooling-diff-history"
+        }
+      ]
+    },
+    {
+      "title": "Injection Sinks — SQL Injection Sinks",
+      "items": [
+        {
+          "title": "Detect string-concatenated SQL queries",
+          "description": "Queries assembled by concatenating or interpolating user input into the SQL string are classic SQLi sinks. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: Look for SQL strings built with +, string interpolation, sprintf/format, or template literals containing request data instead of bound parameters. Common tags: injection, sql, sinks.",
+          "severity": "critical",
+          "how_to_find": "Look for SQL strings built with +, string interpolation, sprintf/format, or template literals containing request data instead of bound parameters.",
+          "how_to_fix": "Remediate \"Detect string-concatenated SQL queries\" by applying vendor and CIS/OWASP hardening guidance for Injection Sinks — SQL Injection Sinks. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Semgrep",
+            "CodeQL",
+            "grep/ripgrep"
+          ],
+          "references": [
+            {
+              "title": "OWASP SQL Injection Prevention Cheat Sheet",
+              "url": "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html"
+            },
+            {
+              "title": "CWE-89: SQL Injection",
+              "url": "https://cwe.mitre.org/data/definitions/89.html"
+            }
+          ],
+          "tags": [
+            "injection",
+            "sql",
+            "sinks"
+          ],
+          "source": "scr-sql-string-concat"
+        },
+        {
+          "title": "Review ORM raw query and rawSQL escape hatches",
+          "description": "ORMs are safe by default but expose raw query methods (e.g. .raw(), queryRaw, @Query with concatenation, find_by_sql) that reintroduce SQLi. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Search for ORM raw query APIs and confirm any user input is passed as parameters, not concatenated into the raw string. Common tags: injection, sql, orm.",
+          "severity": "high",
+          "how_to_find": "Search for ORM raw query APIs and confirm any user input is passed as parameters, not concatenated into the raw string.",
+          "how_to_fix": "Remediate \"Review ORM raw query and rawSQL escape hatches\" by applying vendor and CIS/OWASP hardening guidance for Injection Sinks — SQL Injection Sinks. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Semgrep",
+            "CodeQL",
+            "grep/ripgrep"
+          ],
+          "references": [
+            {
+              "title": "OWASP SQL Injection Prevention Cheat Sheet",
+              "url": "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html"
+            },
+            {
+              "title": "PortSwigger: SQL injection",
+              "url": "https://portswigger.net/web-security/sql-injection"
+            }
+          ],
+          "tags": [
+            "injection",
+            "sql",
+            "orm"
+          ],
+          "source": "scr-sql-orm-raw"
+        },
+        {
+          "title": "Check dynamic table/column identifiers and ORDER BY",
+          "description": "Parameterization does not cover identifiers (table/column names, ORDER BY, LIMIT); these must be allowlisted, not bound. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Find dynamic ORDER BY, column, or table names derived from input and confirm they are validated against a strict allowlist. Common tags: injection, sql, allowlist.",
+          "severity": "high",
+          "how_to_find": "Find dynamic ORDER BY, column, or table names derived from input and confirm they are validated against a strict allowlist.",
+          "how_to_fix": "Remediate \"Check dynamic table/column identifiers and ORDER BY\" by applying vendor and CIS/OWASP hardening guidance for Injection Sinks — SQL Injection Sinks. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Semgrep",
+            "CodeQL",
+            "grep/ripgrep"
+          ],
+          "references": [
+            {
+              "title": "OWASP SQL Injection Prevention Cheat Sheet",
+              "url": "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html"
+            },
+            {
+              "title": "CWE-89: SQL Injection",
+              "url": "https://cwe.mitre.org/data/definitions/89.html"
+            }
+          ],
+          "tags": [
+            "injection",
+            "sql",
+            "allowlist"
+          ],
+          "source": "scr-sql-dynamic-identifiers"
+        },
+        {
+          "title": "Detect NoSQL and ODM injection",
+          "description": "NoSQL databases (MongoDB) are vulnerable when raw query objects, $where, or where() accept attacker-controlled operators. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Look for request data passed directly into Mongo query objects, $where/where() clauses, or unparameterized aggregation that allows operator injection. Common tags: injection, nosql, mongodb.",
+          "severity": "high",
+          "how_to_find": "Look for request data passed directly into Mongo query objects, $where/where() clauses, or unparameterized aggregation that allows operator injection.",
+          "how_to_fix": "Remediate \"Detect NoSQL and ODM injection\" by applying vendor and CIS/OWASP hardening guidance for Injection Sinks — SQL Injection Sinks. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Semgrep",
+            "CodeQL",
+            "grep/ripgrep"
+          ],
+          "references": [
+            {
+              "title": "PortSwigger: NoSQL injection",
+              "url": "https://portswigger.net/web-security/nosql-injection"
+            },
+            {
+              "title": "CWE-943: Improper Neutralization in a Data Query",
+              "url": "https://cwe.mitre.org/data/definitions/943.html"
+            }
+          ],
+          "tags": [
+            "injection",
+            "nosql",
+            "mongodb"
+          ],
+          "source": "scr-sql-nosql-injection"
+        },
+        {
+          "title": "Audit stored procedures for dynamic SQL",
+          "description": "Parameterized calls to stored procedures are safe only if the procedure itself does not build dynamic SQL from its parameters. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Review stored procedure bodies for EXEC/EXECUTE/sp_executesql on concatenated parameters without QUOTENAME or binding. Common tags: injection, sql, stored-procedure.",
+          "severity": "medium",
+          "how_to_find": "Review stored procedure bodies for EXEC/EXECUTE/sp_executesql on concatenated parameters without QUOTENAME or binding.",
+          "how_to_fix": "Remediate \"Audit stored procedures for dynamic SQL\" by applying vendor and CIS/OWASP hardening guidance for Injection Sinks — SQL Injection Sinks. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "grep/ripgrep",
+            "SonarQube"
+          ],
+          "references": [
+            {
+              "title": "OWASP SQL Injection Prevention Cheat Sheet",
+              "url": "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html"
+            },
+            {
+              "title": "CWE-89: SQL Injection",
+              "url": "https://cwe.mitre.org/data/definitions/89.html"
+            }
+          ],
+          "tags": [
+            "injection",
+            "sql",
+            "stored-procedure"
+          ],
+          "source": "scr-sql-stored-proc"
+        }
+      ]
+    },
+    {
+      "title": "Injection Sinks — OS Command Injection Sinks",
+      "items": [
+        {
+          "title": "Flag shell-interpreted command execution",
+          "description": "Calls like system(), os.system, exec with shell=True, Runtime.exec(\"sh -c ...\"), or child_process.exec invoke a shell and are injectable. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: Find exec/system/popen/spawn calls that pass a single string to a shell with embedded user input instead of an argument array. Common tags: injection, command, shell.",
+          "severity": "critical",
+          "how_to_find": "Find exec/system/popen/spawn calls that pass a single string to a shell with embedded user input instead of an argument array.",
+          "how_to_fix": "Remediate \"Flag shell-interpreted command execution\" by applying vendor and CIS/OWASP hardening guidance for Injection Sinks — OS Command Injection Sinks. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Semgrep",
+            "CodeQL",
+            "grep/ripgrep",
+            "bandit"
+          ],
+          "references": [
+            {
+              "title": "OWASP OS Command Injection Defense Cheat Sheet",
+              "url": "https://cheatsheetseries.owasp.org/cheatsheets/OS_Command_Injection_Defense_Cheat_Sheet.html"
+            },
+            {
+              "title": "CWE-78: OS Command Injection",
+              "url": "https://cwe.mitre.org/data/definitions/78.html"
+            }
+          ],
+          "tags": [
+            "injection",
+            "command",
+            "shell"
+          ],
+          "source": "scr-command-shell-true"
+        },
+        {
+          "title": "Prefer argument-array execution without a shell",
+          "description": "Even array-based exec is risky if the program/path is attacker-controlled or arguments allow option injection (e.g. leading dashes). This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Confirm command name is fixed/allowlisted, arguments are passed as an array, and option-injection is mitigated with -- separators. Common tags: injection, command, argv.",
+          "severity": "high",
+          "how_to_find": "Confirm command name is fixed/allowlisted, arguments are passed as an array, and option-injection is mitigated with -- separators.",
+          "how_to_fix": "Remediate \"Prefer argument-array execution without a shell\" by applying vendor and CIS/OWASP hardening guidance for Injection Sinks — OS Command Injection Sinks. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Semgrep",
+            "CodeQL",
+            "grep/ripgrep"
+          ],
+          "references": [
+            {
+              "title": "OWASP OS Command Injection Defense Cheat Sheet",
+              "url": "https://cheatsheetseries.owasp.org/cheatsheets/OS_Command_Injection_Defense_Cheat_Sheet.html"
+            },
+            {
+              "title": "CWE-88: Argument Injection",
+              "url": "https://cwe.mitre.org/data/definitions/88.html"
+            }
+          ],
+          "tags": [
+            "injection",
+            "command",
+            "argv"
+          ],
+          "source": "scr-command-arg-array"
+        },
+        {
+          "title": "Audit per-language process APIs",
+          "description": "Review Python subprocess/os, Node child_process, Java ProcessBuilder/Runtime, Ruby Kernel#system/backticks, Go os/exec, and PHP exec/passthru/proc_open. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Enumerate language-specific exec APIs and confirm none receive concatenated untrusted input via a shell. Common tags: injection, command, languages.",
+          "severity": "high",
+          "how_to_find": "Enumerate language-specific exec APIs and confirm none receive concatenated untrusted input via a shell.",
+          "how_to_fix": "Remediate \"Audit per-language process APIs\" by applying vendor and CIS/OWASP hardening guidance for Injection Sinks — OS Command Injection Sinks. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "grep/ripgrep",
+            "bandit",
+            "gosec",
+            "Semgrep"
+          ],
+          "references": [
+            {
+              "title": "CWE-78: OS Command Injection",
+              "url": "https://cwe.mitre.org/data/definitions/78.html"
+            },
+            {
+              "title": "Bandit documentation",
+              "url": "https://bandit.readthedocs.io/en/latest/"
+            }
+          ],
+          "tags": [
+            "injection",
+            "command",
+            "languages"
+          ],
+          "source": "scr-command-language-apis"
+        },
+        {
+          "title": "Check indirect command execution via templates and config",
+          "description": "Build scripts, Makefiles, CI YAML, and templating that interpolate input into shell commands are command-injection sinks too. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Look for run: steps, Makefile recipes, or template-rendered shell commands that embed externally controlled values. Common tags: injection, command, ci.",
+          "severity": "medium",
+          "how_to_find": "Look for run: steps, Makefile recipes, or template-rendered shell commands that embed externally controlled values.",
+          "how_to_fix": "Remediate \"Check indirect command execution via templates and config\" by applying vendor and CIS/OWASP hardening guidance for Injection Sinks — OS Command Injection Sinks. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "grep/ripgrep",
+            "Semgrep"
+          ],
+          "references": [
+            {
+              "title": "OWASP OS Command Injection Defense Cheat Sheet",
+              "url": "https://cheatsheetseries.owasp.org/cheatsheets/OS_Command_Injection_Defense_Cheat_Sheet.html"
+            },
+            {
+              "title": "GitHub Actions: Security hardening",
+              "url": "https://docs.github.com/en/actions/security-for-github-actions/security-guides/security-hardening-for-github-actions"
+            }
+          ],
+          "tags": [
+            "injection",
+            "command",
+            "ci"
+          ],
+          "source": "scr-command-indirect-exec"
+        }
+      ]
+    },
+    {
+      "title": "Injection Sinks — Path Traversal Sinks",
+      "items": [
+        {
+          "title": "Detect file paths built from user input",
+          "description": "Concatenating request data into a file path enables ../ traversal to read or write outside the intended directory. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Find open/read/write/sendFile/include calls where the path includes user input; confirm canonicalization and a base-directory prefix check. Common tags: injection, path-traversal, filesystem.",
+          "severity": "high",
+          "how_to_find": "Find open/read/write/sendFile/include calls where the path includes user input; confirm canonicalization and a base-directory prefix check.",
+          "how_to_fix": "Remediate \"Detect file paths built from user input\" by applying vendor and CIS/OWASP hardening guidance for Injection Sinks — Path Traversal Sinks. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Semgrep",
+            "CodeQL",
+            "grep/ripgrep"
+          ],
+          "references": [
+            {
+              "title": "OWASP File Path Traversal",
+              "url": "https://owasp.org/www-community/attacks/Path_Traversal"
+            },
+            {
+              "title": "CWE-22: Path Traversal",
+              "url": "https://cwe.mitre.org/data/definitions/22.html"
+            }
+          ],
+          "tags": [
+            "injection",
+            "path-traversal",
+            "filesystem"
+          ],
+          "source": "scr-path-concat"
+        },
+        {
+          "title": "Verify canonicalization happens before the boundary check",
+          "description": "Checks must resolve symlinks and normalize (realpath/Path.normalize) and then verify the result is still within the allowed root. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Confirm the code canonicalizes the path and then validates the resolved path starts with the allowed base, not the raw input. Common tags: injection, path-traversal, canonicalization.",
+          "severity": "high",
+          "how_to_find": "Confirm the code canonicalizes the path and then validates the resolved path starts with the allowed base, not the raw input.",
+          "how_to_fix": "Remediate \"Verify canonicalization happens before the boundary check\" by applying vendor and CIS/OWASP hardening guidance for Injection Sinks — Path Traversal Sinks. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "CodeQL",
+            "Semgrep",
+            "grep/ripgrep"
+          ],
+          "references": [
+            {
+              "title": "PortSwigger: File path traversal",
+              "url": "https://portswigger.net/web-security/file-path-traversal"
+            },
+            {
+              "title": "CWE-22: Path Traversal",
+              "url": "https://cwe.mitre.org/data/definitions/22.html"
+            }
+          ],
+          "tags": [
+            "injection",
+            "path-traversal",
+            "canonicalization"
+          ],
+          "source": "scr-path-canonicalization"
+        },
+        {
+          "title": "Account for encoding and null-byte bypasses",
+          "description": "Naive blocklists for ../ are bypassed via URL/double/Unicode encoding or null bytes; rely on canonicalization, not filtering. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Check that traversal defense decodes input fully before validation and is not a simple replace(\"..\", \"\") blocklist. Common tags: injection, path-traversal, bypass.",
+          "severity": "medium",
+          "how_to_find": "Check that traversal defense decodes input fully before validation and is not a simple replace(\"..\", \"\") blocklist.",
+          "how_to_fix": "Remediate \"Account for encoding and null-byte bypasses\" by applying vendor and CIS/OWASP hardening guidance for Injection Sinks — Path Traversal Sinks. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Semgrep",
+            "grep/ripgrep"
+          ],
+          "references": [
+            {
+              "title": "PortSwigger: File path traversal",
+              "url": "https://portswigger.net/web-security/file-path-traversal"
+            },
+            {
+              "title": "CWE-22: Path Traversal",
+              "url": "https://cwe.mitre.org/data/definitions/22.html"
+            }
+          ],
+          "tags": [
+            "injection",
+            "path-traversal",
+            "bypass"
+          ],
+          "source": "scr-path-encoding-bypass"
+        },
+        {
+          "title": "Check archive extraction for Zip Slip",
+          "description": "Extracting zip/tar entries using their stored names allows ../ entries to write outside the target directory (Zip Slip). This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Confirm extraction code validates each entry path resolves inside the destination before writing. Common tags: injection, path-traversal, zip-slip.",
+          "severity": "high",
+          "how_to_find": "Confirm extraction code validates each entry path resolves inside the destination before writing.",
+          "how_to_fix": "Remediate \"Check archive extraction for Zip Slip\" by applying vendor and CIS/OWASP hardening guidance for Injection Sinks — Path Traversal Sinks. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Semgrep",
+            "CodeQL",
+            "grep/ripgrep"
+          ],
+          "references": [
+            {
+              "title": "Snyk: Zip Slip vulnerability",
+              "url": "https://security.snyk.io/research/zip-slip-vulnerability"
+            },
+            {
+              "title": "CWE-22: Path Traversal",
+              "url": "https://cwe.mitre.org/data/definitions/22.html"
+            }
+          ],
+          "tags": [
+            "injection",
+            "path-traversal",
+            "zip-slip"
+          ],
+          "source": "scr-path-archive-extraction"
+        }
+      ]
+    },
+    {
+      "title": "Injection Sinks — Insecure Deserialization Sinks",
+      "items": [
+        {
+          "title": "Detect Java native deserialization (ObjectInputStream)",
+          "description": "readObject on attacker data with vulnerable gadget classes on the classpath leads to RCE. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: Find ObjectInputStream.readObject / XMLDecoder / unsafe Jackson polymorphic typing on untrusted input; confirm look-ahead filters or safe formats. Common tags: injection, deserialization, java.",
+          "severity": "critical",
+          "how_to_find": "Find ObjectInputStream.readObject / XMLDecoder / unsafe Jackson polymorphic typing on untrusted input; confirm look-ahead filters or safe formats.",
+          "how_to_fix": "Remediate \"Detect Java native deserialization (ObjectInputStream)\" by applying vendor and CIS/OWASP hardening guidance for Injection Sinks — Insecure Deserialization Sinks. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "CodeQL",
+            "Semgrep",
+            "grep/ripgrep"
+          ],
+          "references": [
+            {
+              "title": "OWASP Deserialization Cheat Sheet",
+              "url": "https://cheatsheetseries.owasp.org/cheatsheets/Deserialization_Cheat_Sheet.html"
+            },
+            {
+              "title": "CWE-502: Deserialization of Untrusted Data",
+              "url": "https://cwe.mitre.org/data/definitions/502.html"
+            }
+          ],
+          "tags": [
+            "injection",
+            "deserialization",
+            "java"
+          ],
+          "source": "scr-deser-java"
+        },
+        {
+          "title": "Detect Python pickle/yaml.load on untrusted data",
+          "description": "pickle.loads, yaml.load (without SafeLoader), and shelve/jsonpickle on untrusted input execute arbitrary code. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: Search for pickle.load(s), yaml.load without Loader=SafeLoader, and jsonpickle.decode on data from requests/files/queues. Common tags: injection, deserialization, python.",
+          "severity": "critical",
+          "how_to_find": "Search for pickle.load(s), yaml.load without Loader=SafeLoader, and jsonpickle.decode on data from requests/files/queues.",
+          "how_to_fix": "Remediate \"Detect Python pickle/yaml.load on untrusted data\" by applying vendor and CIS/OWASP hardening guidance for Injection Sinks — Insecure Deserialization Sinks. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "bandit",
+            "Semgrep",
+            "grep/ripgrep"
+          ],
+          "references": [
+            {
+              "title": "Python pickle security note",
+              "url": "https://docs.python.org/3/library/pickle.html"
+            },
+            {
+              "title": "CWE-502: Deserialization of Untrusted Data",
+              "url": "https://cwe.mitre.org/data/definitions/502.html"
+            }
+          ],
+          "tags": [
+            "injection",
+            "deserialization",
+            "python"
+          ],
+          "source": "scr-deser-python"
+        },
+        {
+          "title": "Detect PHP unserialize() on untrusted input",
+          "description": "unserialize() of attacker data triggers magic methods (__wakeup/__destruct) enabling POP-chain exploitation. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: Find unserialize() on cookies, request params, or stored data; confirm allowed_classes is restricted or JSON is used instead. Common tags: injection, deserialization, php.",
+          "severity": "critical",
+          "how_to_find": "Find unserialize() on cookies, request params, or stored data; confirm allowed_classes is restricted or JSON is used instead.",
+          "how_to_fix": "Remediate \"Detect PHP unserialize() on untrusted input\" by applying vendor and CIS/OWASP hardening guidance for Injection Sinks — Insecure Deserialization Sinks. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Semgrep",
+            "grep/ripgrep",
+            "SonarQube"
+          ],
+          "references": [
+            {
+              "title": "PHP unserialize() documentation",
+              "url": "https://www.php.net/manual/en/function.unserialize.php"
+            },
+            {
+              "title": "OWASP Deserialization Cheat Sheet",
+              "url": "https://cheatsheetseries.owasp.org/cheatsheets/Deserialization_Cheat_Sheet.html"
+            }
+          ],
+          "tags": [
+            "injection",
+            "deserialization",
+            "php"
+          ],
+          "source": "scr-deser-php"
+        },
+        {
+          "title": "Detect .NET unsafe deserializers",
+          "description": "BinaryFormatter, LosFormatter, NetDataContractSerializer, and TypeNameHandling.All in Json.NET deserialize types unsafely. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: Search for BinaryFormatter/LosFormatter/SoapFormatter usage and JsonSerializerSettings with TypeNameHandling other than None. Common tags: injection, deserialization, dotnet.",
+          "severity": "critical",
+          "how_to_find": "Search for BinaryFormatter/LosFormatter/SoapFormatter usage and JsonSerializerSettings with TypeNameHandling other than None.",
+          "how_to_fix": "Remediate \"Detect .NET unsafe deserializers\" by applying vendor and CIS/OWASP hardening guidance for Injection Sinks — Insecure Deserialization Sinks. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "CodeQL",
+            "Semgrep",
+            "grep/ripgrep"
+          ],
+          "references": [
+            {
+              "title": "Microsoft: BinaryFormatter security guide",
+              "url": "https://learn.microsoft.com/en-us/dotnet/standard/serialization/binaryformatter-security-guide"
+            },
+            {
+              "title": "CWE-502: Deserialization of Untrusted Data",
+              "url": "https://cwe.mitre.org/data/definitions/502.html"
+            }
+          ],
+          "tags": [
+            "injection",
+            "deserialization",
+            "dotnet"
+          ],
+          "source": "scr-deser-dotnet"
+        },
+        {
+          "title": "Detect Ruby Marshal.load and YAML.load",
+          "description": "Marshal.load and Psych YAML.load on untrusted data can instantiate arbitrary objects leading to RCE. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Find Marshal.load and YAML.load (use YAML.safe_load) on session, cache, or request data. Common tags: injection, deserialization, ruby.",
+          "severity": "high",
+          "how_to_find": "Find Marshal.load and YAML.load (use YAML.safe_load) on session, cache, or request data.",
+          "how_to_fix": "Remediate \"Detect Ruby Marshal.load and YAML.load\" by applying vendor and CIS/OWASP hardening guidance for Injection Sinks — Insecure Deserialization Sinks. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Semgrep",
+            "grep/ripgrep"
+          ],
+          "references": [
+            {
+              "title": "OWASP Deserialization Cheat Sheet",
+              "url": "https://cheatsheetseries.owasp.org/cheatsheets/Deserialization_Cheat_Sheet.html"
+            },
+            {
+              "title": "CWE-502: Deserialization of Untrusted Data",
+              "url": "https://cwe.mitre.org/data/definitions/502.html"
+            }
+          ],
+          "tags": [
+            "injection",
+            "deserialization",
+            "ruby"
+          ],
+          "source": "scr-deser-ruby"
+        }
+      ]
+    },
+    {
+      "title": "Injection Sinks — Template Injection & Dynamic Eval",
+      "items": [
+        {
+          "title": "Detect server-side template injection (SSTI)",
+          "description": "Rendering user input as a template (Jinja2, Twig, Freemarker, Velocity, ERB, Handlebars) instead of as data leads to RCE. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: Find template render calls where the template string itself, not just the context, is user-controlled; confirm input is passed as data only. Common tags: injection, ssti, templates.",
+          "severity": "critical",
+          "how_to_find": "Find template render calls where the template string itself, not just the context, is user-controlled; confirm input is passed as data only.",
+          "how_to_fix": "Remediate \"Detect server-side template injection (SSTI)\" by applying vendor and CIS/OWASP hardening guidance for Injection Sinks — Template Injection & Dynamic Eval. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Semgrep",
+            "CodeQL",
+            "grep/ripgrep"
+          ],
+          "references": [
+            {
+              "title": "PortSwigger: Server-side template injection",
+              "url": "https://portswigger.net/web-security/server-side-template-injection"
+            },
+            {
+              "title": "CWE-1336: Improper Neutralization in a Template Engine",
+              "url": "https://cwe.mitre.org/data/definitions/1336.html"
+            }
+          ],
+          "tags": [
+            "injection",
+            "ssti",
+            "templates"
+          ],
+          "source": "scr-ssti-template"
+        },
+        {
+          "title": "Detect dynamic code evaluation (eval/exec)",
+          "description": "eval, exec, Function(), setTimeout(string), compile, and runtime code generation on user input execute arbitrary code. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: Find eval/exec/Function/new Function/vm.runInContext where any argument derives from untrusted input. Common tags: injection, eval, code-execution.",
+          "severity": "critical",
+          "how_to_find": "Find eval/exec/Function/new Function/vm.runInContext where any argument derives from untrusted input.",
+          "how_to_fix": "Remediate \"Detect dynamic code evaluation (eval/exec)\" by applying vendor and CIS/OWASP hardening guidance for Injection Sinks — Template Injection & Dynamic Eval. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Semgrep",
+            "CodeQL",
+            "grep/ripgrep",
+            "bandit"
+          ],
+          "references": [
+            {
+              "title": "CWE-95: Eval Injection",
+              "url": "https://cwe.mitre.org/data/definitions/95.html"
+            },
+            {
+              "title": "OWASP Code Review Guide",
+              "url": "https://owasp.org/www-project-code-review-guide/"
+            }
+          ],
+          "tags": [
+            "injection",
+            "eval",
+            "code-execution"
+          ],
+          "source": "scr-ssti-eval-functions"
+        },
+        {
+          "title": "Check expression-language and SpEL injection",
+          "description": "Spring SpEL, OGNL, MVEL, and similar expression evaluators on user input enable code execution. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Search for SpelExpressionParser, Ognl.getValue, and @Value/@PreAuthorize using untrusted strings; confirm expressions are static. Common tags: injection, expression-language, java.",
+          "severity": "high",
+          "how_to_find": "Search for SpelExpressionParser, Ognl.getValue, and @Value/@PreAuthorize using untrusted strings; confirm expressions are static.",
+          "how_to_fix": "Remediate \"Check expression-language and SpEL injection\" by applying vendor and CIS/OWASP hardening guidance for Injection Sinks — Template Injection & Dynamic Eval. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "CodeQL",
+            "Semgrep",
+            "grep/ripgrep"
+          ],
+          "references": [
+            {
+              "title": "CWE-917: Expression Language Injection",
+              "url": "https://cwe.mitre.org/data/definitions/917.html"
+            },
+            {
+              "title": "PortSwigger: Server-side template injection",
+              "url": "https://portswigger.net/web-security/server-side-template-injection"
+            }
+          ],
+          "tags": [
+            "injection",
+            "expression-language",
+            "java"
+          ],
+          "source": "scr-ssti-expression-lang"
+        },
+        {
+          "title": "Check dynamic module loading and reflection",
+          "description": "require/import, Class.forName, getattr, and reflection driven by user input can load and invoke unexpected code paths. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Find dynamic require/import/reflection where the module or class name is user-controlled; confirm an allowlist constrains it. Common tags: injection, reflection, dynamic-load.",
+          "severity": "medium",
+          "how_to_find": "Find dynamic require/import/reflection where the module or class name is user-controlled; confirm an allowlist constrains it.",
+          "how_to_fix": "Remediate \"Check dynamic module loading and reflection\" by applying vendor and CIS/OWASP hardening guidance for Injection Sinks — Template Injection & Dynamic Eval. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Semgrep",
+            "CodeQL",
+            "grep/ripgrep"
+          ],
+          "references": [
+            {
+              "title": "CWE-470: Unsafe Reflection",
+              "url": "https://cwe.mitre.org/data/definitions/470.html"
+            },
+            {
+              "title": "OWASP Code Review Guide",
+              "url": "https://owasp.org/www-project-code-review-guide/"
+            }
+          ],
+          "tags": [
+            "injection",
+            "reflection",
+            "dynamic-load"
+          ],
+          "source": "scr-ssti-dynamic-require"
+        }
+      ]
+    },
+    {
+      "title": "AuthN & AuthZ Flaws — Authentication Logic",
+      "items": [
+        {
+          "title": "Detect endpoints missing authentication",
+          "description": "Routes that should require login but lack a guard/middleware/decorator are unauthenticated access points. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: Map each protected route to its auth middleware/decorator; flag handlers reachable without authentication that touch sensitive data. Common tags: authn, missing-check, endpoints.",
+          "severity": "critical",
+          "how_to_find": "Map each protected route to its auth middleware/decorator; flag handlers reachable without authentication that touch sensitive data.",
+          "how_to_fix": "Remediate \"Detect endpoints missing authentication\" by applying vendor and CIS/OWASP hardening guidance for AuthN & AuthZ Flaws — Authentication Logic. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "CodeQL",
+            "Semgrep",
+            "grep/ripgrep"
+          ],
+          "references": [
+            {
+              "title": "OWASP Authentication Cheat Sheet",
+              "url": "https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html"
+            },
+            {
+              "title": "CWE-306: Missing Authentication for Critical Function",
+              "url": "https://cwe.mitre.org/data/definitions/306.html"
+            }
+          ],
+          "tags": [
+            "authn",
+            "missing-check",
+            "endpoints"
+          ],
+          "source": "scr-authn-missing-checks"
+        },
+        {
+          "title": "Verify password/token comparison is constant-time",
+          "description": "Comparing secrets with == leaks length/timing; use constant-time comparison, and verify passwords via slow KDFs. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Find secret comparisons using == or .equals; confirm constant-time helpers (hmac.compare_digest, crypto.timingSafeEqual) for tokens. Common tags: authn, timing, comparison.",
+          "severity": "medium",
+          "how_to_find": "Find secret comparisons using == or .equals; confirm constant-time helpers (hmac.compare_digest, crypto.timingSafeEqual) for tokens.",
+          "how_to_fix": "Remediate \"Verify password/token comparison is constant-time\" by applying vendor and CIS/OWASP hardening guidance for AuthN & AuthZ Flaws — Authentication Logic. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Semgrep",
+            "CodeQL",
+            "grep/ripgrep"
+          ],
+          "references": [
+            {
+              "title": "CWE-208: Observable Timing Discrepancy",
+              "url": "https://cwe.mitre.org/data/definitions/208.html"
+            },
+            {
+              "title": "OWASP Authentication Cheat Sheet",
+              "url": "https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html"
+            }
+          ],
+          "tags": [
+            "authn",
+            "timing",
+            "comparison"
+          ],
+          "source": "scr-authn-password-comparison"
+        },
+        {
+          "title": "Verify password hashing uses a strong KDF",
+          "description": "Passwords must be stored with bcrypt, scrypt, Argon2, or PBKDF2 with appropriate cost — never plaintext or fast hashes. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Find password persistence; confirm a slow salted KDF is used with sane parameters and no fast hash (MD5/SHA-x) or plaintext. Common tags: authn, password, hashing.",
+          "severity": "high",
+          "how_to_find": "Find password persistence; confirm a slow salted KDF is used with sane parameters and no fast hash (MD5/SHA-x) or plaintext.",
+          "how_to_fix": "Remediate \"Verify password hashing uses a strong KDF\" by applying vendor and CIS/OWASP hardening guidance for AuthN & AuthZ Flaws — Authentication Logic. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Semgrep",
+            "grep/ripgrep",
+            "SonarQube"
+          ],
+          "references": [
+            {
+              "title": "OWASP Password Storage Cheat Sheet",
+              "url": "https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html"
+            },
+            {
+              "title": "CWE-916: Use of Password Hash With Insufficient Computational Effort",
+              "url": "https://cwe.mitre.org/data/definitions/916.html"
+            }
+          ],
+          "tags": [
+            "authn",
+            "password",
+            "hashing"
+          ],
+          "source": "scr-authn-password-storage"
+        },
+        {
+          "title": "Check brute-force protection on auth endpoints",
+          "description": "Login, OTP, and password-reset endpoints need rate limiting and lockout to resist credential stuffing and brute force. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm authentication and reset flows enforce rate limiting/lockout and that error messages do not enable user enumeration. Common tags: authn, rate-limit, brute-force.",
+          "severity": "medium",
+          "how_to_find": "Confirm authentication and reset flows enforce rate limiting/lockout and that error messages do not enable user enumeration.",
+          "how_to_fix": "Remediate \"Check brute-force protection on auth endpoints\" by applying vendor and CIS/OWASP hardening guidance for AuthN & AuthZ Flaws — Authentication Logic. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "grep/ripgrep",
+            "Semgrep"
+          ],
+          "references": [
+            {
+              "title": "OWASP Authentication Cheat Sheet",
+              "url": "https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html"
+            },
+            {
+              "title": "CWE-307: Improper Restriction of Excessive Authentication Attempts",
+              "url": "https://cwe.mitre.org/data/definitions/307.html"
+            }
+          ],
+          "tags": [
+            "authn",
+            "rate-limit",
+            "brute-force"
+          ],
+          "source": "scr-authn-rate-limit"
+        },
+        {
+          "title": "Look for authentication logic bypasses",
+          "description": "Flawed boolean logic, early returns, default-allow branches, or unverified \"remember me\" flows can bypass authentication. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Trace auth decision logic for default-allow paths, inverted conditions, or states where verification is skipped. Common tags: authn, logic, bypass.",
+          "severity": "high",
+          "how_to_find": "Trace auth decision logic for default-allow paths, inverted conditions, or states where verification is skipped.",
+          "how_to_fix": "Remediate \"Look for authentication logic bypasses\" by applying vendor and CIS/OWASP hardening guidance for AuthN & AuthZ Flaws — Authentication Logic. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "CodeQL",
+            "Semgrep",
+            "grep/ripgrep"
+          ],
+          "references": [
+            {
+              "title": "PortSwigger: Authentication vulnerabilities",
+              "url": "https://portswigger.net/web-security/authentication"
+            },
+            {
+              "title": "CWE-287: Improper Authentication",
+              "url": "https://cwe.mitre.org/data/definitions/287.html"
+            }
+          ],
+          "tags": [
+            "authn",
+            "logic",
+            "bypass"
+          ],
+          "source": "scr-authn-logic-bypass"
+        }
+      ]
+    },
+    {
+      "title": "AuthN & AuthZ Flaws — Access Control",
+      "items": [
+        {
+          "title": "Detect missing object-level authorization (IDOR)",
+          "description": "Handlers that fetch a resource by id from input without verifying ownership allow access to other users records. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: For each by-id fetch, confirm an ownership/tenant check ties the resource to the authenticated principal before returning or modifying it. Common tags: authz, idor, object-level.",
+          "severity": "critical",
+          "how_to_find": "For each by-id fetch, confirm an ownership/tenant check ties the resource to the authenticated principal before returning or modifying it.",
+          "how_to_fix": "Remediate \"Detect missing object-level authorization (IDOR)\" by applying vendor and CIS/OWASP hardening guidance for AuthN & AuthZ Flaws — Access Control. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "CodeQL",
+            "Semgrep",
+            "grep/ripgrep"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security: BOLA",
+              "url": "https://owasp.org/API-Security/editions/2023/en/0xa1-broken-object-level-authorization/"
+            },
+            {
+              "title": "CWE-639: Authorization Bypass Through User-Controlled Key",
+              "url": "https://cwe.mitre.org/data/definitions/639.html"
+            }
+          ],
+          "tags": [
+            "authz",
+            "idor",
+            "object-level"
+          ],
+          "source": "scr-ac-object-level"
+        },
+        {
+          "title": "Detect missing function-level authorization",
+          "description": "Admin/privileged actions must check role/permission server-side, not rely on hidden UI or client-side gating. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Confirm privileged handlers verify role/permission server-side; flag any that depend solely on UI hiding or client checks. Common tags: authz, function-level, rbac.",
+          "severity": "high",
+          "how_to_find": "Confirm privileged handlers verify role/permission server-side; flag any that depend solely on UI hiding or client checks.",
+          "how_to_fix": "Remediate \"Detect missing function-level authorization\" by applying vendor and CIS/OWASP hardening guidance for AuthN & AuthZ Flaws — Access Control. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "CodeQL",
+            "Semgrep",
+            "grep/ripgrep"
+          ],
+          "references": [
+            {
+              "title": "OWASP API Security: BFLA",
+              "url": "https://owasp.org/API-Security/editions/2023/en/0xa5-broken-function-level-authorization/"
+            },
+            {
+              "title": "CWE-862: Missing Authorization",
+              "url": "https://cwe.mitre.org/data/definitions/862.html"
+            }
+          ],
+          "tags": [
+            "authz",
+            "function-level",
+            "rbac"
+          ],
+          "source": "scr-ac-function-level"
+        },
+        {
+          "title": "Check for mass assignment / over-posting",
+          "description": "Binding request bodies directly to models lets attackers set protected fields (isAdmin, role, balance). This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Find model binding from request bodies; confirm an allowlist of writable fields or DTOs excludes privilege/ownership fields. Common tags: authz, mass-assignment, binding.",
+          "severity": "high",
+          "how_to_find": "Find model binding from request bodies; confirm an allowlist of writable fields or DTOs excludes privilege/ownership fields.",
+          "how_to_fix": "Remediate \"Check for mass assignment / over-posting\" by applying vendor and CIS/OWASP hardening guidance for AuthN & AuthZ Flaws — Access Control. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Semgrep",
+            "CodeQL",
+            "grep/ripgrep"
+          ],
+          "references": [
+            {
+              "title": "OWASP Mass Assignment Cheat Sheet",
+              "url": "https://cheatsheetseries.owasp.org/cheatsheets/Mass_Assignment_Cheat_Sheet.html"
+            },
+            {
+              "title": "CWE-915: Improperly Controlled Modification of Object Attributes",
+              "url": "https://cwe.mitre.org/data/definitions/915.html"
+            }
+          ],
+          "tags": [
+            "authz",
+            "mass-assignment",
+            "binding"
+          ],
+          "source": "scr-ac-mass-assignment"
+        },
+        {
+          "title": "Verify tenant isolation in multi-tenant queries",
+          "description": "Every data query in a multi-tenant system must be scoped by tenant id to prevent cross-tenant data exposure. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: Confirm queries include a tenant/org filter derived from the session, not from request input, and that no global queries leak across tenants. Common tags: authz, multi-tenant, isolation.",
+          "severity": "critical",
+          "how_to_find": "Confirm queries include a tenant/org filter derived from the session, not from request input, and that no global queries leak across tenants.",
+          "how_to_fix": "Remediate \"Verify tenant isolation in multi-tenant queries\" by applying vendor and CIS/OWASP hardening guidance for AuthN & AuthZ Flaws — Access Control. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "CodeQL",
+            "Semgrep",
+            "grep/ripgrep"
+          ],
+          "references": [
+            {
+              "title": "OWASP Authorization Cheat Sheet",
+              "url": "https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html"
+            },
+            {
+              "title": "CWE-285: Improper Authorization",
+              "url": "https://cwe.mitre.org/data/definitions/285.html"
+            }
+          ],
+          "tags": [
+            "authz",
+            "multi-tenant",
+            "isolation"
+          ],
+          "source": "scr-ac-multi-tenant"
+        },
+        {
+          "title": "Confirm authorization is centralized and deny-by-default",
+          "description": "Scattered, ad-hoc permission checks are error-prone; a central policy layer that defaults to deny is more reliable. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Assess whether authorization is enforced through a consistent mechanism that fails closed, rather than duplicated per handler. Common tags: authz, policy, deny-by-default.",
+          "severity": "medium",
+          "how_to_find": "Assess whether authorization is enforced through a consistent mechanism that fails closed, rather than duplicated per handler.",
+          "how_to_fix": "Remediate \"Confirm authorization is centralized and deny-by-default\" by applying vendor and CIS/OWASP hardening guidance for AuthN & AuthZ Flaws — Access Control. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "CodeQL",
+            "Semgrep",
+            "grep/ripgrep"
+          ],
+          "references": [
+            {
+              "title": "OWASP Authorization Cheat Sheet",
+              "url": "https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html"
+            },
+            {
+              "title": "CWE-862: Missing Authorization",
+              "url": "https://cwe.mitre.org/data/definitions/862.html"
+            }
+          ],
+          "tags": [
+            "authz",
+            "policy",
+            "deny-by-default"
+          ],
+          "source": "scr-ac-centralized"
+        }
+      ]
+    },
+    {
+      "title": "AuthN & AuthZ Flaws — Session & Token Handling",
+      "items": [
+        {
+          "title": "Verify session cookie security attributes",
+          "description": "Session cookies must set HttpOnly, Secure, and an appropriate SameSite to resist theft and CSRF. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Find cookie/session config; confirm HttpOnly, Secure, and SameSite are set and that the cookie scope (path/domain) is minimal. Common tags: session, cookies, attributes.",
+          "severity": "medium",
+          "how_to_find": "Find cookie/session config; confirm HttpOnly, Secure, and SameSite are set and that the cookie scope (path/domain) is minimal.",
+          "how_to_fix": "Remediate \"Verify session cookie security attributes\" by applying vendor and CIS/OWASP hardening guidance for AuthN & AuthZ Flaws — Session & Token Handling. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Semgrep",
+            "grep/ripgrep",
+            "CodeQL"
+          ],
+          "references": [
+            {
+              "title": "OWASP Session Management Cheat Sheet",
+              "url": "https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html"
+            },
+            {
+              "title": "CWE-1004: Sensitive Cookie Without HttpOnly Flag",
+              "url": "https://cwe.mitre.org/data/definitions/1004.html"
+            }
+          ],
+          "tags": [
+            "session",
+            "cookies",
+            "attributes"
+          ],
+          "source": "scr-session-cookie-flags"
+        },
+        {
+          "title": "Check session regeneration on privilege change",
+          "description": "Sessions must be regenerated on login and privilege elevation to prevent session fixation. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm the session id is rotated after authentication and on role change; flag flows that keep the pre-login session id. Common tags: session, fixation, lifecycle.",
+          "severity": "medium",
+          "how_to_find": "Confirm the session id is rotated after authentication and on role change; flag flows that keep the pre-login session id.",
+          "how_to_fix": "Remediate \"Check session regeneration on privilege change\" by applying vendor and CIS/OWASP hardening guidance for AuthN & AuthZ Flaws — Session & Token Handling. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "grep/ripgrep",
+            "Semgrep"
+          ],
+          "references": [
+            {
+              "title": "OWASP Session Management Cheat Sheet",
+              "url": "https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html"
+            },
+            {
+              "title": "CWE-384: Session Fixation",
+              "url": "https://cwe.mitre.org/data/definitions/384.html"
+            }
+          ],
+          "tags": [
+            "session",
+            "fixation",
+            "lifecycle"
+          ],
+          "source": "scr-session-fixation"
+        },
+        {
+          "title": "Verify JWT signature and algorithm validation",
+          "description": "JWT verification must enforce a fixed algorithm and reject alg=none; never trust unsigned or attacker-chosen-algorithm tokens. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: Find JWT verify calls; confirm an explicit algorithm allowlist, no alg=none acceptance, and verification (not just decode) before trust. Common tags: session, jwt, signature.",
+          "severity": "critical",
+          "how_to_find": "Find JWT verify calls; confirm an explicit algorithm allowlist, no alg=none acceptance, and verification (not just decode) before trust.",
+          "how_to_fix": "Remediate \"Verify JWT signature and algorithm validation\" by applying vendor and CIS/OWASP hardening guidance for AuthN & AuthZ Flaws — Session & Token Handling. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Semgrep",
+            "CodeQL",
+            "grep/ripgrep"
+          ],
+          "references": [
+            {
+              "title": "OWASP JSON Web Token Cheat Sheet",
+              "url": "https://cheatsheetseries.owasp.org/cheatsheets/JSON_Web_Token_for_Java_Cheat_Sheet.html"
+            },
+            {
+              "title": "CWE-347: Improper Verification of Cryptographic Signature",
+              "url": "https://cwe.mitre.org/data/definitions/347.html"
+            }
+          ],
+          "tags": [
+            "session",
+            "jwt",
+            "signature"
+          ],
+          "source": "scr-session-jwt-validation"
+        },
+        {
+          "title": "Check token expiry, revocation, and refresh handling",
+          "description": "Tokens need bounded lifetimes, server-side revocation for stateful needs (logout, compromise), and safe refresh rotation. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm tokens carry expiry, are checked, and that logout/revocation actually invalidates them; review refresh-token rotation and reuse detection. Common tags: session, jwt, expiry.",
+          "severity": "medium",
+          "how_to_find": "Confirm tokens carry expiry, are checked, and that logout/revocation actually invalidates them; review refresh-token rotation and reuse detection.",
+          "how_to_fix": "Remediate \"Check token expiry, revocation, and refresh handling\" by applying vendor and CIS/OWASP hardening guidance for AuthN & AuthZ Flaws — Session & Token Handling. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "grep/ripgrep",
+            "Semgrep"
+          ],
+          "references": [
+            {
+              "title": "OWASP JSON Web Token Cheat Sheet",
+              "url": "https://cheatsheetseries.owasp.org/cheatsheets/JSON_Web_Token_for_Java_Cheat_Sheet.html"
+            },
+            {
+              "title": "OWASP Session Management Cheat Sheet",
+              "url": "https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html"
+            }
+          ],
+          "tags": [
+            "session",
+            "jwt",
+            "expiry"
+          ],
+          "source": "scr-session-expiry"
+        },
+        {
+          "title": "Verify session/token identifiers are unpredictable",
+          "description": "Session ids and reset tokens must come from a CSPRNG with sufficient entropy, not sequential ids or weak RNG. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Find token generation; confirm a cryptographically secure RNG and adequate length, not Math.random/rand or predictable sequences. Common tags: session, entropy, rng.",
+          "severity": "high",
+          "how_to_find": "Find token generation; confirm a cryptographically secure RNG and adequate length, not Math.random/rand or predictable sequences.",
+          "how_to_fix": "Remediate \"Verify session/token identifiers are unpredictable\" by applying vendor and CIS/OWASP hardening guidance for AuthN & AuthZ Flaws — Session & Token Handling. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Semgrep",
+            "CodeQL",
+            "grep/ripgrep"
+          ],
+          "references": [
+            {
+              "title": "OWASP Session Management Cheat Sheet",
+              "url": "https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html"
+            },
+            {
+              "title": "CWE-330: Use of Insufficiently Random Values",
+              "url": "https://cwe.mitre.org/data/definitions/330.html"
+            }
+          ],
+          "tags": [
+            "session",
+            "entropy",
+            "rng"
+          ],
+          "source": "scr-session-token-entropy"
+        }
+      ]
+    },
+    {
+      "title": "Cryptography & Secrets — Hardcoded Secrets",
+      "items": [
+        {
+          "title": "Detect secrets committed in source code",
+          "description": "API keys, passwords, private keys, and tokens hardcoded in code are exposed to anyone with repo access. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: Scan for high-entropy strings and known key formats (AKIA, -----BEGIN PRIVATE KEY-----, slack/stripe tokens) in tracked files. Common tags: secrets, hardcoded, source.",
+          "severity": "critical",
+          "how_to_find": "Scan for high-entropy strings and known key formats (AKIA, -----BEGIN PRIVATE KEY-----, slack/stripe tokens) in tracked files.",
+          "how_to_fix": "Remediate \"Detect secrets committed in source code\" by applying vendor and CIS/OWASP hardening guidance for Cryptography & Secrets — Hardcoded Secrets. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "gitleaks",
+            "TruffleHog",
+            "Semgrep",
+            "grep/ripgrep"
+          ],
+          "references": [
+            {
+              "title": "OWASP Secrets Management Cheat Sheet",
+              "url": "https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html"
+            },
+            {
+              "title": "CWE-798: Use of Hard-coded Credentials",
+              "url": "https://cwe.mitre.org/data/definitions/798.html"
+            }
+          ],
+          "tags": [
+            "secrets",
+            "hardcoded",
+            "source"
+          ],
+          "source": "scr-secrets-in-source"
+        },
+        {
+          "title": "Check config files and committed env files for secrets",
+          "description": "Secrets in application.properties, appsettings.json, .env, or Helm/Terraform files frequently get committed by mistake. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Find committed .env/config files with credentials; confirm secrets come from a vault/secret manager and that .gitignore excludes env files. Common tags: secrets, config, env.",
+          "severity": "high",
+          "how_to_find": "Find committed .env/config files with credentials; confirm secrets come from a vault/secret manager and that .gitignore excludes env files.",
+          "how_to_fix": "Remediate \"Check config files and committed env files for secrets\" by applying vendor and CIS/OWASP hardening guidance for Cryptography & Secrets — Hardcoded Secrets. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "gitleaks",
+            "TruffleHog",
+            "grep/ripgrep"
+          ],
+          "references": [
+            {
+              "title": "OWASP Secrets Management Cheat Sheet",
+              "url": "https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html"
+            },
+            {
+              "title": "CWE-256: Plaintext Storage of a Password",
+              "url": "https://cwe.mitre.org/data/definitions/256.html"
+            }
+          ],
+          "tags": [
+            "secrets",
+            "config",
+            "env"
+          ],
+          "source": "scr-secrets-in-config"
+        },
+        {
+          "title": "Scan git history for previously committed secrets",
+          "description": "Removing a secret from HEAD does not remove it from history; leaked secrets must be rotated, not just deleted. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Run a history-aware scanner across all commits; confirm any historical secret has been rotated/revoked, not merely deleted from the latest commit. Common tags: secrets, git-history, rotation.",
+          "severity": "high",
+          "how_to_find": "Run a history-aware scanner across all commits; confirm any historical secret has been rotated/revoked, not merely deleted from the latest commit.",
+          "how_to_fix": "Remediate \"Scan git history for previously committed secrets\" by applying vendor and CIS/OWASP hardening guidance for Cryptography & Secrets — Hardcoded Secrets. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "TruffleHog",
+            "gitleaks",
+            "git"
+          ],
+          "references": [
+            {
+              "title": "TruffleHog documentation",
+              "url": "https://github.com/trufflesecurity/trufflehog"
+            },
+            {
+              "title": "OWASP Secrets Management Cheat Sheet",
+              "url": "https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html"
+            }
+          ],
+          "tags": [
+            "secrets",
+            "git-history",
+            "rotation"
+          ],
+          "source": "scr-secrets-git-history"
+        },
+        {
+          "title": "Check client bundles and mobile apps for embedded secrets",
+          "description": "Secrets shipped in frontend JS bundles or mobile binaries are public; only public/anon keys belong client-side. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Search built JS bundles, source maps, and decompiled mobile apps for API keys or backend credentials that should be server-only. Common tags: secrets, client, mobile.",
+          "severity": "high",
+          "how_to_find": "Search built JS bundles, source maps, and decompiled mobile apps for API keys or backend credentials that should be server-only.",
+          "how_to_fix": "Remediate \"Check client bundles and mobile apps for embedded secrets\" by applying vendor and CIS/OWASP hardening guidance for Cryptography & Secrets — Hardcoded Secrets. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "TruffleHog",
+            "grep/ripgrep",
+            "Semgrep"
+          ],
+          "references": [
+            {
+              "title": "CWE-798: Use of Hard-coded Credentials",
+              "url": "https://cwe.mitre.org/data/definitions/798.html"
+            },
+            {
+              "title": "OWASP Secrets Management Cheat Sheet",
+              "url": "https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html"
+            }
+          ],
+          "tags": [
+            "secrets",
+            "client",
+            "mobile"
+          ],
+          "source": "scr-secrets-client-bundles"
+        }
+      ]
+    },
+    {
+      "title": "Cryptography & Secrets — Weak & Misused Cryptography",
+      "items": [
+        {
+          "title": "Detect weak hash algorithms (MD5/SHA1)",
+          "description": "MD5 and SHA1 are broken for integrity/signatures and unsuitable for passwords; flag their security use. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Find MD5/SHA1 usage; determine whether it is security-relevant (signatures, integrity, password) and recommend SHA-256+ or a KDF. Common tags: crypto, weak-hash, md5.",
+          "severity": "medium",
+          "how_to_find": "Find MD5/SHA1 usage; determine whether it is security-relevant (signatures, integrity, password) and recommend SHA-256+ or a KDF.",
+          "how_to_fix": "Remediate \"Detect weak hash algorithms (MD5/SHA1)\" by applying vendor and CIS/OWASP hardening guidance for Cryptography & Secrets — Weak & Misused Cryptography. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Semgrep",
+            "CodeQL",
+            "bandit",
+            "grep/ripgrep"
+          ],
+          "references": [
+            {
+              "title": "OWASP Cryptographic Storage Cheat Sheet",
+              "url": "https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html"
+            },
+            {
+              "title": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+              "url": "https://cwe.mitre.org/data/definitions/327.html"
+            }
+          ],
+          "tags": [
+            "crypto",
+            "weak-hash",
+            "md5"
+          ],
+          "source": "scr-crypto-weak-hash"
+        },
+        {
+          "title": "Detect insecure cipher modes (ECB) and missing auth",
+          "description": "ECB leaks patterns and unauthenticated CBC is malleable; prefer authenticated modes like AES-GCM. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Find cipher configuration; flag ECB mode and CBC without a MAC, and confirm an authenticated mode (GCM/ChaCha20-Poly1305) is used. Common tags: crypto, cipher-mode, ecb.",
+          "severity": "high",
+          "how_to_find": "Find cipher configuration; flag ECB mode and CBC without a MAC, and confirm an authenticated mode (GCM/ChaCha20-Poly1305) is used.",
+          "how_to_fix": "Remediate \"Detect insecure cipher modes (ECB) and missing auth\" by applying vendor and CIS/OWASP hardening guidance for Cryptography & Secrets — Weak & Misused Cryptography. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Semgrep",
+            "CodeQL",
+            "grep/ripgrep"
+          ],
+          "references": [
+            {
+              "title": "OWASP Cryptographic Storage Cheat Sheet",
+              "url": "https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html"
+            },
+            {
+              "title": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+              "url": "https://cwe.mitre.org/data/definitions/327.html"
+            }
+          ],
+          "tags": [
+            "crypto",
+            "cipher-mode",
+            "ecb"
+          ],
+          "source": "scr-crypto-ecb-mode"
+        },
+        {
+          "title": "Detect static/reused IVs and nonces",
+          "description": "A constant or reused IV/nonce destroys the security of stream ciphers and GCM; nonces must be unique per encryption. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Find IV/nonce assignment; confirm it is randomly generated per operation (or a counter), never a hardcoded constant or reused value. Common tags: crypto, iv, nonce.",
+          "severity": "high",
+          "how_to_find": "Find IV/nonce assignment; confirm it is randomly generated per operation (or a counter), never a hardcoded constant or reused value.",
+          "how_to_fix": "Remediate \"Detect static/reused IVs and nonces\" by applying vendor and CIS/OWASP hardening guidance for Cryptography & Secrets — Weak & Misused Cryptography. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Semgrep",
+            "CodeQL",
+            "grep/ripgrep"
+          ],
+          "references": [
+            {
+              "title": "OWASP Cryptographic Storage Cheat Sheet",
+              "url": "https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html"
+            },
+            {
+              "title": "CWE-329: Generation of Predictable IV with CBC Mode",
+              "url": "https://cwe.mitre.org/data/definitions/329.html"
+            }
+          ],
+          "tags": [
+            "crypto",
+            "iv",
+            "nonce"
+          ],
+          "source": "scr-crypto-static-iv"
+        },
+        {
+          "title": "Detect weak random number generation for secrets",
+          "description": "Math.random, java.util.Random, rand(), and mt_rand are not cryptographically secure for tokens, keys, or IVs. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Find RNG used to generate security values; confirm a CSPRNG (crypto.randomBytes, SecureRandom, secrets module) is used instead. Common tags: crypto, rng, entropy.",
+          "severity": "high",
+          "how_to_find": "Find RNG used to generate security values; confirm a CSPRNG (crypto.randomBytes, SecureRandom, secrets module) is used instead.",
+          "how_to_fix": "Remediate \"Detect weak random number generation for secrets\" by applying vendor and CIS/OWASP hardening guidance for Cryptography & Secrets — Weak & Misused Cryptography. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Semgrep",
+            "CodeQL",
+            "bandit",
+            "gosec"
+          ],
+          "references": [
+            {
+              "title": "CWE-338: Use of Cryptographically Weak PRNG",
+              "url": "https://cwe.mitre.org/data/definitions/338.html"
+            },
+            {
+              "title": "OWASP Cryptographic Storage Cheat Sheet",
+              "url": "https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html"
+            }
+          ],
+          "tags": [
+            "crypto",
+            "rng",
+            "entropy"
+          ],
+          "source": "scr-crypto-weak-rng"
+        },
+        {
+          "title": "Review key management and key derivation",
+          "description": "Keys derived from low-entropy material, reused across purposes, or hardcoded undermine otherwise sound crypto. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm keys come from a KMS/secure store, are purpose-separated, and derived via a proper KDF when from passwords (Argon2/PBKDF2/scrypt). Common tags: crypto, key-management, kdf.",
+          "severity": "medium",
+          "how_to_find": "Confirm keys come from a KMS/secure store, are purpose-separated, and derived via a proper KDF when from passwords (Argon2/PBKDF2/scrypt).",
+          "how_to_fix": "Remediate \"Review key management and key derivation\" by applying vendor and CIS/OWASP hardening guidance for Cryptography & Secrets — Weak & Misused Cryptography. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Semgrep",
+            "CodeQL",
+            "grep/ripgrep"
+          ],
+          "references": [
+            {
+              "title": "OWASP Key Management Cheat Sheet",
+              "url": "https://cheatsheetseries.owasp.org/cheatsheets/Key_Management_Cheat_Sheet.html"
+            },
+            {
+              "title": "CWE-320: Key Management Errors",
+              "url": "https://cwe.mitre.org/data/definitions/320.html"
+            }
+          ],
+          "tags": [
+            "crypto",
+            "key-management",
+            "kdf"
+          ],
+          "source": "scr-crypto-key-management"
+        }
+      ]
+    },
+    {
+      "title": "Cryptography & Secrets — Certificate & TLS Validation",
+      "items": [
+        {
+          "title": "Detect disabled TLS certificate verification",
+          "description": "Disabling verification (verify=False, rejectUnauthorized:false, InsecureSkipVerify, trust-all managers) enables MITM. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Find HTTP/TLS client config; flag verify=False, rejectUnauthorized:false, InsecureSkipVerify:true, and all-trusting TrustManagers/SSLContexts. Common tags: tls, cert-validation, mitm.",
+          "severity": "high",
+          "how_to_find": "Find HTTP/TLS client config; flag verify=False, rejectUnauthorized:false, InsecureSkipVerify:true, and all-trusting TrustManagers/SSLContexts.",
+          "how_to_fix": "Remediate \"Detect disabled TLS certificate verification\" by applying vendor and CIS/OWASP hardening guidance for Cryptography & Secrets — Certificate & TLS Validation. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Semgrep",
+            "CodeQL",
+            "bandit",
+            "gosec"
+          ],
+          "references": [
+            {
+              "title": "OWASP Transport Layer Security Cheat Sheet",
+              "url": "https://cheatsheetseries.owasp.org/cheatsheets/Transport_Layer_Security_Cheat_Sheet.html"
+            },
+            {
+              "title": "CWE-295: Improper Certificate Validation",
+              "url": "https://cwe.mitre.org/data/definitions/295.html"
+            }
+          ],
+          "tags": [
+            "tls",
+            "cert-validation",
+            "mitm"
+          ],
+          "source": "scr-cert-disabled-verify"
+        },
+        {
+          "title": "Verify hostname verification is enabled",
+          "description": "Validating the chain but not the hostname still permits MITM with any valid certificate; hostname checks must be on. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Confirm hostname verification is not disabled (e.g. ALLOW_ALL_HOSTNAME_VERIFIER, custom HostnameVerifier returning true). Common tags: tls, hostname, verification.",
+          "severity": "high",
+          "how_to_find": "Confirm hostname verification is not disabled (e.g. ALLOW_ALL_HOSTNAME_VERIFIER, custom HostnameVerifier returning true).",
+          "how_to_fix": "Remediate \"Verify hostname verification is enabled\" by applying vendor and CIS/OWASP hardening guidance for Cryptography & Secrets — Certificate & TLS Validation. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Semgrep",
+            "CodeQL",
+            "grep/ripgrep"
+          ],
+          "references": [
+            {
+              "title": "CWE-297: Improper Validation of Certificate with Host Mismatch",
+              "url": "https://cwe.mitre.org/data/definitions/297.html"
+            },
+            {
+              "title": "OWASP Transport Layer Security Cheat Sheet",
+              "url": "https://cheatsheetseries.owasp.org/cheatsheets/Transport_Layer_Security_Cheat_Sheet.html"
+            }
+          ],
+          "tags": [
+            "tls",
+            "hostname",
+            "verification"
+          ],
+          "source": "scr-cert-hostname-check"
+        },
+        {
+          "title": "Check for outdated TLS versions and weak ciphers",
+          "description": "Forcing SSLv3/TLS 1.0/1.1 or enabling weak cipher suites weakens confidentiality; require TLS 1.2+. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Find TLS protocol/cipher configuration; confirm minimum TLS 1.2 and that deprecated protocols and weak ciphers are not enabled. Common tags: tls, protocol-version, ciphers.",
+          "severity": "medium",
+          "how_to_find": "Find TLS protocol/cipher configuration; confirm minimum TLS 1.2 and that deprecated protocols and weak ciphers are not enabled.",
+          "how_to_fix": "Remediate \"Check for outdated TLS versions and weak ciphers\" by applying vendor and CIS/OWASP hardening guidance for Cryptography & Secrets — Certificate & TLS Validation. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Semgrep",
+            "grep/ripgrep",
+            "CodeQL"
+          ],
+          "references": [
+            {
+              "title": "OWASP Transport Layer Security Cheat Sheet",
+              "url": "https://cheatsheetseries.owasp.org/cheatsheets/Transport_Layer_Security_Cheat_Sheet.html"
+            },
+            {
+              "title": "CWE-326: Inadequate Encryption Strength",
+              "url": "https://cwe.mitre.org/data/definitions/326.html"
+            }
+          ],
+          "tags": [
+            "tls",
+            "protocol-version",
+            "ciphers"
+          ],
+          "source": "scr-cert-protocol-version"
+        },
+        {
+          "title": "Review certificate pinning implementation (mobile)",
+          "description": "Mobile and high-assurance clients may pin certificates; broken or bypassable pinning gives false confidence. This is a defense-in-depth gap that improves overall resilience when fixed. Assessors should confirm the control in practice, not only on paper: If pinning is used, confirm it is correctly implemented, has a backup pin, and is not silently disabled in debug builds. Common tags: tls, pinning, mobile.",
+          "severity": "low",
+          "how_to_find": "If pinning is used, confirm it is correctly implemented, has a backup pin, and is not silently disabled in debug builds.",
+          "how_to_fix": "Remediate \"Review certificate pinning implementation (mobile)\" by applying vendor and CIS/OWASP hardening guidance for Cryptography & Secrets — Certificate & TLS Validation. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "grep/ripgrep",
+            "Semgrep"
+          ],
+          "references": [
+            {
+              "title": "OWASP Certificate and Public Key Pinning",
+              "url": "https://owasp.org/www-community/controls/Certificate_and_Public_Key_Pinning"
+            },
+            {
+              "title": "CWE-295: Improper Certificate Validation",
+              "url": "https://cwe.mitre.org/data/definitions/295.html"
+            }
+          ],
+          "tags": [
+            "tls",
+            "pinning",
+            "mobile"
+          ],
+          "source": "scr-cert-pinning"
+        }
+      ]
+    },
+    {
+      "title": "Input / Output Handling — XSS Output Sinks",
+      "items": [
+        {
+          "title": "Detect unencoded output in HTML context",
+          "description": "Writing user input into HTML without context-appropriate encoding produces reflected or stored XSS. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Trace user input into HTML responses; confirm contextual output encoding/auto-escaping and that escaping is not bypassed (raw/safe filters). Common tags: xss, output-encoding, html.",
+          "severity": "high",
+          "how_to_find": "Trace user input into HTML responses; confirm contextual output encoding/auto-escaping and that escaping is not bypassed (raw/safe filters).",
+          "how_to_fix": "Remediate \"Detect unencoded output in HTML context\" by applying vendor and CIS/OWASP hardening guidance for Input / Output Handling — XSS Output Sinks. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Semgrep",
+            "CodeQL",
+            "grep/ripgrep"
+          ],
+          "references": [
+            {
+              "title": "OWASP Cross Site Scripting Prevention Cheat Sheet",
+              "url": "https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html"
+            },
+            {
+              "title": "CWE-79: Cross-site Scripting",
+              "url": "https://cwe.mitre.org/data/definitions/79.html"
+            }
+          ],
+          "tags": [
+            "xss",
+            "output-encoding",
+            "html"
+          ],
+          "source": "scr-xss-unencoded-output"
+        },
+        {
+          "title": "Detect innerHTML and DOM XSS sinks",
+          "description": "Assigning user input to innerHTML, outerHTML, document.write, or insertAdjacentHTML executes injected markup. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Find DOM sinks (innerHTML, document.write, eval, location) fed by sources (location, postMessage, input); confirm sanitization or safe APIs. Common tags: xss, dom, innerhtml.",
+          "severity": "high",
+          "how_to_find": "Find DOM sinks (innerHTML, document.write, eval, location) fed by sources (location, postMessage, input); confirm sanitization or safe APIs.",
+          "how_to_fix": "Remediate \"Detect innerHTML and DOM XSS sinks\" by applying vendor and CIS/OWASP hardening guidance for Input / Output Handling — XSS Output Sinks. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Semgrep",
+            "CodeQL",
+            "grep/ripgrep"
+          ],
+          "references": [
+            {
+              "title": "OWASP DOM based XSS Prevention Cheat Sheet",
+              "url": "https://cheatsheetseries.owasp.org/cheatsheets/DOM_based_XSS_Prevention_Cheat_Sheet.html"
+            },
+            {
+              "title": "PortSwigger: DOM-based XSS",
+              "url": "https://portswigger.net/web-security/cross-site-scripting/dom-based"
+            }
+          ],
+          "tags": [
+            "xss",
+            "dom",
+            "innerhtml"
+          ],
+          "source": "scr-xss-innerhtml"
+        },
+        {
+          "title": "Audit dangerouslySetInnerHTML and v-html usage",
+          "description": "Framework escape hatches (React dangerouslySetInnerHTML, Vue v-html, Angular bypassSecurityTrust) reintroduce XSS. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Find each framework HTML-injection escape hatch; confirm content is sanitized (DOMPurify) and never raw user input. Common tags: xss, react, framework.",
+          "severity": "high",
+          "how_to_find": "Find each framework HTML-injection escape hatch; confirm content is sanitized (DOMPurify) and never raw user input.",
+          "how_to_fix": "Remediate \"Audit dangerouslySetInnerHTML and v-html usage\" by applying vendor and CIS/OWASP hardening guidance for Input / Output Handling — XSS Output Sinks. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Semgrep",
+            "CodeQL",
+            "grep/ripgrep"
+          ],
+          "references": [
+            {
+              "title": "OWASP Cross Site Scripting Prevention Cheat Sheet",
+              "url": "https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html"
+            },
+            {
+              "title": "CWE-79: Cross-site Scripting",
+              "url": "https://cwe.mitre.org/data/definitions/79.html"
+            }
+          ],
+          "tags": [
+            "xss",
+            "react",
+            "framework"
+          ],
+          "source": "scr-xss-dangerously-set"
+        },
+        {
+          "title": "Check attribute and URL context injection",
+          "description": "User input in href/src or event-handler attributes enables javascript: URLs and attribute-breaking XSS. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Find input placed in href/src or on* attributes; confirm URL scheme allowlisting and attribute-context encoding. Common tags: xss, attribute, url.",
+          "severity": "medium",
+          "how_to_find": "Find input placed in href/src or on* attributes; confirm URL scheme allowlisting and attribute-context encoding.",
+          "how_to_fix": "Remediate \"Check attribute and URL context injection\" by applying vendor and CIS/OWASP hardening guidance for Input / Output Handling — XSS Output Sinks. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Semgrep",
+            "CodeQL",
+            "grep/ripgrep"
+          ],
+          "references": [
+            {
+              "title": "OWASP Cross Site Scripting Prevention Cheat Sheet",
+              "url": "https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html"
+            },
+            {
+              "title": "CWE-79: Cross-site Scripting",
+              "url": "https://cwe.mitre.org/data/definitions/79.html"
+            }
+          ],
+          "tags": [
+            "xss",
+            "attribute",
+            "url"
+          ],
+          "source": "scr-xss-attribute-url"
+        }
+      ]
+    },
+    {
+      "title": "Input / Output Handling — SSRF Sinks",
+      "items": [
+        {
+          "title": "Detect server-side fetch of user-supplied URLs",
+          "description": "Fetching a URL from user input lets attackers reach internal services and cloud metadata endpoints. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Find HTTP client calls (requests, fetch, http, curl, URLConnection) where the URL/host comes from input; confirm allowlisting. Common tags: ssrf, fetch, url.",
+          "severity": "high",
+          "how_to_find": "Find HTTP client calls (requests, fetch, http, curl, URLConnection) where the URL/host comes from input; confirm allowlisting.",
+          "how_to_fix": "Remediate \"Detect server-side fetch of user-supplied URLs\" by applying vendor and CIS/OWASP hardening guidance for Input / Output Handling — SSRF Sinks. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Semgrep",
+            "CodeQL",
+            "grep/ripgrep"
+          ],
+          "references": [
+            {
+              "title": "OWASP SSRF Prevention Cheat Sheet",
+              "url": "https://cheatsheetseries.owasp.org/cheatsheets/Server_Side_Request_Forgery_Prevention_Cheat_Sheet.html"
+            },
+            {
+              "title": "CWE-918: Server-Side Request Forgery",
+              "url": "https://cwe.mitre.org/data/definitions/918.html"
+            }
+          ],
+          "tags": [
+            "ssrf",
+            "fetch",
+            "url"
+          ],
+          "source": "scr-ssrf-user-url"
+        },
+        {
+          "title": "Verify destination allowlisting and metadata blocking",
+          "description": "Defenses should allowlist destinations and block link-local/private/metadata ranges (169.254.169.254) after DNS resolution. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Confirm SSRF defense resolves the host and blocks internal/link-local IPs, rather than relying on a hostname blocklist. Common tags: ssrf, allowlist, metadata.",
+          "severity": "high",
+          "how_to_find": "Confirm SSRF defense resolves the host and blocks internal/link-local IPs, rather than relying on a hostname blocklist.",
+          "how_to_fix": "Remediate \"Verify destination allowlisting and metadata blocking\" by applying vendor and CIS/OWASP hardening guidance for Input / Output Handling — SSRF Sinks. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Semgrep",
+            "CodeQL",
+            "grep/ripgrep"
+          ],
+          "references": [
+            {
+              "title": "OWASP SSRF Prevention Cheat Sheet",
+              "url": "https://cheatsheetseries.owasp.org/cheatsheets/Server_Side_Request_Forgery_Prevention_Cheat_Sheet.html"
+            },
+            {
+              "title": "PortSwigger: SSRF",
+              "url": "https://portswigger.net/web-security/ssrf"
+            }
+          ],
+          "tags": [
+            "ssrf",
+            "allowlist",
+            "metadata"
+          ],
+          "source": "scr-ssrf-allowlist"
+        },
+        {
+          "title": "Check for redirect-following and DNS rebinding gaps",
+          "description": "Allowlist checks before a request can be bypassed by redirects to internal hosts or DNS rebinding (TOCTOU on resolution). While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm redirects are restricted/validated on each hop and that validation and connection use the same resolved IP. Common tags: ssrf, redirect, dns-rebinding.",
+          "severity": "medium",
+          "how_to_find": "Confirm redirects are restricted/validated on each hop and that validation and connection use the same resolved IP.",
+          "how_to_fix": "Remediate \"Check for redirect-following and DNS rebinding gaps\" by applying vendor and CIS/OWASP hardening guidance for Input / Output Handling — SSRF Sinks. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Semgrep",
+            "CodeQL",
+            "grep/ripgrep"
+          ],
+          "references": [
+            {
+              "title": "OWASP SSRF Prevention Cheat Sheet",
+              "url": "https://cheatsheetseries.owasp.org/cheatsheets/Server_Side_Request_Forgery_Prevention_Cheat_Sheet.html"
+            },
+            {
+              "title": "CWE-918: Server-Side Request Forgery",
+              "url": "https://cwe.mitre.org/data/definitions/918.html"
+            }
+          ],
+          "tags": [
+            "ssrf",
+            "redirect",
+            "dns-rebinding"
+          ],
+          "source": "scr-ssrf-redirect-dns"
+        },
+        {
+          "title": "Audit indirect SSRF via parsers and integrations",
+          "description": "PDF/HTML/image converters, webhooks, XML external entities, and URL preview features are common SSRF entry points. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Find features that fetch remote resources implicitly (image rendering, link previews, webhooks); confirm they apply SSRF protections. Common tags: ssrf, indirect, integrations.",
+          "severity": "medium",
+          "how_to_find": "Find features that fetch remote resources implicitly (image rendering, link previews, webhooks); confirm they apply SSRF protections.",
+          "how_to_fix": "Remediate \"Audit indirect SSRF via parsers and integrations\" by applying vendor and CIS/OWASP hardening guidance for Input / Output Handling — SSRF Sinks. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Semgrep",
+            "CodeQL",
+            "grep/ripgrep"
+          ],
+          "references": [
+            {
+              "title": "OWASP SSRF Prevention Cheat Sheet",
+              "url": "https://cheatsheetseries.owasp.org/cheatsheets/Server_Side_Request_Forgery_Prevention_Cheat_Sheet.html"
+            },
+            {
+              "title": "CWE-918: Server-Side Request Forgery",
+              "url": "https://cwe.mitre.org/data/definitions/918.html"
+            }
+          ],
+          "tags": [
+            "ssrf",
+            "indirect",
+            "integrations"
+          ],
+          "source": "scr-ssrf-indirect"
+        }
+      ]
+    },
+    {
+      "title": "Input / Output Handling — File Upload Handling",
+      "items": [
+        {
+          "title": "Verify upload content-type and magic-byte validation",
+          "description": "Relying on the client-supplied Content-Type or extension allows uploading executable or malicious content. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Confirm uploads are validated by server-side content inspection (magic bytes) and an allowlist, not just the declared extension/MIME. Common tags: file-upload, validation, content-type.",
+          "severity": "high",
+          "how_to_find": "Confirm uploads are validated by server-side content inspection (magic bytes) and an allowlist, not just the declared extension/MIME.",
+          "how_to_fix": "Remediate \"Verify upload content-type and magic-byte validation\" by applying vendor and CIS/OWASP hardening guidance for Input / Output Handling — File Upload Handling. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Semgrep",
+            "CodeQL",
+            "grep/ripgrep"
+          ],
+          "references": [
+            {
+              "title": "OWASP File Upload Cheat Sheet",
+              "url": "https://cheatsheetseries.owasp.org/cheatsheets/File_Upload_Cheat_Sheet.html"
+            },
+            {
+              "title": "CWE-434: Unrestricted Upload of File with Dangerous Type",
+              "url": "https://cwe.mitre.org/data/definitions/434.html"
+            }
+          ],
+          "tags": [
+            "file-upload",
+            "validation",
+            "content-type"
+          ],
+          "source": "scr-upload-type-validation"
+        },
+        {
+          "title": "Check upload filename and storage path handling",
+          "description": "Using the client filename to build the storage path enables traversal and overwriting of sensitive files. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Confirm uploaded filenames are sanitized/replaced with generated names and stored outside the web root with traversal blocked. Common tags: file-upload, path, filename.",
+          "severity": "high",
+          "how_to_find": "Confirm uploaded filenames are sanitized/replaced with generated names and stored outside the web root with traversal blocked.",
+          "how_to_fix": "Remediate \"Check upload filename and storage path handling\" by applying vendor and CIS/OWASP hardening guidance for Input / Output Handling — File Upload Handling. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Semgrep",
+            "CodeQL",
+            "grep/ripgrep"
+          ],
+          "references": [
+            {
+              "title": "OWASP File Upload Cheat Sheet",
+              "url": "https://cheatsheetseries.owasp.org/cheatsheets/File_Upload_Cheat_Sheet.html"
+            },
+            {
+              "title": "CWE-434: Unrestricted Upload of File with Dangerous Type",
+              "url": "https://cwe.mitre.org/data/definitions/434.html"
+            }
+          ],
+          "tags": [
+            "file-upload",
+            "path",
+            "filename"
+          ],
+          "source": "scr-upload-filename-path"
+        },
+        {
+          "title": "Verify uploads cannot be executed by the server",
+          "description": "Uploads stored in a web-executable directory (or interpreted by the app server) can lead to RCE via uploaded scripts. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: Confirm the upload directory disables script execution, is served with safe content disposition, and is ideally on separate storage. Common tags: file-upload, execution, rce.",
+          "severity": "critical",
+          "how_to_find": "Confirm the upload directory disables script execution, is served with safe content disposition, and is ideally on separate storage.",
+          "how_to_fix": "Remediate \"Verify uploads cannot be executed by the server\" by applying vendor and CIS/OWASP hardening guidance for Input / Output Handling — File Upload Handling. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "grep/ripgrep",
+            "Semgrep"
+          ],
+          "references": [
+            {
+              "title": "OWASP File Upload Cheat Sheet",
+              "url": "https://cheatsheetseries.owasp.org/cheatsheets/File_Upload_Cheat_Sheet.html"
+            },
+            {
+              "title": "CWE-434: Unrestricted Upload of File with Dangerous Type",
+              "url": "https://cwe.mitre.org/data/definitions/434.html"
+            }
+          ],
+          "tags": [
+            "file-upload",
+            "execution",
+            "rce"
+          ],
+          "source": "scr-upload-execution"
+        },
+        {
+          "title": "Check size limits, decompression, and malware scanning",
+          "description": "Missing size limits enable DoS, nested archives cause zip bombs, and unscanned files can distribute malware. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm enforced size limits, decompression-ratio limits for archives, and antivirus/malware scanning of stored uploads. Common tags: file-upload, limits, malware.",
+          "severity": "medium",
+          "how_to_find": "Confirm enforced size limits, decompression-ratio limits for archives, and antivirus/malware scanning of stored uploads.",
+          "how_to_fix": "Remediate \"Check size limits, decompression, and malware scanning\" by applying vendor and CIS/OWASP hardening guidance for Input / Output Handling — File Upload Handling. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "grep/ripgrep",
+            "Semgrep"
+          ],
+          "references": [
+            {
+              "title": "OWASP File Upload Cheat Sheet",
+              "url": "https://cheatsheetseries.owasp.org/cheatsheets/File_Upload_Cheat_Sheet.html"
+            },
+            {
+              "title": "CWE-409: Improper Handling of Highly Compressed Data",
+              "url": "https://cwe.mitre.org/data/definitions/409.html"
+            }
+          ],
+          "tags": [
+            "file-upload",
+            "limits",
+            "malware"
+          ],
+          "source": "scr-upload-limits-scan"
+        }
+      ]
+    },
+    {
+      "title": "Input / Output Handling — XXE & XML Parser Sinks",
+      "items": [
+        {
+          "title": "Detect XML parsers that resolve external entities",
+          "description": "Parsers that process external entities on untrusted XML enable file disclosure, SSRF, and DoS (billion laughs). This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Find XML parser construction; confirm external entity and DTD processing are disabled (FEATURE_SECURE_PROCESSING, disallow-doctype). Common tags: xxe, xml, external-entities.",
+          "severity": "high",
+          "how_to_find": "Find XML parser construction; confirm external entity and DTD processing are disabled (FEATURE_SECURE_PROCESSING, disallow-doctype).",
+          "how_to_fix": "Remediate \"Detect XML parsers that resolve external entities\" by applying vendor and CIS/OWASP hardening guidance for Input / Output Handling — XXE & XML Parser Sinks. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Semgrep",
+            "CodeQL",
+            "bandit",
+            "grep/ripgrep"
+          ],
+          "references": [
+            {
+              "title": "OWASP XXE Prevention Cheat Sheet",
+              "url": "https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html"
+            },
+            {
+              "title": "CWE-611: Improper Restriction of XML External Entity Reference",
+              "url": "https://cwe.mitre.org/data/definitions/611.html"
+            }
+          ],
+          "tags": [
+            "xxe",
+            "xml",
+            "external-entities"
+          ],
+          "source": "scr-xxe-external-entities"
+        },
+        {
+          "title": "Audit per-language XML parser hardening",
+          "description": "Java (DocumentBuilderFactory/SAX), .NET (XmlReader/XmlDocument), Python (lxml/xml), and PHP (libxml) all need explicit hardening. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: For each parser, confirm the language-specific secure configuration is applied (e.g. defusedxml in Python, XmlResolver=null in .NET). Common tags: xxe, xml, languages.",
+          "severity": "high",
+          "how_to_find": "For each parser, confirm the language-specific secure configuration is applied (e.g. defusedxml in Python, XmlResolver=null in .NET).",
+          "how_to_fix": "Remediate \"Audit per-language XML parser hardening\" by applying vendor and CIS/OWASP hardening guidance for Input / Output Handling — XXE & XML Parser Sinks. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Semgrep",
+            "CodeQL",
+            "bandit",
+            "grep/ripgrep"
+          ],
+          "references": [
+            {
+              "title": "OWASP XXE Prevention Cheat Sheet",
+              "url": "https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html"
+            },
+            {
+              "title": "CWE-611: Improper Restriction of XML External Entity Reference",
+              "url": "https://cwe.mitre.org/data/definitions/611.html"
+            }
+          ],
+          "tags": [
+            "xxe",
+            "xml",
+            "languages"
+          ],
+          "source": "scr-xxe-language-parsers"
+        },
+        {
+          "title": "Check entity-expansion and DoS limits",
+          "description": "Even with external entities off, recursive internal entity expansion can exhaust memory (billion laughs / quadratic blowup). While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm entity expansion limits are enforced or DTDs are fully disabled to prevent expansion-based DoS. Common tags: xxe, dos, entity-expansion.",
+          "severity": "medium",
+          "how_to_find": "Confirm entity expansion limits are enforced or DTDs are fully disabled to prevent expansion-based DoS.",
+          "how_to_fix": "Remediate \"Check entity-expansion and DoS limits\" by applying vendor and CIS/OWASP hardening guidance for Input / Output Handling — XXE & XML Parser Sinks. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Semgrep",
+            "grep/ripgrep"
+          ],
+          "references": [
+            {
+              "title": "OWASP XXE Prevention Cheat Sheet",
+              "url": "https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html"
+            },
+            {
+              "title": "CWE-776: Improper Restriction of Recursive Entity References",
+              "url": "https://cwe.mitre.org/data/definitions/776.html"
+            }
+          ],
+          "tags": [
+            "xxe",
+            "dos",
+            "entity-expansion"
+          ],
+          "source": "scr-xxe-entity-expansion"
+        },
+        {
+          "title": "Check XML-adjacent formats (SVG, DOCX, SAML)",
+          "description": "SVG, OOXML documents, and SAML assertions are XML under the hood and inherit XXE risk when parsed unsafely. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Find parsing of SVG/OOXML/SAML; confirm the underlying XML parser is hardened against XXE before processing user-supplied files. Common tags: xxe, svg, saml.",
+          "severity": "medium",
+          "how_to_find": "Find parsing of SVG/OOXML/SAML; confirm the underlying XML parser is hardened against XXE before processing user-supplied files.",
+          "how_to_fix": "Remediate \"Check XML-adjacent formats (SVG, DOCX, SAML)\" by applying vendor and CIS/OWASP hardening guidance for Input / Output Handling — XXE & XML Parser Sinks. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Semgrep",
+            "CodeQL",
+            "grep/ripgrep"
+          ],
+          "references": [
+            {
+              "title": "OWASP XXE Prevention Cheat Sheet",
+              "url": "https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html"
+            },
+            {
+              "title": "CWE-611: Improper Restriction of XML External Entity Reference",
+              "url": "https://cwe.mitre.org/data/definitions/611.html"
+            }
+          ],
+          "tags": [
+            "xxe",
+            "svg",
+            "saml"
+          ],
+          "source": "scr-xxe-related-formats"
+        }
+      ]
+    },
+    {
+      "title": "Configuration & Dependencies — Dependency Risk",
+      "items": [
+        {
+          "title": "Scan dependencies for known vulnerabilities",
+          "description": "Third-party libraries with published CVEs are a top breach vector; every dependency tree should be scanned. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Run an SCA scan; confirm direct and transitive dependencies have no unaddressed high/critical advisories, and review the upgrade path. Common tags: dependencies, sca, cve.",
+          "severity": "high",
+          "how_to_find": "Run an SCA scan; confirm direct and transitive dependencies have no unaddressed high/critical advisories, and review the upgrade path.",
+          "how_to_fix": "Remediate \"Scan dependencies for known vulnerabilities\" by applying vendor and CIS/OWASP hardening guidance for Configuration & Dependencies — Dependency Risk. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "npm audit",
+            "Snyk",
+            "OWASP Dependency-Check",
+            "Dependabot"
+          ],
+          "references": [
+            {
+              "title": "OWASP Vulnerable Dependency Management Cheat Sheet",
+              "url": "https://cheatsheetseries.owasp.org/cheatsheets/Vulnerable_Dependency_Management_Cheat_Sheet.html"
+            },
+            {
+              "title": "CWE-1395: Dependency on Vulnerable Third-Party Component",
+              "url": "https://cwe.mitre.org/data/definitions/1395.html"
+            }
+          ],
+          "tags": [
+            "dependencies",
+            "sca",
+            "cve"
+          ],
+          "source": "scr-dep-known-vulns"
+        },
+        {
+          "title": "Verify lockfiles pin and integrity-check dependencies",
+          "description": "Without a committed lockfile with integrity hashes, builds can pull in unexpected or tampered versions. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm a lockfile (package-lock.json, poetry.lock, go.sum, Gemfile.lock) is committed and that installs use pinned, integrity-checked versions. Common tags: dependencies, lockfile, integrity.",
+          "severity": "medium",
+          "how_to_find": "Confirm a lockfile (package-lock.json, poetry.lock, go.sum, Gemfile.lock) is committed and that installs use pinned, integrity-checked versions.",
+          "how_to_fix": "Remediate \"Verify lockfiles pin and integrity-check dependencies\" by applying vendor and CIS/OWASP hardening guidance for Configuration & Dependencies — Dependency Risk. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "npm audit",
+            "Snyk",
+            "grep/ripgrep"
+          ],
+          "references": [
+            {
+              "title": "OWASP Vulnerable Dependency Management Cheat Sheet",
+              "url": "https://cheatsheetseries.owasp.org/cheatsheets/Vulnerable_Dependency_Management_Cheat_Sheet.html"
+            },
+            {
+              "title": "CWE-1357: Reliance on Insufficiently Trustworthy Component",
+              "url": "https://cwe.mitre.org/data/definitions/1357.html"
+            }
+          ],
+          "tags": [
+            "dependencies",
+            "lockfile",
+            "integrity"
+          ],
+          "source": "scr-dep-lockfile"
+        },
+        {
+          "title": "Check for typosquatting and untrusted sources",
+          "description": "Dependencies from unofficial registries, suspicious names, or install scripts can introduce malicious code. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Review newly added packages for typosquatting, unexpected registries/git URLs, and risky postinstall scripts. Common tags: dependencies, supply-chain, typosquatting.",
+          "severity": "medium",
+          "how_to_find": "Review newly added packages for typosquatting, unexpected registries/git URLs, and risky postinstall scripts.",
+          "how_to_fix": "Remediate \"Check for typosquatting and untrusted sources\" by applying vendor and CIS/OWASP hardening guidance for Configuration & Dependencies — Dependency Risk. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Snyk",
+            "npm audit",
+            "grep/ripgrep"
+          ],
+          "references": [
+            {
+              "title": "OWASP Software Component Verification Standard",
+              "url": "https://owasp.org/www-project-software-component-verification-standard/"
+            },
+            {
+              "title": "CWE-829: Inclusion of Functionality from Untrusted Control Sphere",
+              "url": "https://cwe.mitre.org/data/definitions/829.html"
+            }
+          ],
+          "tags": [
+            "dependencies",
+            "supply-chain",
+            "typosquatting"
+          ],
+          "source": "scr-dep-supply-chain"
+        },
+        {
+          "title": "Identify unmaintained or end-of-life dependencies",
+          "description": "Abandoned libraries do not receive security fixes; depending on them is accumulating unpatched risk. This is a defense-in-depth gap that improves overall resilience when fixed. Assessors should confirm the control in practice, not only on paper: Flag dependencies with no recent releases, EOL runtimes, or archived repositories and plan migration off them. Common tags: dependencies, maintenance, eol.",
+          "severity": "low",
+          "how_to_find": "Flag dependencies with no recent releases, EOL runtimes, or archived repositories and plan migration off them.",
+          "how_to_fix": "Remediate \"Identify unmaintained or end-of-life dependencies\" by applying vendor and CIS/OWASP hardening guidance for Configuration & Dependencies — Dependency Risk. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Snyk",
+            "npm audit",
+            "OWASP Dependency-Check"
+          ],
+          "references": [
+            {
+              "title": "OWASP Vulnerable Dependency Management Cheat Sheet",
+              "url": "https://cheatsheetseries.owasp.org/cheatsheets/Vulnerable_Dependency_Management_Cheat_Sheet.html"
+            },
+            {
+              "title": "CWE-1104: Use of Unmaintained Third Party Components",
+              "url": "https://cwe.mitre.org/data/definitions/1104.html"
+            }
+          ],
+          "tags": [
+            "dependencies",
+            "maintenance",
+            "eol"
+          ],
+          "source": "scr-dep-unmaintained"
+        }
+      ]
+    },
+    {
+      "title": "Configuration & Dependencies — Debug & Configuration Exposure",
+      "items": [
+        {
+          "title": "Detect debug mode enabled in production",
+          "description": "Frameworks in debug mode (DEBUG=True, app.debug, development profile) expose stack traces, consoles, and secrets. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Confirm debug flags are disabled in production config and not hardcoded on; check for interactive debuggers (Werkzeug, Rails web-console). Common tags: config, debug, production.",
+          "severity": "high",
+          "how_to_find": "Confirm debug flags are disabled in production config and not hardcoded on; check for interactive debuggers (Werkzeug, Rails web-console).",
+          "how_to_fix": "Remediate \"Detect debug mode enabled in production\" by applying vendor and CIS/OWASP hardening guidance for Configuration & Dependencies — Debug & Configuration Exposure. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Semgrep",
+            "grep/ripgrep",
+            "CodeQL"
+          ],
+          "references": [
+            {
+              "title": "OWASP Security Misconfiguration",
+              "url": "https://owasp.org/Top10/A05_2021-Security_Misconfiguration/"
+            },
+            {
+              "title": "CWE-489: Active Debug Code",
+              "url": "https://cwe.mitre.org/data/definitions/489.html"
+            }
+          ],
+          "tags": [
+            "config",
+            "debug",
+            "production"
+          ],
+          "source": "scr-config-debug-flags"
+        },
+        {
+          "title": "Check for verbose error and stack-trace exposure",
+          "description": "Returning raw exceptions, stack traces, or SQL errors to clients leaks internal structure useful to attackers. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Find error handlers that send exception details/stack traces to clients; confirm generic messages with server-side logging instead. Common tags: config, error-handling, information-disclosure.",
+          "severity": "medium",
+          "how_to_find": "Find error handlers that send exception details/stack traces to clients; confirm generic messages with server-side logging instead.",
+          "how_to_fix": "Remediate \"Check for verbose error and stack-trace exposure\" by applying vendor and CIS/OWASP hardening guidance for Configuration & Dependencies — Debug & Configuration Exposure. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Semgrep",
+            "CodeQL",
+            "grep/ripgrep"
+          ],
+          "references": [
+            {
+              "title": "OWASP Error Handling Cheat Sheet",
+              "url": "https://cheatsheetseries.owasp.org/cheatsheets/Error_Handling_Cheat_Sheet.html"
+            },
+            {
+              "title": "CWE-209: Generation of Error Message Containing Sensitive Information",
+              "url": "https://cwe.mitre.org/data/definitions/209.html"
+            }
+          ],
+          "tags": [
+            "config",
+            "error-handling",
+            "information-disclosure"
+          ],
+          "source": "scr-config-verbose-errors"
+        },
+        {
+          "title": "Detect exposed admin and management endpoints",
+          "description": "Actuator, metrics, GraphQL introspection, swagger, and admin panels left exposed leak data and attack surface. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Find management/admin/introspection endpoints; confirm they are disabled or access-restricted in production. Common tags: config, endpoints, exposure.",
+          "severity": "medium",
+          "how_to_find": "Find management/admin/introspection endpoints; confirm they are disabled or access-restricted in production.",
+          "how_to_fix": "Remediate \"Detect exposed admin and management endpoints\" by applying vendor and CIS/OWASP hardening guidance for Configuration & Dependencies — Debug & Configuration Exposure. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "grep/ripgrep",
+            "Semgrep"
+          ],
+          "references": [
+            {
+              "title": "OWASP Security Misconfiguration",
+              "url": "https://owasp.org/Top10/A05_2021-Security_Misconfiguration/"
+            },
+            {
+              "title": "CWE-200: Exposure of Sensitive Information",
+              "url": "https://cwe.mitre.org/data/definitions/200.html"
+            }
+          ],
+          "tags": [
+            "config",
+            "endpoints",
+            "exposure"
+          ],
+          "source": "scr-config-exposed-endpoints"
+        },
+        {
+          "title": "Check security headers and CORS configuration",
+          "description": "Missing CSP/HSTS or an overly permissive CORS policy (origin reflection with credentials) weakens browser protections. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm security headers are set and that CORS does not reflect arbitrary origins with credentials or use a wildcard with cookies. Common tags: config, headers, cors.",
+          "severity": "medium",
+          "how_to_find": "Confirm security headers are set and that CORS does not reflect arbitrary origins with credentials or use a wildcard with cookies.",
+          "how_to_fix": "Remediate \"Check security headers and CORS configuration\" by applying vendor and CIS/OWASP hardening guidance for Configuration & Dependencies — Debug & Configuration Exposure. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Semgrep",
+            "grep/ripgrep",
+            "CodeQL"
+          ],
+          "references": [
+            {
+              "title": "OWASP HTTP Security Response Headers Cheat Sheet",
+              "url": "https://cheatsheetseries.owasp.org/cheatsheets/HTTP_Headers_Cheat_Sheet.html"
+            },
+            {
+              "title": "CWE-942: Permissive Cross-domain Policy with Untrusted Domains",
+              "url": "https://cwe.mitre.org/data/definitions/942.html"
+            }
+          ],
+          "tags": [
+            "config",
+            "headers",
+            "cors"
+          ],
+          "source": "scr-config-security-headers"
+        }
+      ]
+    },
+    {
+      "title": "Configuration & Dependencies — Language-Specific Pitfalls",
+      "items": [
+        {
+          "title": "Detect prototype pollution in JavaScript",
+          "description": "Recursive merge/clone/set on attacker-controlled keys (__proto__, constructor, prototype) can pollute Object.prototype. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Find deep-merge/set-by-path/extend functions operating on user input; confirm __proto__/constructor keys are blocked or a null-proto map is used. Common tags: language, javascript, prototype-pollution.",
+          "severity": "high",
+          "how_to_find": "Find deep-merge/set-by-path/extend functions operating on user input; confirm __proto__/constructor keys are blocked or a null-proto map is used.",
+          "how_to_fix": "Remediate \"Detect prototype pollution in JavaScript\" by applying vendor and CIS/OWASP hardening guidance for Configuration & Dependencies — Language-Specific Pitfalls. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Semgrep",
+            "CodeQL",
+            "grep/ripgrep"
+          ],
+          "references": [
+            {
+              "title": "PortSwigger: Prototype pollution",
+              "url": "https://portswigger.net/web-security/prototype-pollution"
+            },
+            {
+              "title": "CWE-1321: Improperly Controlled Modification of Object Prototype",
+              "url": "https://cwe.mitre.org/data/definitions/1321.html"
+            }
+          ],
+          "tags": [
+            "language",
+            "javascript",
+            "prototype-pollution"
+          ],
+          "source": "scr-lang-js-proto-pollution"
+        },
+        {
+          "title": "Detect Python pickle and unsafe dynamic features",
+          "description": "Beyond pickle, Python footguns include eval/exec, yaml.load, and __reduce__ in custom classes used on untrusted data. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Find pickle/marshal/dill loads and dynamic eval on untrusted input; recommend safe serialization (JSON) and SafeLoader. Common tags: language, python, pickle.",
+          "severity": "high",
+          "how_to_find": "Find pickle/marshal/dill loads and dynamic eval on untrusted input; recommend safe serialization (JSON) and SafeLoader.",
+          "how_to_fix": "Remediate \"Detect Python pickle and unsafe dynamic features\" by applying vendor and CIS/OWASP hardening guidance for Configuration & Dependencies — Language-Specific Pitfalls. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "bandit",
+            "Semgrep",
+            "grep/ripgrep"
+          ],
+          "references": [
+            {
+              "title": "Bandit documentation",
+              "url": "https://bandit.readthedocs.io/en/latest/"
+            },
+            {
+              "title": "CWE-502: Deserialization of Untrusted Data",
+              "url": "https://cwe.mitre.org/data/definitions/502.html"
+            }
+          ],
+          "tags": [
+            "language",
+            "python",
+            "pickle"
+          ],
+          "source": "scr-lang-python-pickle"
+        },
+        {
+          "title": "Detect PHP type juggling and loose comparison",
+          "description": "Loose comparison (==) and functions like strcmp on arrays cause authentication and integrity bypasses in PHP. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Find == comparisons of secrets/hashes and in_array without strict mode; confirm strict (===) comparison and type checks. Common tags: language, php, type-juggling.",
+          "severity": "high",
+          "how_to_find": "Find == comparisons of secrets/hashes and in_array without strict mode; confirm strict (===) comparison and type checks.",
+          "how_to_fix": "Remediate \"Detect PHP type juggling and loose comparison\" by applying vendor and CIS/OWASP hardening guidance for Configuration & Dependencies — Language-Specific Pitfalls. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Semgrep",
+            "grep/ripgrep",
+            "SonarQube"
+          ],
+          "references": [
+            {
+              "title": "OWASP PHP Configuration Cheat Sheet",
+              "url": "https://cheatsheetseries.owasp.org/cheatsheets/PHP_Configuration_Cheat_Sheet.html"
+            },
+            {
+              "title": "CWE-697: Incorrect Comparison",
+              "url": "https://cwe.mitre.org/data/definitions/697.html"
+            }
+          ],
+          "tags": [
+            "language",
+            "php",
+            "type-juggling"
+          ],
+          "source": "scr-lang-php-type-juggling"
+        },
+        {
+          "title": "Detect unsafe Go patterns",
+          "description": "Go footguns include text/template (vs html/template) for HTML, ignored errors, and the unsafe package bypassing safety. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Find text/template used for HTML output, ignored error returns on security operations, and unsafe.Pointer misuse. Common tags: language, go, pitfalls.",
+          "severity": "medium",
+          "how_to_find": "Find text/template used for HTML output, ignored error returns on security operations, and unsafe.Pointer misuse.",
+          "how_to_fix": "Remediate \"Detect unsafe Go patterns\" by applying vendor and CIS/OWASP hardening guidance for Configuration & Dependencies — Language-Specific Pitfalls. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "gosec",
+            "Semgrep",
+            "grep/ripgrep"
+          ],
+          "references": [
+            {
+              "title": "gosec documentation",
+              "url": "https://github.com/securego/gosec"
+            },
+            {
+              "title": "Go: html/template package",
+              "url": "https://pkg.go.dev/html/template"
+            }
+          ],
+          "tags": [
+            "language",
+            "go",
+            "pitfalls"
+          ],
+          "source": "scr-lang-go-pitfalls"
+        },
+        {
+          "title": "Audit unsafe blocks and panics in Rust",
+          "description": "unsafe blocks bypass memory safety, and unwrap/expect/panic on untrusted input can be a DoS vector. This is a defense-in-depth gap that improves overall resilience when fixed. Assessors should confirm the control in practice, not only on paper: Review each unsafe block for justified, sound usage and flag unwrap/expect on fallible operations driven by external input. Common tags: language, rust, unsafe.",
+          "severity": "low",
+          "how_to_find": "Review each unsafe block for justified, sound usage and flag unwrap/expect on fallible operations driven by external input.",
+          "how_to_fix": "Remediate \"Audit unsafe blocks and panics in Rust\" by applying vendor and CIS/OWASP hardening guidance for Configuration & Dependencies — Language-Specific Pitfalls. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "cargo-audit",
+            "Clippy",
+            "grep/ripgrep"
+          ],
+          "references": [
+            {
+              "title": "The Rustonomicon (unsafe Rust)",
+              "url": "https://doc.rust-lang.org/nomicon/"
+            },
+            {
+              "title": "RustSec Advisory Database",
+              "url": "https://rustsec.org/"
+            }
+          ],
+          "tags": [
+            "language",
+            "rust",
+            "unsafe"
+          ],
+          "source": "scr-lang-rust-unsafe"
+        }
+      ]
+    }
+  ]
+}

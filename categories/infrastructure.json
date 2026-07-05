@@ -1,0 +1,1499 @@
+{
+  "id": "infrastructure",
+  "title": "Infrastructure",
+  "sections": [
+    {
+      "title": "Host Hardening — OS Baseline & Attack Surface",
+      "items": [
+        {
+          "title": "Measure the host against a CIS Benchmark",
+          "description": "Hosts should be configured against a recognized hardening baseline (CIS, DISA STIG) rather than vendor defaults, which are tuned for compatibility, not security. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Run an automated benchmark scan (CIS-CAT or Lynis) against the relevant CIS profile and review the failed/scored controls. Confirm a documented baseline exists and is enforced via config management. Common tags: cis, baseline, hardening.",
+          "severity": "medium",
+          "how_to_find": "Run an automated benchmark scan (CIS-CAT or Lynis) against the relevant CIS profile and review the failed/scored controls. Confirm a documented baseline exists and is enforced via config management.",
+          "how_to_fix": "Remediate \"Measure the host against a CIS Benchmark\" by applying vendor and CIS/OWASP hardening guidance for Host Hardening — OS Baseline & Attack Surface. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "CIS-CAT",
+            "Lynis",
+            "OpenVAS/Nessus"
+          ],
+          "references": [
+            {
+              "title": "CIS Benchmarks",
+              "url": "https://www.cisecurity.org/cis-benchmarks"
+            },
+            {
+              "title": "NIST SP 800-123 (Server Security)",
+              "url": "https://csrc.nist.gov/pubs/sp/800/123/final"
+            }
+          ],
+          "tags": [
+            "cis",
+            "baseline",
+            "hardening"
+          ],
+          "source": "infra-os-baseline-cis"
+        },
+        {
+          "title": "Disable unnecessary services and daemons",
+          "description": "Every running service is attack surface. Hosts frequently ship with print spoolers, RPC, telnet, FTP, or sample apps that are not required for their role. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Enumerate enabled/listening services (systemctl, Get-Service, netstat/ss) and confirm each maps to a required function. Disable or remove anything unused, including legacy cleartext daemons (telnet, rsh, FTP). Common tags: services, attack-surface, hardening.",
+          "severity": "medium",
+          "how_to_find": "Enumerate enabled/listening services (systemctl, Get-Service, netstat/ss) and confirm each maps to a required function. Disable or remove anything unused, including legacy cleartext daemons (telnet, rsh, FTP).",
+          "how_to_fix": "Remediate \"Disable unnecessary services and daemons\" by applying vendor and CIS/OWASP hardening guidance for Host Hardening — OS Baseline & Attack Surface. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Lynis",
+            "nmap",
+            "CIS-CAT"
+          ],
+          "references": [
+            {
+              "title": "CIS Benchmarks",
+              "url": "https://www.cisecurity.org/cis-benchmarks"
+            },
+            {
+              "title": "NIST SP 800-123 (Server Security)",
+              "url": "https://csrc.nist.gov/pubs/sp/800/123/final"
+            }
+          ],
+          "tags": [
+            "services",
+            "attack-surface",
+            "hardening"
+          ],
+          "source": "infra-os-baseline-unneeded-services"
+        },
+        {
+          "title": "Remove unnecessary Windows roles, features, and legacy protocols",
+          "description": "Windows hosts often retain unneeded roles/features and legacy protocols like SMBv1 and LLMNR/NBT-NS that enable relay and poisoning attacks. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Confirm SMBv1 is uninstalled, LLMNR and NBT-NS are disabled, and only required Windows features/roles are installed. Check for unneeded optional features and sample sites. Common tags: windows, smb, legacy-protocols.",
+          "severity": "high",
+          "how_to_find": "Confirm SMBv1 is uninstalled, LLMNR and NBT-NS are disabled, and only required Windows features/roles are installed. Check for unneeded optional features and sample sites.",
+          "how_to_fix": "Remediate \"Remove unnecessary Windows roles, features, and legacy protocols\" by applying vendor and CIS/OWASP hardening guidance for Host Hardening — OS Baseline & Attack Surface. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "CIS-CAT",
+            "WinPEAS",
+            "nmap"
+          ],
+          "references": [
+            {
+              "title": "Microsoft — SMBv1 removal guidance",
+              "url": "https://learn.microsoft.com/en-us/windows-server/storage/file-server/troubleshoot/detect-enable-and-disable-smbv1-v2-v3"
+            },
+            {
+              "title": "HackTricks — NTLM relay / poisoning",
+              "url": "https://hacktricks.wiki/en/windows-hardening/ntlm/index.html"
+            }
+          ],
+          "tags": [
+            "windows",
+            "smb",
+            "legacy-protocols"
+          ],
+          "source": "infra-os-baseline-windows-features"
+        },
+        {
+          "title": "Enforce login banners and disable insecure remote info disclosure",
+          "description": "Pre-auth banners should warn against unauthorized access for legal coverage, and services should not leak OS/version detail unnecessarily. This is a defense-in-depth gap that improves overall resilience when fixed. Assessors should confirm the control in practice, not only on paper: Confirm /etc/issue, /etc/issue.net, and SSH/RDP banners are configured. Verify services do not advertise verbose version banners that aid fingerprinting. Common tags: banner, info-disclosure, hardening.",
+          "severity": "low",
+          "how_to_find": "Confirm /etc/issue, /etc/issue.net, and SSH/RDP banners are configured. Verify services do not advertise verbose version banners that aid fingerprinting.",
+          "how_to_fix": "Remediate \"Enforce login banners and disable insecure remote info disclosure\" by applying vendor and CIS/OWASP hardening guidance for Host Hardening — OS Baseline & Attack Surface. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Lynis",
+            "nmap",
+            "CIS-CAT"
+          ],
+          "references": [
+            {
+              "title": "CIS Benchmarks",
+              "url": "https://www.cisecurity.org/cis-benchmarks"
+            },
+            {
+              "title": "NIST SP 800-123 (Server Security)",
+              "url": "https://csrc.nist.gov/pubs/sp/800/123/final"
+            }
+          ],
+          "tags": [
+            "banner",
+            "info-disclosure",
+            "hardening"
+          ],
+          "source": "infra-os-baseline-banner"
+        }
+      ]
+    },
+    {
+      "title": "Host Hardening — Account & Password Policy",
+      "items": [
+        {
+          "title": "Enforce a strong password policy",
+          "description": "Hosts should enforce minimum length, complexity/length-based strength, history, and age to resist guessing and reuse attacks. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: On Linux review PAM (pwquality/pwhistory) and login.defs; on Windows review the local/domain password policy via secpol.msc or Get-ADDefaultDomainPasswordPolicy. Confirm length and history align with policy. Common tags: passwords, policy, accounts.",
+          "severity": "medium",
+          "how_to_find": "On Linux review PAM (pwquality/pwhistory) and login.defs; on Windows review the local/domain password policy via secpol.msc or Get-ADDefaultDomainPasswordPolicy. Confirm length and history align with policy.",
+          "how_to_fix": "Remediate \"Enforce a strong password policy\" by applying vendor and CIS/OWASP hardening guidance for Host Hardening — Account & Password Policy. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "CIS-CAT",
+            "Lynis",
+            "seatbelt"
+          ],
+          "references": [
+            {
+              "title": "NIST SP 800-63B (Authentication)",
+              "url": "https://pages.nist.gov/800-63-3/sp800-63b.html"
+            },
+            {
+              "title": "CIS Benchmarks",
+              "url": "https://www.cisecurity.org/cis-benchmarks"
+            }
+          ],
+          "tags": [
+            "passwords",
+            "policy",
+            "accounts"
+          ],
+          "source": "infra-account-policy-password"
+        },
+        {
+          "title": "Configure account lockout / failed-login throttling",
+          "description": "Without lockout or rate limiting, accounts are open to unlimited online brute force and password spraying. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: On Linux confirm faillock/pam_faillock thresholds; on Windows confirm the account lockout threshold, duration, and reset counter. Ensure lockout does not enable trivial DoS of admin accounts. Common tags: lockout, brute-force, accounts.",
+          "severity": "medium",
+          "how_to_find": "On Linux confirm faillock/pam_faillock thresholds; on Windows confirm the account lockout threshold, duration, and reset counter. Ensure lockout does not enable trivial DoS of admin accounts.",
+          "how_to_fix": "Remediate \"Configure account lockout / failed-login throttling\" by applying vendor and CIS/OWASP hardening guidance for Host Hardening — Account & Password Policy. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "CIS-CAT",
+            "Lynis",
+            "seatbelt"
+          ],
+          "references": [
+            {
+              "title": "NIST SP 800-63B (Authentication)",
+              "url": "https://pages.nist.gov/800-63-3/sp800-63b.html"
+            },
+            {
+              "title": "MITRE ATT&CK — Brute Force (T1110)",
+              "url": "https://attack.mitre.org/techniques/T1110/"
+            }
+          ],
+          "tags": [
+            "lockout",
+            "brute-force",
+            "accounts"
+          ],
+          "source": "infra-account-policy-lockout"
+        },
+        {
+          "title": "Restrict and randomize local administrator credentials",
+          "description": "Shared or reused local admin passwords enable lateral movement (pass-the-hash). Local admin use should be minimized and credentials unique per host. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: On Windows confirm LAPS (or equivalent) randomizes the local admin password per host and that the built-in Administrator is renamed/restricted. On Linux confirm root login is constrained and admin access flows through sudo. Common tags: local-admin, lateral-movement, accounts.",
+          "severity": "high",
+          "how_to_find": "On Windows confirm LAPS (or equivalent) randomizes the local admin password per host and that the built-in Administrator is renamed/restricted. On Linux confirm root login is constrained and admin access flows through sudo.",
+          "how_to_fix": "Remediate \"Restrict and randomize local administrator credentials\" by applying vendor and CIS/OWASP hardening guidance for Host Hardening — Account & Password Policy. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "WinPEAS",
+            "seatbelt",
+            "CIS-CAT"
+          ],
+          "references": [
+            {
+              "title": "Microsoft — Windows LAPS",
+              "url": "https://learn.microsoft.com/en-us/windows-server/identity/laps/laps-overview"
+            },
+            {
+              "title": "MITRE ATT&CK — Pass the Hash (T1550.002)",
+              "url": "https://attack.mitre.org/techniques/T1550/002/"
+            }
+          ],
+          "tags": [
+            "local-admin",
+            "lateral-movement",
+            "accounts"
+          ],
+          "source": "infra-account-policy-local-admin"
+        },
+        {
+          "title": "Disable or secure guest and default accounts",
+          "description": "Guest accounts and unchanged default/vendor accounts provide low-friction footholds and should be disabled or fully secured. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm the Windows Guest account is disabled, default vendor accounts have strong unique passwords, and no orphaned/service default accounts remain enabled. On Linux check for accounts with empty passwords or UID 0 duplicates. Common tags: default-accounts, guest, accounts.",
+          "severity": "medium",
+          "how_to_find": "Confirm the Windows Guest account is disabled, default vendor accounts have strong unique passwords, and no orphaned/service default accounts remain enabled. On Linux check for accounts with empty passwords or UID 0 duplicates.",
+          "how_to_fix": "Remediate \"Disable or secure guest and default accounts\" by applying vendor and CIS/OWASP hardening guidance for Host Hardening — Account & Password Policy. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Lynis",
+            "WinPEAS",
+            "seatbelt"
+          ],
+          "references": [
+            {
+              "title": "CIS Benchmarks",
+              "url": "https://www.cisecurity.org/cis-benchmarks"
+            },
+            {
+              "title": "HackTricks — Windows local privilege escalation",
+              "url": "https://hacktricks.wiki/en/windows-hardening/windows-local-privilege-escalation/index.html"
+            }
+          ],
+          "tags": [
+            "default-accounts",
+            "guest",
+            "accounts"
+          ],
+          "source": "infra-account-policy-default-accounts"
+        }
+      ]
+    },
+    {
+      "title": "Host Hardening — Filesystem Permissions",
+      "items": [
+        {
+          "title": "Identify world-writable files and directories",
+          "description": "World-writable files and directories outside designated sticky-bit temp areas let any local user tamper with scripts, configs, or binaries used by privileged processes. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Search for world-writable files/dirs (find / -perm -0002) and confirm shared temp dirs (/tmp, /var/tmp) have the sticky bit set. Investigate any world-writable file referenced by a root cron job or service. Common tags: permissions, world-writable, linux.",
+          "severity": "high",
+          "how_to_find": "Search for world-writable files/dirs (find / -perm -0002) and confirm shared temp dirs (/tmp, /var/tmp) have the sticky bit set. Investigate any world-writable file referenced by a root cron job or service.",
+          "how_to_fix": "Remediate \"Identify world-writable files and directories\" by applying vendor and CIS/OWASP hardening guidance for Host Hardening — Filesystem Permissions. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "LinPEAS/WinPEAS",
+            "Lynis",
+            "linux-exploit-suggester"
+          ],
+          "references": [
+            {
+              "title": "HackTricks — Linux privilege escalation",
+              "url": "https://hacktricks.wiki/en/linux-hardening/privilege-escalation/index.html"
+            },
+            {
+              "title": "CIS Benchmarks",
+              "url": "https://www.cisecurity.org/cis-benchmarks"
+            }
+          ],
+          "tags": [
+            "permissions",
+            "world-writable",
+            "linux"
+          ],
+          "source": "infra-filesystem-world-writable"
+        },
+        {
+          "title": "Audit SUID/SGID binaries for privilege escalation",
+          "description": "SUID/SGID binaries run with the file owner’s privileges. Unexpected or GTFOBins-listed binaries with the SUID bit can yield direct root. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: Enumerate SUID/SGID binaries (find / -perm -4000 -o -perm -2000) and cross-reference against GTFOBins. Remove the bit from non-essential binaries and investigate custom SUID executables. Common tags: suid, privesc, linux.",
+          "severity": "critical",
+          "how_to_find": "Enumerate SUID/SGID binaries (find / -perm -4000 -o -perm -2000) and cross-reference against GTFOBins. Remove the bit from non-essential binaries and investigate custom SUID executables.",
+          "how_to_fix": "Remediate \"Audit SUID/SGID binaries for privilege escalation\" by applying vendor and CIS/OWASP hardening guidance for Host Hardening — Filesystem Permissions. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "LinPEAS/WinPEAS",
+            "linux-exploit-suggester",
+            "Lynis"
+          ],
+          "references": [
+            {
+              "title": "GTFOBins — SUID",
+              "url": "https://gtfobins.github.io/#+suid"
+            },
+            {
+              "title": "HackTricks — Linux privilege escalation",
+              "url": "https://hacktricks.wiki/en/linux-hardening/privilege-escalation/index.html"
+            }
+          ],
+          "tags": [
+            "suid",
+            "privesc",
+            "linux"
+          ],
+          "source": "infra-filesystem-suid-sgid"
+        },
+        {
+          "title": "Verify permissions on sensitive system files",
+          "description": "Files like /etc/shadow, SSH host keys, and Windows SAM/SYSTEM hives must be readable only by privileged accounts to prevent credential theft. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Confirm /etc/shadow is 0640/0600 and not world-readable, SSH private keys are 0600, and on Windows that SAM/SYSTEM/SECURITY hives and backups are not readable by standard users. Common tags: permissions, credentials, hardening.",
+          "severity": "high",
+          "how_to_find": "Confirm /etc/shadow is 0640/0600 and not world-readable, SSH private keys are 0600, and on Windows that SAM/SYSTEM/SECURITY hives and backups are not readable by standard users.",
+          "how_to_fix": "Remediate \"Verify permissions on sensitive system files\" by applying vendor and CIS/OWASP hardening guidance for Host Hardening — Filesystem Permissions. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Lynis",
+            "LinPEAS/WinPEAS",
+            "seatbelt"
+          ],
+          "references": [
+            {
+              "title": "HackTricks — Linux privilege escalation",
+              "url": "https://hacktricks.wiki/en/linux-hardening/privilege-escalation/index.html"
+            },
+            {
+              "title": "Microsoft — HiveNightmare/SeriousSAM (CVE-2021-36934)",
+              "url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2021-36934"
+            }
+          ],
+          "tags": [
+            "permissions",
+            "credentials",
+            "hardening"
+          ],
+          "source": "infra-filesystem-sensitive-perms"
+        },
+        {
+          "title": "Harden mount options for non-system partitions",
+          "description": "Mounting /tmp, /var, and removable media with noexec, nosuid, and nodev limits where attackers can drop and execute payloads or place setuid files. This is a defense-in-depth gap that improves overall resilience when fixed. Assessors should confirm the control in practice, not only on paper: Review /etc/fstab and current mounts; confirm noexec/nosuid/nodev are applied to /tmp, /dev/shm, and removable media where the workload allows. On Windows verify removable media execution policies. Common tags: mount, noexec, linux.",
+          "severity": "low",
+          "how_to_find": "Review /etc/fstab and current mounts; confirm noexec/nosuid/nodev are applied to /tmp, /dev/shm, and removable media where the workload allows. On Windows verify removable media execution policies.",
+          "how_to_fix": "Remediate \"Harden mount options for non-system partitions\" by applying vendor and CIS/OWASP hardening guidance for Host Hardening — Filesystem Permissions. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Lynis",
+            "CIS-CAT",
+            "LinPEAS/WinPEAS"
+          ],
+          "references": [
+            {
+              "title": "CIS Benchmarks",
+              "url": "https://www.cisecurity.org/cis-benchmarks"
+            },
+            {
+              "title": "HackTricks — Linux privilege escalation",
+              "url": "https://hacktricks.wiki/en/linux-hardening/privilege-escalation/index.html"
+            }
+          ],
+          "tags": [
+            "mount",
+            "noexec",
+            "linux"
+          ],
+          "source": "infra-filesystem-mount-options"
+        }
+      ]
+    },
+    {
+      "title": "Patch & Vulnerability Management — Patch Posture & EOL Software",
+      "items": [
+        {
+          "title": "Identify missing security patches",
+          "description": "Unpatched hosts are exposed to known, weaponized CVEs. Patch latency is one of the most reliable predictors of compromise. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Run an authenticated vulnerability scan and review missing-patch findings by severity/exploitability. On Windows check Get-HotFix / WSUS status; on Linux check the package manager (apt/yum) for pending security updates. Common tags: patching, cve, vuln-management.",
+          "severity": "high",
+          "how_to_find": "Run an authenticated vulnerability scan and review missing-patch findings by severity/exploitability. On Windows check Get-HotFix / WSUS status; on Linux check the package manager (apt/yum) for pending security updates.",
+          "how_to_fix": "Remediate \"Identify missing security patches\" by applying vendor and CIS/OWASP hardening guidance for Patch & Vulnerability Management — Patch Posture & EOL Software. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "OpenVAS/Nessus",
+            "WinPEAS",
+            "Lynis"
+          ],
+          "references": [
+            {
+              "title": "NIST SP 800-40 Rev. 4 (Patch Management)",
+              "url": "https://csrc.nist.gov/pubs/sp/800/40/r4/final"
+            },
+            {
+              "title": "CISA Known Exploited Vulnerabilities Catalog",
+              "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog"
+            }
+          ],
+          "tags": [
+            "patching",
+            "cve",
+            "vuln-management"
+          ],
+          "source": "infra-patch-posture-missing"
+        },
+        {
+          "title": "Detect end-of-life OS and software",
+          "description": "EOL operating systems and applications no longer receive security fixes, leaving permanent exposure to newly disclosed flaws. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Inventory OS and key application versions and compare against vendor end-of-life dates. Flag unsupported releases (e.g. legacy Windows Server, EOL distro versions) for upgrade or compensating isolation. Common tags: eol, lifecycle, vuln-management.",
+          "severity": "high",
+          "how_to_find": "Inventory OS and key application versions and compare against vendor end-of-life dates. Flag unsupported releases (e.g. legacy Windows Server, EOL distro versions) for upgrade or compensating isolation.",
+          "how_to_fix": "Remediate \"Detect end-of-life OS and software\" by applying vendor and CIS/OWASP hardening guidance for Patch & Vulnerability Management — Patch Posture & EOL Software. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "OpenVAS/Nessus",
+            "Lynis",
+            "WinPEAS"
+          ],
+          "references": [
+            {
+              "title": "NIST SP 800-40 Rev. 4 (Patch Management)",
+              "url": "https://csrc.nist.gov/pubs/sp/800/40/r4/final"
+            },
+            {
+              "title": "Microsoft Product Lifecycle",
+              "url": "https://learn.microsoft.com/en-us/lifecycle/"
+            }
+          ],
+          "tags": [
+            "eol",
+            "lifecycle",
+            "vuln-management"
+          ],
+          "source": "infra-patch-posture-eol"
+        },
+        {
+          "title": "Assess third-party and application patch coverage",
+          "description": "Patch programs often cover the OS but miss third-party software (browsers, runtimes, agents), which is a common initial-access vector. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm third-party software is included in patch management. Review installed application versions for known CVEs and verify auto-update or a managed patch path exists for high-risk software. Common tags: third-party, patching, vuln-management.",
+          "severity": "medium",
+          "how_to_find": "Confirm third-party software is included in patch management. Review installed application versions for known CVEs and verify auto-update or a managed patch path exists for high-risk software.",
+          "how_to_fix": "Remediate \"Assess third-party and application patch coverage\" by applying vendor and CIS/OWASP hardening guidance for Patch & Vulnerability Management — Patch Posture & EOL Software. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "OpenVAS/Nessus",
+            "WinPEAS",
+            "Lynis"
+          ],
+          "references": [
+            {
+              "title": "NIST SP 800-40 Rev. 4 (Patch Management)",
+              "url": "https://csrc.nist.gov/pubs/sp/800/40/r4/final"
+            },
+            {
+              "title": "CISA Known Exploited Vulnerabilities Catalog",
+              "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog"
+            }
+          ],
+          "tags": [
+            "third-party",
+            "patching",
+            "vuln-management"
+          ],
+          "source": "infra-patch-posture-third-party"
+        },
+        {
+          "title": "Validate patch cadence and reboot compliance",
+          "description": "Patches that are installed but not applied (pending reboot) or deployed on a slow cadence leave a window of exposure even on \"managed\" hosts. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Review the documented patch SLA, time-to-patch metrics, and pending-reboot state. Confirm critical/KEV patches are applied within an aggressive window and that maintenance reboots actually occur. Common tags: patch-cadence, process, vuln-management.",
+          "severity": "medium",
+          "how_to_find": "Review the documented patch SLA, time-to-patch metrics, and pending-reboot state. Confirm critical/KEV patches are applied within an aggressive window and that maintenance reboots actually occur.",
+          "how_to_fix": "Remediate \"Validate patch cadence and reboot compliance\" by applying vendor and CIS/OWASP hardening guidance for Patch & Vulnerability Management — Patch Posture & EOL Software. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "OpenVAS/Nessus",
+            "WinPEAS",
+            "Lynis"
+          ],
+          "references": [
+            {
+              "title": "NIST SP 800-40 Rev. 4 (Patch Management)",
+              "url": "https://csrc.nist.gov/pubs/sp/800/40/r4/final"
+            },
+            {
+              "title": "CISA Known Exploited Vulnerabilities Catalog",
+              "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog"
+            }
+          ],
+          "tags": [
+            "patch-cadence",
+            "process",
+            "vuln-management"
+          ],
+          "source": "infra-patch-posture-cadence"
+        }
+      ]
+    },
+    {
+      "title": "Patch & Vulnerability Management — Kernel & Local Privesc CVEs",
+      "items": [
+        {
+          "title": "Check kernel version against known local-privesc CVEs",
+          "description": "Outdated Linux kernels are vulnerable to well-known local privilege escalation exploits (Dirty COW, Dirty Pipe, OverlayFS, PwnKit). If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: Capture uname -a / kernel build and run a suggester (linux-exploit-suggester) to map the version to known LPE CVEs. Validate exploitability carefully before claiming impact on production hosts. Common tags: kernel, privesc, linux.",
+          "severity": "critical",
+          "how_to_find": "Capture uname -a / kernel build and run a suggester (linux-exploit-suggester) to map the version to known LPE CVEs. Validate exploitability carefully before claiming impact on production hosts.",
+          "how_to_fix": "Remediate \"Check kernel version against known local-privesc CVEs\" by applying vendor and CIS/OWASP hardening guidance for Patch & Vulnerability Management — Kernel & Local Privesc CVEs. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "linux-exploit-suggester",
+            "LinPEAS/WinPEAS",
+            "OpenVAS/Nessus"
+          ],
+          "references": [
+            {
+              "title": "HackTricks — Linux privilege escalation",
+              "url": "https://hacktricks.wiki/en/linux-hardening/privilege-escalation/index.html"
+            },
+            {
+              "title": "CISA Known Exploited Vulnerabilities Catalog",
+              "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog"
+            }
+          ],
+          "tags": [
+            "kernel",
+            "privesc",
+            "linux"
+          ],
+          "source": "infra-kernel-exploits-linux-version"
+        },
+        {
+          "title": "Test for PwnKit / vulnerable setuid helpers (CVE-2021-4034)",
+          "description": "PwnKit in polkit’s pkexec gives any local user instant root on a huge range of Linux distributions, and similar setuid helper bugs recur. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: Check the polkit/pkexec version and patch status against CVE-2021-4034 and related advisories. Confirm the host is patched rather than relying on absence of an obvious exploit binary. Common tags: pwnkit, privesc, linux.",
+          "severity": "critical",
+          "how_to_find": "Check the polkit/pkexec version and patch status against CVE-2021-4034 and related advisories. Confirm the host is patched rather than relying on absence of an obvious exploit binary.",
+          "how_to_fix": "Remediate \"Test for PwnKit / vulnerable setuid helpers (CVE-2021-4034)\" by applying vendor and CIS/OWASP hardening guidance for Patch & Vulnerability Management — Kernel & Local Privesc CVEs. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "linux-exploit-suggester",
+            "LinPEAS/WinPEAS",
+            "OpenVAS/Nessus"
+          ],
+          "references": [
+            {
+              "title": "NVD — CVE-2021-4034 (PwnKit)",
+              "url": "https://nvd.nist.gov/vuln/detail/CVE-2021-4034"
+            },
+            {
+              "title": "HackTricks — Linux privilege escalation",
+              "url": "https://hacktricks.wiki/en/linux-hardening/privilege-escalation/index.html"
+            }
+          ],
+          "tags": [
+            "pwnkit",
+            "privesc",
+            "linux"
+          ],
+          "source": "infra-kernel-exploits-pwnkit"
+        },
+        {
+          "title": "Check Windows for known local-privesc CVEs",
+          "description": "Windows hosts missing key updates are exposed to local privilege escalation chains (PrintNightmare, HiveNightmare/SeriousSAM, and various LPE CVEs). If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: Enumerate installed KBs and OS build, then map missing patches to known Windows LPE CVEs using WinPEAS/Seatbelt and a vuln scanner. Confirm Print Spooler and SAM-hive exposures are remediated. Common tags: windows, privesc, cve.",
+          "severity": "critical",
+          "how_to_find": "Enumerate installed KBs and OS build, then map missing patches to known Windows LPE CVEs using WinPEAS/Seatbelt and a vuln scanner. Confirm Print Spooler and SAM-hive exposures are remediated.",
+          "how_to_fix": "Remediate \"Check Windows for known local-privesc CVEs\" by applying vendor and CIS/OWASP hardening guidance for Patch & Vulnerability Management — Kernel & Local Privesc CVEs. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "WinPEAS",
+            "seatbelt",
+            "OpenVAS/Nessus"
+          ],
+          "references": [
+            {
+              "title": "Microsoft — PrintNightmare (CVE-2021-34527)",
+              "url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2021-34527"
+            },
+            {
+              "title": "HackTricks — Windows local privilege escalation",
+              "url": "https://hacktricks.wiki/en/windows-hardening/windows-local-privilege-escalation/index.html"
+            }
+          ],
+          "tags": [
+            "windows",
+            "privesc",
+            "cve"
+          ],
+          "source": "infra-kernel-exploits-windows"
+        },
+        {
+          "title": "Restrict loadable kernel modules and exploit primitives",
+          "description": "Unrestricted module loading and exposed kernel features (unprivileged user namespaces, BPF) expand the local kernel attack surface used by privesc exploits. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Review sysctl hardening (kernel.unprivileged_userns_clone, kernel.kptr_restrict, module loading restrictions) and confirm unnecessary kernel features are disabled where the workload allows. Common tags: kernel, hardening, linux.",
+          "severity": "medium",
+          "how_to_find": "Review sysctl hardening (kernel.unprivileged_userns_clone, kernel.kptr_restrict, module loading restrictions) and confirm unnecessary kernel features are disabled where the workload allows.",
+          "how_to_fix": "Remediate \"Restrict loadable kernel modules and exploit primitives\" by applying vendor and CIS/OWASP hardening guidance for Patch & Vulnerability Management — Kernel & Local Privesc CVEs. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Lynis",
+            "linux-exploit-suggester",
+            "LinPEAS/WinPEAS"
+          ],
+          "references": [
+            {
+              "title": "HackTricks — Linux privilege escalation",
+              "url": "https://hacktricks.wiki/en/linux-hardening/privilege-escalation/index.html"
+            },
+            {
+              "title": "CIS Benchmarks",
+              "url": "https://www.cisecurity.org/cis-benchmarks"
+            }
+          ],
+          "tags": [
+            "kernel",
+            "hardening",
+            "linux"
+          ],
+          "source": "infra-kernel-exploits-modules"
+        }
+      ]
+    },
+    {
+      "title": "Service Configuration — Exposed Services & Default Configs",
+      "items": [
+        {
+          "title": "Enumerate and justify all listening services",
+          "description": "Each open port is a potential entry point. Services bound to all interfaces when they only need localhost needlessly expand exposure. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Map listening ports (ss -tulpn, netstat, nmap) to processes and confirm each is required and bound to the minimum interface. Investigate any unexpected or unauthenticated listener. Common tags: services, exposure, ports.",
+          "severity": "medium",
+          "how_to_find": "Map listening ports (ss -tulpn, netstat, nmap) to processes and confirm each is required and bound to the minimum interface. Investigate any unexpected or unauthenticated listener.",
+          "how_to_fix": "Remediate \"Enumerate and justify all listening services\" by applying vendor and CIS/OWASP hardening guidance for Service Configuration — Exposed Services & Default Configs. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "nmap",
+            "Lynis",
+            "OpenVAS/Nessus"
+          ],
+          "references": [
+            {
+              "title": "NIST SP 800-123 (Server Security)",
+              "url": "https://csrc.nist.gov/pubs/sp/800/123/final"
+            },
+            {
+              "title": "HackTricks — Pentesting network services",
+              "url": "https://hacktricks.wiki/en/generic-methodologies-and-resources/pentesting-network/index.html"
+            }
+          ],
+          "tags": [
+            "services",
+            "exposure",
+            "ports"
+          ],
+          "source": "infra-exposed-services-listeners"
+        },
+        {
+          "title": "Test for default and weak service credentials",
+          "description": "Databases, admin panels, and middleware shipped with default credentials are a leading cause of compromise and lateral movement. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: For each authenticated service, test documented default credentials and confirm they are changed. Check management interfaces (databases, app servers, monitoring agents) specifically. Common tags: default-creds, services, auth.",
+          "severity": "high",
+          "how_to_find": "For each authenticated service, test documented default credentials and confirm they are changed. Check management interfaces (databases, app servers, monitoring agents) specifically.",
+          "how_to_fix": "Remediate \"Test for default and weak service credentials\" by applying vendor and CIS/OWASP hardening guidance for Service Configuration — Exposed Services & Default Configs. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "nmap",
+            "OpenVAS/Nessus",
+            "LinPEAS/WinPEAS"
+          ],
+          "references": [
+            {
+              "title": "HackTricks — Pentesting network services",
+              "url": "https://hacktricks.wiki/en/generic-methodologies-and-resources/pentesting-network/index.html"
+            },
+            {
+              "title": "MITRE ATT&CK — Default Accounts (T1078.001)",
+              "url": "https://attack.mitre.org/techniques/T1078/001/"
+            }
+          ],
+          "tags": [
+            "default-creds",
+            "services",
+            "auth"
+          ],
+          "source": "infra-exposed-services-default-creds"
+        },
+        {
+          "title": "Identify cleartext and legacy protocol exposure",
+          "description": "Services like FTP, Telnet, HTTP, and unencrypted SMTP/LDAP expose credentials and data to network interception. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm cleartext services are disabled or replaced with encrypted equivalents (SFTP, SSH, HTTPS, LDAPS). Where legacy protocols are required, verify they are segmented and monitored. Common tags: cleartext, legacy-protocols, services.",
+          "severity": "medium",
+          "how_to_find": "Confirm cleartext services are disabled or replaced with encrypted equivalents (SFTP, SSH, HTTPS, LDAPS). Where legacy protocols are required, verify they are segmented and monitored.",
+          "how_to_fix": "Remediate \"Identify cleartext and legacy protocol exposure\" by applying vendor and CIS/OWASP hardening guidance for Service Configuration — Exposed Services & Default Configs. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "nmap",
+            "OpenVAS/Nessus",
+            "Lynis"
+          ],
+          "references": [
+            {
+              "title": "HackTricks — Pentesting network services",
+              "url": "https://hacktricks.wiki/en/generic-methodologies-and-resources/pentesting-network/index.html"
+            },
+            {
+              "title": "NIST SP 800-123 (Server Security)",
+              "url": "https://csrc.nist.gov/pubs/sp/800/123/final"
+            }
+          ],
+          "tags": [
+            "cleartext",
+            "legacy-protocols",
+            "services"
+          ],
+          "source": "infra-exposed-services-cleartext"
+        },
+        {
+          "title": "Verify services run under least-privilege accounts",
+          "description": "Network-facing services running as root/SYSTEM turn any service exploit into full host compromise; they should run as dedicated low-privilege accounts. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm internet/network-facing daemons run under dedicated, unprivileged service accounts and apply isolation (systemd hardening directives, service account restrictions) where supported. Common tags: least-privilege, services, hardening.",
+          "severity": "medium",
+          "how_to_find": "Confirm internet/network-facing daemons run under dedicated, unprivileged service accounts and apply isolation (systemd hardening directives, service account restrictions) where supported.",
+          "how_to_fix": "Remediate \"Verify services run under least-privilege accounts\" by applying vendor and CIS/OWASP hardening guidance for Service Configuration — Exposed Services & Default Configs. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Lynis",
+            "LinPEAS/WinPEAS",
+            "seatbelt"
+          ],
+          "references": [
+            {
+              "title": "NIST SP 800-123 (Server Security)",
+              "url": "https://csrc.nist.gov/pubs/sp/800/123/final"
+            },
+            {
+              "title": "CIS Benchmarks",
+              "url": "https://www.cisecurity.org/cis-benchmarks"
+            }
+          ],
+          "tags": [
+            "least-privilege",
+            "services",
+            "hardening"
+          ],
+          "source": "infra-exposed-services-least-priv"
+        }
+      ]
+    },
+    {
+      "title": "Service Configuration — SSH & RDP Hardening",
+      "items": [
+        {
+          "title": "Harden SSH server configuration",
+          "description": "Default sshd settings often permit root login, password auth, and weak access control, making the primary admin channel an easy target. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Review sshd_config: PermitRootLogin no, key-based auth preferred over passwords, MaxAuthTries limited, and AllowUsers/AllowGroups scoping. Confirm SSH is not needlessly exposed to the internet. Common tags: ssh, remote-access, linux.",
+          "severity": "high",
+          "how_to_find": "Review sshd_config: PermitRootLogin no, key-based auth preferred over passwords, MaxAuthTries limited, and AllowUsers/AllowGroups scoping. Confirm SSH is not needlessly exposed to the internet.",
+          "how_to_fix": "Remediate \"Harden SSH server configuration\" by applying vendor and CIS/OWASP hardening guidance for Service Configuration — SSH & RDP Hardening. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Lynis",
+            "nmap",
+            "OpenVAS/Nessus"
+          ],
+          "references": [
+            {
+              "title": "CIS Benchmarks",
+              "url": "https://www.cisecurity.org/cis-benchmarks"
+            },
+            {
+              "title": "HackTricks — SSH pentesting (port 22)",
+              "url": "https://hacktricks.wiki/en/network-services-pentesting/pentesting-ssh.html"
+            }
+          ],
+          "tags": [
+            "ssh",
+            "remote-access",
+            "linux"
+          ],
+          "source": "infra-ssh-rdp-ssh-config"
+        },
+        {
+          "title": "Disable weak SSH/TLS ciphers, MACs, and key exchanges",
+          "description": "Legacy ciphers and key-exchange algorithms (CBC modes, SHA-1 MACs, weak DH groups) undermine the confidentiality of the management channel. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Scan SSH (and RDP/TLS) for offered algorithms and confirm only strong, current ciphers/MACs/kex are enabled. Remove deprecated algorithms from sshd_config and the RDP security layer. Common tags: ssh, crypto, ciphers.",
+          "severity": "medium",
+          "how_to_find": "Scan SSH (and RDP/TLS) for offered algorithms and confirm only strong, current ciphers/MACs/kex are enabled. Remove deprecated algorithms from sshd_config and the RDP security layer.",
+          "how_to_fix": "Remediate \"Disable weak SSH/TLS ciphers, MACs, and key exchanges\" by applying vendor and CIS/OWASP hardening guidance for Service Configuration — SSH & RDP Hardening. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "nmap",
+            "OpenVAS/Nessus",
+            "Lynis"
+          ],
+          "references": [
+            {
+              "title": "HackTricks — SSH pentesting (port 22)",
+              "url": "https://hacktricks.wiki/en/network-services-pentesting/pentesting-ssh.html"
+            },
+            {
+              "title": "NIST SP 800-52 Rev. 2 (TLS guidance)",
+              "url": "https://csrc.nist.gov/pubs/sp/800/52/r2/final"
+            }
+          ],
+          "tags": [
+            "ssh",
+            "crypto",
+            "ciphers"
+          ],
+          "source": "infra-ssh-rdp-weak-ciphers"
+        },
+        {
+          "title": "Restrict exposure of remote management interfaces",
+          "description": "SSH (22) and RDP (3389) reachable from the internet are prime targets for brute force, credential stuffing, and exploit chains like BlueKeep. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Confirm management ports are restricted to a bastion/VPN/jump host or source-IP allowlist rather than exposed broadly. Verify RDP is patched against known wormable CVEs (e.g. BlueKeep). Common tags: rdp, ssh, exposure.",
+          "severity": "high",
+          "how_to_find": "Confirm management ports are restricted to a bastion/VPN/jump host or source-IP allowlist rather than exposed broadly. Verify RDP is patched against known wormable CVEs (e.g. BlueKeep).",
+          "how_to_fix": "Remediate \"Restrict exposure of remote management interfaces\" by applying vendor and CIS/OWASP hardening guidance for Service Configuration — SSH & RDP Hardening. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "nmap",
+            "OpenVAS/Nessus",
+            "WinPEAS"
+          ],
+          "references": [
+            {
+              "title": "Microsoft — BlueKeep (CVE-2019-0708)",
+              "url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2019-0708"
+            },
+            {
+              "title": "MITRE ATT&CK — Remote Services (T1021)",
+              "url": "https://attack.mitre.org/techniques/T1021/"
+            }
+          ],
+          "tags": [
+            "rdp",
+            "ssh",
+            "exposure"
+          ],
+          "source": "infra-ssh-rdp-exposed-mgmt"
+        },
+        {
+          "title": "Enforce NLA and multi-factor on remote access",
+          "description": "RDP without Network Level Authentication, and SSH/RDP without MFA, allow pre-auth interaction and single-factor compromise of admin access. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm RDP requires NLA and that remote admin access enforces MFA (or certificate-based auth). Verify session timeouts and clipboard/drive redirection are restricted per policy. Common tags: rdp, mfa, remote-access.",
+          "severity": "medium",
+          "how_to_find": "Confirm RDP requires NLA and that remote admin access enforces MFA (or certificate-based auth). Verify session timeouts and clipboard/drive redirection are restricted per policy.",
+          "how_to_fix": "Remediate \"Enforce NLA and multi-factor on remote access\" by applying vendor and CIS/OWASP hardening guidance for Service Configuration — SSH & RDP Hardening. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "nmap",
+            "WinPEAS",
+            "OpenVAS/Nessus"
+          ],
+          "references": [
+            {
+              "title": "Microsoft — Configure NLA for RDP",
+              "url": "https://learn.microsoft.com/en-us/windows-server/remote/remote-desktop-services/clients/remote-desktop-allow-access"
+            },
+            {
+              "title": "MITRE ATT&CK — Remote Desktop Protocol (T1021.001)",
+              "url": "https://attack.mitre.org/techniques/T1021/001/"
+            }
+          ],
+          "tags": [
+            "rdp",
+            "mfa",
+            "remote-access"
+          ],
+          "source": "infra-ssh-rdp-nla-mfa"
+        }
+      ]
+    },
+    {
+      "title": "Service Configuration — Scheduled Tasks & Cron",
+      "items": [
+        {
+          "title": "Find privileged cron/tasks calling writable scripts",
+          "description": "A root cron job or SYSTEM scheduled task that executes a user-writable script or binary is a direct privilege escalation path. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Enumerate cron (/etc/cron*, crontabs) and Windows scheduled tasks, then check the permissions of every script/binary they invoke. Flag any privileged task running a world- or user-writable target. Common tags: cron, scheduled-tasks, privesc.",
+          "severity": "high",
+          "how_to_find": "Enumerate cron (/etc/cron*, crontabs) and Windows scheduled tasks, then check the permissions of every script/binary they invoke. Flag any privileged task running a world- or user-writable target.",
+          "how_to_fix": "Remediate \"Find privileged cron/tasks calling writable scripts\" by applying vendor and CIS/OWASP hardening guidance for Service Configuration — Scheduled Tasks & Cron. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "LinPEAS/WinPEAS",
+            "PowerUp",
+            "seatbelt"
+          ],
+          "references": [
+            {
+              "title": "HackTricks — Linux privilege escalation",
+              "url": "https://hacktricks.wiki/en/linux-hardening/privilege-escalation/index.html"
+            },
+            {
+              "title": "MITRE ATT&CK — Scheduled Task/Job (T1053)",
+              "url": "https://attack.mitre.org/techniques/T1053/"
+            }
+          ],
+          "tags": [
+            "cron",
+            "scheduled-tasks",
+            "privesc"
+          ],
+          "source": "infra-scheduled-tasks-writable-scripts"
+        },
+        {
+          "title": "Detect wildcard and PATH abuse in scheduled jobs",
+          "description": "Cron jobs using wildcards (e.g. tar *) or relative binary names with a writable PATH can be hijacked through crafted filenames or planted binaries. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Review scheduled commands for shell wildcards and unqualified binary names. Confirm jobs use absolute paths and that referenced directories are not user-writable. Common tags: cron, wildcard, privesc.",
+          "severity": "high",
+          "how_to_find": "Review scheduled commands for shell wildcards and unqualified binary names. Confirm jobs use absolute paths and that referenced directories are not user-writable.",
+          "how_to_fix": "Remediate \"Detect wildcard and PATH abuse in scheduled jobs\" by applying vendor and CIS/OWASP hardening guidance for Service Configuration — Scheduled Tasks & Cron. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "LinPEAS/WinPEAS",
+            "linux-exploit-suggester",
+            "PowerUp"
+          ],
+          "references": [
+            {
+              "title": "HackTricks — Linux privilege escalation",
+              "url": "https://hacktricks.wiki/en/linux-hardening/privilege-escalation/index.html"
+            },
+            {
+              "title": "GTFOBins",
+              "url": "https://gtfobins.github.io/"
+            }
+          ],
+          "tags": [
+            "cron",
+            "wildcard",
+            "privesc"
+          ],
+          "source": "infra-scheduled-tasks-wildcard"
+        },
+        {
+          "title": "Review scheduled-task definition and binary permissions",
+          "description": "On Windows, scheduled tasks whose XML definition or target executable can be modified by low-privilege users let attackers escalate to the task’s run-as identity. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Audit scheduled task definitions in C:\\Windows\\System32\\Tasks and the permissions on their target binaries. Confirm standard users cannot modify privileged task actions or replace their executables. Common tags: windows, scheduled-tasks, privesc.",
+          "severity": "high",
+          "how_to_find": "Audit scheduled task definitions in C:\\Windows\\System32\\Tasks and the permissions on their target binaries. Confirm standard users cannot modify privileged task actions or replace their executables.",
+          "how_to_fix": "Remediate \"Review scheduled-task definition and binary permissions\" by applying vendor and CIS/OWASP hardening guidance for Service Configuration — Scheduled Tasks & Cron. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "PowerUp",
+            "WinPEAS",
+            "seatbelt"
+          ],
+          "references": [
+            {
+              "title": "HackTricks — Windows local privilege escalation",
+              "url": "https://hacktricks.wiki/en/windows-hardening/windows-local-privilege-escalation/index.html"
+            },
+            {
+              "title": "LOLBAS — schtasks.exe",
+              "url": "https://lolbas-project.github.io/lolbas/Binaries/Schtasks/"
+            }
+          ],
+          "tags": [
+            "windows",
+            "scheduled-tasks",
+            "privesc"
+          ],
+          "source": "infra-scheduled-tasks-task-perms"
+        },
+        {
+          "title": "Restrict who can create scheduled tasks and cron jobs",
+          "description": "Allowing arbitrary users to register tasks/cron entries enables persistence and privilege abuse; job creation should be governed. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm cron.allow/cron.deny and Windows task-creation rights restrict who can schedule jobs. Review existing entries for unauthorized or suspicious persistence. Common tags: cron, persistence, scheduled-tasks.",
+          "severity": "medium",
+          "how_to_find": "Confirm cron.allow/cron.deny and Windows task-creation rights restrict who can schedule jobs. Review existing entries for unauthorized or suspicious persistence.",
+          "how_to_fix": "Remediate \"Restrict who can create scheduled tasks and cron jobs\" by applying vendor and CIS/OWASP hardening guidance for Service Configuration — Scheduled Tasks & Cron. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Lynis",
+            "LinPEAS/WinPEAS",
+            "seatbelt"
+          ],
+          "references": [
+            {
+              "title": "MITRE ATT&CK — Scheduled Task/Job (T1053)",
+              "url": "https://attack.mitre.org/techniques/T1053/"
+            },
+            {
+              "title": "CIS Benchmarks",
+              "url": "https://www.cisecurity.org/cis-benchmarks"
+            }
+          ],
+          "tags": [
+            "cron",
+            "persistence",
+            "scheduled-tasks"
+          ],
+          "source": "infra-scheduled-tasks-restrict"
+        }
+      ]
+    },
+    {
+      "title": "Privilege & Access — Linux Privilege Escalation",
+      "items": [
+        {
+          "title": "Audit sudo rules for privilege escalation",
+          "description": "Overly broad sudo rules, NOPASSWD entries, and binaries allowed via sudo that have GTFOBins escape vectors lead directly to root. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: Run sudo -l and review /etc/sudoers and sudoers.d. Cross-reference any allowed binary against GTFOBins for sudo escapes, and flag wildcard, NOPASSWD, and env-preserving rules. Common tags: sudo, privesc, linux.",
+          "severity": "critical",
+          "how_to_find": "Run sudo -l and review /etc/sudoers and sudoers.d. Cross-reference any allowed binary against GTFOBins for sudo escapes, and flag wildcard, NOPASSWD, and env-preserving rules.",
+          "how_to_fix": "Remediate \"Audit sudo rules for privilege escalation\" by applying vendor and CIS/OWASP hardening guidance for Privilege & Access — Linux Privilege Escalation. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "LinPEAS/WinPEAS",
+            "linux-exploit-suggester",
+            "Lynis"
+          ],
+          "references": [
+            {
+              "title": "GTFOBins — Sudo",
+              "url": "https://gtfobins.github.io/#+sudo"
+            },
+            {
+              "title": "HackTricks — Linux privilege escalation",
+              "url": "https://hacktricks.wiki/en/linux-hardening/privilege-escalation/index.html"
+            }
+          ],
+          "tags": [
+            "sudo",
+            "privesc",
+            "linux"
+          ],
+          "source": "infra-linux-privesc-sudo"
+        },
+        {
+          "title": "Enumerate dangerous file capabilities",
+          "description": "Linux capabilities (e.g. cap_setuid, cap_dac_read_search) on binaries grant fine-grained privileges that can be abused for full escalation. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Run getcap -r / and review binaries with sensitive capabilities. Cross-reference against GTFOBins capability abuse and confirm capabilities are removed from non-essential binaries. Common tags: capabilities, privesc, linux.",
+          "severity": "high",
+          "how_to_find": "Run getcap -r / and review binaries with sensitive capabilities. Cross-reference against GTFOBins capability abuse and confirm capabilities are removed from non-essential binaries.",
+          "how_to_fix": "Remediate \"Enumerate dangerous file capabilities\" by applying vendor and CIS/OWASP hardening guidance for Privilege & Access — Linux Privilege Escalation. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "LinPEAS/WinPEAS",
+            "linux-exploit-suggester",
+            "Lynis"
+          ],
+          "references": [
+            {
+              "title": "GTFOBins — Capabilities",
+              "url": "https://gtfobins.github.io/#+capabilities"
+            },
+            {
+              "title": "HackTricks — Linux privilege escalation",
+              "url": "https://hacktricks.wiki/en/linux-hardening/privilege-escalation/index.html"
+            }
+          ],
+          "tags": [
+            "capabilities",
+            "privesc",
+            "linux"
+          ],
+          "source": "infra-linux-privesc-capabilities"
+        },
+        {
+          "title": "Check for PATH and library hijacking",
+          "description": "Privileged scripts that call binaries by relative name, or that load libraries from writable locations, can be hijacked to run attacker code as root. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Review PATH ordering for writable entries, look for privileged scripts calling unqualified commands, and check LD_PRELOAD/LD_LIBRARY_PATH handling and writable library directories. Common tags: path-hijack, privesc, linux.",
+          "severity": "high",
+          "how_to_find": "Review PATH ordering for writable entries, look for privileged scripts calling unqualified commands, and check LD_PRELOAD/LD_LIBRARY_PATH handling and writable library directories.",
+          "how_to_fix": "Remediate \"Check for PATH and library hijacking\" by applying vendor and CIS/OWASP hardening guidance for Privilege & Access — Linux Privilege Escalation. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "LinPEAS/WinPEAS",
+            "linux-exploit-suggester",
+            "Lynis"
+          ],
+          "references": [
+            {
+              "title": "HackTricks — Linux privilege escalation",
+              "url": "https://hacktricks.wiki/en/linux-hardening/privilege-escalation/index.html"
+            },
+            {
+              "title": "MITRE ATT&CK — Hijack Execution Flow (T1574)",
+              "url": "https://attack.mitre.org/techniques/T1574/"
+            }
+          ],
+          "tags": [
+            "path-hijack",
+            "privesc",
+            "linux"
+          ],
+          "source": "infra-linux-privesc-path"
+        },
+        {
+          "title": "Test NFS exports for no_root_squash abuse",
+          "description": "NFS shares exported with no_root_squash let a remote root user create setuid-root binaries on the share, yielding root on the server. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Review /etc/exports and showmount output for shares with no_root_squash or overly broad access. Confirm root squashing and restrictive host/network scoping are applied. Common tags: nfs, privesc, linux.",
+          "severity": "high",
+          "how_to_find": "Review /etc/exports and showmount output for shares with no_root_squash or overly broad access. Confirm root squashing and restrictive host/network scoping are applied.",
+          "how_to_fix": "Remediate \"Test NFS exports for no_root_squash abuse\" by applying vendor and CIS/OWASP hardening guidance for Privilege & Access — Linux Privilege Escalation. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "LinPEAS/WinPEAS",
+            "nmap",
+            "Lynis"
+          ],
+          "references": [
+            {
+              "title": "HackTricks — NFS pentesting (port 2049)",
+              "url": "https://hacktricks.wiki/en/network-services-pentesting/nfs-service-pentesting.html"
+            },
+            {
+              "title": "HackTricks — Linux privilege escalation",
+              "url": "https://hacktricks.wiki/en/linux-hardening/privilege-escalation/index.html"
+            }
+          ],
+          "tags": [
+            "nfs",
+            "privesc",
+            "linux"
+          ],
+          "source": "infra-linux-privesc-nfs"
+        }
+      ]
+    },
+    {
+      "title": "Privilege & Access — Windows Privilege Escalation",
+      "items": [
+        {
+          "title": "Find unquoted service paths",
+          "description": "A service with an unquoted path containing spaces can be hijacked by placing a malicious executable in an earlier path segment, escalating to the service account. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Enumerate services for unquoted ImagePath values with spaces and confirm whether any intermediate directory is writable by standard users. PowerUp/WinPEAS flag exploitable candidates. Common tags: windows, unquoted-path, privesc.",
+          "severity": "high",
+          "how_to_find": "Enumerate services for unquoted ImagePath values with spaces and confirm whether any intermediate directory is writable by standard users. PowerUp/WinPEAS flag exploitable candidates.",
+          "how_to_fix": "Remediate \"Find unquoted service paths\" by applying vendor and CIS/OWASP hardening guidance for Privilege & Access — Windows Privilege Escalation. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "PowerUp",
+            "WinPEAS",
+            "seatbelt"
+          ],
+          "references": [
+            {
+              "title": "HackTricks — Windows local privilege escalation",
+              "url": "https://hacktricks.wiki/en/windows-hardening/windows-local-privilege-escalation/index.html"
+            },
+            {
+              "title": "MITRE ATT&CK — Path Interception (T1574.009)",
+              "url": "https://attack.mitre.org/techniques/T1574/009/"
+            }
+          ],
+          "tags": [
+            "windows",
+            "unquoted-path",
+            "privesc"
+          ],
+          "source": "infra-windows-privesc-unquoted"
+        },
+        {
+          "title": "Audit weak service and binary permissions",
+          "description": "Services whose configuration (SERVICE_CHANGE_CONFIG) or binary is writable by low-privilege users allow replacing the executable to run as SYSTEM. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Check service ACLs and binary file permissions for write access by standard users/groups. Confirm low-privilege accounts cannot change service config or replace service binaries. Common tags: windows, service-perms, privesc.",
+          "severity": "high",
+          "how_to_find": "Check service ACLs and binary file permissions for write access by standard users/groups. Confirm low-privilege accounts cannot change service config or replace service binaries.",
+          "how_to_fix": "Remediate \"Audit weak service and binary permissions\" by applying vendor and CIS/OWASP hardening guidance for Privilege & Access — Windows Privilege Escalation. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "PowerUp",
+            "WinPEAS",
+            "seatbelt"
+          ],
+          "references": [
+            {
+              "title": "HackTricks — Windows local privilege escalation",
+              "url": "https://hacktricks.wiki/en/windows-hardening/windows-local-privilege-escalation/index.html"
+            },
+            {
+              "title": "MITRE ATT&CK — Service Permissions (T1574.011)",
+              "url": "https://attack.mitre.org/techniques/T1574/011/"
+            }
+          ],
+          "tags": [
+            "windows",
+            "service-perms",
+            "privesc"
+          ],
+          "source": "infra-windows-privesc-service-perms"
+        },
+        {
+          "title": "Check for abusable token privileges",
+          "description": "Privileges like SeImpersonatePrivilege, SeAssignPrimaryToken, and SeBackupPrivilege enable token-impersonation (Potato) and credential-theft escalations to SYSTEM. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Run whoami /priv and review enabled privileges for service/standard accounts. Flag SeImpersonate/SeAssignPrimaryToken (Potato attacks) and SeBackup/SeRestore/SeDebug as escalation vectors. Common tags: windows, token-privileges, privesc.",
+          "severity": "high",
+          "how_to_find": "Run whoami /priv and review enabled privileges for service/standard accounts. Flag SeImpersonate/SeAssignPrimaryToken (Potato attacks) and SeBackup/SeRestore/SeDebug as escalation vectors.",
+          "how_to_fix": "Remediate \"Check for abusable token privileges\" by applying vendor and CIS/OWASP hardening guidance for Privilege & Access — Windows Privilege Escalation. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "WinPEAS",
+            "PowerUp",
+            "seatbelt"
+          ],
+          "references": [
+            {
+              "title": "HackTricks — Abusing Windows token privileges",
+              "url": "https://hacktricks.wiki/en/windows-hardening/windows-local-privilege-escalation/privilege-escalation-abusing-tokens.html"
+            },
+            {
+              "title": "MITRE ATT&CK — Access Token Manipulation (T1134)",
+              "url": "https://attack.mitre.org/techniques/T1134/"
+            }
+          ],
+          "tags": [
+            "windows",
+            "token-privileges",
+            "privesc"
+          ],
+          "source": "infra-windows-privesc-token-privs"
+        },
+        {
+          "title": "Test AlwaysInstallElevated policy",
+          "description": "When AlwaysInstallElevated is enabled for both HKLM and HKCU, any user can install an MSI that runs as SYSTEM — a one-step privilege escalation. If exploited, this often leads to full account or environment compromise and must be treated as a release blocker. Assessors should confirm the control in practice, not only on paper: Check the AlwaysInstallElevated values under HKLM and HKCU Policies\\Microsoft\\Windows\\Installer. If both are set to 1, confirm escalation via a crafted MSI and recommend disabling the policy. Common tags: windows, alwaysinstallelevated, privesc.",
+          "severity": "critical",
+          "how_to_find": "Check the AlwaysInstallElevated values under HKLM and HKCU Policies\\Microsoft\\Windows\\Installer. If both are set to 1, confirm escalation via a crafted MSI and recommend disabling the policy.",
+          "how_to_fix": "Remediate \"Test AlwaysInstallElevated policy\" by applying vendor and CIS/OWASP hardening guidance for Privilege & Access — Windows Privilege Escalation. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "PowerUp",
+            "WinPEAS",
+            "seatbelt"
+          ],
+          "references": [
+            {
+              "title": "HackTricks — AlwaysInstallElevated",
+              "url": "https://hacktricks.wiki/en/windows-hardening/windows-local-privilege-escalation/index.html#alwaysinstallelevated"
+            },
+            {
+              "title": "MITRE ATT&CK — Bypass User Account Control (T1548.002)",
+              "url": "https://attack.mitre.org/techniques/T1548/002/"
+            }
+          ],
+          "tags": [
+            "windows",
+            "alwaysinstallelevated",
+            "privesc"
+          ],
+          "source": "infra-windows-privesc-installelevated"
+        }
+      ]
+    },
+    {
+      "title": "Privilege & Access — Secrets on the Host",
+      "items": [
+        {
+          "title": "Search the filesystem for stored credentials",
+          "description": "Plaintext passwords, API keys, and private keys in config files, scripts, and backups give attackers ready-made credentials for escalation or lateral movement. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Grep common locations and file types (config, .env, scripts, web roots, backups) for password/secret patterns and private keys. Confirm secrets are stored in a vault, not on disk in cleartext. Common tags: secrets, credentials, discovery.",
+          "severity": "high",
+          "how_to_find": "Grep common locations and file types (config, .env, scripts, web roots, backups) for password/secret patterns and private keys. Confirm secrets are stored in a vault, not on disk in cleartext.",
+          "how_to_fix": "Remediate \"Search the filesystem for stored credentials\" by applying vendor and CIS/OWASP hardening guidance for Privilege & Access — Secrets on the Host. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "LinPEAS/WinPEAS",
+            "seatbelt",
+            "Lynis"
+          ],
+          "references": [
+            {
+              "title": "HackTricks — Linux privilege escalation",
+              "url": "https://hacktricks.wiki/en/linux-hardening/privilege-escalation/index.html"
+            },
+            {
+              "title": "MITRE ATT&CK — Credentials In Files (T1552.001)",
+              "url": "https://attack.mitre.org/techniques/T1552/001/"
+            }
+          ],
+          "tags": [
+            "secrets",
+            "credentials",
+            "discovery"
+          ],
+          "source": "infra-secrets-on-host-files"
+        },
+        {
+          "title": "Inspect shell and command history for secrets",
+          "description": "Shell history (.bash_history, PowerShell history/transcripts) frequently captures passwords passed on the command line. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Review .bash_history, .zsh_history, and PowerShell ConsoleHost_history.txt / transcripts for credentials. Recommend masking secrets and disabling history capture for sensitive commands. Common tags: history, secrets, credentials.",
+          "severity": "medium",
+          "how_to_find": "Review .bash_history, .zsh_history, and PowerShell ConsoleHost_history.txt / transcripts for credentials. Recommend masking secrets and disabling history capture for sensitive commands.",
+          "how_to_fix": "Remediate \"Inspect shell and command history for secrets\" by applying vendor and CIS/OWASP hardening guidance for Privilege & Access — Secrets on the Host. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "LinPEAS/WinPEAS",
+            "seatbelt",
+            "WinPEAS"
+          ],
+          "references": [
+            {
+              "title": "HackTricks — Windows local privilege escalation",
+              "url": "https://hacktricks.wiki/en/windows-hardening/windows-local-privilege-escalation/index.html"
+            },
+            {
+              "title": "MITRE ATT&CK — Unsecured Credentials (T1552)",
+              "url": "https://attack.mitre.org/techniques/T1552/"
+            }
+          ],
+          "tags": [
+            "history",
+            "secrets",
+            "credentials"
+          ],
+          "source": "infra-secrets-on-host-history"
+        },
+        {
+          "title": "Check environment variables and process listings for secrets",
+          "description": "Secrets injected as environment variables can leak through /proc, process listings, and crash dumps to other local users. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Review service/process environment for embedded credentials (env, /proc/<pid>/environ, Windows process env) and confirm secrets are not exposed to lower-privileged users. Common tags: environment, secrets, credentials.",
+          "severity": "medium",
+          "how_to_find": "Review service/process environment for embedded credentials (env, /proc/<pid>/environ, Windows process env) and confirm secrets are not exposed to lower-privileged users.",
+          "how_to_fix": "Remediate \"Check environment variables and process listings for secrets\" by applying vendor and CIS/OWASP hardening guidance for Privilege & Access — Secrets on the Host. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "LinPEAS/WinPEAS",
+            "seatbelt",
+            "WinPEAS"
+          ],
+          "references": [
+            {
+              "title": "HackTricks — Linux privilege escalation",
+              "url": "https://hacktricks.wiki/en/linux-hardening/privilege-escalation/index.html"
+            },
+            {
+              "title": "MITRE ATT&CK — Unsecured Credentials (T1552)",
+              "url": "https://attack.mitre.org/techniques/T1552/"
+            }
+          ],
+          "tags": [
+            "environment",
+            "secrets",
+            "credentials"
+          ],
+          "source": "infra-secrets-on-host-env"
+        },
+        {
+          "title": "Hunt for credentials in registry, vaults, and config stores",
+          "description": "Windows hosts store credentials in autologon registry keys, the Credential Manager, unattend/sysprep files, and SAM/LSA secrets that attackers routinely harvest. This is a high-impact finding that attackers frequently chain with other issues to escalate access or exfiltrate data. Assessors should confirm the control in practice, not only on paper: Check Winlogon autologon keys, Credential Manager, unattend.xml/sysprep files, and reachable SAM/LSA secrets. Confirm cached credentials and saved RDP/credential stores are minimized. Common tags: windows, registry, credentials.",
+          "severity": "high",
+          "how_to_find": "Check Winlogon autologon keys, Credential Manager, unattend.xml/sysprep files, and reachable SAM/LSA secrets. Confirm cached credentials and saved RDP/credential stores are minimized.",
+          "how_to_fix": "Remediate \"Hunt for credentials in registry, vaults, and config stores\" by applying vendor and CIS/OWASP hardening guidance for Privilege & Access — Secrets on the Host. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "WinPEAS",
+            "seatbelt",
+            "LinPEAS/WinPEAS"
+          ],
+          "references": [
+            {
+              "title": "HackTricks — Windows local privilege escalation",
+              "url": "https://hacktricks.wiki/en/windows-hardening/windows-local-privilege-escalation/index.html"
+            },
+            {
+              "title": "MITRE ATT&CK — Credentials in Registry (T1552.002)",
+              "url": "https://attack.mitre.org/techniques/T1552/002/"
+            }
+          ],
+          "tags": [
+            "windows",
+            "registry",
+            "credentials"
+          ],
+          "source": "infra-secrets-on-host-registry-stores"
+        }
+      ]
+    },
+    {
+      "title": "Logging & Monitoring — Audit & Event Logging",
+      "items": [
+        {
+          "title": "Confirm audit/event logging is enabled with adequate coverage",
+          "description": "Without auditing of authentication, privilege use, and configuration changes, incidents cannot be detected or reconstructed. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: On Linux confirm auditd is running with a meaningful ruleset; on Windows confirm the advanced audit policy covers logon, privilege use, object access, and process creation. Verify high-value events are captured. Common tags: logging, auditd, detection.",
+          "severity": "medium",
+          "how_to_find": "On Linux confirm auditd is running with a meaningful ruleset; on Windows confirm the advanced audit policy covers logon, privilege use, object access, and process creation. Verify high-value events are captured.",
+          "how_to_fix": "Remediate \"Confirm audit/event logging is enabled with adequate coverage\" by applying vendor and CIS/OWASP hardening guidance for Logging & Monitoring — Audit & Event Logging. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Lynis",
+            "CIS-CAT",
+            "seatbelt"
+          ],
+          "references": [
+            {
+              "title": "NIST SP 800-92 (Log Management)",
+              "url": "https://csrc.nist.gov/pubs/sp/800/92/final"
+            },
+            {
+              "title": "MITRE ATT&CK — Impair Defenses: Disable Logging (T1562.002)",
+              "url": "https://attack.mitre.org/techniques/T1562/002/"
+            }
+          ],
+          "tags": [
+            "logging",
+            "auditd",
+            "detection"
+          ],
+          "source": "infra-audit-logging-enabled"
+        },
+        {
+          "title": "Verify logs are forwarded to central, tamper-resistant storage",
+          "description": "Logs kept only locally can be wiped by an attacker who compromises the host; central forwarding preserves evidence and enables correlation. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm hosts forward logs to a SIEM/central syslog (rsyslog/journald forwarding, Windows Event Forwarding) and that the pipeline is monitored for gaps. Verify retention meets policy. Common tags: logging, siem, central-logging.",
+          "severity": "medium",
+          "how_to_find": "Confirm hosts forward logs to a SIEM/central syslog (rsyslog/journald forwarding, Windows Event Forwarding) and that the pipeline is monitored for gaps. Verify retention meets policy.",
+          "how_to_fix": "Remediate \"Verify logs are forwarded to central, tamper-resistant storage\" by applying vendor and CIS/OWASP hardening guidance for Logging & Monitoring — Audit & Event Logging. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Lynis",
+            "CIS-CAT",
+            "OpenVAS/Nessus"
+          ],
+          "references": [
+            {
+              "title": "NIST SP 800-92 (Log Management)",
+              "url": "https://csrc.nist.gov/pubs/sp/800/92/final"
+            },
+            {
+              "title": "Microsoft — Windows Event Forwarding",
+              "url": "https://learn.microsoft.com/en-us/windows/security/operating-system-security/device-management/windows-event-forwarding"
+            }
+          ],
+          "tags": [
+            "logging",
+            "siem",
+            "central-logging"
+          ],
+          "source": "infra-audit-logging-central"
+        },
+        {
+          "title": "Protect logs from tampering and clearing",
+          "description": "Attackers commonly clear or disable logs to cover tracks; local log files and event logs must be access-controlled and clear events alerted on. While not always immediately exploitable, this weakness expands attack surface and should be remediated within the current sprint. Assessors should confirm the control in practice, not only on paper: Confirm log files/event logs are writable only by privileged accounts, log-clearing is alerted on, and standard users cannot stop logging services. Check for evidence of cleared logs. Common tags: logging, integrity, anti-tamper.",
+          "severity": "medium",
+          "how_to_find": "Confirm log files/event logs are writable only by privileged accounts, log-clearing is alerted on, and standard users cannot stop logging services. Check for evidence of cleared logs.",
+          "how_to_fix": "Remediate \"Protect logs from tampering and clearing\" by applying vendor and CIS/OWASP hardening guidance for Logging & Monitoring — Audit & Event Logging. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Lynis",
+            "seatbelt",
+            "CIS-CAT"
+          ],
+          "references": [
+            {
+              "title": "MITRE ATT&CK — Indicator Removal: Clear Logs (T1070)",
+              "url": "https://attack.mitre.org/techniques/T1070/"
+            },
+            {
+              "title": "NIST SP 800-92 (Log Management)",
+              "url": "https://csrc.nist.gov/pubs/sp/800/92/final"
+            }
+          ],
+          "tags": [
+            "logging",
+            "integrity",
+            "anti-tamper"
+          ],
+          "source": "infra-audit-logging-protection"
+        },
+        {
+          "title": "Enable command-line and process-execution logging",
+          "description": "Capturing process creation with command lines (Sysmon / auditd execve, Windows 4688 with command line) is essential for detecting hands-on-keyboard attacks. This is a defense-in-depth gap that improves overall resilience when fixed. Assessors should confirm the control in practice, not only on paper: Confirm process-creation auditing includes command line (Windows audit 4688 + command-line policy or Sysmon; Linux auditd execve rules). Verify the data reaches central logging. Common tags: logging, sysmon, detection.",
+          "severity": "low",
+          "how_to_find": "Confirm process-creation auditing includes command line (Windows audit 4688 + command-line policy or Sysmon; Linux auditd execve rules). Verify the data reaches central logging.",
+          "how_to_fix": "Remediate \"Enable command-line and process-execution logging\" by applying vendor and CIS/OWASP hardening guidance for Logging & Monitoring — Audit & Event Logging. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Lynis",
+            "seatbelt",
+            "CIS-CAT"
+          ],
+          "references": [
+            {
+              "title": "NIST SP 800-92 (Log Management)",
+              "url": "https://csrc.nist.gov/pubs/sp/800/92/final"
+            },
+            {
+              "title": "MITRE ATT&CK — Command and Scripting Interpreter (T1059)",
+              "url": "https://attack.mitre.org/techniques/T1059/"
+            }
+          ],
+          "tags": [
+            "logging",
+            "sysmon",
+            "detection"
+          ],
+          "source": "infra-audit-logging-command-logging"
+        }
+      ]
+    },
+    {
+      "title": "Logging & Monitoring — Time Sync & Log Integrity",
+      "items": [
+        {
+          "title": "Verify reliable, authenticated time synchronization",
+          "description": "Accurate time is foundational to correlating logs across hosts and to Kerberos; unsynced clocks break investigations and authentication. This is a defense-in-depth gap that improves overall resilience when fixed. Assessors should confirm the control in practice, not only on paper: Confirm NTP/chrony (or Windows w32time) is enabled, synced to trusted upstream sources, and that drift is within tolerance (notably for Kerberos). Prefer authenticated/secure time sources. Common tags: ntp, time-sync, integrity.",
+          "severity": "low",
+          "how_to_find": "Confirm NTP/chrony (or Windows w32time) is enabled, synced to trusted upstream sources, and that drift is within tolerance (notably for Kerberos). Prefer authenticated/secure time sources.",
+          "how_to_fix": "Remediate \"Verify reliable, authenticated time synchronization\" by applying vendor and CIS/OWASP hardening guidance for Logging & Monitoring — Time Sync & Log Integrity. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Lynis",
+            "CIS-CAT",
+            "seatbelt"
+          ],
+          "references": [
+            {
+              "title": "NIST SP 800-92 (Log Management)",
+              "url": "https://csrc.nist.gov/pubs/sp/800/92/final"
+            },
+            {
+              "title": "CIS Benchmarks",
+              "url": "https://www.cisecurity.org/cis-benchmarks"
+            }
+          ],
+          "tags": [
+            "ntp",
+            "time-sync",
+            "integrity"
+          ],
+          "source": "infra-time-sync-ntp"
+        },
+        {
+          "title": "Confirm consistent time zone and timestamp format across hosts",
+          "description": "Inconsistent time zones or local-time logging across a fleet makes cross-host correlation error-prone during incident response. Informational finding useful for hardening and compliance alignment. Assessors should confirm the control in practice, not only on paper: Verify hosts use a consistent, documented time-zone convention (commonly UTC) for logs and that timestamp formats are uniform across the central logging pipeline. Common tags: time-sync, logging, consistency.",
+          "severity": "info",
+          "how_to_find": "Verify hosts use a consistent, documented time-zone convention (commonly UTC) for logs and that timestamp formats are uniform across the central logging pipeline.",
+          "how_to_fix": "Remediate \"Confirm consistent time zone and timestamp format across hosts\" by applying vendor and CIS/OWASP hardening guidance for Logging & Monitoring — Time Sync & Log Integrity. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "Lynis",
+            "CIS-CAT",
+            "seatbelt"
+          ],
+          "references": [
+            {
+              "title": "NIST SP 800-92 (Log Management)",
+              "url": "https://csrc.nist.gov/pubs/sp/800/92/final"
+            },
+            {
+              "title": "CIS Benchmarks",
+              "url": "https://www.cisecurity.org/cis-benchmarks"
+            }
+          ],
+          "tags": [
+            "time-sync",
+            "logging",
+            "consistency"
+          ],
+          "source": "infra-time-sync-consistency"
+        },
+        {
+          "title": "Validate log integrity controls and retention",
+          "description": "Integrity controls (append-only storage, hashing, write-once retention) ensure logs are trustworthy evidence and meet retention requirements. This is a defense-in-depth gap that improves overall resilience when fixed. Assessors should confirm the control in practice, not only on paper: Confirm central logs use tamper-evident/append-only storage with defined retention, and that integrity (e.g. hashing or WORM) is applied where required by policy or regulation. Common tags: log-integrity, retention, forensics.",
+          "severity": "low",
+          "how_to_find": "Confirm central logs use tamper-evident/append-only storage with defined retention, and that integrity (e.g. hashing or WORM) is applied where required by policy or regulation.",
+          "how_to_fix": "Remediate \"Validate log integrity controls and retention\" by applying vendor and CIS/OWASP hardening guidance for Logging & Monitoring — Time Sync & Log Integrity. Implement least privilege, enable required logging, validate in staging, then re-scan with the same tools. Track ownership and set a remediation date based on severity.",
+          "tools": [
+            "CIS-CAT",
+            "Lynis",
+            "OpenVAS/Nessus"
+          ],
+          "references": [
+            {
+              "title": "NIST SP 800-92 (Log Management)",
+              "url": "https://csrc.nist.gov/pubs/sp/800/92/final"
+            },
+            {
+              "title": "MITRE ATT&CK — Indicator Removal: Clear Logs (T1070)",
+              "url": "https://attack.mitre.org/techniques/T1070/"
+            }
+          ],
+          "tags": [
+            "log-integrity",
+            "retention",
+            "forensics"
+          ],
+          "source": "infra-time-sync-integrity-controls"
+        }
+      ]
+    }
+  ]
+}
