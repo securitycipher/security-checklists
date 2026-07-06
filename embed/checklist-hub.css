@@ -283,31 +283,34 @@ body.sc-page-checklist-hub .sc-checklist-hub-main {
   color: var(--muted, #78838f);
 }
 
-/* Toolbar */
+/* Toolbar — compact control row in document flow (no sticky overlay) */
 .sc-chub-toolbar.band {
-  background: rgba(11, 12, 16, 0.92);
+  background: transparent;
 }
 
 .sc-chub-toolbar {
-  position: sticky;
-  top: 68px;
-  z-index: 40;
-  border-bottom: 1px solid var(--border, #272b36);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  position: relative;
+  z-index: 2;
+  margin: 0 0 20px;
+  border: none;
+  background: transparent;
 }
 
 .sc-chub-toolbar-inner {
   display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  gap: 12px;
-  padding: 16px 0 20px;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 16px;
+  padding: 14px 16px;
+  background: var(--panel, #15171f);
+  border: 1px solid var(--border, #272b36);
+  border-radius: var(--chub-radius);
 }
 
 .sc-chub-search-wrap {
-  flex: none;
-  width: 100%;
+  flex: 1 1 240px;
+  max-width: min(520px, 100%);
   min-width: 0;
   display: flex;
   align-items: center;
@@ -370,17 +373,25 @@ body.sc-page-checklist-hub .sc-checklist-hub-main {
 
 .sc-chub-toolbar-actions {
   display: flex;
-  gap: 10px;
-  flex: 0 0 auto;
+  gap: 8px;
+  flex: 1 1 auto;
   align-items: center;
-  width: 100%;
+  width: auto;
+  min-width: 0;
   overflow-x: auto;
   scrollbar-width: none;
   -ms-overflow-style: none;
-  margin-left: 0;
+  margin-left: auto;
   padding-left: 0;
   border-left: none;
-  justify-content: flex-start;
+  justify-content: flex-end;
+}
+
+.sc-chub-toolbar .sc-chub-btn {
+  min-height: 38px;
+  height: 38px;
+  padding: 0 12px;
+  font-size: 12px;
 }
 
 .sc-chub-toolbar-actions::-webkit-scrollbar {
@@ -452,21 +463,21 @@ body.sc-page-checklist-hub .sc-checklist-hub-main {
 
 /* Layout */
 .sc-chub-toolbar + .sc-chub-layout {
-  padding-top: clamp(40px, 5vw, 56px);
+  padding-top: 0;
 }
 
 .sc-chub-layout {
   display: grid;
   grid-template-columns: minmax(220px, 272px) minmax(0, 1fr);
   gap: clamp(28px, 4vw, 40px);
-  padding-top: clamp(40px, 5vw, 56px);
+  padding-top: 0;
   align-items: start;
 }
 
 .sc-chub-nav {
   position: sticky;
-  top: 148px;
-  max-height: calc(100vh - 168px);
+  top: 24px;
+  max-height: calc(100vh - 48px);
   overflow-y: auto;
   overscroll-behavior: contain;
   background: var(--panel, #15171f);
@@ -1275,15 +1286,31 @@ body.admin-bar .sc-chub-scroll-top {
   }
 }
 
-body.admin-bar .sc-chub-toolbar {
-  top: 100px;
+body.admin-bar .sc-chub-nav {
+  top: 56px;
+  max-height: calc(100vh - 80px);
+}
+
+@media (max-width: 900px) {
+  .sc-chub-toolbar-inner {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .sc-chub-search-wrap {
+    flex: 1 1 auto;
+    max-width: none;
+    width: 100%;
+  }
+
+  .sc-chub-toolbar-actions {
+    margin-left: 0;
+    width: 100%;
+    justify-content: flex-start;
+  }
 }
 
 @media (max-width: 782px) {
-  body.admin-bar .sc-chub-toolbar {
-    top: 114px;
-  }
-
   body.admin-bar .sc-chub-nav {
     top: auto;
   }
