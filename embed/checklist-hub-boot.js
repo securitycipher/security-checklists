@@ -42,6 +42,10 @@
       .replace(/"/g, '&quot;');
   }
 
+  function escLines(s) {
+    return esc(s).replace(/\r\n|\r|\n/g, '<br>');
+  }
+
   function excerpt(s, n) {
     s = String(s || '');
     if (s.length <= n) return s;
@@ -88,9 +92,9 @@
     html += '</div>';
     if (hasDetail) {
       html += '<div class="sc-chub-item-detail" id="detail-' + esc(itemId) + '" hidden>';
-      if (description) html += '<div class="sc-chub-detail-block sc-chub-detail-overview"><h4>Overview</h4><p>' + esc(description) + '</p></div>';
-      if (howToFind) html += '<div class="sc-chub-detail-block sc-chub-detail-find"><h4>How to find</h4><p>' + esc(howToFind) + '</p></div>';
-      if (howToFix) html += '<div class="sc-chub-detail-block sc-chub-detail-fix"><h4>How to fix</h4><p>' + esc(howToFix) + '</p></div>';
+      if (description) html += '<div class="sc-chub-detail-block sc-chub-detail-overview"><h4>Overview</h4><p>' + escLines(description) + '</p></div>';
+      if (howToFind) html += '<div class="sc-chub-detail-block sc-chub-detail-find"><h4>How to find</h4><p>' + escLines(howToFind) + '</p></div>';
+      if (howToFix) html += '<div class="sc-chub-detail-block sc-chub-detail-fix"><h4>How to fix</h4><p>' + escLines(howToFix) + '</p></div>';
       if (tools.length) {
         html += '<div class="sc-chub-detail-block sc-chub-detail-tools"><h4>Tools</h4><ul class="sc-chub-tool-list">';
         tools.forEach(function (t) { html += '<li>' + esc(t) + '</li>'; });
