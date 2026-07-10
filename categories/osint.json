@@ -9,8 +9,8 @@
           "title": "Collect WHOIS / RDAP registration data",
           "description": "Pull WHOIS/RDAP for the apex domain and related domains to identify registrant org, registrar, name servers, and creation/expiry dates.",
           "severity": "info",
-          "how_to_find": "Registrant org, abuse/admin contacts, name servers, creation/expiry dates, and registrar — even if privacy-protected, the registrar and NS often leak the hosting relationship.",
-          "how_to_fix": "Assign an owner for collect whois / rdap registration data, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Pull registration data for domains + IP ranges:\n\n```\nwhois <domain>\ncurl -s https://rdap.org/domain/<domain> | jq\n```\n\nNote registrant emails, orgs, name servers, and registration dates.",
+          "how_to_fix": "Use domain privacy/registrar redaction on WHOIS, use role-based (not personal) registrant contacts, and avoid leaking internal naming. Re-check WHOIS exposure.",
           "tools": [
             "whois",
             "recon-ng",
@@ -38,8 +38,8 @@
           "title": "Enumerate DNS records (A/AAAA/MX/NS/TXT/CNAME)",
           "description": "Query the full record set to discover mail servers, third-party SaaS via CNAMEs, and SPF/DKIM/DMARC TXT records that reveal infrastructure providers.",
           "severity": "low",
-          "how_to_find": "Domain & Infrastructure Footprinting — Domain & DNS Records: Domain & Infrastructure Footprinting — Domain & DNS Records: Domain & Infrastructure Footprinting — Domain & DNS Records: Domain & Infrastructure Footprinting — Domain & DNS Records: Domain & Infrastructure Footprinting — Domain & DNS Records: MX hosts (mail provider), TXT/SPF includes (third-party senders), NS delegation, and CNAMEs pointing to external SaaS that widen the attack surface",
-          "how_to_fix": "Assign an owner for enumerate dns records (a/aaaa/mx/ns/txt/cname), apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Query all record types:\n\n```\ndig <domain> ANY +noall +answer\nfor t in A AAAA MX NS TXT CNAME SOA; do dig +short $t <domain>; done\n```\n\nTXT records often leak SaaS/verification tokens and infra hints.",
+          "how_to_fix": "Publish only necessary DNS records, avoid leaking internal hostnames/infra in TXT, and review records periodically. Re-audit DNS.",
           "tools": [
             "dig",
             "dnsx",
@@ -68,8 +68,8 @@
           "title": "Perform reverse DNS (PTR) lookups",
           "description": "Resolve IPs back to hostnames across the target's ranges to discover internal naming conventions and additional hosts on shared netblocks.",
           "severity": "low",
-          "how_to_find": "PTR records revealing hostnames, naming patterns (e.g. dev/stage/internal), and co-located hosts that may belong to the same org.",
-          "how_to_fix": "Assign an owner for perform reverse dns (ptr) lookups, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Reverse-resolve the target's IP ranges to find related hosts:\n\n```\nfor ip in $(seq 1 254); do dig +short -x <prefix>.$ip; done\n```",
+          "how_to_fix": "Recon step. Defensively: avoid descriptive PTR names that reveal roles/environments, and review PTR records. Re-check reverse DNS.",
           "tools": [
             "dig",
             "dnsx",
@@ -92,8 +92,8 @@
           "title": "Review historical DNS / passive DNS",
           "description": "Use passive DNS and historical resolution datasets to find prior IPs, retired subdomains, and origin servers hidden behind a CDN/WAF.",
           "severity": "medium",
-          "how_to_find": "Old A records that may expose the real origin behind Cloudflare/Akamai, decommissioned hosts still alive, and IP churn that maps hosting migrations.",
-          "how_to_fix": "Assign an owner for review historical dns / passive dns, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Look at historical resolutions to find old infra / origin IPs:\n\n```\n# SecurityTrails / passivedns / VirusTotal passive DNS for <domain>\n```",
+          "how_to_fix": "Recon step. Defensively: rotate/retire exposed IPs, and be aware historical DNS can reveal origin IPs behind a CDN. Re-review historical exposure.",
           "tools": [
             "SecurityTrails",
             "SpiderFoot",
@@ -125,8 +125,8 @@
           "title": "Passively enumerate subdomains from OSINT sources",
           "description": "Aggregate subdomains from passive sources (search engines, threat intel feeds, DNS aggregators) without sending traffic to the target.",
           "severity": "medium",
-          "how_to_find": "Domain & Infrastructure Footprinting — Subdomain Enumeration: Domain & Infrastructure Footprinting — Subdomain Enumeration: Domain & Infrastructure Footprinting — Subdomain Enumeration: Domain & Infrastructure Footprinting — Subdomain Enumeration: Domain & Infrastructure Footprinting — Subdomain Enumeration: Aggregate subdomains from passive sources (search engines, threat intel feeds, DNS aggregators) without sending traffic to the target",
-          "how_to_fix": "Assign an owner for passively enumerate subdomains from osint sources, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Collect subdomains passively (no direct traffic):\n\n```\nsubfinder -d <domain> -all -silent\namass enum -passive -d <domain>\n```",
+          "how_to_fix": "Maintain an authoritative subdomain inventory, decommission stale entries, and monitor for new/unknown subdomains. Re-enumerate to compare against inventory.",
           "tools": [
             "subfinder",
             "amass",
@@ -154,8 +154,8 @@
           "title": "Mine certificate transparency logs",
           "description": "Query CT logs (crt.sh, Censys, Google CT) to discover subdomains issued TLS certificates, including internal and pre-release hostnames.",
           "severity": "medium",
-          "how_to_find": "Subdomains in SAN fields, wildcard certs, and recently issued certs that hint at new infrastructure or staging environments.",
-          "how_to_fix": "Assign an owner for mine certificate transparency logs, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Pull hostnames from CT logs:\n\n```\ncurl -s 'https://crt.sh/?q=%25.<domain>&output=json' | jq -r '.[].name_value' | sort -u\n```",
+          "how_to_fix": "Be aware CT logs publicly reveal all issued cert hostnames (including internal-looking ones); avoid descriptive names, and monitor CT for your domains. Re-review CT exposure.",
           "tools": [
             "crt.sh",
             "Censys",
@@ -183,8 +183,8 @@
           "title": "Generate subdomain permutations from known patterns",
           "description": "Derive likely additional subdomains by permuting/altering discovered names (e.g.",
           "severity": "low",
-          "how_to_find": "New resolvable hosts from permutations; corroborate against passive DNS rather than brute-forcing the target directly.",
-          "how_to_fix": "Assign an owner for generate subdomain permutations from known patterns, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Generate + resolve permutations of known subdomains:\n\n```\ngotator -sub subs.txt -perm words.txt | dnsx -silent\n```",
+          "how_to_fix": "Recon step. Defensively: retire predictable/stale hosts and keep an inventory. Re-check which permutations resolve.",
           "tools": [
             "amass",
             "subfinder",
@@ -207,8 +207,8 @@
           "title": "Flag dangling subdomains (takeover candidates)",
           "description": "Identify subdomains with CNAMEs pointing to unclaimed third-party services (deprovisioned S3, Heroku, GitHub Pages, etc.) as subdomain-takeover candidates.",
           "severity": "high",
-          "how_to_find": "CNAMEs resolving to fingerprintable \"not found\" pages on SaaS providers; flag but do not claim/exploit during passive recon.",
-          "how_to_fix": "Assign an owner for flag dangling subdomains (takeover candidates), apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Find subdomains pointing to unclaimed services (CNAME to deprovisioned SaaS):\n\n```\nsubzy run --targets subs.txt\nnuclei -l subs.txt -t takeovers/\n```\n\nDangling CNAME = subdomain-takeover risk (high).",
+          "how_to_fix": "Remove dangling DNS records pointing to unclaimed resources, claim/decommission services properly, and monitor for takeover conditions. Re-scan to confirm none remain.",
           "tools": [
             "amass",
             "subfinder",
@@ -240,8 +240,8 @@
           "title": "Map ASN and owned IP ranges",
           "description": "Identify the Autonomous System Number(s) and netblocks registered to the org to scope owned IP space for the assessment.",
           "severity": "low",
-          "how_to_find": "ASN ownership, CIDR ranges, and RIR allocations attributable to the target — distinguish owned ranges from shared cloud/CDN IPs.",
-          "how_to_fix": "Assign an owner for map asn and owned ip ranges, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Find the org's ASN + netblocks:\n\n```\nwhois -h whois.radb.net -- '-i origin AS<num>'\namass intel -asn <num>\n```",
+          "how_to_fix": "Recon step. Defensively: know your own IP ranges, minimize public exposure, and monitor them. Re-verify ownership inventory.",
           "tools": [
             "amass",
             "Shodan",
@@ -269,8 +269,8 @@
           "title": "Inventory exposed services via Shodan",
           "description": "Query Shodan across the target's IPs/orgs to enumerate open ports, banners, service versions, and exposed devices without touching the target.",
           "severity": "high",
-          "how_to_find": "Exposed RDP/SSH/databases/ICS, outdated banners, default credentials hints, and certificates linking additional hosts to the org.",
-          "how_to_fix": "Assign an owner for inventory exposed services via shodan, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Query Shodan for exposed hosts/services:\n\n```\nshodan search 'org:\"<Org>\"'\nshodan host <ip>\n```\n\nLook for exposed RDP/DBs/panels/old software.",
+          "how_to_fix": "Reduce internet-exposed services (firewall/VPN), patch what must be exposed, and continuously monitor Shodan for your org. Re-query after remediation.",
           "tools": [
             "Shodan",
             "SpiderFoot",
@@ -297,8 +297,8 @@
           "title": "Cross-reference exposed hosts via Censys",
           "description": "Use Censys internet-wide scan data to corroborate exposed hosts, certificate associations, and service fingerprints found via Shodan.",
           "severity": "medium",
-          "how_to_find": "Hosts, certificates and software versions in Censys; pivot on shared certs/keys to discover additional target-owned infrastructure.",
-          "how_to_fix": "Assign an owner for cross-reference exposed hosts via censys, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Cross-check exposure in Censys (certs, services):\n\n```\n# censys search 'services.tls.certificates...: <domain>' \n```",
+          "how_to_fix": "Minimize exposed services + leaked cert metadata, and monitor Censys/Shodan continuously. Re-check exposure.",
           "tools": [
             "Censys",
             "SpiderFoot"
@@ -324,8 +324,8 @@
           "title": "Identify CDN/WAF and hunt for origin IPs",
           "description": "Determine whether hosts sit behind a CDN/WAF and look for origin-IP leaks via historical DNS, SSL cert reuse, and scan-data pivots.",
           "severity": "high",
-          "how_to_find": "Origin IPs exposed in old DNS or matching certificates that bypass the CDN/WAF; note these as protection gaps without active probing.",
-          "how_to_fix": "Assign an owner for identify cdn/waf and hunt for origin ips, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Detect CDN/WAF and look for the real origin (bypasses the WAF):\n\n```\n# check via historical DNS, SPF records, CT, and Shodan favicon/cert matches\n```",
+          "how_to_fix": "Restrict origin servers to accept traffic only from the CDN/WAF (IP allowlist / auth header), rotate exposed origins, and avoid leaking origin IPs in DNS/mail/history. Re-verify origin is not directly reachable.",
           "tools": [
             "Shodan",
             "Censys",
@@ -354,8 +354,8 @@
           "title": "Fingerprint web technologies from public responses",
           "description": "Identify CMS, frameworks, web servers, JS libraries, and analytics from response headers, HTML, and public technology-detection datasets.",
           "severity": "low",
-          "how_to_find": "Server/framework names and versions, CMS plugins/themes, and outdated components that map to known CVEs.",
-          "how_to_fix": "Assign an owner for fingerprint web technologies from public responses, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Fingerprint the stack from public responses:\n\n```\nwhatweb <url>\nwappalyzer <url>   # or the browser extension\n```",
+          "how_to_fix": "Recon step. Defensively: suppress unnecessary version/tech disclosure (headers, banners), and keep components patched. Re-check fingerprint.",
           "tools": [
             "Wappalyzer",
             "SpiderFoot",
@@ -382,8 +382,8 @@
           "title": "Inventory third-party SaaS and dependencies",
           "description": "Enumerate third-party services (payment, auth, support, marketing, CDNs) referenced in public assets to map supply-chain exposure.",
           "severity": "medium",
-          "how_to_find": "External script origins, OAuth providers, ticketing/support widgets, and SaaS subdomains that expand the trust boundary.",
-          "how_to_fix": "Assign an owner for inventory third-party saas and dependencies, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Identify SaaS/third parties from DNS, CSP, scripts, and CT:\n\n```\ncurl -sI <url> | grep -i content-security-policy\n# review loaded script/domains and DNS TXT verifications\n```",
+          "how_to_fix": "Maintain a third-party/SaaS inventory, assess vendor risk, and minimize what's disclosed. Re-review dependencies.",
           "tools": [
             "Wappalyzer",
             "SpiderFoot",
@@ -410,8 +410,8 @@
           "title": "Determine hosting and cloud provider footprint",
           "description": "Attribute hosts to AWS/Azure/GCP/on-prem via IP ranges, certificates, and CNAME patterns to inform cloud-specific recon.",
           "severity": "low",
-          "how_to_find": "Which provider(s) host production vs staging, regional spread, and provider-specific service names that reveal architecture.",
-          "how_to_fix": "Assign an owner for determine hosting and cloud provider footprint, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Determine hosting/cloud from IP ownership + reverse DNS:\n\n```\nwhois <ip> | grep -iE 'OrgName|netname'\n```",
+          "how_to_fix": "Recon step. Defensively: know your cloud footprint, secure it, and minimize identifiable exposure. Re-verify footprint.",
           "tools": [
             "Shodan",
             "Censys",
@@ -435,8 +435,8 @@
           "title": "Correlate detected versions to known CVEs",
           "description": "Map fingerprinted component versions to public vulnerability databases to prioritize likely-vulnerable surfaces — passively, from disclosed data.",
           "severity": "medium",
-          "how_to_find": "Outdated/EOL components with public exploits; record candidate CVEs for later authorized active validation, not exploitation during recon.",
-          "how_to_fix": "Assign an owner for correlate detected versions to known cves, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Map fingerprinted versions to CVEs:\n\n```\n# search NVD / vulners for the detected product+version\n```",
+          "how_to_fix": "Patch/upgrade components with known CVEs, suppress version disclosure, and monitor advisories. Re-check versions after patching.",
           "tools": [
             "Wappalyzer",
             "SpiderFoot",
@@ -468,8 +468,8 @@
           "title": "Enumerate employees from LinkedIn and professional sites",
           "description": "Build a roster of current employees, titles, and departments from LinkedIn and similar public professional networks.",
           "severity": "medium",
-          "how_to_find": "Names, roles (especially IT/security/admin/finance), tenure, and technologies named in profiles that reveal the internal stack.",
-          "how_to_fix": "Assign an owner for enumerate employees from linkedin and professional sites, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Enumerate staff from LinkedIn/professional sites:\n\n```\n# search LinkedIn \"<Company>\" employees; tools like linkedin2username for name lists\n```",
+          "how_to_fix": "Recon step. Defensively: run awareness training (staff oversharing roles/tooling), and limit disclosed org detail where possible. This informs phishing-resistance controls.",
           "tools": [
             "theHarvester",
             "SpiderFoot",
@@ -496,8 +496,8 @@
           "title": "Map organizational structure and key personnel",
           "description": "Reconstruct reporting lines and identify high-value targets (executives, sysadmins, helpdesk) useful for social-engineering scenarios.",
           "severity": "medium",
-          "how_to_find": "Decision-makers, IT/security staff, and helpdesk/support roles likely to be impersonated or targeted in phishing.",
-          "how_to_fix": "Assign an owner for map organizational structure and key personnel, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Map reporting structure + key personnel (execs, IT, finance) from public sources.",
+          "how_to_fix": "Defensively: prioritize security awareness + phishing-resistant MFA for high-value roles (execs, finance, IT admins). Use to inform targeted training.",
           "tools": [
             "SpiderFoot",
             "theHarvester",
@@ -520,8 +520,8 @@
           "title": "Identify technical staff and disclosed tooling",
           "description": "Find engineers/DevOps/security staff whose public profiles, talks, or job posts disclose internal technologies, vendors, and processes.",
           "severity": "medium",
-          "how_to_find": "Stack details from resumes/job listings (languages, cloud, security tools), conference talks, and OSS contributions tied to the org.",
-          "how_to_fix": "Assign an owner for identify technical staff and disclosed tooling, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Identify engineers + tools they disclose (job posts, GitHub, talks, Stack Overflow) to infer the tech stack.",
+          "how_to_fix": "Defensively: review job posts/public content that reveal internal tooling/stack, and train staff on oversharing. Use to reduce disclosure.",
           "tools": [
             "theHarvester",
             "SpiderFoot",
@@ -544,8 +544,8 @@
           "title": "Compile a candidate phishing/target list",
           "description": "Consolidate employee data (name, role, email, location) into a prioritized list of likely social-engineering targets for the engagement scope.",
           "severity": "high",
-          "how_to_find": "High-value targets with verified emails and roles; ensure list stays within authorized engagement scope and legal boundaries.",
-          "how_to_fix": "Assign an owner for compile a candidate phishing/target list, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Combine names + email pattern + roles into a candidate target list (for authorized phishing assessment).",
+          "how_to_fix": "Defensively: this drives phishing simulations + training and prioritizing phishing-resistant MFA. Ensure any phishing is scoped + authorized.",
           "tools": [
             "theHarvester",
             "SpiderFoot"
@@ -576,8 +576,8 @@
           "title": "Derive the corporate email naming convention",
           "description": "Determine the email format (first.last, flast, etc.) from harvested addresses so any employee name can be converted to a probable address.",
           "severity": "medium",
-          "how_to_find": "People & Organization — Email Pattern & Contact Harvesting: People & Organization — Email Pattern & Contact Harvesting: People & Organization — Email Pattern & Contact Harvesting: People & Organization — Email Pattern & Contact Harvesting: People & Organization — Email Pattern & Contact Harvesting: Confirmed pattern across multiple known addresses, plus any exceptions for shared/role accounts (info@, hr@, security@)",
-          "how_to_fix": "Assign an owner for derive the corporate email naming convention, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Infer the email format (first.last@, flast@) from known addresses:\n\n```\n# cross-reference a couple of known emails; tools: hunter.io\n```",
+          "how_to_fix": "Defensively: assume the format is discoverable; focus on phishing-resistant MFA + anti-spoofing rather than obscurity. Informs target list generation.",
           "tools": [
             "theHarvester",
             "hunter.io",
@@ -604,8 +604,8 @@
           "title": "Harvest published email addresses",
           "description": "Collect email addresses exposed in search engines, websites, PGP keyservers, and document metadata to seed the address list.",
           "severity": "low",
-          "how_to_find": "Valid addresses with sources, role accounts, and any personal addresses tied to staff that broaden the contact map.",
-          "how_to_fix": "Assign an owner for harvest published email addresses, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Collect published addresses:\n\n```\ntheHarvester -d <domain> -b all\n```",
+          "how_to_fix": "Reduce mass-published addresses (use forms/role aliases), and pair with strong anti-spoofing + filtering. Re-check what's published.",
           "tools": [
             "theHarvester",
             "SpiderFoot",
@@ -628,8 +628,8 @@
           "title": "Validate addresses against breach/presence data",
           "description": "Check harvested addresses for existence on services and breach corpora (without active SMTP probing of the target) to confirm live accounts.",
           "severity": "medium",
-          "how_to_find": "People & Organization — Email Pattern & Contact Harvesting: People & Organization — Email Pattern & Contact Harvesting: People & Organization — Email Pattern & Contact Harvesting: People & Organization — Email Pattern & Contact Harvesting: People & Organization — Email Pattern & Contact Harvesting: Which addresses are confirmed real and registered to external services — useful both for targeting and breach-exposure correlation",
-          "how_to_fix": "Assign an owner for validate addresses against breach/presence data, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Validate/enrich addresses against breach + presence data:\n\n```\nholehe <email>\n# check breach corpora for hits\n```",
+          "how_to_fix": "Defensively: force resets + MFA for breach-exposed accounts, and monitor exposure. Use to prioritize at-risk users.",
           "tools": [
             "holehe",
             "dehashed",
@@ -656,8 +656,8 @@
           "title": "Assess email spoofing posture (SPF/DKIM/DMARC)",
           "description": "Review published SPF, DKIM, and DMARC records to gauge how easily the domain can be spoofed in phishing — all from public DNS.",
           "severity": "high",
-          "how_to_find": "Missing/weak DMARC (p=none), permissive SPF (~all), and absent DKIM that make spoofing trivial against the org's users.",
-          "how_to_fix": "Assign an owner for assess email spoofing posture (spf/dkim/dmarc), apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Check anti-spoofing records:\n\n```\ndig +short TXT <domain> | grep -i spf\ndig +short TXT _dmarc.<domain>\ndig +short TXT <selector>._domainkey.<domain>\n```\n\nMissing/weak `p=none` DMARC = spoofable (high).",
+          "how_to_fix": "Publish SPF (`-all`), DKIM, and DMARC with `p=reject` (after monitoring), align records, and monitor DMARC reports. Re-check records enforce.",
           "tools": [
             "dig",
             "SpiderFoot"
@@ -689,8 +689,8 @@
           "title": "Enumerate employee and org social accounts",
           "description": "Discover official and personal social-media accounts (X, Facebook, Instagram, GitHub, etc.) tied to the org and its staff.",
           "severity": "low",
-          "how_to_find": "Account handles, cross-platform username reuse, and links between personal and work identities that aid pretexting.",
-          "how_to_fix": "Assign an owner for enumerate employee and org social accounts, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Find org + employee social accounts across platforms:\n\n```\nsherlock <username>\n```",
+          "how_to_fix": "Defensively: social-media awareness training, and monitor for impersonation accounts. Use to inform employee guidance.",
           "tools": [
             "sherlock",
             "SpiderFoot",
@@ -713,8 +713,8 @@
           "title": "Extract metadata from posted media",
           "description": "Analyze publicly posted photos/files for EXIF/geolocation and background details that leak physical locations, badges, or screens.",
           "severity": "medium",
-          "how_to_find": "GPS coordinates in EXIF, visible badges/whiteboards/monitors in office photos, and device/software hints in metadata.",
-          "how_to_fix": "Assign an owner for extract metadata from posted media, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Extract metadata/geodata from posted images:\n\n```\nexiftool <image>\n```\n\nPhotos can leak GPS, badges, screens, and internal layouts.",
+          "how_to_fix": "Train staff to strip metadata + avoid posting sensitive backgrounds (badges/screens), and set social policies. Re-review posted media.",
           "tools": [
             "exiftool",
             "SpiderFoot"
@@ -740,8 +740,8 @@
           "title": "Build behavioral and interest profiles",
           "description": "Profile interests, schedules, and relationships from public posts to craft credible social-engineering pretexts within scope.",
           "severity": "medium",
-          "how_to_find": "Routines (travel, events), interests, and trust relationships usable for pretexting — kept strictly within engagement rules.",
-          "how_to_fix": "Assign an owner for build behavioral and interest profiles, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Aggregate posts to profile interests/routines/relationships (pretext material).",
+          "how_to_fix": "Defensively: awareness training on oversharing that enables pretexting/spear-phishing. Use to inform training.",
           "tools": [
             "SpiderFoot",
             "sherlock"
@@ -763,8 +763,8 @@
           "title": "Hunt for sensitive disclosures in posts",
           "description": "Search public posts for inadvertent disclosures — screenshots with credentials, internal URLs, system names, or project details.",
           "severity": "high",
-          "how_to_find": "Leaked internal hostnames, tooling, credentials in screenshots, or project codenames that expand intel on the environment.",
-          "how_to_fix": "Assign an owner for hunt for sensitive disclosures in posts, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Search posts for accidental disclosures (screenshots of internal tools, credentials, project names).",
+          "how_to_fix": "Train staff + monitor for sensitive disclosures, and have a takedown process. Re-check for exposed posts.",
           "tools": [
             "SpiderFoot",
             "exiftool"
@@ -795,8 +795,8 @@
           "title": "Search breach corpora for target email/domain hits",
           "description": "Query breach-aggregation services for accounts at the target domain that appear in known data breaches.",
           "severity": "high",
-          "how_to_find": "Which corporate accounts appear in breaches, the breach sources/dates, and whether plaintext or hashed passwords are included.",
-          "how_to_fix": "Assign an owner for search breach corpora for target email/domain hits, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Search breach data for the domain:\n\n```\n# HaveIBeenPwned domain search; check breach corpora for @<domain>\n```",
+          "how_to_fix": "Force resets + MFA for exposed accounts, subscribe to breach monitoring, and educate users on reuse. Re-check exposure.",
           "tools": [
             "dehashed",
             "SpiderFoot",
@@ -823,8 +823,8 @@
           "title": "Identify plaintext or cracked passwords in leaks",
           "description": "Determine whether leaked records expose usable plaintext (or already-cracked) passwords for target accounts.",
           "severity": "critical",
-          "how_to_find": "Plaintext/cracked passwords mapped to corporate accounts, and any password reuse patterns visible across multiple leaks.",
-          "how_to_fix": "Assign an owner for identify plaintext or cracked passwords in leaks, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Look for plaintext/cracked passwords tied to target accounts in leak corpora.\n\nExposed valid passwords = critical (credential-stuffing risk).",
+          "how_to_fix": "Force password resets for exposed accounts, enforce MFA, block reuse of breached passwords (e.g. HIBP integration), and monitor. Re-verify exposed creds are invalidated.",
           "tools": [
             "dehashed",
             "SpiderFoot"
@@ -850,8 +850,8 @@
           "title": "Monitor paste sites for leaked target data",
           "description": "Search paste sites (Pastebin and mirrors) for dumps containing target emails, credentials, configs, or internal data.",
           "severity": "high",
-          "how_to_find": "Pasted credential dumps, config/secret leaks, and internal documents referencing the target, with capture of source and timestamp.",
-          "how_to_fix": "Assign an owner for monitor paste sites for leaked target data, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Monitor paste sites for the org's data:\n\n```\n# search Pastebin/ghostbin/etc. for <domain>, project names, keys\n```",
+          "how_to_fix": "Set up continuous paste-site monitoring + alerting, and have a takedown/IR process. Re-verify monitoring is active.",
           "tools": [
             "SpiderFoot",
             "dehashed"
@@ -873,8 +873,8 @@
           "title": "Catalog exposed PII and secondary identifiers",
           "description": "Record exposed PII (phones, addresses, security-question answers) that supports account recovery abuse or deeper targeting.",
           "severity": "medium",
-          "how_to_find": "PII usable for password resets / account recovery and identity verification bypass; treat as sensitive and scope-restricted.",
-          "how_to_fix": "Assign an owner for catalog exposed pii and secondary identifiers, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Catalog exposed PII (phones, DOBs, security-question answers) usable for social engineering/account recovery.",
+          "how_to_fix": "Harden account-recovery flows (don't rely on guessable PII), educate users, and monitor exposure. Use to strengthen recovery security.",
           "tools": [
             "dehashed",
             "SpiderFoot",
@@ -906,8 +906,8 @@
           "title": "Assess relevance of exposed creds to live login surfaces",
           "description": "Map breached credentials to the target's identified login portals (VPN, webmail, SSO) to gauge credential-stuffing risk.",
           "severity": "high",
-          "how_to_find": "Credential & Breach Exposure — Credential-Stuffing Intelligence: Credential & Breach Exposure — Credential-Stuffing Intelligence: Credential & Breach Exposure — Credential-Stuffing Intelligence: Credential & Breach Exposure — Credential-Stuffing Intelligence: Credential & Breach Exposure — Credential-Stuffing Intelligence: Whether breached corporate emails align with discovered login endpoints; document candidate surfaces without active testing",
-          "how_to_fix": "Assign an owner for assess relevance of exposed creds to live login surfaces, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Map exposed credentials to actual login surfaces (VPN, webmail, SSO, admin panels) to gauge real risk.",
+          "how_to_fix": "Enforce MFA on all login surfaces, block breached passwords, deploy credential-stuffing protections (rate limiting, anomaly detection), and reset exposed accounts. Re-verify controls.",
           "tools": [
             "dehashed",
             "SpiderFoot"
@@ -933,8 +933,8 @@
           "title": "Identify password-reuse and reset patterns",
           "description": "Analyze leaked passwords for reuse across services and predictable patterns (season+year, company name) informing spray candidates.",
           "severity": "medium",
-          "how_to_find": "Reuse across breaches and obvious password patterns; build a prioritized, scope-bound candidate list — never spray during passive recon.",
-          "how_to_fix": "Assign an owner for identify password-reuse and reset patterns, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Look for reuse/predictable-reset patterns (e.g. Season+Year, incrementing) across leaked passwords.",
+          "how_to_fix": "Ban common/predictable + breached passwords, require MFA, and detect password spraying. Re-verify password policy.",
           "tools": [
             "dehashed",
             "SpiderFoot"
@@ -956,8 +956,8 @@
           "title": "Determine MFA coverage on exposed accounts",
           "description": "From public/breach signals, infer which login surfaces enforce MFA so the team understands residual risk of exposed credentials.",
           "severity": "high",
-          "how_to_find": "Login portals lacking enforced MFA where exposed credentials would be directly usable; record as a control gap.",
-          "how_to_fix": "Assign an owner for determine mfa coverage on exposed accounts, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Determine whether exposed accounts are protected by MFA on their login surfaces.",
+          "how_to_fix": "Enforce phishing-resistant MFA everywhere (esp. exposed accounts + privileged roles), and close MFA gaps. Re-verify MFA coverage.",
           "tools": [
             "SpiderFoot",
             "Shodan"
@@ -979,8 +979,8 @@
           "title": "Check stealer-log / infostealer exposure",
           "description": "Search for target accounts appearing in infostealer log dumps, which often include fresh, valid session and credential data.",
           "severity": "critical",
-          "how_to_find": "Presence in stealer logs (cookies, tokens, plaintext creds) indicating active compromise risk far beyond historical breaches.",
-          "how_to_fix": "Assign an owner for check stealer-log / infostealer exposure, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Check whether the org appears in infostealer/stealer-log dumps (session cookies + creds from infected devices):\n\n```\n# search stealer-log datasets for <domain> credentials/cookies\n```\n\nStealer logs = active credentials + session tokens (critical).",
+          "how_to_fix": "Treat stealer-log exposure as active compromise: reset creds, invalidate sessions/tokens, remediate the infected device, enforce MFA, and monitor. Re-verify sessions are invalidated.",
           "tools": [
             "dehashed",
             "SpiderFoot"
@@ -1011,8 +1011,8 @@
           "title": "Dork public repos for the org and its assets",
           "description": "Search GitHub/GitLab for repositories, gists, and files referencing the target's domains, internal hostnames, or product names.",
           "severity": "high",
-          "how_to_find": "Public/forked repos by employees, gists, and code referencing internal systems that expose architecture or configuration.",
-          "how_to_fix": "Assign an owner for dork public repos for the org and its assets, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Search public code hosts for the org, domains, and internal names:\n\n```\n# github search: \"<domain>\" / \"<internal-project>\" ; github-dorks / trufflehog org scan\n```",
+          "how_to_fix": "Monitor public code hosts for org mentions, enforce a policy against pushing internal code publicly, and educate developers. Re-scan periodically.",
           "tools": [
             "trufflehog",
             "gitleaks",
@@ -1040,8 +1040,8 @@
           "title": "Scan discovered repos for hardcoded secrets",
           "description": "Run secret scanners over public repos/history to find API keys, tokens, passwords, and private keys committed by mistake.",
           "severity": "critical",
-          "how_to_find": "Code & Document Leakage — Public Code & Secret Leakage: Code & Document Leakage — Public Code & Secret Leakage: Code & Document Leakage — Public Code & Secret Leakage: Code & Document Leakage — Public Code & Secret Leakage: Code & Document Leakage — Public Code & Secret Leakage: Run secret scanners over public repos/history to find API keys, tokens, passwords, and private keys committed by mistake",
-          "how_to_fix": "Assign an owner for scan discovered repos for hardcoded secrets, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Scan discovered repos for secrets:\n\n```\ntrufflehog github --org=<org>\ngitleaks detect --source <repo>\n```\n\nLive secrets = critical.",
+          "how_to_fix": "Rotate any exposed secret immediately, add secret scanning + push protection, use a secrets manager, and educate devs. Re-scan to confirm remediation.",
           "tools": [
             "trufflehog",
             "gitleaks"
@@ -1067,8 +1067,8 @@
           "title": "Inspect commit history and deleted content",
           "description": "Review full git history (not just HEAD) for secrets that were \"removed\" in later commits but remain recoverable from history.",
           "severity": "high",
-          "how_to_find": "Secrets present in historical commits/branches/tags even when scrubbed from the current tree; rotate-status of any keys found.",
-          "how_to_fix": "Assign an owner for inspect commit history and deleted content, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Secrets/data removed from HEAD often persist in history:\n\n```\ngitleaks detect --source <repo> --log-opts=\"--all\"\n```",
+          "how_to_fix": "Rotate any secret ever committed (assume compromised), purge history (filter-repo/BFG) where required, and scan history in CI. Re-scan history.",
           "tools": [
             "trufflehog",
             "gitleaks"
@@ -1090,8 +1090,8 @@
           "title": "Find leaked config and CI/CD secrets",
           "description": "Look for exposed config files, environment files, and CI/CD pipeline definitions that disclose endpoints, hosts, and embedded secrets.",
           "severity": "high",
-          "how_to_find": "Committed .env, config, or CI files with internal URLs, service accounts, and pipeline tokens usable to pivot into the environment.",
-          "how_to_fix": "Assign an owner for find leaked config and ci/cd secrets, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Look for leaked config/CI files with secrets:\n\n```\n# search for .env, *.yml, Dockerfiles, CI configs in public repos\ngrep -REn 'password|api[_-]?key|token|-----BEGIN' <repo>\n```",
+          "how_to_fix": "Keep config/CI secrets out of public repos (secrets manager/CI secret store), rotate exposed values, and add scanning. Re-scan.",
           "tools": [
             "trufflehog",
             "gitleaks",
@@ -1123,8 +1123,8 @@
           "title": "Discover public documents tied to the target",
           "description": "Find publicly hosted documents (PDF, DOCX, XLSX, PPTX) indexed in search engines or linked from the org's sites.",
           "severity": "medium",
-          "how_to_find": "Inventory of public files, especially internal-looking documents (HR, finance, technical) that should not be exposed.",
-          "how_to_fix": "Assign an owner for discover public documents tied to the target, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Find public documents (PDF/docx/xlsx) indexed for the domain:\n\n```\n# google: site:<domain> filetype:pdf OR filetype:docx OR filetype:xlsx\n```",
+          "how_to_fix": "Review + minimize public documents, remove sensitive ones, and control indexing. Re-check indexed files.",
           "tools": [
             "metagoofil",
             "theHarvester",
@@ -1151,8 +1151,8 @@
           "title": "Extract metadata (authors, software, paths)",
           "description": "Parse document metadata for usernames, internal file paths, software versions, printer names, and timestamps.",
           "severity": "medium",
-          "how_to_find": "Internal usernames (for email/AD format), software versions (CVE mapping), UNC/file paths, and device names leaking infrastructure.",
-          "how_to_fix": "Assign an owner for extract metadata (authors, software, paths), apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Extract metadata from discovered documents:\n\n```\nexiftool <file>\n# or FOCA / metagoofil across many files\n```\n\nReveals usernames, internal paths, software versions.",
+          "how_to_fix": "Strip metadata from published documents (sanitization in the publish pipeline), and avoid leaking usernames/paths/versions. Re-check metadata.",
           "tools": [
             "exiftool",
             "metagoofil"
@@ -1178,8 +1178,8 @@
           "title": "Identify inadvertently exposed sensitive files",
           "description": "Flag exposed backups, spreadsheets, and exports containing credentials, PII, or internal data that should not be public.",
           "severity": "high",
-          "how_to_find": "Exposed backups/exports with secrets or PII, default-indexed directories, and documents marked internal/confidential.",
-          "how_to_fix": "Assign an owner for identify inadvertently exposed sensitive files, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Look for exposed sensitive files (backups, dumps, keys):\n\n```\n# google: site:<domain> filetype:sql OR filetype:bak OR intitle:\"index of\"\n```",
+          "how_to_fix": "Remove exposed sensitive files, block directory listing, restrict access, and monitor. Re-check exposure.",
           "tools": [
             "metagoofil",
             "SpiderFoot"
@@ -1201,8 +1201,8 @@
           "title": "Build a username map from document authorship",
           "description": "Aggregate authorship/creator metadata across documents to derive the internal username convention and active-user list.",
           "severity": "low",
-          "how_to_find": "Code & Document Leakage — Document Metadata & Exposed Files: Code & Document Leakage — Document Metadata & Exposed Files: Code & Document Leakage — Document Metadata & Exposed Files: Code & Document Leakage — Document Metadata & Exposed Files: Code & Document Leakage — Document Metadata & Exposed Files: Consistent username format and an enumerated user list that supports email-format derivation and later authorized auth testing",
-          "how_to_fix": "Assign an owner for build a username map from document authorship, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Compile usernames from document authorship/metadata to map the naming convention.",
+          "how_to_fix": "Defensively: strip authorship metadata, and be aware usernames feed password-spraying. Use to inform account-security controls.",
           "tools": [
             "metagoofil",
             "exiftool",
@@ -1230,8 +1230,8 @@
           "title": "Dork for exposed files and directory listings",
           "description": "Use operators (site:, filetype:, intitle:index.of) to surface indexed sensitive files and open directory listings.",
           "severity": "medium",
-          "how_to_find": "Indexed config/backup/log files, open directory listings, and sensitive filetypes that should not be publicly searchable.",
-          "how_to_fix": "Assign an owner for dork for exposed files and directory listings, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Use search dorks for exposed content:\n\n```\nsite:<domain> intitle:\"index of\"\nsite:<domain> ext:sql | ext:log | ext:env\n```",
+          "how_to_fix": "Remove exposed files, disable directory listing, and control indexing (robots + auth). Re-check via dorks.",
           "tools": [
             "recon-ng",
             "SpiderFoot"
@@ -1257,8 +1257,8 @@
           "title": "Locate exposed login panels and admin interfaces",
           "description": "Dork for indexed admin/login/console pages (inurl:admin, intitle:login) that reveal entry points to the environment.",
           "severity": "medium",
-          "how_to_find": "Indexed admin/login portals, device management UIs, and default panels that broaden the authenticated attack surface.",
-          "how_to_fix": "Assign an owner for locate exposed login panels and admin interfaces, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Dork for admin/login panels:\n\n```\nsite:<domain> inurl:admin | inurl:login | intitle:\"dashboard\"\n```",
+          "how_to_fix": "Restrict admin/login interfaces (VPN/IP allowlist), require MFA, and avoid indexing them. Re-check exposure.",
           "tools": [
             "recon-ng",
             "SpiderFoot",
@@ -1285,8 +1285,8 @@
           "title": "Find error messages and info disclosure via dorks",
           "description": "Search for indexed pages leaking stack traces, SQL errors, version strings, or debug output that disclose internals.",
           "severity": "low",
-          "how_to_find": "Indexed error pages exposing software versions, paths, queries, or secrets that aid targeting and CVE mapping.",
-          "how_to_fix": "Assign an owner for find error messages and info disclosure via dorks, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Dork for error/info disclosure:\n\n```\nsite:<domain> \"SQL syntax\" | \"stack trace\" | \"Warning: \" | \"Fatal error\"\n```",
+          "how_to_fix": "Return generic errors (no stack traces/paths to users), log details server-side, and de-index leaked pages. Re-check via dorks.",
           "tools": [
             "recon-ng",
             "SpiderFoot"
@@ -1308,8 +1308,8 @@
           "title": "Mine web archives and cached pages",
           "description": "Use the Wayback Machine and search-engine caches to recover removed pages, old endpoints, and previously exposed data.",
           "severity": "medium",
-          "how_to_find": "Archived endpoints/parameters, removed sensitive pages, and historical content that still informs the current attack surface.",
-          "how_to_fix": "Assign an owner for mine web archives and cached pages, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Mine archives/caches for removed-but-archived content:\n\n```\nwaybackurls <domain> | sort -u\ngau <domain>\n```",
+          "how_to_fix": "Be aware removed content persists in archives; rotate any exposed secrets/endpoints found, and request removal where possible. Re-review archived exposure.",
           "tools": [
             "waybackurls",
             "gau",
@@ -1341,8 +1341,8 @@
           "title": "Enumerate candidate cloud storage buckets",
           "description": "Derive likely bucket/container names from the org name, domains, and products, then check public listing/read status.",
           "severity": "high",
-          "how_to_find": "Exposed Assets & Cloud — Public Cloud Storage Discovery: Exposed Assets & Cloud — Public Cloud Storage Discovery: Exposed Assets & Cloud — Public Cloud Storage Discovery: Exposed Assets & Cloud — Public Cloud Storage Discovery: Exposed Assets & Cloud — Public Cloud Storage Discovery: Derive likely bucket/container names from the org name, domains, and products, then check public listing/read status",
-          "how_to_fix": "Assign an owner for enumerate candidate cloud storage buckets, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Generate + test candidate bucket names from the org/brand:\n\n```\ncloud_enum -k <org> -k <brand>\n```",
+          "how_to_fix": "Recon step. Defensively: use non-guessable bucket names, deny public access by default, and monitor. Re-enumerate to confirm none are public.",
           "tools": [
             "cloud_enum",
             "S3Scanner",
@@ -1369,8 +1369,8 @@
           "title": "Identify publicly listable / readable buckets",
           "description": "Determine which discovered buckets allow anonymous listing or object read, exposing the data inside.",
           "severity": "critical",
-          "how_to_find": "Buckets with public ListBucket/GetObject; capture an inventory of exposed objects without downloading sensitive data wholesale.",
-          "how_to_fix": "Assign an owner for identify publicly listable / readable buckets, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Test discovered buckets for public list/read:\n\n```\naws s3 ls s3://<bucket> --no-sign-request\ncurl -s https://<bucket>.s3.amazonaws.com/\n```\n\nPublic listable bucket = critical data exposure.",
+          "how_to_fix": "Enable S3 Block Public Access (account + bucket), remove public ACLs/policies, use least-privilege, and monitor. Re-test the bucket is private.",
           "tools": [
             "cloud_enum",
             "S3Scanner"
@@ -1396,8 +1396,8 @@
           "title": "Check Azure Blob and GCS exposure",
           "description": "Extend bucket discovery to Azure Blob containers and Google Cloud Storage to cover multi-cloud footprints.",
           "severity": "high",
-          "how_to_find": "Public Azure containers and GCS buckets tied to the org, including those referenced indirectly by CNAMEs/static sites.",
-          "how_to_fix": "Assign an owner for check azure blob and gcs exposure, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Test Azure Blob + GCS for public access:\n\n```\ncurl -s 'https://<account>.blob.core.windows.net/<container>?restype=container&comp=list'\ngsutil ls gs://<bucket>\n```",
+          "how_to_fix": "Disable anonymous/public access on Azure containers + GCS buckets, enforce least privilege + uniform bucket-level access, and monitor. Re-test exposure.",
           "tools": [
             "cloud_enum",
             "SpiderFoot"
@@ -1423,8 +1423,8 @@
           "title": "Triage exposed object contents for sensitivity",
           "description": "Assess the nature of exposed objects (backups, source, PII, secrets) to gauge real impact of the misconfiguration.",
           "severity": "high",
-          "how_to_find": "Presence of secrets/PII/backups/source in exposed storage; document object types and access level without exfiltrating in bulk.",
-          "how_to_fix": "Assign an owner for triage exposed object contents for sensitivity, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Review any exposed objects for sensitivity (PII, secrets, backups) without exfiltrating beyond scope.",
+          "how_to_fix": "Remove public access immediately, rotate any exposed secrets, assess breach impact, and add monitoring/DLP. Re-verify access is closed.",
           "tools": [
             "cloud_enum",
             "S3Scanner",
@@ -1452,8 +1452,8 @@
           "title": "Find exposed dashboards and management consoles",
           "description": "Use scan-data search to find exposed admin dashboards (Kibana, Grafana, Jenkins, databases, Kubernetes) reachable from the internet.",
           "severity": "high",
-          "how_to_find": "Internet-exposed consoles, their auth state (open vs login), and versions; flag any unauthenticated dashboards as high risk.",
-          "how_to_fix": "Assign an owner for find exposed dashboards and management consoles, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Find exposed dashboards (Grafana, Kibana, Jenkins, admin panels):\n\n```\nshodan search 'http.title:\"Grafana\" org:\"<Org>\"'\n```",
+          "how_to_fix": "Put dashboards behind VPN/SSO + MFA, remove default creds, and don't expose them publicly. Re-test exposure.",
           "tools": [
             "Shodan",
             "Censys",
@@ -1480,8 +1480,8 @@
           "title": "Discover dev/staging/test environments",
           "description": "Identify non-production environments exposed publicly (dev., staging., uat., test.) that often have weaker controls.",
           "severity": "high",
-          "how_to_find": "Exposed Assets & Cloud — Exposed Dashboards & Dev/Staging: Exposed Assets & Cloud — Exposed Dashboards & Dev/Staging: Exposed Assets & Cloud — Exposed Dashboards & Dev/Staging: Exposed Assets & Cloud — Exposed Dashboards & Dev/Staging: Exposed Assets & Cloud — Exposed Dashboards & Dev/Staging: Identify non-production environments exposed publicly (dev., staging., uat., test.) that often have weaker controls",
-          "how_to_fix": "Assign an owner for discover dev/staging/test environments, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Find non-prod environments (often weaker):\n\n```\n# subdomain enum for dev/staging/test/uat/qa.<domain>\n```",
+          "how_to_fix": "Protect non-prod like prod (auth/VPN, no real data), don't expose publicly, and inventory them. Re-check exposure.",
           "tools": [
             "subfinder",
             "Shodan",
@@ -1509,8 +1509,8 @@
           "title": "Detect exposed databases and data stores",
           "description": "Search scan data for internet-facing databases and caches (MongoDB, Elasticsearch, Redis, etc.) bound to public interfaces.",
           "severity": "critical",
-          "how_to_find": "Publicly reachable data stores, authentication state, and version/banner data indicating potentially open access.",
-          "how_to_fix": "Assign an owner for detect exposed databases and data stores, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Find exposed databases:\n\n```\nshodan search 'product:MongoDB org:\"<Org>\"'   # also Elastic, Redis, etc.\n```\n\nInternet-exposed DB = critical.",
+          "how_to_fix": "Never expose databases to the internet (firewall/VPN), require auth, enable encryption, and monitor. Re-test the DB is not reachable.",
           "tools": [
             "Shodan",
             "Censys",
@@ -1537,8 +1537,8 @@
           "title": "Identify exposed IoT/OT and remote-access services",
           "description": "Look for exposed remote-access (RDP, VNC, SSH) and IoT/OT/industrial devices attributable to the org via scan datasets.",
           "severity": "high",
-          "how_to_find": "Exposed RDP/VNC/SSH and IoT/ICS endpoints, their auth posture, and any default-credential or known-CVE indicators in banners.",
-          "how_to_fix": "Assign an owner for identify exposed iot/ot and remote-access services, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Find exposed IoT/OT + remote access (RDP/VNC/cameras/SCADA):\n\n```\nshodan search 'port:3389 org:\"<Org>\"'\n```",
+          "how_to_fix": "Remove IoT/OT + remote-access services from the internet (VPN/segmentation), require MFA, patch, and monitor. Re-test exposure.",
           "tools": [
             "Shodan",
             "Censys",
@@ -1570,8 +1570,8 @@
           "title": "Establish continuous attack-surface monitoring",
           "description": "Set up recurring discovery of new subdomains, IPs, and services so the external footprint stays current over the engagement.",
           "severity": "medium",
-          "how_to_find": "New assets appearing over time, change-over-baseline alerts, and coverage across domains/clouds to avoid blind spots.",
-          "how_to_fix": "Assign an owner for establish continuous attack-surface monitoring, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Check whether external attack surface is monitored continuously vs point-in-time.",
+          "how_to_fix": "Deploy continuous ASM (recurring subdomain/port/service discovery), alert on new exposures, and track over time. Re-verify monitoring is running.",
           "tools": [
             "SpiderFoot",
             "amass",
@@ -1598,8 +1598,8 @@
           "title": "Monitor certificate transparency for new hosts",
           "description": "Subscribe to CT-log alerts for the target's domains to catch newly issued certificates revealing fresh infrastructure.",
           "severity": "low",
-          "how_to_find": "New SAN entries and wildcard issuances signaling new subdomains/environments shortly after they are created.",
-          "how_to_fix": "Assign an owner for monitor certificate transparency for new hosts, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Check whether new certs (new hostnames) are monitored via CT:\n\n```\n# CT monitoring for %.<domain> (crt.sh feed / certstream)\n```",
+          "how_to_fix": "Subscribe to CT monitoring for your domains, alert on unexpected issuances/hostnames (also catches mis-issuance), and review. Re-verify monitoring.",
           "tools": [
             "crt.sh",
             "Censys",
@@ -1626,8 +1626,8 @@
           "title": "Set up breach and credential-exposure alerts",
           "description": "Configure alerting on the target's domains/emails so newly published breach or paste data is flagged promptly.",
           "severity": "medium",
-          "how_to_find": "Notifications on new breach hits, paste-site leaks, and stealer-log appearances for monitored domains and key accounts.",
-          "how_to_fix": "Assign an owner for set up breach and credential-exposure alerts, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Check whether breach/credential exposure is continuously monitored + alerted.",
+          "how_to_fix": "Set up breach + credential-exposure monitoring (HIBP/stealer-log feeds), auto-alert, and tie to forced resets. Re-verify alerting.",
           "tools": [
             "HaveIBeenPwned",
             "dehashed",
@@ -1654,8 +1654,8 @@
           "title": "Monitor public code hosts for new secret leaks",
           "description": "Continuously watch GitHub/GitLab for new commits/repos referencing the org that may leak secrets or sensitive code.",
           "severity": "high",
-          "how_to_find": "Newly committed secrets or sensitive references to the org as they are pushed, enabling fast detection and key rotation.",
-          "how_to_fix": "Assign an owner for monitor public code hosts for new secret leaks, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Check whether public code hosts are continuously monitored for new org secret leaks:\n\n```\n# trufflehog / GitHub secret-scanning alerts / continuous org scans\n```",
+          "how_to_fix": "Enable continuous public-code + secret-leak monitoring with auto-alert + rotation workflow, and educate devs. Re-verify monitoring is active.",
           "tools": [
             "trufflehog",
             "gitleaks",
