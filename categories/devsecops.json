@@ -9,8 +9,8 @@
           "title": "Security requirements are defined and tracked",
           "description": "Functional and non-functional security requirements (authN/authZ, data classification, regulatory obligations) are captured as first-class backlog items, not assumed.",
           "severity": "medium",
-          "how_to_find": "Secure SDLC Integration — Shift-Left Security: Secure SDLC Integration — Shift-Left Security: Secure SDLC Integration — Shift-Left Security: Secure SDLC Integration — Shift-Left Security: Secure SDLC Integration — Shift-Left Security: Confirm security requirements exist in the issue tracker, are linked to user stories, and have acceptance criteria reviewed before development starts",
-          "how_to_fix": "Assign an owner for security requirements are defined and tracked, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Check whether security/abuse-case requirements are captured as tracked work items (not just functional stories):\n\n```\n# review a sample of epics/stories for security acceptance criteria\n```",
+          "how_to_fix": "Define security requirements (auth, data protection, abuse cases) per feature, track them as first-class backlog items with acceptance criteria, and verify closure. Re-audit a sample of stories.",
           "tools": [
             "Jira",
             "OWASP SAMM"
@@ -36,8 +36,8 @@
           "title": "Threat modeling is performed during design",
           "description": "New features and architectural changes undergo structured threat modeling (e.g., STRIDE) to identify trust boundaries, attack surfaces, and mitigations before code is written.",
           "severity": "high",
-          "how_to_find": "Secure SDLC Integration — Shift-Left Security: Secure SDLC Integration — Shift-Left Security: Secure SDLC Integration — Shift-Left Security: Secure SDLC Integration — Shift-Left Security: Secure SDLC Integration — Shift-Left Security: Verify threat models exist for major components, are updated on significant design changes, and produce tracked mitigation items",
-          "how_to_fix": "Assign an owner for threat modeling is performed during design, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Check whether high-risk designs have a threat model (DFD + STRIDE) before build.",
+          "how_to_fix": "Make threat modeling a design-phase gate for high-risk changes, capture threats + mitigations as tracked items, and keep models updated. Re-verify recent designs were modeled.",
           "tools": [
             "OWASP Threat Dragon",
             "Microsoft Threat Modeling Tool"
@@ -63,8 +63,8 @@
           "title": "Security gates block insecure promotions",
           "description": "CI/CD pipelines enforce policy gates (failing builds on critical findings, required reviews, signed artifacts) that prevent code from advancing without meeting a security bar.",
           "severity": "high",
-          "how_to_find": "Secure SDLC Integration — Shift-Left Security: Secure SDLC Integration — Shift-Left Security: Secure SDLC Integration — Shift-Left Security: Secure SDLC Integration — Shift-Left Security: Secure SDLC Integration — Shift-Left Security: Confirm pipeline configuration fails on critical/high findings, that bypass requires documented approval, and that gates cannot be silently disabled",
-          "how_to_fix": "Assign an owner for security gates block insecure promotions, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Check whether pipeline security gates (SAST/SCA/secrets/IaC) actually fail the build vs warn-only:\n\n```\ngrep -REn 'continue-on-error|allow_failure|soft_fail' .github/workflows/ .gitlab-ci.yml\n```\n\n`continue-on-error: true` on security steps = gate is advisory only.",
+          "how_to_fix": "Configure security checks to fail the pipeline on policy-violating findings (no `continue-on-error`), with a documented risk-accept exception path. Re-verify gates block promotion.",
           "tools": [
             "GitHub Actions",
             "GitLab CI"
@@ -90,8 +90,8 @@
           "title": "Security design reviews are mandatory for high-risk changes",
           "description": "High-blast-radius changes (auth, crypto, payment, multi-tenant boundaries) require a documented security design review before implementation proceeds.",
           "severity": "medium",
-          "how_to_find": "Secure SDLC Integration — Shift-Left Security: Secure SDLC Integration — Shift-Left Security: Secure SDLC Integration — Shift-Left Security: Secure SDLC Integration — Shift-Left Security: Secure SDLC Integration — Shift-Left Security: Verify a trigger list exists for mandatory reviews and that recent high-risk PRs show evidence of completed security design review",
-          "how_to_fix": "Assign an owner for security design reviews are mandatory for high-risk changes, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Check whether high-risk changes require a security review sign-off (via CODEOWNERS / process).",
+          "how_to_fix": "Require security review for high-risk changes (new auth, crypto, external exposure, PII), enforce via CODEOWNERS + policy, and track sign-off. Re-audit recent high-risk PRs.",
           "tools": [
             "OWASP SAMM"
           ],
@@ -121,8 +121,8 @@
           "title": "Secure coding training is delivered and tracked",
           "description": "Developers receive role-relevant secure coding training (OWASP Top 10, language-specific pitfalls) with completion tracked and refreshed periodically.",
           "severity": "medium",
-          "how_to_find": "Secure SDLC Integration — Developer Enablement & Training: Secure SDLC Integration — Developer Enablement & Training: Secure SDLC Integration — Developer Enablement & Training: Secure SDLC Integration — Developer Enablement & Training: Secure SDLC Integration — Developer Enablement & Training: Confirm training records exist, cover relevant languages/frameworks, and are refreshed at least annually with measurable completion rates",
-          "how_to_fix": "Assign an owner for secure coding training is delivered and tracked, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Check for recorded secure-coding training completion per developer.",
+          "how_to_fix": "Deliver role-based secure-coding training with tracked completion + refreshers, and tie topics to observed defect classes. Re-verify completion rates.",
           "tools": [
             "OWASP SAMM"
           ],
@@ -147,8 +147,8 @@
           "title": "A security champions program exists",
           "description": "Each delivery team has an embedded security champion who reviews designs, triages findings, and acts as the local liaison to the central security team.",
           "severity": "low",
-          "how_to_find": "Secure SDLC Integration — Developer Enablement & Training: Secure SDLC Integration — Developer Enablement & Training: Secure SDLC Integration — Developer Enablement & Training: Secure SDLC Integration — Developer Enablement & Training: Secure SDLC Integration — Developer Enablement & Training: Verify champions are named per team, have defined responsibilities and time allocation, and meet regularly with the security function",
-          "how_to_fix": "Assign an owner for a security champions program exists, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Check whether teams have designated security champions with defined responsibilities.",
+          "how_to_fix": "Establish a security champions program (a champion per team, regular sync, clear duties), and empower them in reviews/threat modeling. Re-verify coverage across teams.",
           "tools": [
             "OWASP SAMM"
           ],
@@ -173,8 +173,8 @@
           "title": "Secure coding standards and golden paths are published",
           "description": "The organization publishes secure coding standards, hardened libraries, and paved-road templates so developers default to safe patterns.",
           "severity": "medium",
-          "how_to_find": "Secure SDLC Integration — Developer Enablement & Training: Secure SDLC Integration — Developer Enablement & Training: Secure SDLC Integration — Developer Enablement & Training: Secure SDLC Integration — Developer Enablement & Training: Secure SDLC Integration — Developer Enablement & Training: Confirm coding standards exist, reference approved crypto/auth libraries, and that paved-road scaffolds embed security controls by default",
-          "how_to_fix": "Assign an owner for secure coding standards and golden paths are published, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Check for published, discoverable secure-coding standards and paved-road libraries/templates.",
+          "how_to_fix": "Publish secure coding standards + golden-path templates/libraries (auth, crypto, input handling) that are easy to adopt, and keep them current. Re-verify they exist and are used.",
           "tools": [
             "OWASP ASVS"
           ],
@@ -199,8 +199,8 @@
           "title": "Security findings drive targeted education",
           "description": "Recurring vulnerability classes from scanning and pentests feed back into training content and guidance, closing the knowledge gap that produced them.",
           "severity": "low",
-          "how_to_find": "Secure SDLC Integration — Developer Enablement & Training: Secure SDLC Integration — Developer Enablement & Training: Secure SDLC Integration — Developer Enablement & Training: Secure SDLC Integration — Developer Enablement & Training: Secure SDLC Integration — Developer Enablement & Training: Verify there is a mechanism linking top recurring finding categories to updated guidance, lunch-and-learns, or remediation playbooks",
-          "how_to_fix": "Assign an owner for security findings drive targeted education, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Check whether recurring finding types feed back into targeted training/guidance.",
+          "how_to_fix": "Analyze finding trends and target education/guardrails at the top defect classes, closing the loop between detection and prevention. Re-verify feedback loop.",
           "tools": [
             "OWASP SAMM"
           ],
@@ -230,8 +230,8 @@
           "title": "SAST runs automatically in the pipeline",
           "description": "Static analysis executes on every pull request and merge, scanning all in-scope repositories rather than running only ad hoc.",
           "severity": "high",
-          "how_to_find": "Automated Security Testing — Static Application Security Testing (SAST): Automated Security Testing — Static Application Security Testing (SAST): Automated Security Testing — Static Application Security Testing (SAST): Automated Security Testing — Static Application Security Testing (SAST): Automated Security Testing — Static Application Security Testing (SAST): Confirm SAST is wired into CI for all primary repos, runs on PRs, and posts results back to the developer in-context",
-          "how_to_fix": "Assign an owner for sast runs automatically in the pipeline, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Check that SAST runs on every PR/merge:\n\n```\ngrep -REn 'semgrep|codeql|sonar|bandit|gosec|brakeman' .github/workflows/ .gitlab-ci.yml\n```",
+          "how_to_fix": "Integrate SAST into CI on every PR, fail on high-severity findings, and keep scan times fast (incremental). Re-verify SAST runs automatically.",
           "tools": [
             "Semgrep",
             "CodeQL"
@@ -257,8 +257,8 @@
           "title": "A SAST baseline separates new from legacy findings",
           "description": "A committed baseline allows the pipeline to fail only on newly introduced issues, avoiding alert fatigue from a legacy backlog while still tracking it.",
           "severity": "medium",
-          "how_to_find": "Automated Security Testing — Static Application Security Testing (SAST): Automated Security Testing — Static Application Security Testing (SAST): Automated Security Testing — Static Application Security Testing (SAST): Automated Security Testing — Static Application Security Testing (SAST): Automated Security Testing — Static Application Security Testing (SAST): Verify a baseline file exists, is reviewed periodically, and that net-new critical findings break the build while legacy debt is tracked separately",
-          "how_to_fix": "Assign an owner for a sast baseline separates new from legacy findings, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Check whether SAST distinguishes newly introduced findings from pre-existing debt (baseline/diff mode).",
+          "how_to_fix": "Establish a baseline so PRs are gated on new findings while legacy debt is tracked/burned down separately. Re-verify diff-aware gating.",
           "tools": [
             "Semgrep",
             "SonarQube"
@@ -284,8 +284,8 @@
           "title": "False positives are managed with auditable suppressions",
           "description": "Suppressions and rule tuning are version-controlled, justified, and reviewed, so the tool stays trustworthy and suppression is not abused to hide real risk.",
           "severity": "medium",
-          "how_to_find": "Automated Security Testing — Static Application Security Testing (SAST): Automated Security Testing — Static Application Security Testing (SAST): Automated Security Testing — Static Application Security Testing (SAST): Automated Security Testing — Static Application Security Testing (SAST): Automated Security Testing — Static Application Security Testing (SAST): Confirm suppressions live in code with documented rationale, expire or are re-reviewed, and that suppression rates are monitored",
-          "how_to_fix": "Assign an owner for false positives are managed with auditable suppressions, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Check how suppressions are recorded:\n\n```\ngrep -REn 'nosec|nosemgrep|codeql\\[|SuppressWarnings' src/\n```",
+          "how_to_fix": "Require justification + reviewer approval for suppressions, keep them in-code/auditable, expire/re-review them, and prefer fixing. Re-audit suppressions.",
           "tools": [
             "Semgrep",
             "CodeQL"
@@ -311,8 +311,8 @@
           "title": "SAST ruleset coverage matches the tech stack",
           "description": "Enabled rulesets cover every primary language and framework in use, including security-relevant categories like injection, deserialization, and SSRF.",
           "severity": "medium",
-          "how_to_find": "Automated Security Testing — Static Application Security Testing (SAST): Automated Security Testing — Static Application Security Testing (SAST): Automated Security Testing — Static Application Security Testing (SAST): Automated Security Testing — Static Application Security Testing (SAST): Automated Security Testing — Static Application Security Testing (SAST): Verify enabled rule packs map to all languages/frameworks in the codebase and that high-impact categories are not disabled",
-          "how_to_fix": "Assign an owner for sast ruleset coverage matches the tech stack, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Check whether SAST rules cover all languages/frameworks in use.",
+          "how_to_fix": "Enable language/framework-appropriate rulesets (+ custom rules for internal sinks), review coverage vs the stack, and update as it changes. Re-verify coverage.",
           "tools": [
             "Semgrep",
             "CodeQL"
@@ -343,8 +343,8 @@
           "title": "DAST scans run automatically against deployed builds",
           "description": "Dynamic scans execute against a staging/test deployment as part of the pipeline, catching runtime issues SAST cannot see.",
           "severity": "high",
-          "how_to_find": "Automated Security Testing — Dynamic Application Security Testing (DAST): Automated Security Testing — Dynamic Application Security Testing (DAST): Automated Security Testing — Dynamic Application Security Testing (DAST): Automated Security Testing — Dynamic Application Security Testing (DAST): Automated Security Testing — Dynamic Application Security Testing (DAST): Confirm DAST runs against a representative environment per release candidate and that results are routed into the tracking workflow",
-          "how_to_fix": "Assign an owner for dast scans run automatically against deployed builds, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Check whether DAST runs against a deployed environment in the pipeline:\n\n```\ngrep -REn 'zap|dast|nuclei|burp' .github/workflows/ .gitlab-ci.yml\n```",
+          "how_to_fix": "Automate DAST against a deployed staging build in CI/CD (baseline on PR, full periodically), and triage results. Re-verify DAST runs.",
           "tools": [
             "OWASP ZAP",
             "Burp Suite"
@@ -370,8 +370,8 @@
           "title": "Authenticated and API scanning is configured",
           "description": "DAST is configured with valid sessions and API specifications so it reaches authenticated surfaces and exercises real endpoints, not just public pages.",
           "severity": "medium",
-          "how_to_find": "Automated Security Testing — Dynamic Application Security Testing (DAST): Automated Security Testing — Dynamic Application Security Testing (DAST): Automated Security Testing — Dynamic Application Security Testing (DAST): Automated Security Testing — Dynamic Application Security Testing (DAST): Automated Security Testing — Dynamic Application Security Testing (DAST): Verify the scanner has working auth (session/token) and is fed OpenAPI/GraphQL schemas to maximize coverage of protected functionality",
-          "how_to_fix": "Assign an owner for authenticated and api scanning is configured, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Check whether DAST authenticates and scans APIs (not just unauthenticated pages), using an OpenAPI spec where available.",
+          "how_to_fix": "Configure authenticated DAST (session/token) + API scanning from the OpenAPI/GraphQL schema so protected functionality and APIs are covered. Re-verify auth + API coverage.",
           "tools": [
             "OWASP ZAP",
             "Burp Suite"
@@ -397,8 +397,8 @@
           "title": "DAST runs against safe, non-production targets",
           "description": "Active scanning is pointed at dedicated test environments with seeded data to avoid disrupting production or corrupting live data.",
           "severity": "medium",
-          "how_to_find": "Automated Security Testing — Dynamic Application Security Testing (DAST): Automated Security Testing — Dynamic Application Security Testing (DAST): Automated Security Testing — Dynamic Application Security Testing (DAST): Automated Security Testing — Dynamic Application Security Testing (DAST): Automated Security Testing — Dynamic Application Security Testing (DAST): Confirm scan targets are non-production, that destructive checks are constrained, and that production scanning (if any) is explicitly authorized and passive",
-          "how_to_fix": "Assign an owner for dast runs against safe, non-production targets, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Check that DAST targets staging/ephemeral envs, not production (to avoid impact).",
+          "how_to_fix": "Run DAST against dedicated non-prod/ephemeral environments with representative data, and gate any prod scanning tightly. Re-verify target environments.",
           "tools": [
             "OWASP ZAP"
           ],
@@ -423,8 +423,8 @@
           "title": "DAST findings are deduplicated and triaged",
           "description": "Results are correlated across scans to reduce noise, and confirmed issues are tracked to remediation with severity-based SLAs.",
           "severity": "low",
-          "how_to_find": "Automated Security Testing — Dynamic Application Security Testing (DAST): Automated Security Testing — Dynamic Application Security Testing (DAST): Automated Security Testing — Dynamic Application Security Testing (DAST): Automated Security Testing — Dynamic Application Security Testing (DAST): Automated Security Testing — Dynamic Application Security Testing (DAST): Verify findings flow into a vulnerability management tool, duplicates are merged, and confirmed issues have owners and due dates",
-          "how_to_fix": "Assign an owner for dast findings are deduplicated and triaged, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Check whether DAST results are deduplicated across runs and triaged into tickets.",
+          "how_to_fix": "Deduplicate findings (fingerprinting), auto-create/track tickets, suppress confirmed false positives with justification, and monitor trends. Re-verify triage flow.",
           "tools": [
             "DefectDojo",
             "OWASP ZAP"
@@ -455,8 +455,8 @@
           "title": "Dependencies are scanned for known vulnerabilities",
           "description": "Every build scans direct and transitive dependencies against vulnerability databases and fails or flags on critical CVEs.",
           "severity": "high",
-          "how_to_find": "Automated Security Testing — Software Composition Analysis (SCA): Automated Security Testing — Software Composition Analysis (SCA): Automated Security Testing — Software Composition Analysis (SCA): Automated Security Testing — Software Composition Analysis (SCA): Automated Security Testing — Software Composition Analysis (SCA): Confirm SCA runs on all repos including transitive dependencies, and that critical/high CVEs are surfaced with fix versions",
-          "how_to_fix": "Assign an owner for dependencies are scanned for known vulnerabilities, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Check for SCA in the pipeline:\n\n```\ngrep -REn 'osv-scanner|trivy|snyk|dependency-check|npm audit|pip-audit' .github/workflows/\n```",
+          "how_to_fix": "Run SCA on every build, fail on high/critical (with exception path), and monitor continuously. Re-verify SCA runs.",
           "tools": [
             "Trivy",
             "Grype"
@@ -482,8 +482,8 @@
           "title": "License compliance is enforced",
           "description": "SCA evaluates dependency licenses against an allow/deny policy to prevent introduction of incompatible or restrictive licenses.",
           "severity": "low",
-          "how_to_find": "Automated Security Testing — Software Composition Analysis (SCA): Automated Security Testing — Software Composition Analysis (SCA): Automated Security Testing — Software Composition Analysis (SCA): Automated Security Testing — Software Composition Analysis (SCA): Automated Security Testing — Software Composition Analysis (SCA): Verify a license policy exists, that builds flag disallowed licenses, and that exceptions are documented and approved",
-          "how_to_fix": "Assign an owner for license compliance is enforced, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Check whether dependency licenses are scanned against an allowed/denied policy.",
+          "how_to_fix": "Enforce a license policy in CI (allowlist/denylist), flag non-compliant licenses, and track exceptions. Re-verify license gating.",
           "tools": [
             "Trivy",
             "FOSSA"
@@ -509,8 +509,8 @@
           "title": "SCA prioritizes reachable, exploitable vulnerabilities",
           "description": "Findings are prioritized by exploitability (reachability, EPSS, KEV) so teams remediate truly risky issues first rather than chasing every CVE.",
           "severity": "medium",
-          "how_to_find": "Automated Security Testing — Software Composition Analysis (SCA): Automated Security Testing — Software Composition Analysis (SCA): Automated Security Testing — Software Composition Analysis (SCA): Automated Security Testing — Software Composition Analysis (SCA): Automated Security Testing — Software Composition Analysis (SCA): Confirm prioritization uses reachability and/or CISA KEV/EPSS signals, and that remediation effort tracks against exploitable issues",
-          "how_to_fix": "Assign an owner for sca prioritizes reachable, exploitable vulnerabilities, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Check whether SCA prioritizes by reachability/exploitability (not just CVSS) to reduce noise.",
+          "how_to_fix": "Use reachability analysis + EPSS/KEV context to prioritize truly exploitable vulns, while still tracking the rest. Re-verify prioritization.",
           "tools": [
             "Grype",
             "Trivy"
@@ -536,8 +536,8 @@
           "title": "Automated dependency updates are enabled",
           "description": "Automated update tooling proposes upgrades for vulnerable and outdated dependencies, keeping the dependency surface current with minimal toil.",
           "severity": "low",
-          "how_to_find": "Automated Security Testing — Software Composition Analysis (SCA): Automated Security Testing — Software Composition Analysis (SCA): Automated Security Testing — Software Composition Analysis (SCA): Automated Security Testing — Software Composition Analysis (SCA): Automated Security Testing — Software Composition Analysis (SCA): Verify automated update PRs are enabled across repos, are reviewed and merged regularly, and that stale critical updates are not ignored",
-          "how_to_fix": "Assign an owner for automated dependency updates are enabled, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Check for automated update tooling:\n\n```\nls .github/dependabot.yml renovate.json 2>/dev/null\n```",
+          "how_to_fix": "Enable Dependabot/Renovate with grouped, tested auto-updates and prompt review/merge, prioritizing security updates. Re-verify automation.",
           "tools": [
             "Dependabot",
             "Renovate"
@@ -568,8 +568,8 @@
           "title": "Pre-commit secret scanning is in place",
           "description": "Developer machines run pre-commit hooks that block credentials, keys, and tokens before they ever reach the remote repository.",
           "severity": "high",
-          "how_to_find": "Automated Security Testing — Secret Scanning: Automated Security Testing — Secret Scanning: Automated Security Testing — Secret Scanning: Automated Security Testing — Secret Scanning: Automated Security Testing — Secret Scanning: Confirm pre-commit secret hooks are installed across teams and that they block (not just warn) on detected secrets",
-          "how_to_fix": "Assign an owner for pre-commit secret scanning is in place, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Check for pre-commit secret hooks:\n\n```\ncat .pre-commit-config.yaml 2>/dev/null | grep -iE 'gitleaks|detect-secrets|trufflehog'\n```",
+          "how_to_fix": "Add pre-commit secret scanning (gitleaks/detect-secrets) so secrets are caught before commit, and make it easy to install. Re-verify the hook.",
           "tools": [
             "gitleaks",
             "pre-commit"
@@ -595,8 +595,8 @@
           "title": "Pipeline secret scanning enforces a backstop",
           "description": "CI scans every push and PR for secrets as a server-side backstop that does not depend on developers enabling local hooks.",
           "severity": "high",
-          "how_to_find": "Automated Security Testing — Secret Scanning: Automated Security Testing — Secret Scanning: Automated Security Testing — Secret Scanning: Automated Security Testing — Secret Scanning: Automated Security Testing — Secret Scanning: Verify CI secret scanning runs on all repos and pushes, fails the build on verified secrets, and cannot be skipped without approval",
-          "how_to_fix": "Assign an owner for pipeline secret scanning enforces a backstop, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Check whether CI scans for secrets even if pre-commit is bypassed:\n\n```\ngrep -REn 'gitleaks|trufflehog|detect-secrets' .github/workflows/ .gitlab-ci.yml\n```",
+          "how_to_fix": "Run secret scanning in CI + enable platform push protection as a backstop, failing on detections. Re-verify pipeline scanning.",
           "tools": [
             "gitleaks",
             "TruffleHog"
@@ -622,8 +622,8 @@
           "title": "Repository history is scanned for leaked secrets",
           "description": "Full git history is periodically scanned because secrets removed from HEAD may still be retrievable in prior commits.",
           "severity": "medium",
-          "how_to_find": "Automated Security Testing — Secret Scanning: Automated Security Testing — Secret Scanning: Automated Security Testing — Secret Scanning: Automated Security Testing — Secret Scanning: Automated Security Testing — Secret Scanning: Confirm historical scans run on all repos and that any discovered secrets are treated as compromised and rotated",
-          "how_to_fix": "Assign an owner for repository history is scanned for leaked secrets, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Scan full history (secrets removed from HEAD persist in git history):\n\n```\ngitleaks detect --source . --log-opts=\"--all\"\n```",
+          "how_to_fix": "Scan history, rotate any secret ever committed, and purge from history (filter-repo/BFG) where required. Re-scan history.",
           "tools": [
             "TruffleHog",
             "gitleaks"
@@ -649,8 +649,8 @@
           "title": "Detected secrets trigger immediate rotation",
           "description": "A defined process treats any exposed secret as compromised: revoke, rotate, and review for abuse, regardless of repository visibility.",
           "severity": "critical",
-          "how_to_find": "Automated Security Testing — Secret Scanning: Automated Security Testing — Secret Scanning: Automated Security Testing — Secret Scanning: Automated Security Testing — Secret Scanning: Automated Security Testing — Secret Scanning: Verify a documented rotation runbook exists, has measurable response times, and that recent detections show evidence of rotation",
-          "how_to_fix": "Assign an owner for detected secrets trigger immediate rotation, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Check whether there's an automated/defined process to rotate a leaked secret fast.",
+          "how_to_fix": "Treat any detected secret as compromised: automate/runbook immediate rotation + revocation, and verify the old value no longer works. Re-verify the rotation process.",
           "tools": [
             "HashiCorp Vault",
             "gitleaks"
@@ -681,8 +681,8 @@
           "title": "Secrets are stored in a centralized secrets manager",
           "description": "Application and infrastructure secrets live in a dedicated secrets manager with access control and audit logging, not in source, env files, or wikis.",
           "severity": "high",
-          "how_to_find": "Secrets Management — Centralized Secrets Store: Secrets Management — Centralized Secrets Store: Secrets Management — Centralized Secrets Store: Secrets Management — Centralized Secrets Store: Secrets Management — Centralized Secrets Store: Confirm a central secrets store is the source of truth, access is least-privilege, and all access is audit-logged",
-          "how_to_fix": "Assign an owner for secrets are stored in a centralized secrets manager, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Check whether apps pull secrets from a manager (Vault/cloud secrets) vs env/config files:\n\n```\ngrep -REn 'vault|secretsmanager|SecretManager|KeyVault|getSecret' src/ config/\n```",
+          "how_to_fix": "Store all secrets in a centralized manager with access control + audit, inject at runtime, and remove secrets from code/config. Re-verify usage.",
           "tools": [
             "HashiCorp Vault",
             "AWS Secrets Manager"
@@ -708,8 +708,8 @@
           "title": "Dynamic, short-lived secrets are used where possible",
           "description": "Databases, cloud APIs, and services receive dynamically generated, short-TTL credentials instead of long-lived static keys.",
           "severity": "medium",
-          "how_to_find": "Secrets Management — Centralized Secrets Store: Secrets Management — Centralized Secrets Store: Secrets Management — Centralized Secrets Store: Secrets Management — Centralized Secrets Store: Secrets Management — Centralized Secrets Store: Verify dynamic secret engines or short-lived tokens are used for high-value backends and that TTLs are minimized",
-          "how_to_fix": "Assign an owner for dynamic, short-lived secrets are used where possible, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Check whether DB/cloud creds are dynamic/short-lived vs static.",
+          "how_to_fix": "Use dynamic secrets (e.g. Vault DB engine, cloud STS) with short TTLs where supported, reducing standing credentials. Re-verify dynamic secrets.",
           "tools": [
             "HashiCorp Vault",
             "AWS IAM"
@@ -735,8 +735,8 @@
           "title": "Static secrets are rotated automatically",
           "description": "Any unavoidable long-lived secrets are rotated on a defined schedule and on suspected compromise, with rotation automated to avoid drift.",
           "severity": "medium",
-          "how_to_find": "Secrets Management — Centralized Secrets Store: Secrets Management — Centralized Secrets Store: Secrets Management — Centralized Secrets Store: Secrets Management — Centralized Secrets Store: Secrets Management — Centralized Secrets Store: Confirm rotation schedules exist, rotation is automated for supported secrets, and last-rotated timestamps are monitored",
-          "how_to_fix": "Assign an owner for static secrets are rotated automatically, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Check whether remaining static secrets have automated rotation + expiry.",
+          "how_to_fix": "Automate rotation of static secrets on a schedule (and on leak), track age, and alert on stale secrets. Re-audit rotation.",
           "tools": [
             "HashiCorp Vault",
             "AWS Secrets Manager"
@@ -762,8 +762,8 @@
           "title": "Workloads authenticate via identity, not embedded keys",
           "description": "Services retrieve secrets using platform workload identity (e.g., cloud IAM roles, Kubernetes service accounts) rather than bootstrapping with embedded credentials.",
           "severity": "high",
-          "how_to_find": "Secrets Management — Centralized Secrets Store: Secrets Management — Centralized Secrets Store: Secrets Management — Centralized Secrets Store: Secrets Management — Centralized Secrets Store: Secrets Management — Centralized Secrets Store: Verify workloads use identity-based auth to the secrets store and that no bootstrap secrets are baked into images or manifests",
-          "how_to_fix": "Assign an owner for workloads authenticate via identity, not embedded keys, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Check whether workloads use workload identity (IRSA/managed identity/SPIFFE) vs embedded keys:\n\n```\ngrep -REn 'AWS_ACCESS_KEY|service-account|workload-identity|azure.*identity' src/ k8s/\n```",
+          "how_to_fix": "Adopt workload identity federation (IRSA, GKE/Azure workload identity, SPIFFE) so workloads get short-lived creds without embedded keys. Re-verify identity-based auth.",
           "tools": [
             "HashiCorp Vault",
             "AWS IAM"
@@ -794,8 +794,8 @@
           "title": "Pipeline secrets are masked and stored securely",
           "description": "CI secrets are stored as protected/masked variables or pulled from the secrets manager at runtime, never committed to the repository.",
           "severity": "high",
-          "how_to_find": "Secrets Management — Pipeline Secret Hygiene: Secrets Management — Pipeline Secret Hygiene: Secrets Management — Pipeline Secret Hygiene: Secrets Management — Pipeline Secret Hygiene: Secrets Management — Pipeline Secret Hygiene: Confirm CI variables holding secrets are marked masked/protected and that no secrets are present in pipeline definition files",
-          "how_to_fix": "Assign an owner for pipeline secrets are masked and stored securely, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Check that CI secrets are stored as encrypted/masked secrets, not plain variables.",
+          "how_to_fix": "Use the CI encrypted secret store (masked + protected), never plain variables, and scope to protected branches/environments. Re-verify secret storage.",
           "tools": [
             "GitHub Actions",
             "GitLab CI"
@@ -821,8 +821,8 @@
           "title": "Secrets never appear in build logs or artifacts",
           "description": "Logging is configured to redact secrets and pipelines avoid echoing sensitive values; artifacts are inspected to ensure no credentials are baked in.",
           "severity": "high",
-          "how_to_find": "Secrets Management — Pipeline Secret Hygiene: Secrets Management — Pipeline Secret Hygiene: Secrets Management — Pipeline Secret Hygiene: Secrets Management — Pipeline Secret Hygiene: Secrets Management — Pipeline Secret Hygiene: Verify masking is active in logs, that debug modes do not leak secrets, and spot-check artifacts/images for embedded credentials",
-          "how_to_fix": "Assign an owner for secrets never appear in build logs or artifacts, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Check logs/artifacts for leaked secrets:\n\n```\ngrep -REn 'set -x|echo .*secret|printenv' .github/workflows/\ntrivy image --scanners secret <image>\n```",
+          "how_to_fix": "Rely on masking, avoid `set -x`/echoing secrets, keep secrets out of artifacts (multi-stage builds), and rotate leaks. Re-verify logs/artifacts.",
           "tools": [
             "gitleaks",
             "GitLab CI"
@@ -848,8 +848,8 @@
           "title": "Pipeline secrets are scoped and least-privilege",
           "description": "Secrets are scoped to specific environments, branches, and jobs so a compromised pipeline cannot reach production credentials it does not need.",
           "severity": "medium",
-          "how_to_find": "Secrets Management — Pipeline Secret Hygiene: Secrets Management — Pipeline Secret Hygiene: Secrets Management — Pipeline Secret Hygiene: Secrets Management — Pipeline Secret Hygiene: Secrets Management — Pipeline Secret Hygiene: Confirm environment-scoped secrets, protected branches/environments, and that fork or PR pipelines cannot access production secrets",
-          "how_to_fix": "Assign an owner for pipeline secrets are scoped and least-privilege, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Check whether pipeline secrets/tokens are scoped to the minimum repos/environments/permissions.",
+          "how_to_fix": "Scope secrets to specific repos/environments, least-privilege token permissions, and avoid org-wide sensitive secrets. Re-audit scope.",
           "tools": [
             "GitHub Actions",
             "GitLab CI"
@@ -875,8 +875,8 @@
           "title": "Cloud access uses OIDC federation, not static keys",
           "description": "Pipelines authenticate to cloud providers via short-lived OIDC-federated tokens rather than long-lived static cloud access keys stored as CI secrets.",
           "severity": "medium",
-          "how_to_find": "Secrets Management — Pipeline Secret Hygiene: Secrets Management — Pipeline Secret Hygiene: Secrets Management — Pipeline Secret Hygiene: Secrets Management — Pipeline Secret Hygiene: Secrets Management — Pipeline Secret Hygiene: Verify CI-to-cloud auth uses OIDC federation with scoped trust policies, and that long-lived cloud keys are not stored in the pipeline",
-          "how_to_fix": "Assign an owner for cloud access uses oidc federation, not static keys, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Check for static cloud keys vs OIDC in pipelines:\n\n```\ngrep -REn 'AWS_ACCESS_KEY|id-token:|permissions:.*id-token|aws-actions/configure-aws-credentials' .github/workflows/\n```",
+          "how_to_fix": "Use OIDC federation to assume short-lived cloud roles (constrained trust to repo/branch), removing static keys. Re-verify OIDC usage.",
           "tools": [
             "GitHub Actions",
             "AWS IAM"
@@ -907,8 +907,8 @@
           "title": "Dependencies are pinned with committed lockfiles",
           "description": "Lockfiles pin exact versions and integrity hashes for all dependencies so builds are reproducible and tampering is detectable.",
           "severity": "high",
-          "how_to_find": "Supply Chain Security — Dependency Integrity: Supply Chain Security — Dependency Integrity: Supply Chain Security — Dependency Integrity: Supply Chain Security — Dependency Integrity: Supply Chain Security — Dependency Integrity: Confirm lockfiles are committed for every project, builds install from the lockfile, and CI fails if the lockfile is out of sync",
-          "how_to_fix": "Assign an owner for dependencies are pinned with committed lockfiles, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Check for committed lockfiles + pinned versions:\n\n```\nls package-lock.json yarn.lock poetry.lock go.sum Cargo.lock 2>/dev/null\ngrep -REn '\\^|~|latest' package.json\n```",
+          "how_to_fix": "Commit lockfiles, pin versions, and install with `--frozen`/`npm ci` (integrity-verified, reproducible). Re-verify pinning.",
           "tools": [
             "npm",
             "Syft"
@@ -934,8 +934,8 @@
           "title": "Dependency confusion is mitigated",
           "description": "Private package scopes and registry configuration prevent attackers from publishing a malicious public package that shadows an internal name.",
           "severity": "high",
-          "how_to_find": "Supply Chain Security — Dependency Integrity: Supply Chain Security — Dependency Integrity: Supply Chain Security — Dependency Integrity: Supply Chain Security — Dependency Integrity: Supply Chain Security — Dependency Integrity: Verify internal packages use reserved scopes/namespaces, registries are explicitly configured, and public fallback for private names is disabled",
-          "how_to_fix": "Assign an owner for dependency confusion is mitigated, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Check whether internal package names could resolve from public registries:\n\n```\ngrep -REn 'registry|index-url|scope|@<org>/' .npmrc pip.conf package.json\n```",
+          "how_to_fix": "Reserve internal names publicly, use scoped packages + a private proxy with controlled resolution order, and verify sources. Re-review registry config.",
           "tools": [
             "npm",
             "Artifactory"
@@ -961,8 +961,8 @@
           "title": "Dependencies are pulled through a trusted proxy",
           "description": "An internal artifact proxy/registry caches and vets external packages, providing a control point for blocking and integrity verification.",
           "severity": "medium",
-          "how_to_find": "Supply Chain Security — Dependency Integrity: Supply Chain Security — Dependency Integrity: Supply Chain Security — Dependency Integrity: Supply Chain Security — Dependency Integrity: Supply Chain Security — Dependency Integrity: Confirm builds resolve dependencies through an internal proxy, that direct public-registry access is restricted, and that the proxy enforces policy",
-          "how_to_fix": "Assign an owner for dependencies are pulled through a trusted proxy, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Check whether builds fetch packages via an internal proxy/mirror vs directly from public registries.",
+          "how_to_fix": "Route dependency fetches through a trusted proxy/mirror (Artifactory/Nexus) with allowlisting + caching, so builds don't pull directly from public registries. Re-verify proxy usage.",
           "tools": [
             "Artifactory",
             "Nexus"
@@ -988,8 +988,8 @@
           "title": "Dependency integrity is verified at install time",
           "description": "Package manager integrity checks (hash/signature verification) are enabled so corrupted or tampered packages fail the build.",
           "severity": "medium",
-          "how_to_find": "Supply Chain Security — Dependency Integrity: Supply Chain Security — Dependency Integrity: Supply Chain Security — Dependency Integrity: Supply Chain Security — Dependency Integrity: Supply Chain Security — Dependency Integrity: Verify integrity/hash verification is enforced during install and that signature verification is used where the ecosystem supports it",
-          "how_to_fix": "Assign an owner for dependency integrity is verified at install time, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Check whether install verifies integrity hashes/signatures (lockfile hashes, `--require-hashes`).",
+          "how_to_fix": "Enforce integrity verification at install (lockfile hashes, `pip --require-hashes`, `npm ci`), and fail on mismatch. Re-verify integrity checks.",
           "tools": [
             "npm",
             "cosign"
@@ -1020,8 +1020,8 @@
           "title": "Build artifacts are cryptographically signed",
           "description": "Containers and release artifacts are signed so consumers can verify authenticity and detect tampering before deployment.",
           "severity": "high",
-          "how_to_find": "Supply Chain Security — Artifact Signing & Provenance: Supply Chain Security — Artifact Signing & Provenance: Supply Chain Security — Artifact Signing & Provenance: Supply Chain Security — Artifact Signing & Provenance: Supply Chain Security — Artifact Signing & Provenance: Confirm artifacts are signed in the pipeline, signatures are stored alongside artifacts, and deploy-time verification is enabled",
-          "how_to_fix": "Assign an owner for build artifacts are cryptographically signed, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Check whether artifacts/images are signed in the pipeline:\n\n```\ncosign verify <image>\n```",
+          "how_to_fix": "Sign artifacts/images (cosign/Sigstore, keyless where possible) as part of the build. Re-verify signing.",
           "tools": [
             "cosign",
             "Sigstore"
@@ -1047,8 +1047,8 @@
           "title": "SBOMs are generated and published for releases",
           "description": "A software bill of materials is produced for each artifact, enabling rapid impact analysis when a new dependency CVE is disclosed.",
           "severity": "medium",
-          "how_to_find": "Supply Chain Security — Artifact Signing & Provenance: Supply Chain Security — Artifact Signing & Provenance: Supply Chain Security — Artifact Signing & Provenance: Supply Chain Security — Artifact Signing & Provenance: Supply Chain Security — Artifact Signing & Provenance: Verify SBOMs are generated per build in a standard format (SPDX/CycloneDX), stored as attestations, and queryable for incident response",
-          "how_to_fix": "Assign an owner for sboms are generated and published for releases, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Check for SBOM generation:\n\n```\nsyft <image> -o spdx-json ; # or trivy sbom\n```",
+          "how_to_fix": "Generate + publish an SBOM (SPDX/CycloneDX) per release, attach it to artifacts, and use it for continuous vuln monitoring. Re-verify SBOMs exist.",
           "tools": [
             "Syft",
             "Trivy"
@@ -1074,8 +1074,8 @@
           "title": "Build provenance attestations are produced",
           "description": "The pipeline emits SLSA provenance describing how, where, and from what sources an artifact was built, enabling verification of build integrity.",
           "severity": "medium",
-          "how_to_find": "Supply Chain Security — Artifact Signing & Provenance: Supply Chain Security — Artifact Signing & Provenance: Supply Chain Security — Artifact Signing & Provenance: Supply Chain Security — Artifact Signing & Provenance: Supply Chain Security — Artifact Signing & Provenance: Confirm provenance attestations are generated for releases, reference the source commit and builder, and are verified before deployment",
-          "how_to_fix": "Assign an owner for build provenance attestations are produced, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Check for SLSA provenance attestations:\n\n```\ncosign verify-attestation --type slsaprovenance <image>\n```",
+          "how_to_fix": "Produce SLSA provenance in the build (what was built, from which source/commit, by which pipeline), and store attestations. Re-verify attestations.",
           "tools": [
             "cosign",
             "SLSA GitHub Generator"
@@ -1101,8 +1101,8 @@
           "title": "Signature and provenance are verified before deploy",
           "description": "Admission controls reject unsigned artifacts or those without valid provenance, closing the loop between signing and enforcement.",
           "severity": "high",
-          "how_to_find": "Supply Chain Security — Artifact Signing & Provenance: Supply Chain Security — Artifact Signing & Provenance: Supply Chain Security — Artifact Signing & Provenance: Supply Chain Security — Artifact Signing & Provenance: Supply Chain Security — Artifact Signing & Provenance: Verify deploy/admission policies require valid signatures and provenance, and that verification failures block rollout",
-          "how_to_fix": "Assign an owner for signature and provenance are verified before deploy, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Check whether deploy/admission verifies signatures + provenance:\n\n```\n# k8s: policy-controller / Kyverno verifyImages ; check enforcement mode\n```",
+          "how_to_fix": "Enforce signature + provenance verification at deploy/admission (fail closed on unsigned/unverified), pinned to trusted signers. Re-test that unsigned artifacts are rejected.",
           "tools": [
             "cosign",
             "OPA/Conftest"
@@ -1133,8 +1133,8 @@
           "title": "Base images come from trusted, pinned sources",
           "description": "Base images are sourced from a vetted internal registry or trusted publisher and pinned by digest, not floating tags like latest.",
           "severity": "high",
-          "how_to_find": "Supply Chain Security — Base Image Security: Supply Chain Security — Base Image Security: Supply Chain Security — Base Image Security: Supply Chain Security — Base Image Security: Supply Chain Security — Base Image Security: Confirm base images are pinned by digest, sourced from an approved registry, and that use of arbitrary public images is restricted",
-          "how_to_fix": "Assign an owner for base images come from trusted, pinned sources, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Check base image sources + pinning:\n\n```\ngrep -REn '^FROM ' **/Dockerfile   # trusted registry? pinned by digest?\n```\n\n`FROM image:latest` (mutable, untrusted) = finding.",
+          "how_to_fix": "Use trusted/official base images pinned by digest (`@sha256:`), from an approved registry/mirror. Re-review Dockerfiles.",
           "tools": [
             "Trivy",
             "Docker"
@@ -1160,8 +1160,8 @@
           "title": "Minimal/distroless base images are used",
           "description": "Images are kept minimal (distroless or slim) to reduce attack surface, remove shells and package managers, and shrink the vulnerability footprint.",
           "severity": "medium",
-          "how_to_find": "Supply Chain Security — Base Image Security: Supply Chain Security — Base Image Security: Supply Chain Security — Base Image Security: Supply Chain Security — Base Image Security: Supply Chain Security — Base Image Security: Verify production images are minimal, do not ship unnecessary tooling, and run as a non-root user where feasible",
-          "how_to_fix": "Assign an owner for minimal/distroless base images are used, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Check image size/contents (full OS vs minimal/distroless):\n\n```\ngrep -REn '^FROM ' **/Dockerfile\ndive <image>   # inspect layers/contents\n```",
+          "how_to_fix": "Use minimal/distroless/alpine bases to shrink attack surface, remove build tools/shells from runtime images (multi-stage). Re-review base images.",
           "tools": [
             "Docker",
             "Trivy"
@@ -1187,8 +1187,8 @@
           "title": "Container images are scanned before and after publish",
           "description": "Images are scanned for OS and library vulnerabilities at build time and continuously in the registry as new CVEs are disclosed.",
           "severity": "high",
-          "how_to_find": "Supply Chain Security — Base Image Security: Supply Chain Security — Base Image Security: Supply Chain Security — Base Image Security: Supply Chain Security — Base Image Security: Supply Chain Security — Base Image Security: Confirm image scanning runs in the build, that the registry rescans published images, and that critical findings block promotion",
-          "how_to_fix": "Assign an owner for container images are scanned before and after publish, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Check for image scanning in CI + registry:\n\n```\ngrep -REn 'trivy|grype|clair|snyk' .github/workflows/\n```",
+          "how_to_fix": "Scan images in CI (fail on high/critical) and continuously in the registry (new CVEs on existing images), and remediate. Re-verify scanning.",
           "tools": [
             "Trivy",
             "Grype"
@@ -1214,8 +1214,8 @@
           "title": "Base images are rebuilt and patched regularly",
           "description": "A defined cadence rebuilds images on updated bases so OS-level patches reach running workloads instead of lingering in stale layers.",
           "severity": "medium",
-          "how_to_find": "Supply Chain Security — Base Image Security: Supply Chain Security — Base Image Security: Supply Chain Security — Base Image Security: Supply Chain Security — Base Image Security: Supply Chain Security — Base Image Security: Verify a rebuild/patch cadence exists, that stale images are flagged, and that patched bases propagate to downstream images",
-          "how_to_fix": "Assign an owner for base images are rebuilt and patched regularly, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Check how fresh deployed base images are (age/patch level).",
+          "how_to_fix": "Rebuild images regularly from updated bases (automated), redeploy to pick up OS patches, and monitor base-image CVEs. Re-verify image freshness.",
           "tools": [
             "Trivy",
             "Docker"
@@ -1246,8 +1246,8 @@
           "title": "IaC is scanned for misconfigurations in CI",
           "description": "Terraform, CloudFormation, and Kubernetes manifests are scanned on every change for insecure defaults before infrastructure is provisioned.",
           "severity": "high",
-          "how_to_find": "Infrastructure as Code — IaC Misconfiguration Scanning: Infrastructure as Code — IaC Misconfiguration Scanning: Infrastructure as Code — IaC Misconfiguration Scanning: Infrastructure as Code — IaC Misconfiguration Scanning: Infrastructure as Code — IaC Misconfiguration Scanning: Confirm IaC scanning runs on all infra repos in CI, covers the IaC formats in use, and fails on high-severity misconfigurations",
-          "how_to_fix": "Assign an owner for iac is scanned for misconfigurations in ci, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Check for IaC scanning:\n\n```\ngrep -REn 'checkov|tfsec|trivy config|terrascan|kics' .github/workflows/\n```",
+          "how_to_fix": "Scan Terraform/CloudFormation/etc. in CI (Checkov/tfsec/trivy), fail on high-severity misconfigs, and track findings. Re-verify IaC scanning.",
           "tools": [
             "Checkov",
             "tfsec"
@@ -1273,8 +1273,8 @@
           "title": "Kubernetes manifests are checked against hardening guidance",
           "description": "K8s manifests and Helm charts are scanned for insecure settings (privileged containers, host mounts, missing limits) against CIS Kubernetes guidance.",
           "severity": "high",
-          "how_to_find": "Infrastructure as Code — IaC Misconfiguration Scanning: Infrastructure as Code — IaC Misconfiguration Scanning: Infrastructure as Code — IaC Misconfiguration Scanning: Infrastructure as Code — IaC Misconfiguration Scanning: Infrastructure as Code — IaC Misconfiguration Scanning: Verify manifest scanning flags privileged/hostPath/root settings and that critical issues are remediated before apply",
-          "how_to_fix": "Assign an owner for kubernetes manifests are checked against hardening guidance, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Check for manifest/K8s scanning:\n\n```\ngrep -REn 'kube-linter|kubesec|checkov|conftest|polaris' .github/workflows/\n```",
+          "how_to_fix": "Scan manifests/Helm against hardening guidance (kube-linter/kubesec/Polaris) in CI, fail on violations (privileged, no limits, hostPath), and remediate. Re-verify.",
           "tools": [
             "Checkov",
             "kube-bench"
@@ -1300,8 +1300,8 @@
           "title": "IaC is validated against cloud security baselines",
           "description": "Scanning rules map to cloud provider security baselines (encryption at rest, public exposure, logging) so provisioned resources meet a known bar.",
           "severity": "medium",
-          "how_to_find": "Infrastructure as Code — IaC Misconfiguration Scanning: Infrastructure as Code — IaC Misconfiguration Scanning: Infrastructure as Code — IaC Misconfiguration Scanning: Infrastructure as Code — IaC Misconfiguration Scanning: Infrastructure as Code — IaC Misconfiguration Scanning: Confirm rule sets align to CIS cloud benchmarks, cover encryption and public-access checks, and exceptions are documented",
-          "how_to_fix": "Assign an owner for iac is validated against cloud security baselines, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Check whether IaC is validated against org cloud baselines (CIS/benchmarks) before apply.",
+          "how_to_fix": "Validate IaC against cloud security baselines (custom policies mapping to CIS/org standards) in CI, and block non-compliant changes. Re-verify baseline checks.",
           "tools": [
             "tfsec",
             "Checkov"
@@ -1327,8 +1327,8 @@
           "title": "IaC scan results are tracked and not bypassed",
           "description": "Findings flow into tracking with owners, and suppressions are explicit and auditable rather than silently disabling rules.",
           "severity": "low",
-          "how_to_find": "Infrastructure as Code — IaC Misconfiguration Scanning: Infrastructure as Code — IaC Misconfiguration Scanning: Infrastructure as Code — IaC Misconfiguration Scanning: Infrastructure as Code — IaC Misconfiguration Scanning: Infrastructure as Code — IaC Misconfiguration Scanning: Verify findings are tracked to remediation, that rule suppressions are justified in code, and bypass requires approval",
-          "how_to_fix": "Assign an owner for iac scan results are tracked and not bypassed, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Check whether IaC scan gates can be silently bypassed:\n\n```\ngrep -REn 'soft_fail|continue-on-error|skip-check' .github/workflows/ *.tf\n```",
+          "how_to_fix": "Make IaC gates blocking, require justified exceptions for skips, track findings to closure, and audit suppressions. Re-verify gating.",
           "tools": [
             "Checkov",
             "DefectDojo"
@@ -1359,8 +1359,8 @@
           "title": "Security guardrails are codified as policy",
           "description": "Organizational security policies (no public buckets, required tags, mandatory encryption) are expressed as code and evaluated automatically.",
           "severity": "high",
-          "how_to_find": "Infrastructure as Code — Policy as Code: Infrastructure as Code — Policy as Code: Infrastructure as Code — Policy as Code: Infrastructure as Code — Policy as Code: Infrastructure as Code — Policy as Code: Confirm critical guardrails exist as policy, are version-controlled, and are evaluated in CI against IaC plans",
-          "how_to_fix": "Assign an owner for security guardrails are codified as policy, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Check whether guardrails exist as code (OPA/Rego, Kyverno, Sentinel) vs manual review:\n\n```\ngrep -REn 'rego|Kyverno|ConstraintTemplate|sentinel' . 2>/dev/null\n```",
+          "how_to_fix": "Codify security guardrails as policy (OPA/Kyverno/Sentinel), version + review them, and apply consistently across pipelines/clusters. Re-verify policies exist.",
           "tools": [
             "OPA/Conftest",
             "Checkov"
@@ -1386,8 +1386,8 @@
           "title": "Admission control enforces policy at deploy time",
           "description": "A policy engine in the cluster (or cloud) rejects non-compliant resources at admission, providing a runtime backstop beyond pipeline checks.",
           "severity": "high",
-          "how_to_find": "Infrastructure as Code — Policy as Code: Infrastructure as Code — Policy as Code: Infrastructure as Code — Policy as Code: Infrastructure as Code — Policy as Code: Infrastructure as Code — Policy as Code: Verify admission policies are enforced (not audit-only) for critical controls and that violations are denied and logged",
-          "how_to_fix": "Assign an owner for admission control enforces policy at deploy time, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Check for a K8s admission controller enforcing policy:\n\n```\nkubectl get validatingwebhookconfigurations,mutatingwebhookconfigurations\nkubectl get constrainttemplates 2>/dev/null\n```",
+          "how_to_fix": "Deploy an admission controller (OPA Gatekeeper/Kyverno) in enforce mode to block non-compliant workloads (privileged, unsigned images, no limits). Re-test enforcement.",
           "tools": [
             "OPA/Conftest",
             "Gatekeeper"
@@ -1413,8 +1413,8 @@
           "title": "Policies are unit-tested and reviewed",
           "description": "Policy code has its own tests and change review so guardrails behave as intended and cannot be weakened without scrutiny.",
           "severity": "medium",
-          "how_to_find": "Infrastructure as Code — Policy as Code: Infrastructure as Code — Policy as Code: Infrastructure as Code — Policy as Code: Infrastructure as Code — Policy as Code: Infrastructure as Code — Policy as Code: Confirm policies have test cases, changes go through review, and policy repos are protected from unauthorized modification",
-          "how_to_fix": "Assign an owner for policies are unit-tested and reviewed, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Check whether policies have tests + go through review:\n\n```\n# opa test ./policy/ ; kyverno test .\n```",
+          "how_to_fix": "Unit-test policies (opa test / kyverno test), review changes like code, and validate before rollout to avoid gaps/outages. Re-verify tests exist.",
           "tools": [
             "OPA/Conftest",
             "Conftest"
@@ -1440,8 +1440,8 @@
           "title": "Policy coverage spans pipeline and runtime",
           "description": "The same intent is enforced both in CI (fast feedback) and at runtime (authoritative), avoiding gaps where one layer is the only control.",
           "severity": "medium",
-          "how_to_find": "Infrastructure as Code — Policy as Code: Infrastructure as Code — Policy as Code: Infrastructure as Code — Policy as Code: Infrastructure as Code — Policy as Code: Infrastructure as Code — Policy as Code: Verify key policies are enforced in both CI and admission/runtime, and that any single-layer gaps are intentional and risk-accepted",
-          "how_to_fix": "Assign an owner for policy coverage spans pipeline and runtime, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Check whether policy is enforced both in CI (pre-deploy) and at runtime (admission), not just one.",
+          "how_to_fix": "Enforce policy at both stages: shift-left in CI (conftest/IaC) and at runtime via admission, with consistent rules. Re-verify coverage across both.",
           "tools": [
             "OPA/Conftest",
             "Gatekeeper"
@@ -1472,8 +1472,8 @@
           "title": "Security-relevant events are logged centrally",
           "description": "Authentication, authorization, and administrative actions are logged to a central, tamper-resistant store with sufficient retention.",
           "severity": "high",
-          "how_to_find": "Runtime & Monitoring — Security Observability: Runtime & Monitoring — Security Observability: Runtime & Monitoring — Security Observability: Runtime & Monitoring — Security Observability: Runtime & Monitoring — Security Observability: Confirm security events are centrally aggregated, logs are protected from tampering, and retention meets policy and compliance needs",
-          "how_to_fix": "Assign an owner for security-relevant events are logged centrally, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Check whether auth, access, admin, and deploy events are centrally logged.",
+          "how_to_fix": "Log security-relevant events (authn/authz, admin actions, deploys, policy denials) to a central SIEM with retention + access control. Re-verify coverage.",
           "tools": [
             "Elastic",
             "Loki"
@@ -1499,8 +1499,8 @@
           "title": "Actionable security alerts are configured",
           "description": "Detections for suspicious behavior (brute force, privilege escalation, anomalous egress) generate alerts routed to an owner with a response path.",
           "severity": "high",
-          "how_to_find": "Runtime & Monitoring — Security Observability: Runtime & Monitoring — Security Observability: Runtime & Monitoring — Security Observability: Runtime & Monitoring — Security Observability: Runtime & Monitoring — Security Observability: Verify alert rules exist for key threat scenarios, route to an on-call owner, and are tuned to limit noise while catching real events",
-          "how_to_fix": "Assign an owner for actionable security alerts are configured, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Check whether alerts exist for key threats and are tuned (not noise) and routed to responders.",
+          "how_to_fix": "Configure high-signal, actionable alerts for priority threats, route to on-call, tune to reduce noise, and document response. Re-verify alerting.",
           "tools": [
             "Falco",
             "Prometheus"
@@ -1526,8 +1526,8 @@
           "title": "Runtime threat detection is deployed for workloads",
           "description": "Runtime sensors detect anomalous container/host behavior (unexpected process execution, file tampering, suspicious syscalls) in production.",
           "severity": "medium",
-          "how_to_find": "Runtime & Monitoring — Security Observability: Runtime & Monitoring — Security Observability: Runtime & Monitoring — Security Observability: Runtime & Monitoring — Security Observability: Runtime & Monitoring — Security Observability: Confirm a runtime detection agent is deployed across workloads, rules cover common attack behaviors, and detections feed alerting",
-          "how_to_fix": "Assign an owner for runtime threat detection is deployed for workloads, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Check for runtime detection (Falco/EDR/CWPP) on workloads:\n\n```\nkubectl get pods -n falco 2>/dev/null\n```",
+          "how_to_fix": "Deploy runtime threat detection (Falco/eBPF/CWPP/EDR) with a maintained ruleset, alerting on anomalous process/network/file activity. Re-verify detection is running.",
           "tools": [
             "Falco",
             "Tetragon"
@@ -1553,8 +1553,8 @@
           "title": "Configuration drift is detected and reconciled",
           "description": "Running infrastructure is continuously compared to its declared IaC state so manual or unauthorized changes are surfaced and reconciled.",
           "severity": "medium",
-          "how_to_find": "Runtime & Monitoring — Security Observability: Runtime & Monitoring — Security Observability: Runtime & Monitoring — Security Observability: Runtime & Monitoring — Security Observability: Runtime & Monitoring — Security Observability: Verify drift detection runs against production, surfaces out-of-band changes, and that drift is alerted on or auto-reconciled",
-          "how_to_fix": "Assign an owner for configuration drift is detected and reconciled, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Check whether infra drift from IaC is detected:\n\n```\nterraform plan   # non-empty diff on unchanged code = drift\n```",
+          "how_to_fix": "Detect drift (scheduled plan / GitOps reconciliation) and reconcile back to declared state, alerting on out-of-band changes. Re-verify drift detection.",
           "tools": [
             "Terraform",
             "driftctl"
@@ -1585,8 +1585,8 @@
           "title": "Vulnerability remediation SLAs are defined and tracked",
           "description": "Time-to-remediate targets are set by severity and tracked, so critical vulnerabilities are fixed within a bounded, measurable window.",
           "severity": "high",
-          "how_to_find": "Runtime & Monitoring — Remediation SLAs & Feedback Loop: Runtime & Monitoring — Remediation SLAs & Feedback Loop: Runtime & Monitoring — Remediation SLAs & Feedback Loop: Runtime & Monitoring — Remediation SLAs & Feedback Loop: Runtime & Monitoring — Remediation SLAs & Feedback Loop: Confirm SLAs exist per severity, are tracked with dashboards, and that SLA breaches are escalated rather than silently aging",
-          "how_to_fix": "Assign an owner for vulnerability remediation slas are defined and tracked, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Check whether remediation SLAs by severity exist and are measured (time-to-remediate).",
+          "how_to_fix": "Define severity-based remediation SLAs, track them on a dashboard, escalate breaches, and report trends. Re-verify SLA tracking.",
           "tools": [
             "DefectDojo",
             "Jira"
@@ -1612,8 +1612,8 @@
           "title": "Production signals feed back into the pipeline",
           "description": "Incidents, runtime detections, and pentest findings generate new pipeline checks, threat-model updates, or guidance so the same class does not recur.",
           "severity": "medium",
-          "how_to_find": "Runtime & Monitoring — Remediation SLAs & Feedback Loop: Runtime & Monitoring — Remediation SLAs & Feedback Loop: Runtime & Monitoring — Remediation SLAs & Feedback Loop: Runtime & Monitoring — Remediation SLAs & Feedback Loop: Runtime & Monitoring — Remediation SLAs & Feedback Loop: Verify a mechanism converts recurring findings/incidents into new automated tests or controls, and that closure is tracked",
-          "how_to_fix": "Assign an owner for production signals feed back into the pipeline, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Check whether runtime/prod findings (incidents, WAF, runtime alerts) create backlog items feeding earlier stages.",
+          "how_to_fix": "Close the loop: route production security signals into the backlog + guardrails/tests so recurring issues are prevented earlier. Re-verify the feedback loop.",
           "tools": [
             "DefectDojo",
             "Jira"
@@ -1639,8 +1639,8 @@
           "title": "A vulnerability disclosure intake exists",
           "description": "External researchers have a clear, monitored channel to report vulnerabilities, and reports are triaged into the same remediation workflow.",
           "severity": "low",
-          "how_to_find": "Runtime & Monitoring — Remediation SLAs & Feedback Loop: Runtime & Monitoring — Remediation SLAs & Feedback Loop: Runtime & Monitoring — Remediation SLAs & Feedback Loop: Runtime & Monitoring — Remediation SLAs & Feedback Loop: Runtime & Monitoring — Remediation SLAs & Feedback Loop: Confirm a published disclosure policy/contact exists, reports are acknowledged within a target time, and feed the tracked SLA workflow",
-          "how_to_fix": "Assign an owner for a vulnerability disclosure intake exists, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Check for a public disclosure channel:\n\n```\ncurl -s https://<domain>/.well-known/security.txt\n```",
+          "how_to_fix": "Publish a `security.txt` + disclosure/VDP policy, provide a monitored intake, and triage external reports on defined SLAs. Re-verify the intake.",
           "tools": [
             "security.txt",
             "HackerOne"
@@ -1666,8 +1666,8 @@
           "title": "Program metrics drive continuous improvement",
           "description": "Trend metrics (mean time to remediate, escape rate, coverage) are reviewed regularly to steer investment and demonstrate program maturity.",
           "severity": "low",
-          "how_to_find": "Runtime & Monitoring — Remediation SLAs & Feedback Loop: Runtime & Monitoring — Remediation SLAs & Feedback Loop: Runtime & Monitoring — Remediation SLAs & Feedback Loop: Runtime & Monitoring — Remediation SLAs & Feedback Loop: Runtime & Monitoring — Remediation SLAs & Feedback Loop: Verify a metric set is collected, reviewed on a cadence with stakeholders, and used to prioritize security program improvements",
-          "how_to_fix": "Assign an owner for program metrics drive continuous improvement, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Check whether DevSecOps metrics (coverage, MTTR, escape rate) are tracked and reviewed.",
+          "how_to_fix": "Track program metrics (tool coverage, MTTR, defect escape rate, training) and review regularly to prioritize improvements. Re-verify metrics + review cadence.",
           "tools": [
             "DefectDojo",
             "Grafana"
